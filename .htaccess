@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Galaxy_Game_Store
+    RewriteRule ^home index.php [L]
+    RewriteRule ^forgot_password pages/forgot_password.php [L]
+    RewriteRule ^register pages/register.php [L]
+    RewriteRule ^login pages/login.php [L,R]
+</IfModule>

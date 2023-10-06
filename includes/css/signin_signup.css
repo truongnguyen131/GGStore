@@ -1,0 +1,443 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --color_background: #1c181e;
+    --color_yellow: #e1ae09;
+    --color_white: #d4d4d4;
+    --color_black: #1c1120;
+    --color_dark: #1b182b;
+    --color_light_dark: #322f40;
+    --text_color: hsl(0, 0%, 91%);
+}
+
+body {
+    background-image: url(../../images/shop_slider_bg.jpg);
+    background-size: cover;
+}
+
+
+/* Background circles start */
+
+.circles {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.line {
+    position: fixed;
+    top: -15px;
+    left: -10px;
+}
+
+.just_chart {
+    position: fixed;
+    width: 200px;
+    bottom: 0;
+}
+
+.circle-1 {
+    display: inline-block;
+    position: fixed;
+    top: 30px;
+    left: 110px;
+    opacity: 0.5;
+    z-index: -1;
+    animation: spin 8s linear infinite;
+}
+
+.circle-2 {
+    display: inline-block;
+    position: fixed;
+    top: 200px;
+    right: -150px;
+    opacity: 0.3;
+    z-index: -1;
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Background circles end */
+
+section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: 1s;
+    filter: brightness(130%);
+}
+
+section::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+section .container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    background: transparent;
+    perspective: 1000px;
+    transition: 1s;
+}
+
+section .container .flip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+section .container.active .flip {
+    transform: rotateY(180deg);
+}
+
+section .container .flip::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    transition: 1s;
+}
+
+section .container .user {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 120%;
+    display: flex;
+}
+
+section .container .user .imgBx {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: transparent;
+    opacity: .8s;
+    transition: 1s;
+    animation: animateSignin 6s linear infinite;
+    transform-origin: right;
+}
+
+section .container .user .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+section .container .user .formBx {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    transition: 1s;
+    background: rgba(46, 45, 45, 0.3);
+    border: 1px solid var(--color_light_dark);
+    box-shadow: 0px 12px 24px 0px rgba(241, 228, 84, 0.3);
+    border-radius: 5px;
+    transform: skewX(-5deg);
+}
+
+section .container .user .formBx form {
+    width: 100%;
+    height: auto;
+}
+
+section .container .user .formBx form h2 {
+    font-family: 'Oxanium', cursive;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    color: var(--color_yellow);
+}
+
+.erro {
+    font-family: 'Oxanium', cursive;
+    text-align: center;
+    color: var(--color_white);
+    background: linear-gradient(to right, rgba(255, 0, 0, 0), rgb(255, 0, 0), rgba(255, 0, 0, 1), rgba(255, 0, 0, 0));
+    width: 100%;
+    padding: 2px;
+    margin-top: -6px;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+section .container .user .formBx form .input {
+    font-family: 'Oxanium', cursive;
+    width: 100%;
+    outline: none;
+    margin-bottom: 10px;
+    border: 1px solid var(--color_yellow);
+    background: transparent;
+    padding: 8px 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 300;
+    transform: skewX(-5deg);
+    box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+section .container .user .formBx form .input:focus {
+    box-shadow: 0px 12px 24px 0px rgba(62, 130, 2, 0.642);
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+.password {
+    position: relative;
+    z-index: 10;
+}
+
+section .container .user .formBx form .password .eye {
+    position: absolute;
+    z-index: 100;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    color: var(--color_yellow);
+}
+
+.hidden {
+    display: none;
+}
+
+.remember_account {
+    font-family: 'Oxanium', cursive;
+    color: var(--color_white);
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    -webkit-touch-callout: none;
+    /* Disable text selection on iOS Safari */
+    -webkit-user-select: none;
+    /* Disable text selection on webkit-based browsers */
+    -moz-user-select: none;
+    /* Disable text selection on Firefox */
+    -ms-user-select: none;
+    /* Disable text selection on Internet Explorer/Edge */
+    user-select: none;
+    /* Disable text selection on non-webkit-based browsers */
+}
+
+.remember_account input[type="checkbox"] {
+    background: transparent;
+    border: 1px solid var(--color_yellow);
+    margin-left: 5px;
+}
+
+section .container .user .formBx form .submit {
+    font-family: 'Oxanium', cursive;
+    background: transparent;
+    /* text-transform: uppercase; */
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color_black);
+    width: 100%;
+    padding: 10px 20px;
+    z-index: 1;
+}
+
+section .container .user .formBx form .submit::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    background: var(--color_yellow);
+    width: 95%;
+    height: 100%;
+    transform: skewX(-5deg);
+    z-index: -1;
+}
+
+section .container .user .formBx form .submit::after {
+    position: absolute;
+    background: var(--color_yellow);
+    top: 0;
+    right: 5px;
+    content: "";
+    width: 5px;
+    height: 100%;
+    transform: skewX(-5deg);
+    z-index: -1;
+    transition: .3s ease-in-out;
+}
+
+section .container .user .formBx form .submit:hover::after {
+    transform: skewX(-5deg) translateX(-10px);
+}
+
+section .container.active .user .formBx form input[type='submit']:hover {
+    background: var(--color_white);
+    color: var(--color_black);
+    transition: .3s;
+}
+
+section .container .user .formBx form .signup {
+    font-family: 'Oxanium', cursive;
+    position: relative;
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--color_white);
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+section .container .user .formBx form .signup a {
+    font-family: 'Oxanium', cursive;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color_yellow);
+    transition: .3s;
+}
+
+section .container.active .user .formBx form .signup a {
+    color: var(--color_yellow);
+}
+
+section .container .flip .signupBx {
+    position: absolute;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    background: transparent;
+}
+
+section .container .flip .signinBx {
+    position: absolute;
+    backface-visibility: hidden;
+    background: transparent;
+}
+
+@media screen and (min-width: 1441px) {
+    .line {
+        top: 0;
+        left: 0;
+    }
+    .just_chart {
+        width: 300px;
+    }
+    .circle-1 {
+        top: 45px;
+        left: 120px;
+    }
+    .circle-2 {
+        top: 25px;
+        right: -260px;
+    }
+}
+
+@media screen and (min-width: 1024px) {}
+
+@media screen and (max-width: 768px) {
+    .just_chart {
+        display: none;
+    }
+    .circle-2 {
+        top: 280px;
+        right: -40px;
+    }
+    section .container .signinBx {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    section .container .signupBx {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    section .container .flip::before {
+        display: none;
+    }
+    section .container .user .imgBx {
+        display: none;
+    }
+    section .container .user .imgB {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    section .container .user .formBx {
+        width: 80%;
+        height: 90%;
+    }
+    section .container .user .formBx form .submit::before {
+        width: 94%;
+    }
+    section .container .user .formBx {
+        padding: 20px;
+    }
+    section .container .user .formBx form .input {
+        padding: 5px 10px;
+        margin-bottom: 14px;
+    }
+    .erro {
+        margin-top: -11px;
+        margin-bottom: 3px;
+    }
+    section .container .user .formBx form .signup {
+        font-size: 10px;
+    }
+    section .container .user .formBx form .submit {
+        padding: 5px 20px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    section .container .user .formBx {
+        width: 90%;
+        height: 90%;
+    }
+    section .container .user .formBx {
+        padding: 10px;
+    }
+}

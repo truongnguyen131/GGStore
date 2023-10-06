@@ -1,0 +1,6 @@
+{
+    "require": {
+        "geocoder-php/geocoder-service-provider": "*",
+        "phpmailer/phpmailer": "^6.8"
+    }
+}

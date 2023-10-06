@@ -1,0 +1,683 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+:root {
+    --color_background: #1e1423;
+    --color_yellow: #e1ae09;
+    --color_white: #d4d4d4;
+    --color_black: #1c1121;
+    --color_dark: #1b182b;
+    --color_light_dark: #322f40;
+    --text_color: hsl(0, 0%, 91%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 500;
+    color: #d4d4d4;
+    background-image: url(../../images/Texture_FuLingLu_01clear.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.container {
+    margin: 0 2rem;
+}
+
+.inventory {
+    margin: 0 auto;
+    background-image: url(../../images/Texture_HandBook13.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 85%;
+    height: 800px;
+    padding: 9rem 4rem;
+}
+
+.inventory .inventory_content {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title_inventory {
+    width: 20%;
+}
+
+.inventory_content .title_inventory {
+    padding-left: 1.5rem;
+}
+
+.infor_item {
+    padding-right: 3rem;
+    width: 50%;
+    color: var(--color_black);
+    position: relative;
+    z-index: 1;
+}
+
+.infor_item::before {
+    content: '';
+    position: absolute;
+    height: 30rem;
+    width: 30rem;
+    left: 45%;
+    top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background-image: url(../../images/e_l_quan_306.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: rotate 20s infinite linear;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotatez(360deg);
+    }
+}
+
+.infor_item {
+    position: relative;
+}
+
+.infor_item .item_product {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../images/pic_xz_bg.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.infor_item .item_voucher {
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    width: 400px;
+    height: 300px;
+    background-image: url(../../images/pic_xz_bg.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item_product_content .img_item {
+    width: 190px;
+    height: 100%;
+}
+
+.item_product_content .img_item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.item_product_content .name h2 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.item_product_content .category,
+.item_product_content .amount {
+    display: flex;
+    align-items: center;
+}
+
+.item_product_content .category h3,
+.item_product_content .amount span {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 15px;
+}
+
+.item_product_content .category span a {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    background: #ddbe7c;
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.item_product_content .control button {
+    background-image: url(../../images/btn_dungeon_result_0.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color_black);
+    width: 100px;
+    height: 50px;
+    transition: .5s linear;
+}
+
+.infor_item .control button:hover {
+    background-image: url(../../images/btn_dungeon_result_1.png);
+}
+
+.item_voucher {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item_voucher .voucher_content h2,
+.item_voucher .voucher_content span {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+}
+
+.item_voucher .voucher_content h2 {
+    font-size: 30px;
+}
+
+.item_voucher .voucher_content span {
+    color: rgba(142, 2, 2, 0.952);
+}
+
+.sell {
+    position: fixed;
+    top: 30%;
+    left: 25%;
+    background-image: url(../../images/order3.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 500px;
+    padding: 3rem 2rem;
+    z-index: 20;
+}
+
+.sell_title {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    color: var(--color_black);
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 4rem;
+}
+
+.sell_title img {
+    cursor: pointer;
+    position: absolute;
+    width: 30px;
+    top: -25px;
+    right: -30px;
+}
+
+.sell_title h1 {
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(58, 3, 3, 0.731);
+}
+
+.sell_content {
+    width: 350px;
+    padding-left: 4rem;
+}
+
+.sell_content .enter_price {
+    width: 170px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.sell_content .owner,
+.sell_content .product_name,
+.sell_content .product_cate,
+.sell_content .acept {
+    display: flex;
+    column-gap: 5px;
+    font-size: 12px;
+}
+
+.sell_content .enter_price span,
+.sell_content .owner h2,
+.sell_content .product_name h2,
+.sell_content .product_cate h2,
+.sell_content .product_cate h2 a {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+}
+
+.sell_content .enter_price input {
+    font-family: 'Permanent Marker', cursive;
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    background: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.142);
+    border-radius: 5px;
+}
+
+.sell_content .acept button {
+    color: var(--color_black);
+    font-family: 'Permanent Marker', cursive;
+    background-image: url(../../images/btn_dungeon_result_0.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    transition: .5s linear;
+}
+
+.sell_content .acept button:hover {
+    background-image: url(../../images/btn_dungeon_result_1.png);
+}
+
+.sell_content .enter_price img {
+    width: 30px;
+}
+
+.sell_content .note span {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 10px;
+    color: rgba(255, 0, 0, 0.443);
+}
+
+.item_storage {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.filter {
+    width: 100%;
+    margin-left: 2rem;
+    padding: 5px;
+}
+
+.filter select {
+    font-family: 'Permanent Marker', cursive;
+    width: 30%;
+    height: 30px;
+    background: #ddbe7cba;
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.filter input {
+    width: 65%;
+    height: 30px;
+    font-family: 'Permanent Marker', cursive;
+    border-radius: 5px;
+    padding: 5px;
+    background: #ddbe7cba;
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
+}
+
+.list_item {
+    width: 100%;
+    height: 440px;
+    max-height: 440px;
+    overflow: auto;
+    padding-left: 20px;
+}
+
+.list_item::-webkit-scrollbar {
+    display: none;
+}
+
+.list_item h1 {
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(128, 128, 128, 0.667);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.item {
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(128, 128, 128, 0.717);
+    border-radius: 5px;
+    width: 100%;
+    height: 100px;
+    padding: 5px 30px;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+    transition: .5s linear;
+}
+
+.cannot_use {
+    filter: grayscale(100%);
+    background: rgba(128, 128, 128, 0.664);
+    border-radius: 5px;
+    pointer-events: none;
+    position: relative;
+}
+
+.cannot_use::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: url(../../images/dtway.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    background-image: url(../../images/tex_ui_haoyou_guanxiwangdi.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.item:hover {
+    border-radius: 5px;
+    background: rgba(90, 90, 179, 0.562);
+}
+
+.icon_item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+}
+
+
+/* .icon_item::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../images/Effect/C_Orange_00000.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: border 1.5s infinite forwards;
+} */
+
+@keyframes border {
+    0% {
+        background-image: url(../../images/Effect/C_Orange_00001.png);
+    }
+    10% {
+        background-image: url(../../images/Effect/C_Orange_00002.png);
+    }
+    20% {
+        background-image: url(../../images/Effect/C_Orange_00003.png);
+    }
+    30% {
+        background-image: url(../../images/Effect/C_Orange_00004.png);
+    }
+    40% {
+        background-image: url(../../images/Effect/C_Orange_00005.png);
+    }
+    50% {
+        background-image: url(../../images/Effect/C_Orange_00006.png);
+    }
+    60% {
+        background-image: url(../../images/Effect/C_Orange_00007.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/C_Orange_00008.png);
+    }
+    80% {
+        background-image: url(../../images/Effect/C_Orange_00009.png);
+    }
+    90% {
+        background-image: url(../../images/Effect/C_Orange_00010.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/C_Orange_00011.png);
+    }
+}
+
+.item .icon_item img {
+    width: 50px;
+    height: 50px;
+}
+
+.item .item_name,
+.item .item_name span {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.star {
+    opacity: 1;
+    animation: blink 1.5s linear infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* @media screen and (max-width: 1440px) {
+    .inventory {
+        padding: 6rem 10rem;
+    }
+} */
+
+@media screen and (max-width: 1025px) {
+    .inventory {
+        padding: 6rem 4rem;
+    }
+    .inventory_content .title_inventory {
+        padding-left: 1.5rem;
+    }
+    .list_item {
+        max-height: 460px;
+        padding-left: 25px;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .inventory {
+        padding: 5px 2rem;
+    }
+    .list_item {
+        max-height: 340px;
+        padding-left: 5px;
+        padding-right: 10px;
+    }
+    .item {
+        height: 70px;
+    }
+    .item .item_name {
+        font-size: 15px;
+    }
+    .item .icon_item img {
+        width: 50px;
+        height: 50px;
+    }
+    .item_product .img_item {
+        text-align: center;
+    }
+    .item_product .img_item img {
+        width: 70%;
+    }
+    .sell {
+        left: 16%;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .inventory {
+        background: none;
+        margin-top: 5px;
+    }
+    .inventory .inventory_content {
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+    .inventory_content .title_inventory {
+        display: none;
+    }
+    .infor_item {
+        height: 200px;
+        width: 100%;
+        padding-right: 0;
+    }
+    .list_item {
+        display: flex;
+        width: 500px;
+        height: 100px;
+        max-width: 400px;
+    }
+    .infor_item .item_product,
+    .item_voucher {
+        padding: 10px;
+        background: #322f4032;
+        border-radius: 5px;
+    }
+    .item_product .category {
+        display: block;
+        text-align: center;
+    }
+    .item_product .control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .sell {
+        left: 0;
+        width: 425px;
+    }
+    .sell_title {
+        padding-left: 2rem;
+    }
+    .sell_content {
+        padding-left: 2rem;
+    }
+    .sell_title img {
+        top: 0;
+        right: 12px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .list_item {
+        max-width: 330px;
+    }
+    .sell {
+        width: 365px;
+    }
+    .sell_title h1 {
+        font-size: 20px;
+        padding-top: 5px;
+    }
+    .sell_content .owner,
+    .sell_content .product_name,
+    .sell_content .product_cate,
+    .sell_content .enter_price,
+    .sell_content .acept {
+        font-size: 10px;
+    }
+    .sell_content .acept button {
+        padding: 5px 15px;
+    }
+    .sell_content .note {
+        width: 250px;
+        height: 50px;
+    }
+    .sell_content .note span {
+        font-size: 8px;
+    }
+    .sell_title img {
+        right: 65px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .list_item {
+        max-width: 300px;
+    }
+    .sell {
+        width: 345px;
+    }
+    .sell_title img {
+        right: 80px;
+    }
+}
