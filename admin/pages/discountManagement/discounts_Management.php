@@ -345,47 +345,51 @@ function main()
 
                                             <tbody>
                                                 <?php
-                                                if ($result->num_rows > 0 && $status != "no_discount") {
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        print_data($row['id'], $row['product_name'], $row['discount_amount'], $row['price'], $row['start_date'], $row['end_date']);
-                                                    }
-                                                }
-                                                if ($result->num_rows == 0 && $status != "no_discount") {
-                                                    echo '<td></td><td style="border: none;">No discount data</td>';
-                                                }
-                                                if (
-                                                    $status == "no_discount" || $status == "all" && $page == $total_page && $date_start == "" && $date_end == ""
-                                                ) {
-                                                    $query_sl_products = "SELECT * FROM products
-                                                        WHERE id NOT IN (SELECT product_id FROM discounts)
-                                                        AND product_name LIKE '%$search%'";
-                                                    $result_sl_products = $conn->query($query_sl_products);
-                                                    if ($result_sl_products->num_rows > 0) {
-                                                        while ($row1 = $result_sl_products->fetch_assoc()) {
-                                                            ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <?php echo $row1['id']; ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo $row1['product_name']; ?>
-                                                                </td>
-                                                                <td>
-                                                                    0%
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo $row1['price']; ?>
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <?php
+                                                if ($date_start != "" && $date_end != "" && $date_start > $date_end) {
+                                                    echo '<td></td><td style="border: none;">Error: Start date must be greater than end date</td>';
+                                                } else {
+                                                    if ($result->num_rows > 0 && $status != "no_discount") {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            print_data($row['id'], $row['product_name'], $row['discount_amount'], $row['price'], $row['start_date'], $row['end_date']);
                                                         }
                                                     }
-                                                    if ($result_sl_products->num_rows == 0 && $status == "no_discount") {
-                                                        echo '<td></td><td style="border: none;">No data returned</td>';
+                                                    if ($result->num_rows == 0 && $status != "no_discount") {
+                                                        echo '<td></td><td style="border: none;">No discount data</td>';
+                                                    }
+                                                    if (
+                                                        $status == "no_discount" || $status == "all" && $page == $total_page && $date_start == "" && $date_end == ""
+                                                    ) {
+                                                        $query_sl_products = "SELECT * FROM products
+                                                        WHERE id NOT IN (SELECT product_id FROM discounts)
+                                                        AND product_name LIKE '%$search%'";
+                                                        $result_sl_products = $conn->query($query_sl_products);
+                                                        if ($result_sl_products->num_rows > 0) {
+                                                            while ($row1 = $result_sl_products->fetch_assoc()) {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $row1['id']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row1['product_name']; ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        0%
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $row1['price']; ?>
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        if ($result_sl_products->num_rows == 0 && $status == "no_discount") {
+                                                            echo '<td></td><td style="border: none;">No data returned</td>';
+                                                        }
                                                     }
                                                 }
                                                 $stmt->close();
