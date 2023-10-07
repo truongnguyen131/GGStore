@@ -210,7 +210,11 @@ include_once('../../../mod/database_connection.php');
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Home -->
-                        
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link" href="../../../index.php">
+                                <i class="fas fa-home home-icon"></i>
+                            </a>
+                        </li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
