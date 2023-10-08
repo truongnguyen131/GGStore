@@ -1,0 +1,890 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+:root {
+    --color_background: #1b0d18;
+    --color_yellow: #e1ae09;
+    --color_white: #d4d4d4;
+    --color_black: #1c1121;
+    --color_dark: #1b182b;
+    --color_light_dark: #322f40;
+    --text_color: hsl(0, 0%, 91%);
+    --color_item: #2c9b81a6;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 500;
+    color: #d4d4d4;
+    background-image: url(../../images/Texture_FuLingLu_01clear.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body.swal2-height-auto {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+button:focus {
+    outline: none;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.lucky_wheel_container {
+    margin: 0 auto;
+    width: 1150px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 105px;
+    margin-bottom: 2rem;
+    transition: 1s ease-in-out;
+}
+
+.open_guide,
+.close_guide,
+.guide {
+    display: none;
+}
+
+.gift_list {
+    background-image: url(../../images/GetCard_03.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 500px;
+    padding: 2rem 1rem;
+}
+
+.gift_title,
+.instruct_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift_title h1,
+.instruct_title h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+    color: var(--color_dark);
+}
+
+.gift_title {
+    position: relative;
+}
+
+.ratio_table {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 0;
+}
+
+.gift_title .ratio_table img {
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+
+.table {
+    display: none;
+    position: absolute;
+    top: -40px;
+    left: 100%;
+    z-index: 5;
+    background: rgb(198, 180, 143);
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.811);
+    width: 400px;
+    border-radius: 5px;
+    padding: 10px;
+    color: var(--color_black);
+}
+
+.item_table {
+    border-bottom: 1px solid rgba(78, 78, 78, 0.541);
+    padding-bottom: 2px;
+}
+
+.item_table span img {
+    vertical-align: middle;
+}
+
+.item_table p {
+    font-size: 12px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.list_special_gift {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.item_special_gift {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 12px;
+    width: 100px;
+    height: 30px;
+    background: rgba(122, 54, 17, 0.219);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.item_special_gift::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: url(../../images/Effect/dt_f_btn_share_00000.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: border_game 1.5s infinite forwards;
+}
+
+@keyframes border_game {
+    0% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00001.png);
+    }
+    7% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00002.png);
+    }
+    14% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00003.png);
+    }
+    21% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00004.png);
+    }
+    28% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00005.png);
+    }
+    35% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00006.png);
+    }
+    42% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00007.png);
+    }
+    49% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00008.png);
+    }
+    56% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00009.png);
+    }
+    63% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00010.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00011.png);
+    }
+    77% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00012.png);
+    }
+    84% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00013.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/dt_f_btn_share_00014.png);
+    }
+}
+
+.list {
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+}
+
+.gift_item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    column-gap: 1rem;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 5px;
+    color: var(--color_dark);
+    border-bottom: 2px solid rgba(128, 128, 128, 0.541);
+}
+
+.gift_item img {
+    width: 30px;
+    height: 30px;
+}
+
+.gift_item .text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift_item .text span {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+}
+
+.instruct {
+    background-image: url(../../images/GetCard_03.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 500px;
+    padding: 2rem 1rem;
+}
+
+.instruct .instruct_content {
+    margin-top: 1rem;
+    color: var(--color_dark);
+}
+
+.instruct .instruct_content span {
+    font-family: 'Permanent Marker', cursive;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: #097238;
+}
+
+.instruct .instruct_content span img {
+    width: 30px;
+    height: 30px;
+}
+
+.instruct .instruct_content h2,
+p,
+.item_table span {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.instruct .instruct_content h2 {
+    font-size: 20px;
+}
+
+.instruct .instruct_content p {
+    color: #097238;
+}
+
+.instruct_control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.instruct_control .refill span {
+    color: var(--color_black);
+    padding: 10px 0;
+}
+
+.instruct_control .instruct_btn {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: bold;
+    color: var(--color_black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../images/btn_dungeon_result_0.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 15px;
+    transition: .5s linear;
+}
+
+.instruct_control .refill:hover,
+.instruct_control .instruct_btn:hover {
+    background-image: url(../../images/btn_dungeon_result_1.png);
+}
+
+.hc-luckywheel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+}
+
+.hc-luckywheel ul,
+.hc-luckywheel li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.hc-luckywheel {
+    position: relative;
+    width: 500px;
+    height: 500px;
+}
+
+.hc-luckywheel-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-clip: padding-box;
+    -webkit-transition: transform 6s ease;
+    transition: transform 6s ease;
+    background-image: url(../../images/bg_baguapai.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hc-luckywheel-container canvas {
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+}
+
+.hc-luckywheel-list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: inherit;
+    height: inherit;
+    z-index: 2;
+}
+
+.hc-luckywheel-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* color: #e4370e; */
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.hc-luckywheel-item span {
+    position: relative;
+    display: block;
+    padding-top: 20px;
+    margin: 0 auto;
+    text-align: center;
+    -webkit-transform-origin: 50% 250px;
+    /*Change this when change size*/
+    -ms-transform-origin: 50% 250px;
+    /*Change this when change size*/
+    transform-origin: 50% 250px;
+}
+
+
+/*Change this when change size*/
+
+.hc-luckywheel-item img {
+    position: relative;
+    top: 60px;
+    left: 0px;
+    width: 60px;
+    height: 60px;
+}
+
+
+/*Change this when change size*/
+
+.hc-luckywheel-btn {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    z-index: 2;
+    left: 210px;
+    top: 210px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-image: url(../../images/bg_lianxing.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.6);
+    animation: glow 1s infinite;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 0 rgba(218, 191, 15, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(218, 191, 15, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(218, 191, 15, 0.7);
+    }
+}
+
+.hc-luckywheel-btn::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    display: block;
+    content: "";
+    left: 20px;
+    top: -30px;
+    background-image: url(../../images/zhishi_3.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+.hc-luckywheel-btn:active {
+    border: solid 2px rgba(0, 0, 0, 0.1);
+}
+
+.hc-luckywheel-btn.disabled {
+    pointer-events: none;
+    background-image: url(../../images/bg_lianxing.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hc-luckywheel-btn.disabled::after {
+    border-bottom-color: #4a5e83;
+}
+
+.swal2-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    padding: 0 !important;
+}
+
+.swal2-content img {
+    vertical-align: middle;
+}
+
+.swal2-popup {
+    background: none !important;
+    background-image: url(../../images/tex_ui_tianti_pipei_ditu.png) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width: 600px !important;
+    height: 500px !important;
+    padding: 8rem 3rem !important;
+}
+
+.swal2-header {
+    row-gap: 2px;
+}
+
+.swal2-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.swal2-html-container {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.swal2-icon,
+.swal2-icon.swal2-success [class^=swal2-success-line],
+.swal2-icon.swal2-success .swal2-success-ring {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: none !important;
+    margin: 0 !important;
+    border: none !important;
+    color: transparent !important;
+}
+
+.swal2-x-mark {
+    display: none !important;
+}
+
+.swal2-styled.swal2-confirm {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 12px !important;
+    background: #3dc083 !important;
+}
+
+.open_bag {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.37);
+}
+
+.bag {
+    position: fixed;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background-image: url(../../images/open1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: openBag 3s linear forwards, fadeOut 6s 1s forwards;
+}
+
+@keyframes openBag {
+    10% {
+        background-image: url(../../images/open1.png);
+    }
+    20% {
+        background-image: url(../../images/open2.png);
+    }
+    30% {
+        background-image: url(../../images/open2.png);
+    }
+    40% {
+        background-image: url(../../images/open2.png);
+    }
+    50% {
+        background-image: url(../../images/open3.png);
+    }
+    100% {
+        background-image: url(../../images/open3.png);
+    }
+}
+
+.attention .note span,
+.attention .note li {
+    font-family: 'Permanent Marker', cursive;
+    color: rgb(142, 11, 11);
+    font-size: 12px;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .lucky_wheel_container {
+        width: 1000px;
+    }
+    .hc-luckywheel-container {
+        left: 50px;
+    }
+    .hc-luckywheel {
+        width: 400px;
+        height: 400px;
+    }
+    .hc-luckywheel-btn {
+        width: 70px;
+        height: 70px;
+        left: 215px;
+        top: 170px;
+    }
+    .hc-luckywheel-btn::before {
+        left: 16px;
+    }
+    .hc-luckywheel-item {
+        left: -1px;
+        top: -50px;
+    }
+    .hc-luckywheel-item img {
+        top: 90px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .lucky_wheel_container {
+        margin-top: 130px;
+        width: 700px;
+    }
+    .hc-luckywheel-container {
+        left: 95px;
+    }
+    .hc-luckywheel {
+        width: 300px;
+        height: 300px;
+    }
+    .hc-luckywheel-btn {
+        width: 50px;
+        height: 50px;
+        left: 222px;
+        top: 125px;
+    }
+    .hc-luckywheel-btn::before {
+        top: -22px;
+        left: 11px;
+        width: 30px;
+        height: 30px;
+    }
+    .hc-luckywheel-item {
+        left: -1px;
+        top: -100px;
+    }
+    .hc-luckywheel-item img {
+        top: 120px;
+        width: 40px;
+        height: 40px;
+    }
+    .gift_list,
+    .instruct {
+        width: 200px;
+        height: 300px;
+        padding: 0 5px;
+    }
+    .gift_title h1,
+    .instruct_title h1 {
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .gift_item .text span {
+        font-size: 11px;
+    }
+    .gift_item img {
+        width: 25px;
+        height: 25px;
+    }
+    .gift_item {
+        height: 25px;
+        column-gap: 5px;
+        padding-left: 10px;
+    }
+    .instruct .instruct_content h2,
+    span {
+        padding-left: 10px;
+        font-size: 10px;
+    }
+    .instruct_control {
+        column-gap: 1px;
+    }
+    .instruct_control .refill span {
+        padding: 8px 15px;
+    }
+    .instruct_control .instruct_btn {
+        font-size: 10px;
+        padding: 8px;
+    }
+    .instruct_control .instruct_btn .represent {
+        width: 20px;
+        height: 20px;
+    }
+    .ratio_table {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .open_guide,
+    .close_guide,
+    .guide {
+        display: block;
+    }
+    .open_guide {
+        position: fixed;
+        z-index: 10;
+        top: -5%;
+        left: -60px;
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+    }
+    .open_guide img {
+        width: 60px;
+        height: 60px;
+    }
+    .close_guide {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        cursor: pointer;
+    }
+    .close_guide img {
+        width: 30px;
+        height: 30px;
+    }
+    .guide {
+        position: absolute;
+        z-index: 30;
+        top: -5%;
+        left: -200%;
+        background: rgb(151, 135, 104);
+        box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.811);
+        padding: 10px;
+        border-radius: 5px;
+        transition: .5s ease;
+    }
+    .guide_instruct_title h2,
+    .guide_gift_title h2 {
+        font-family: 'Permanent Marker', cursive;
+        font-size: 20px;
+    }
+    .guide_instruct_content h2,
+    span,
+    h3 {
+        padding-left: 10px;
+        font-family: 'Permanent Marker', cursive;
+        font-size: 15px;
+    }
+    .guide_instruct_content span img {
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+    }
+    .instruct_control .instruct_btn span {
+        font-size: 10px;
+        padding: 8px 0;
+    }
+    .gift_item .text span {
+        color: var(--color_white);
+    }
+    .lucky_wheel_container {
+        display: block;
+        width: 300px;
+    }
+    .gift_list,
+    .instruct {
+        display: none;
+    }
+    .hc-luckywheel-item span {
+        width: 100px;
+        transform-origin: 28% 150px
+    }
+    .hc-luckywheel-item {
+        left: 22px;
+        top: -1px;
+    }
+    .hc-luckywheel-item img {
+        top: 28px;
+        left: -27px;
+    }
+    .swal2-title {
+        font-size: 18px;
+    }
+    .swal2-styled.swal2-confirm {
+        padding: 5px 15px;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .guide {
+        margin-right: 10px;
+    }
+    .hc-luckywheel {
+        /* width: 250px; */
+        height: 250px;
+    }
+    .hc-luckywheel-btn {
+        left: 222px;
+        top: 100px;
+    }
+    .hc-luckywheel-item {
+        top: -9px;
+        left: 12px;
+    }
+    .swal2-title {
+        font-size: 17px;
+    }
+    .swal2-actions {
+        margin: 0.5rem auto 0
+    }
+    .hc-luckywheel-item span {
+        transform-origin: 38% 135px;
+    }
+    .hc-luckywheel-item img {
+        left: -15px;
+    }
+    .open_guide {
+        left: -35px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .open_guide {
+        left: -8px;
+    }
+    .open_guide img {
+        width: 50px;
+        height: 50px;
+    }
+    .hc-luckywheel {
+        height: 200px;
+    }
+    .hc-luckywheel-item img {
+        top: 32px;
+        width: 30px;
+        height: 30px;
+    }
+    .hc-luckywheel-item {
+        top: -35px;
+    }
+    .hc-luckywheel-btn {
+        left: 227px;
+        top: 80px;
+        width: 40px;
+        height: 40px;
+    }
+    .hc-luckywheel-btn::before {
+        left: 5px;
+    }
+}

@@ -1,0 +1,91 @@
+.header {
+    width: 100%;
+    height: 630px;
+    background-image: url(../../images/chosen_3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header_content {
+    margin-top: 6rem;
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    background-image: url(../../images/T_Photo_03.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header_title {
+    position: absolute;
+    z-index: 2;
+    top: 330px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../../images/Texture_PredestinedLove_01.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+}
+
+.header_title h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 80px;
+    color: var(--color_black);
+}
+
+.parallax {
+    position: relative;
+    height: 700px;
+    top: -120%;
+    overflow: hidden;
+}
+
+.parallax .cloud1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: 2s ease;
+}
+
+.parallax .cloud2 {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: 2.6s ease;
+}
+
+.parallax .cloud3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: 2.9s ease;
+}
+
+.parallax .cloud4 {
+    position: absolute;
+    top: 30%;
+    right: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: 3.3s ease;
+}
+
+@media screen and (max-width: 426px) {
+    .parallax {
+        display: none;
+    }
+}

@@ -1,0 +1,199 @@
+/* recommended_game */
+
+@media (min-width: 1440px) {
+    html {
+        max-zoom: 1.5;
+    }
+}
+
+@media (min-width: 2560px) {
+    html {
+        max-zoom: 1.7;
+    }
+}
+
+@media (min-width: 3860px) {
+    html {
+        max-zoom: 2.5;
+    }
+}
+
+#tranding {
+    padding: 1rem 0;
+}
+
+@media (max-width:1440px) {
+    #tranding {
+        padding: 1rem 0;
+    }
+}
+
+#tranding .tranding-slider {
+    height: 20rem;
+    padding: 2rem 0;
+    position: relative;
+}
+
+@media (max-width:500px) {
+    #tranding .tranding-slider {
+        height: 12rem;
+    }
+}
+
+.tranding-slide {
+    width: 37rem;
+    height: 17rem;
+    position: relative;
+    z-index: 2;
+}
+
+.tranding-slide::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -25px;
+    display: inline-block;
+    transform: scaleX(-1);
+    background-image: url(../../images/Texture_FuLingLu_Title03.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 270px;
+    width: 60px;
+    z-index: 3;
+}
+
+.tranding-slide::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    display: inline-block;
+    background-image: url(../../images/Texture_FuLingLu_Title03.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 270px;
+    width: 60px;
+    z-index: 3;
+}
+
+.tranding-slide .tranding-slide-img img {
+    width: 35rem;
+    height: 16rem;
+    object-fit: fill;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+}
+
+.tranding-slide-img {
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+@media (max-width:426px) {
+    .tranding-slide::before {
+        height: 167px;
+    }
+    .tranding-slide::after {
+        right: -24px;
+        height: 167px;
+    }
+}
+
+@media (max-width:500px) {
+    .tranding-slide {
+        width: 20rem !important;
+        height: 10rem !important;
+    }
+    .tranding-slide .tranding-slide-img img {
+        width: 20rem !important;
+        height: 10rem !important;
+    }
+}
+
+@media (max-width:321px) {
+    .tranding-slide {
+        width: 16rem !important;
+        height: 10rem !important;
+    }
+    .tranding-slide .tranding-slide-img img {
+        width: 16rem !important;
+        height: 10rem !important;
+    }
+}
+
+.hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tranding-slide-img:hover .hover-video {
+    opacity: 1;
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+    display: none;
+}
+
+.tranding-slider-control {
+    position: relative;
+    bottom: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tranding-slider-control .swiper-button-next {
+    right: 10px !important;
+}
+
+.tranding-slider-control .arrow-left {
+    transform: scaleX(-1);
+}
+
+@media (max-width:990px) {
+    .tranding-slider-control .swiper-button-next {
+        display: none;
+    }
+}
+
+@media (max-width:450px) {
+    .tranding-slider-control .swiper-button-next {
+        /* left: 90% !important; */
+        display: none;
+    }
+}
+
+@media (max-width:990px) {
+    .tranding-slider-control .swiper-button-prev {
+        /* left: 2% !important; */
+        display: none;
+    }
+}
+
+@media (max-width:450px) {
+    .tranding-slider-control .swiper-button-prev {
+        /* left: 3% !important; */
+        display: none;
+    }
+}
+
+.tranding-slider-control .slider-arrow img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.tranding-slider-control .slider-arrow::after {
+    content: '';
+}
+
+
+/* favorite game */
