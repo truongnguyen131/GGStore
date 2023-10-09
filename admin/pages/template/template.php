@@ -210,7 +210,7 @@ include_once('../../../mod/database_connection.php');
 
                         <!-- Nav Item - Home -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link" href="../../../index.php">
+                            <a class="nav-link" href="../../../home">
                                 <i class="fas fa-home home-icon"></i>
                             </a>
                         </li>
