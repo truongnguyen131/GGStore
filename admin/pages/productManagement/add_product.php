@@ -53,12 +53,11 @@ function main()
         }
 
         //insert product
-        $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`, `status`) 
-        VALUES (?,?,?,?,?,?,?,?,?)";
-        $status = 'available';
+        $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`) 
+        VALUES (?,?,?,?,?,?,?,?)";
 
         $stmt_insert_product = $conn->prepare($sql_insert_product);
-        $stmt_insert_product->bind_param("isssssiss", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release, $status);
+        $stmt_insert_product->bind_param("isssssis", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release);
 
         if ($stmt_insert_product->execute()) {
             // id product just inserted
