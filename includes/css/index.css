@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@font-face {
+    font-family: 'TienHiep';
+    /* Thay 'Tên_font' bằng tên bạn muốn đặt cho font chữ */
+    src: url('../../font/FzLongbeach/FzLongBeach.ttf');
+    /* Thay 'đường_dẫn/đến/file_font.fnt' bằng đường dẫn tới file font chữ .fnt */
+}
+
 :root {
     --color_background: #1b0d18;
     --color_yellow: #e1ae09;
@@ -24,6 +31,7 @@ html {
 }
 
 body {
+    user-select: none;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -33,13 +41,37 @@ body {
     font-size: 15px;
     font-weight: 500;
     color: #d4d4d4;
-    background-image: url(../../images/Background.jpg);
+    background-image: url(../../images/mid-5.png);
     background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
-.containers {
-    margin: 0 2rem;
+.luckyWheel {
+    position: fixed;
+    z-index: 5;
+    top: 50%;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.luckyWheel img {
+    width: 100%;
+    height: 100%;
+}
+
+.luckyWheel span {
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 10px;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 1px purple;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 @keyframes spin {
@@ -78,181 +110,32 @@ body {
 }
 
 
-/* recommended game */
-
-.recommended_game {
-    background-image: url(../../images/FindDiffPVP_BG2.png);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-family: 'Oxanium', cursive;
-    padding: 6rem 5rem;
-    height: 100%;
-}
-
-.recomment_title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.title {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 35px;
-    text-transform: uppercase;
-    color: var(--color_dark);
-}
-
-.title_game {
-    font-family: 'Permanent Marker', cursive;
-    color: var(--color_yellow);
-}
-
-.sale_game {
-    background-image: url(../../images/FindDiffPVP_BG2.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 3rem 1rem;
-    height: 100%;
-}
-
-
-/* favorite game */
-
-.favorite_game {
-    background: var(--color_background);
-}
-
-.favorite_title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5rem;
-}
-
-.favorite_title .title h1 {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 35px;
-    margin-bottom: -30px;
-    text-align: center;
-}
-
-
-/* cards */
-
-.btn_all_game {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1.5rem;
-    margin-right: 3rem;
-}
-
-.btn_all_game a {
-    font-family: 'Permanent Marker', cursive;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: white;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.btn_all_game a::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    padding: 1rem 3rem;
-    background-image: url(../../images/btn_dungeon_result_0.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.btn_all_game a:hover::before {
-    background-image: url(../../images/btn_dungeon_result_1.png);
-}
-
-
-/* catagory */
-
-.catagory_game {
-    background-image: url(../../images/FindDiffPVP_BG2.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 100%;
-    padding: 6rem 5rem;
-}
-
-.catagory_game .recomment_title {
-    font-family: 'Permanent Marker', cursive;
-}
-
-.image-item_catagory img {
-    width: 100%;
-    order: 1;
-    /* Thay đổi thứ tự của phần tử img */
-}
-
-.image-item_catagory h1 {
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-transform: uppercase;
-    z-index: 100;
-    order: 2;
-}
-
-.image-item_catagory::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(255, 204, 0, 0.7), rgba(255, 204, 0, 0.6), rgba(255, 204, 0, 0.4), rgba(255, 204, 0, 0.2), rgba(255, 204, 0, 0.1));
-    z-index: 1;
-    order: 3;
-}
-
-
 /* you like */
 
 .you_like_container {
-    padding: 9rem 1rem;
     position: fixed;
-    top: 100px;
+    top: 200px;
     left: -100%;
     z-index: 10;
-    background-image: url(../../images/a293.png);
+    background-image: url(../../images/index/T_Share02.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    padding: 0 1rem;
     width: 500px;
-    height: 500px;
+    height: 200px;
     transition: 1s ease-out;
     display: flex;
 }
 
-.btn_close {
+.you_like_container .btn_close {
     position: absolute;
-    top: 30%;
+    top: 0;
     right: -12px;
     width: 40px;
 }
 
-.btn_close img {
+.you_like_container .btn_close img {
     cursor: pointer;
     width: 30px;
 }
@@ -287,11 +170,6 @@ body {
     position: relative;
 }
 
-.bling_container .gift {
-    width: 85px;
-    height: 110px;
-}
-
 .bag_gift img {
     width: 60px;
     height: 60px;
@@ -311,75 +189,45 @@ body {
 }
 
 .gift {
-    margin-left: 5px;
-    background: #5fb4b4b2;
-    backdrop-filter: blur(5px);
+    background-image: url(../../images/card4.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    height: 180px;
+    padding: 1rem 1rem;
     position: relative;
     border-radius: 5px;
 }
 
-.gift::after {
+.gift .img_game {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    width: 55px;
+    height: 55px;
+    position: relative;
+}
+
+.gift .img_game::after {
     content: '';
     position: absolute;
-    z-index: 3;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 130px;
-    background-image: url(../../images/Effect/kuang0001.png);
+    translate: -50% -50%;
+    background-image: url(../../images/Effect/gold_00000.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    animation: border_gift 1.5s infinite forwards;
+    width: 75px;
+    height: 75px;
+    animation: border_gifft 2s linear infinite;
 }
 
-@keyframes border_gift {
-    0% {
-        background-image: url(../../images/Effect/kuang0002.png);
-    }
-    10% {
-        background-image: url(../../images/Effect/kuang0003.png);
-    }
-    20% {
-        background-image: url(../../images/Effect/kuang0004.png);
-    }
-    30% {
-        background-image: url(../../images/Effect/kuang0005.png);
-    }
-    40% {
-        background-image: url(../../images/Effect/kuang0006.png);
-    }
-    50% {
-        background-image: url(../../images/Effect/kuang0007.png);
-    }
-    60% {
-        background-image: url(../../images/Effect/kuang0008.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/kuang0009.png);
-    }
-    75% {
-        background-image: url(../../images/Effect/kuang0010.png);
-    }
-    80% {
-        background-image: url(../../images/Effect/kuang0011.png);
-    }
-    85% {
-        background-image: url(../../images/Effect/kuang0012.png);
-    }
-    90% {
-        background-image: url(../../images/Effect/kuang0013.png);
-    }
-    95% {
-        background-image: url(../../images/Effect/kuang0014.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/kuang0015.png);
-    }
-}
-
-@keyframes border_gift_gold {
+@keyframes border_gifft {
     0% {
         background-image: url(../../images/Effect/gold_00001.png);
     }
@@ -415,11 +263,6 @@ body {
     }
 }
 
-.gift .img_game {
-    width: 85px;
-    height: 60px;
-}
-
 .gift .img_game img {
     border-radius: 5px;
     width: 100%;
@@ -430,7 +273,7 @@ body {
     padding-left: 2px;
     color: var(--color_black);
     font-weight: 700;
-    font-size: 12px;
+    font-size: 10px;
     font-family: 'Permanent Marker', cursive;
 }
 
@@ -445,7 +288,7 @@ body {
 
 .old_price,
 .new_price {
-    color: white;
+    color: var(--color_black);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -457,6 +300,36 @@ body {
 .new_price img {
     width: 20px;
     height: 20px;
+}
+
+.btn_buy_gift {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_buy_gift button {
+    cursor: pointer;
+    font-family: 'Permanent Marker', cursive;
+    background: none;
+    outline: none;
+    border: none;
+    background-image: url(../../images/btn.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+    transition: .2s linear;
+}
+
+.btn_buy_gift button:hover {
+    background-image: url(../../images/btn_active.png);
+}
+
+.btn_buy_gift button:active {
+    transform: scale(0.9);
 }
 
 
@@ -483,15 +356,38 @@ body {
     cursor: pointer;
     width: 30px;
     height: 30px;
-    /* border-radius: 5px; */
-    /* background: linear-gradient(30deg, rgb(255, 130, 0) 20%, rgb(255, 38, 0) 80%); */
     transition: all 0.3s ease-in-out 0s;
-    box-shadow: rgba(237, 227, 113, 0.698) 0px 0px 0px 0px;
-    animation: 1.2s cubic-bezier(0.8, 0, 0, 1) 0s infinite normal none running pulse;
     position: fixed;
     top: 40%;
     left: 20px;
     z-index: 10;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-image: url(../../images/a104.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: box_shadow 1.5s infinite ease;
+}
+
+@keyframes box_shadow {
+    0% {
+        width: 0;
+        height: 0;
+        transform: rotate(0);
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        transform: rotate(360deg);
+    }
 }
 
 .button img {
@@ -506,318 +402,1309 @@ body {
 }
 
 
+/* index 2 */
+
+.index_contain {
+    margin: 0 auto;
+    margin-top: 7rem;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+/* menu */
+
+.index_contain .index_menu {
+    width: 400px;
+    height: 100px;
+    background-image: url(../../images/menu1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+}
+
+.index_contain .index_menu .index_menu__content {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.index_contain .index_menu .item_menu {
+    cursor: pointer;
+    width: 60px;
+    height: 40px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: .2s linear;
+}
+
+.suggestion {
+    background-image: url(../../images/btn_menu1.png);
+}
+
+.sale {
+    background-image: url(../../images/btn_menu2.png);
+}
+
+.favorite {
+    background-image: url(../../images/btn_menu3.png);
+}
+
+.category {
+    background-image: url(../../images/btn_menu4.png);
+}
+
+.gear {
+    background-image: url(../../images/btn_menu6.png);
+}
+
+.deal {
+    background-image: url(../../images/marketplace.png);
+}
+
+.index_contain .index_menu .item_menu span {
+    font-family: 'Permanent Marker', cursive;
+    position: absolute;
+    bottom: -5px;
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 1px rgb(128, 0, 49);
+    background: rgba(0, 0, 0, 0.39);
+    border-radius: 5px;
+}
+
+.index_contain .index_menu .item_menu:hover {
+    transform: scale(1.5) translateY(-10px);
+}
+
+
+/* recommended */
+
+.index_contain .recommended_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/T_Share04.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 4rem;
+    position: absolute;
+    top: 40%;
+    left: 200%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.index_contain .recommended_game::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background-image: url(../../images/Effect/torch/torch1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: torch 2s infinite linear;
+}
+
+.index_contain .recommended_game::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    right: 0;
+    background-image: url(../../images/Effect/torch/torch1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: torch 2s infinite linear;
+}
+
+@keyframes torch {
+    20% {
+        background-image: url(../../images/Effect/torch/torch2.png);
+    }
+    40% {
+        background-image: url(../../images/Effect/torch/torch3.png);
+    }
+    60% {
+        background-image: url(../../images/Effect/torch/torch4.png);
+    }
+    80% {
+        background-image: url(../../images/Effect/torch/torch5.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/torch/torch6.png);
+    }
+}
+
+.notification {
+    pointer-events: none;
+    position: absolute;
+    z-index: 10;
+    top: 30%;
+    right: 70px;
+    width: 100px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: right 1s linear;
+}
+
+.notification_box {
+    position: absolute;
+    top: -40px;
+    z-index: 5;
+    background: #f6e6c5;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    width: 200px;
+    padding: 5px;
+}
+
+.notification_box::before {
+    content: '';
+    position: absolute;
+    top: 90%;
+    right: 10px;
+    width: 30px;
+    height: 40px;
+    background: #f6e6c5;
+    clip-path: polygon(0 64%, 24% 0, 71% 0);
+    transform: rotate(360deg);
+}
+
+.notification_box span {
+    font-size: 13px;
+    color: var(--color_black);
+}
+
+.notification_bot {
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 55%;
+    translate: -50% -50%;
+    background-image: url(../../images/Effect/notification/notification1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 150px;
+    animation: wing 2s infinite linear forwards;
+}
+
+@keyframes wing {
+    7% {
+        background-image: url(../../images/Effect/notification/notification2.png);
+    }
+    14% {
+        background-image: url(../../images/Effect/notification/notification3.png);
+    }
+    21% {
+        background-image: url(../../images/Effect/notification/notification4.png);
+    }
+    28% {
+        background-image: url(../../images/Effect/notification/notification5.png);
+    }
+    35% {
+        background-image: url(../../images/Effect/notification/notification6.png);
+    }
+    42% {
+        background-image: url(../../images/Effect/notification/notification7.png);
+    }
+    49% {
+        background-image: url(../../images/Effect/notification/notification8.png);
+    }
+    56% {
+        background-image: url(../../images/Effect/notification/notification9.png);
+    }
+    63% {
+        background-image: url(../../images/Effect/notification/notification10.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/notification/notification11.png);
+    }
+    77% {
+        background-image: url(../../images/Effect/notification/notification12.png);
+    }
+    85% {
+        background-image: url(../../images/Effect/notification/notification13.png);
+    }
+    92% {
+        background-image: url(../../images/Effect/notification/notification14.png);
+    }
+    99% {
+        background-image: url(../../images/Effect/notification/notification15.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/notification/notification16.png);
+    }
+}
+
+
+/* saleGame */
+
+.index_contain .sale_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/T_Intimacy_01.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 3rem 2rem 9rem;
+    position: absolute;
+    top: 40%;
+    left: 250%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.sale_game__content {
+    position: relative;
+    height: 100%;
+}
+
+.banner {
+    position: absolute;
+    top: -8px;
+    left: -166px;
+    width: 200px;
+    height: 200px;
+    background-image: url(../../images/sale_banner.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_seeMore {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../../images/btn_seemore.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+}
+
+.btn_seeMore a {
+    font-family: 'Permanent Marker', cursive;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    font-size: 10px;
+    color: var(--color_black);
+}
+
+.list_product {
+    width: 100%;
+    height: 100%;
+    --spacing: 10px;
+    --columns: 4;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--spacing));
+    margin-top: 5px;
+}
+
+.item_product {
+    cursor: pointer;
+    width: calc(calc(100% / var(--columns)) - var(--spacing));
+    height: 160px;
+    background-image: url(../../images/cardd.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: var(--spacing);
+    margin-bottom: var(--spacing);
+    padding: 1rem 1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    position: relative;
+}
+
+.sale_banner {
+    position: absolute;
+    top: -6px;
+    right: -5px;
+    background-image: url(../../images/sale.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    padding: 5px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sale_banner span {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 12px;
+    color: var(--color_yellow);
+}
+
+.sale_banner p {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 8px;
+    color: var(--color_black);
+}
+
+.item_product .img_product {
+    width: 55px;
+    height: 55px;
+    position: relative;
+}
+
+.item_product .sale::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 75px;
+    height: 75px;
+    background-image: url(../../images/Effect/red-00000.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: border_product 2s infinite linear;
+}
+
+@keyframes border_product {
+    0% {
+        background-image: url(../../images/Effect/red-00001.png);
+    }
+    10% {
+        background-image: url(../../images/Effect/red-00002.png);
+    }
+    20% {
+        background-image: url(../../images/Effect/red-00003.png);
+    }
+    30% {
+        background-image: url(../../images/Effect/red-00004.png);
+    }
+    40% {
+        background-image: url(../../images/Effect/red-00005.png);
+    }
+    50% {
+        background-image: url(../../images/Effect/red-00006.png);
+    }
+    60% {
+        background-image: url(../../images/Effect/red-00007.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/red-00008.png);
+    }
+    80% {
+        background-image: url(../../images/Effect/red-00009.png);
+    }
+    90% {
+        background-image: url(../../images/Effect/red-00010.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/red-00011.png);
+    }
+}
+
+.item_product .img_product img {
+    width: 100%;
+    height: 100%;
+}
+
+.item_product .name_product {
+    background-image: url(../../images/text_box1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item_product .name_product span {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px var(--color_yellow);
+    color: var(--color_black);
+    text-align: center;
+}
+
+.item_product_favorite {
+    row-gap: 0 !important;
+    padding: 10px 1rem 0 1rem !important;
+}
+
+.rating i {
+    color: var(--color_yellow);
+}
+
+.banner span {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.price_product {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.price_product span {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+.price_product .old {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.price_product .new {
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 1px black;
+}
+
+.price_product span img {
+    width: 25px;
+    height: 25px;
+}
+
+.infor_game_sale {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../../images/infor_item_web.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+    padding: 1.5rem;
+}
+
+.close_infor_game_sale {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.close_infor_game_sale img {
+    width: 25px;
+    height: 25px;
+}
+
+.infor_game_sale__content {
+    padding: 5px;
+}
+
+.img_product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_product img {
+    width: 200px;
+    height: 95px;
+}
+
+.infor_product h3 {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    text-shadow: 1px 1px 1px var(--color_yellow);
+}
+
+.infor_product span {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+}
+
+.infor_product a {
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(255, 0, 0, 0.68);
+    text-decoration: underline;
+}
+
+.price_product_sale {
+    display: flex;
+    align-items: center;
+}
+
+.price_product_sale .price_old {
+    font-family: 'Permanent Marker', cursive;
+    color: gray;
+    text-decoration: line-through;
+}
+
+.price_product_sale .price_new {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 1px black;
+}
+
+.price_product_sale img {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+}
+
+.amount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amount .reduce {
+    background: none;
+    outline: none;
+    border: none;
+    background-image: url(../../images/minus.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.amount .increase {
+    background: none;
+    outline: none;
+    border: none;
+    background-image: url(../../images/plus.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.amount .reduce:active,
+.amount .increase:active {
+    transform: scale(0.9);
+}
+
+.amount .number_amount {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    width: 100px;
+    height: 25px;
+    background: wheat;
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.btn a {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    font-size: 13px;
+    background-image: url(../../images/btn.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 12px 22px;
+}
+
+.btn .detail {
+    padding: 12px 15px;
+}
+
+.btn button {
+    cursor: pointer;
+    background: none;
+    outline: none;
+    border: none;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_black);
+    font-size: 10px;
+    background-image: url(../../images/btn.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 35px;
+}
+
+.btn a:hover,
+.btn button:hover {
+    background-image: url(../../images/btn_active.png);
+}
+
+
+/* favorite */
+
+.index_contain .favorite_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/T_Intimacy_02.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 5rem;
+    position: absolute;
+    top: 40%;
+    left: 250%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.decorate {
+    pointer-events: none;
+    position: absolute;
+    z-index: 10;
+    top: -5px;
+    right: 15px;
+}
+
+.decorate img {
+    width: 200px;
+    height: 100px;
+    transform: scaleX(-1);
+}
+
+.btn_seeMore_favorite {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    background-image: url(../../images/a301.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 130px;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btn_seeMore_favorite span {
+    margin-bottom: 5px;
+    font-family: 'Permanent Marker', cursive;
+    color: purple;
+    font-size: 9px;
+}
+
+
+/* category */
+
+.index_contain .category_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/Texture_Star_11.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 5rem;
+    position: absolute;
+    top: 40%;
+    left: 250%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.index_contain .category_game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    background-image: url(../../images/Effect/lantern/lantern1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: lantern 3s infinite linear;
+}
+
+.index_contain .category_game::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-image: url(../../images/Effect/lantern/lantern1.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    animation: lantern 2s infinite linear;
+}
+
+@keyframes lantern {
+    7% {
+        background-image: url(../../images/Effect/lantern/lantern2.png);
+    }
+    14% {
+        background-image: url(../../images/Effect/lantern/lantern3.png);
+    }
+    21% {
+        background-image: url(../../images/Effect/lantern/lantern4.png);
+    }
+    28% {
+        background-image: url(../../images/Effect/lantern/lantern5.png);
+    }
+    35% {
+        background-image: url(../../images/Effect/lantern/lantern6.png);
+    }
+    42% {
+        background-image: url(../../images/Effect/lantern/lantern7.png);
+    }
+    49% {
+        background-image: url(../../images/Effect/lantern/lantern8.png);
+    }
+    56% {
+        background-image: url(../../images/Effect/lantern/lantern9.png);
+    }
+    63% {
+        background-image: url(../../images/Effect/lantern/lantern10.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/lantern/lantern11.png);
+    }
+    77% {
+        background-image: url(../../images/Effect/lantern/lantern12.png);
+    }
+    84% {
+        background-image: url(../../images/Effect/lantern/lantern13.png);
+    }
+    91% {
+        background-image: url(../../images/Effect/lantern/lantern14.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/lantern/lantern15.png);
+    }
+}
+
+
+/* gear */
+
+.index_contain .gear_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/Texture_Bg_06.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 4rem 2rem 7rem;
+    position: absolute;
+    top: 40%;
+    left: 250%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.seeMore {
+    position: absolute;
+    z-index: 2;
+    top: -20px;
+    left: 0;
+}
+
+.seeMore img {
+    width: 150px;
+    height: 100px;
+}
+
+.seeMore a {
+    position: absolute;
+    top: 57%;
+    left: 45px;
+}
+
+.btn_see_More {
+    padding-top: 35px;
+    background-image: url(../../images/tag.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 150px;
+}
+
+.see-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.see-more span {
+    font-family: 'Permanent Marker', cursive;
+    color: rgb(186, 4, 4);
+    font-size: 10px;
+}
+
+.gear_product::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 75px;
+    height: 75px;
+    background-image: url(../../images/Effect/pink-00000.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: border_product_gear 2s infinite linear;
+}
+
+@keyframes border_product_gear {
+    0% {
+        background-image: url(../../images/Effect/pink-00001.png);
+    }
+    10% {
+        background-image: url(../../images/Effect/pink-00002.png);
+    }
+    20% {
+        background-image: url(../../images/Effect/pink-00003.png);
+    }
+    30% {
+        background-image: url(../../images/Effect/pink-00004.png);
+    }
+    40% {
+        background-image: url(../../images/Effect/pink-00005.png);
+    }
+    50% {
+        background-image: url(../../images/Effect/pink-00006.png);
+    }
+    60% {
+        background-image: url(../../images/Effect/pink-00007.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/pink-00008.png);
+    }
+    80% {
+        background-image: url(../../images/Effect/pink-00009.png);
+    }
+    90% {
+        background-image: url(../../images/Effect/pink-00010.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/pink-00011.png);
+    }
+}
+
+.seeMore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* deal */
+
+.index_contain .deal_game {
+    width: 820px;
+    height: 400px;
+    background-image: url(../../images/index/Texture_Star_11.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 5rem;
+    position: absolute;
+    top: 40%;
+    left: 250%;
+    translate: -50% -50%;
+    transition: left .5s linear;
+}
+
+.item_product_deal {
+    row-gap: 0 !important;
+}
+
+.deal_product::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 75px;
+    height: 75px;
+    background-image: url(../../images/Effect/oorange-00000.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: border_product_deal 2s infinite linear;
+}
+
+@keyframes border_product_deal {
+    0% {
+        background-image: url(../../images/Effect/oorange-00001.png);
+    }
+    10% {
+        background-image: url(../../images/Effect/oorange-00002.png);
+    }
+    20% {
+        background-image: url(../../images/Effect/oorange-00003.png);
+    }
+    30% {
+        background-image: url(../../images/Effect/oorange-00004.png);
+    }
+    40% {
+        background-image: url(../../images/Effect/oorange-00005.png);
+    }
+    50% {
+        background-image: url(../../images/Effect/oorange-00006.png);
+    }
+    60% {
+        background-image: url(../../images/Effect/oorange-00007.png);
+    }
+    70% {
+        background-image: url(../../images/Effect/oorange-00008.png);
+    }
+    80% {
+        background-image: url(../../images/Effect/oorange-00009.png);
+    }
+    90% {
+        background-image: url(../../images/Effect/oorange-00010.png);
+    }
+    100% {
+        background-image: url(../../images/Effect/oorange-00011.png);
+    }
+}
+
+.amout span {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    text-shadow: 1px 1px 1px gray;
+}
+
+.seeMore_content {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-image: url(../../images/card4.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50px;
+    height: 150px;
+}
+
+.deal_game_content .decor_img {
+    pointer-events: none;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: -30px;
+    width: 200px;
+    height: 100px;
+}
+
+.see__more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.see__more span {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size: 12px;
+}
+
+.seeMore_Store {
+    margin: 0 auto;
+    width: 100px;
+    height: 80px;
+    background: url(../../images/btn_dungeon_result_1.png) center no-repeat;
+    background-size: contain;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.seeMore_Store a {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
 /* pesponsive */
 
+@media screen and (min-width: 2560px) {
+    body {
+        background-size: cover;
+    }
+    .notification {
+        right: 222px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    body {
+        background-size: cover;
+    }
+}
+
 @media screen and (max-width: 1025px) {
-    .nav {
-        padding: 5px 5px;
+    .index_contain {
+        overflow-x: hidden;
+        width: 1000px;
     }
-    .nav_item {
-        padding: 17px;
-    }
-    .item_content h4 {
-        font-size: 17px;
-    }
-    .item_content h4::before {
-        right: -10px;
-    }
-    .recommended_game {
-        background-size: auto;
-        padding: 9rem 5rem;
-    }
-    .sale_game {
-        background-size: auto;
-    }
-    .catagory_game .recomment_title {
-        margin-top: 55px;
+    .avatar {
+        display: none;
     }
 }
 
 @media screen and (max-width: 769px) {
-    .containers {
-        margin: 0 2rem;
+    .index_contain {
+        width: 800px;
     }
-    .nav_item {
-        display: none;
+    /* recommended_game */
+    .index_contain .recommended_game {
+        width: 600px;
+        padding: 6.5rem 4rem;
     }
-    .basket,
-    .store {
-        display: block;
+    .tranding-slide {
+        width: 30rem;
     }
-    .store_mobie,
-    .cart_mobie {
-        display: block;
+    .tranding-slide {
+        width: 25rem !important;
+        height: 15rem !important;
     }
-    .menu_icon {
-        display: flex;
+    .tranding-slide .tranding-slide-img img {
+        width: 100% !important;
+        height: 100% !important;
     }
-    .introduce_img {
-        display: none;
+    #tranding .tranding-slider {
+        padding: 5px !important;
     }
-    .menu img {
-        width: 320px;
+    .tranding-slide::before,
+    .tranding-slide::after {
+        height: 195px !important;
     }
-    .introduce_content {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+    .tranding-slide::after {
+        right: -25px !important;
     }
-    .list_card {
-        --spacing: 15px;
-        --columns: 3;
+    .index_contain .deal_game {
+        width: 770px;
     }
-    .item_content h4::before {
-        right: 80px;
-    }
-    .button_top {
-        width: 35px;
-        height: 35px;
-    }
-    .recommended_game {
-        margin-top: 2rem;
-        background: #f2dcb1;
-        box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
-        background-image: none;
-        padding: 2rem 0;
-        margin-bottom: 1rem;
-    }
-    .sale_game {
-        height: auto;
-        background: #f2dcb1;
-        box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
-        background-image: none;
-        margin-bottom: 1rem;
-    }
-    .catagory_game {
-        height: 400px;
-        background: #f2dcb1;
-        box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
-        background-image: none;
-        padding: 0;
-        margin-bottom: 1rem;
-    }
-    .btn_all_game {
-        margin-right: 0;
-    }
-    .button_top a img {
+    .notification {
+        position: fixed;
+        top: 70%;
+        right: 30px;
         width: 50px;
-        height: 50px;
+        height: 150px;
+    }
+    .notification_box {
+        width: 100px;
+    }
+    .notification_box span {
+        font-size: 8px;
+    }
+    .notification_bot {
+        width: 50px;
+        height: 80px;
     }
 }
 
 @media screen and (max-width: 426px) {
-    .containers {
-        margin: 0 1rem;
+    body {
+        background-image: url(../../images/T_Intimacy_04.png);
     }
-    .header {
-        height: 400px;
+    .index_contain .index_menu {
+        position: fixed;
+        bottom: 0;
     }
-    .circle img {
-        display: none;
-    }
-    .header_content {
-        margin-top: 6rem;
-    }
-    .recommended_game,
-    .sale_game {
-        margin-top: 1rem;
-    }
-    .catagory_game {
-        margin-bottom: 1rem;
-    }
-    .introduce_content h1 {
-        font-size: 75px;
-    }
-    .favorite_title {
-        flex-direction: column;
-    }
-    .favorite_title .title h1 {
-        font-size: 31px;
-    }
-    .btn_readmore {
-        padding: 15px 15px;
-    }
-    .list_card {
-        --spacing: 20px;
-        --columns: 1;
-    }
-    .title {
-        font-size: 30px;
-    }
-    .icon {
-        margin: 0 8px;
-    }
-    .menu img {
-        display: none;
-    }
-    .menu {
+    .index_contain .index_menu .index_menu__content {
         justify-content: center;
     }
-    .navbar {
-        text-align: center;
-        padding-right: 0;
+    .index_contain .index_menu .item_menu {
+        width: 55px;
+        height: 35px;
     }
-    .btn_all_game a::before {
-        padding: -0.5rem 2rem;
-    }
-    .btn_all_game a::after {
-        padding: 0.5rem 0;
-        right: -43px;
-    }
-    .you_like_container {
-        width: 400px;
-    }
-    .you_like_item {
-        width: 200px;
-    }
-    .btn_close img {
-        top: 31%;
-    }
-    .list_gift {
+    .index_contain .sale_game,
+    .index_contain .favorite_game,
+    .index_contain .gear_game,
+    .index_contain .deal_game {
+        top: 60%;
+        width: 330px;
+        height: auto;
+        background-image: none;
         padding: 0;
     }
-    .gift p {
+    .index_contain .category_game {
+        top: 50%;
+        background-image: none;
+    }
+    .banner,
+    .decorate,
+    .seeMore,
+    .index_contain .category_game::before,
+    .index_contain .category_game::after,
+    .deal_game_content .decor_img,
+    .deal_game_content .btn_seeMoress {
         display: none;
     }
-    .price_gift {
-        position: absolute;
-        top: 40px;
+    .btn_seeMore {
+        display: none;
     }
-    .bling_container .gift {
-        margin-left: 0;
-        width: 60px;
-        height: 60px;
+    .seeMore_Store {
+        display: flex;
     }
-    .gift .img_game {
-        width: 60px;
+    .list_product {
+        --spacing: 10px;
+        --columns: 2;
+        margin-left: calc(-1 * var(--spacing));
     }
-    .gift::after {
-        background-image: url(../../images/Effect/gold_00000.png);
-        animation: border_gift_gold 1.5s infinite forwards;
-        width: 80px;
-        height: 80px;
+    .button {
+        left: 10px;
     }
-    .btn_close {
-        top: 35%;
+    .button img {
+        width: 40px;
+        height: 40px;
     }
-}
-
-@media screen and (max-width: 376px) {
-    .containers {
-        margin: 0 3px;
-    }
-    .header {
-        height: 350px;
-    }
-    .introduce_content h1 {
-        font-size: 40px;
-        margin: -8px 0;
-    }
-    .list_card {
-        padding: 1rem 1rem;
-    }
-    .btn_readmore {
-        padding: 10px 15px;
-    }
-    .icon {
-        margin: 0 5px;
-    }
-    .title {
-        font-size: 30px;
-    }
-    .btn_readmore {
-        margin-top: 0.5rem;
-    }
-    .footer_bottom p {
-        font-size: 12px;
-    }
-    .footer_bottom img {
-        width: 100%;
-        height: 15px;
-    }
-    .button_top {
+    .luckyWheel {
         width: 30px;
         height: 30px;
     }
-    .sale_game {
-        margin-bottom: 60rem;
+    .luckyWheel span {
+        font-size: 8px;
     }
+    /* you like container */
     .you_like_container {
-        width: 350px;
+        width: 420px;
     }
-    .you_like_item {
-        height: 30px;
+    .index_contain {
+        width: 100%;
+        height: 350px;
     }
-    .bling_container .gift {
-        margin-left: 0;
-        width: 50px;
-        height: 50px;
+    .you_like_container .btn_close {
+        top: 15px;
     }
-    .gift .img_game {
-        width: 50px;
-        height: 50px;
-    }
-    .gift::after {
-        width: 70px;
-        height: 70px;
-    }
-    .price_gift {
-        top: 30px;
-    }
-    .old_price {
-        display: none;
-    }
-    .btn_close {
-        top: 36%;
-    }
-}
-
-@media screen and (max-width: 321px) {
-    .title {
-        font-size: 20px;
-    }
-    .favorite_title .title h1 {
-        font-size: 20px;
-        margin-bottom: 0.1px;
-    }
-    .you_like_container {
-        width: 300px;
-    }
-    .you_like_item {
-        height: 23px;
-    }
-    .btn_close img {
-        top: 35%;
-    }
-    .btn_all_game a {
-        font-size: 13px;
-    }
-    .bling_container .gift {
-        margin-left: 0;
-        width: 43px;
-        height: 43px;
-    }
-    .gift .img_game {
-        width: 43px;
-        height: 43px;
-    }
-    .gift::after {
-        width: 60px;
-        height: 60px;
-    }
-    .price_gift {
-        top: 25px;
-    }
-    .old_price {
-        display: none;
-    }
-    .btn_close {
-        top: 38%;
+    .list_gift {
+        padding: 0;
+        height: 100%;
     }
     .bag_gift img {
         width: 50px;
         height: 50px;
+    }
+    .gift {
+        width: 70px;
+        height: 150px;
+        padding: 0.5rem 0.2rem;
+    }
+    .gift .img_game {
+        margin-left: 10px;
+        width: 45px;
+        height: 45px;
+    }
+    .gift .img_game::after {
+        width: 60px;
+        height: 60px;
+    }
+    /* recommended_game */
+    .index_contain .recommended_game {
+        width: 400px;
+        height: 200px;
+        padding: 0.5rem;
+        background-image: none;
+    }
+    .tranding-slide {
+        width: 20rem !important;
+        height: 15rem !important;
+    }
+    .tranding-slide::before,
+    .tranding-slide::after {
+        height: 160px !important;
+    }
+    .notification {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 376px) {
+    .you_like_container {
+        width: 375px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .you_like_container {
+        width: 320px;
+    }
+    .gift {
+        width: 55px;
+        height: 115px;
+    }
+    .gift .img_game {
+        width: 30px;
+        height: 30px;
+    }
+    .gift .img_game::after {
+        width: 40px;
+        height: 40px;
+    }
+    .old_price,
+    .new_price {
+        font-size: 10px;
     }
 }

@@ -97,25 +97,22 @@ $result = $stmt->get_result();
                 <tr role="row">
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-sort="ascending" aria-label="Product Name: activate to sort column descending"
-                        style="width: 203px;">
+                        style="width: 160px;">
                         Product Name
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Image avt: activate to sort column ascending" style="width: 147px;">
+                        aria-label="Image avt: activate to sort column ascending" style="width: 110px;">
                         Avatar</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Description: activate to sort column ascending" style="width: 147px;">
+                        aria-label="Description: activate to sort column ascending" style="width: 160px;">
                         Description</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Video trailer: activate to sort column ascending" style="width: 147px;">
-                        Video</th>
-                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Price: activate to sort column ascending" style="width: 139px;">
+                        aria-label="Price: activate to sort column ascending" style="width: 110px;">
                         Price
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Release date: activate to sort column ascending" style="width: 147px;">
-                        Release date</th>
+                        aria-label="Release date: activate to sort column ascending" style="width: 90px;">
+                        Units sold</th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-label="Age: activate to sort column ascending" style="width: 70px;">Update
                     </th>
@@ -130,9 +127,8 @@ $result = $stmt->get_result();
                     <th rowspan="1" colspan="1">Product Name</th>
                     <th rowspan="1" colspan="1">Avatar</th>
                     <th rowspan="1" colspan="1">Description</th>
-                    <th rowspan="1" colspan="1">Video</th>
                     <th rowspan="1" colspan="1">Price</th>
-                    <th rowspan="1" colspan="1">Release date</th>
+                    <th rowspan="1" colspan="1">Units sold</th>
                     <th rowspan="1" colspan="1">Update</th>
                     <th rowspan="1" colspan="1">Delete</th>
                 </tr>
@@ -165,13 +161,10 @@ $result = $stmt->get_result();
                                     style="display: none;">Hide</a>
                             </td>
                             <td>
-                                <?php echo $row['video_trailer_url']; ?>
-                            </td>
-                            <td>
                                 <?php echo $row['price']; ?>
                             </td>
                             <td>
-                                <?php echo $row['release_date']; ?>
+                                <?php echo $row['units_sold']; ?>
                             </td>
                             <td><a href="update_product.php?id=<?php echo $row['id']; ?>">Update</a></td>
                             <td><a href="javascript:deleteItem(<?php echo $row['id']; ?>)">Delete</a></td>
