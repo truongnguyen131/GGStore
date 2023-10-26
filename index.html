@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Game Store</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="doc/fontawesome-free-6.4.2-web/fontawesome-free-6.4.2-web/css/fontawesome.css">
+    <link rel="stylesheet" href="doc/fontawesome-free-6.4.2-web/fontawesome-free-6.4.2-web/css/solid.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="includes/css/index.css">
+    <link rel="stylesheet" href="includes/css/navbar.css">
+    <link rel="stylesheet" href="includes/css/header.css">
+    <link rel="stylesheet" href="includes/css/footer.css">
+    <link rel="stylesheet" href="includes/css/swipper.css">
+    <link rel="stylesheet" href="includes/css/slick_slider.css">
+    <link rel="stylesheet" href="includes/css/card.css">
+    <link rel="stylesheet" href="includes/css/leaf.css" />
+
+</head>
+
+<body>
+    <!-- custom scrollbar -->
+    <div class="progress">
+        <div class="progress_bar" id="scroll_bar"></div>
+    </div>
+    <!-- navbar start-->
+    <div class="nav" id="navbar">
+        <div class="logo">
+            <a href="">
+                <span class="logo_gg">
+                    GG<span class="logo_store">Store</span>
+                </span>
+            </a>
+        </div>
+        <ul class="nav_list">
+            <a href="">
+                <li class="nav_item">Home</li>
+            </a>
+            <li class="nav_item dropdown-trigger" onmouseover="showDropdown()">
+                Product
+                <ul class="dropdown-content" id="submenu">
+                    <a href="">
+                        <li>Page 1</li>
+                    </a>
+                    <a href="">
+                        <li>Page 2</li>
+                    </a>
+                    <a href="">
+                        <li>Page 3</li>
+                    </a>
+                    <a href="">
+                        <li>Page 4</li>
+                    </a>
+                    <a href="">
+                        <li>Page 5</li>
+                    </a>
+                </ul>
+            </li>
+            <li class="nav_item cart">Cart</li>
+            <li class="nav_item stores">Store</li>
+            <li class="nav_item">Blog</li>
+            <li class="icon">
+                <i class="fa-solid fa-magnifying-glass icon_size" id="search"></i>
+            </li>
+            <li class="icon basket">
+                <a href="">
+                    <i class="fa-solid fa-basket-shopping icon_size"></i>
+                </a>
+            </li>
+            <li class="icon store">
+                <a href="">
+                    <i class="fa-solid fa-store icon_size"></i>
+                </a>
+            </li>
+            <li class="icon">
+                <i class="fa-solid fa-bell" id="bell"></i>
+            </li>
+            <li class="icon">
+                <i class="fa-solid fa-user icon_size" id="user"></i>
+            </li>
+            <li class="icon">
+                <i class="fa-solid fa-music fa-beat" id="music"></i>
+            </li>
+            <li class="menu_icon">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </li>
+            <!-- menu of search -->
+            <div class="menu_search">
+                <input type="text" placeholder="Search" class="bar_search" id="bar_search" />
+            </div>
+            <!-- menu of nofication -->
+            <div class="menu_nofication">
+                <!-- item nofication -->
+                <div class="box_nofication">
+                    <span class="user_name">Truong </span><span>bought your item on the exchange</span>
+                    <p>your account is added 20 GCoin</p>
+                    <div class="control_nofication">
+                        <p class="announcement_date">12/3/2023 12:30</p>
+                        <a href="" class="delete_nofication">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- menu of user -->
+            <div class="menu_user">
+                <div class="menu_us_infor">
+                    <span>Hello !</span>
+                    <span class="name_user">ngoc truong</span>
+                    <div class="coin">
+                        <span class="currency_unit">GCoin: </span>
+                        <span class="number_gcoin">
+                            321
+                            <img src="../images/Texture_Store_01.png" alt="" class="represent" /></span>
+                    </div>
+                </div>
+                <div class="menu_us_control">
+                    <a href="" class="btn_control">Information User</a>
+                    <a href="" class="btn_control">Your Bag</a>
+                    <a href="" class="btn_control">Orders Detail</a>
+                    <a href="" class="btn_control">Log Out</a>
+                </div>
+            </div>
+            <!-- menu for mobile -->
+            <div class="menu">
+                <img src="../images/T_Talisman_xinglong.png" alt="" />
+                <div class="navbar">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Pages</a></li>
+                    <li class="cart_mobie"><a href="">Cart</a></li>
+                    <li class="store_mobie"><a href="">Store</a></li>
+                    <li class="store_mobie"><a href="">Inventory</a></li>
+                    <li><a href="">Blog</a></li>
+                </div>
+            </div>
+        </ul>
+        <div class="lantern-container" id="lanterns_left">
+            <div class="lantern"></div>
+        </div>
+        <div class="lantern-container" id="lanterns_right">
+            <div class="lantern"></div>
+        </div>
+
+    </div>
+    <!-- navbar end-->
+    <!-- maybe you will like -->
+    <div class="you_like_container">
+        <div class="you_like_content">
+            <div class="list_gift">
+                <div class="bling_container">
+                    <div class="bag_gift" onclick="addAnimation(1)">
+                        <img class="close_gift" src="images/T_FuBenNew_26.png" alt="">
+                        <img class="open_gift" src="images/T_FuBenNew_27.png" alt="" style="display: none;">
+                    </div>
+                    <div class="gift" style="display: none;">
+                        <div class="img_game">
+                            <img src="images/g2.jpg" alt="">
+                        </div>
+                        <p>Call of Duty</p>
+                        <div class="price_gift">
+                            <span class="old_price">
+                                    15 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            <span class="new_price">
+                                    5 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                        </div>
+                        <div class="btn_buy_gift">
+                            <button>Mua</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bling_container">
+                    <div class="bag_gift" onclick="addAnimation(1)">
+                        <img class="close_gift" src="../images/T_FuBenNew_26.png" alt="">
+                        <img class="open_gift" src="../images/T_FuBenNew_27.png" alt="" style="display: none;">
+                    </div>
+                    <a href="">
+                        <div class="gift" style="display: none;">
+                            <div class="img_game">
+                                <img src="images/g5.jpg" alt="">
+                            </div>
+                            <p>Call of Duty</p>
+                            <div class="price_gift">
+                                <span class="old_price">
+                                    15 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="new_price">
+                                    5 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                            <div class="btn_buy_gift">
+                                <button>Mua</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="bling_container">
+                    <div class="bag_gift" onclick="addAnimation(1)">
+                        <img class="close_gift" src="../images/T_FuBenNew_26.png" alt="">
+                        <img class="open_gift" src="../images/T_FuBenNew_27.png" alt="" style="display: none;">
+                    </div>
+                    <a href="">
+                        <div class="gift" style="display: none;">
+                            <div class="img_game">
+                                <img src="images/g7.jpg" alt="">
+                            </div>
+                            <p>Call of Duty</p>
+                            <div class="price_gift">
+                                <span class="old_price">
+                                    15 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="new_price">
+                                    5 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                            <div class="btn_buy_gift">
+                                <button>Mua</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="bling_container">
+                    <div class="bag_gift" onclick="addAnimation(1)">
+                        <img class="close_gift" src="../images/T_FuBenNew_26.png" alt="">
+                        <img class="open_gift" src="../images/T_FuBenNew_27.png" alt="" style="display: none;">
+                    </div>
+                    <a href="">
+                        <div class="gift" style="display: none;">
+                            <div class="img_game">
+                                <img src="images/g14.jpg" alt="">
+                            </div>
+                            <p>Call of Duty</p>
+                            <div class="price_gift">
+                                <span class="old_price">
+                                    15 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="new_price">
+                                    5 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                            <div class="btn_buy_gift">
+                                <button>Mua</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="bling_container">
+                    <div class="bag_gift" onclick="addAnimation(1)">
+                        <img class="close_gift" src="../images/T_FuBenNew_26.png" alt="">
+                        <img class="open_gift" src="../images/T_FuBenNew_27.png" alt="" style="display: none;">
+                    </div>
+                    <a href="">
+                        <div class="gift" style="display: none;">
+                            <div class="img_game">
+                                <img src="images/g1.jpg" alt="">
+                            </div>
+                            <p>Call of Duty</p>
+                            <div class="price_gift">
+                                <span class="old_price">
+                                    15 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="new_price">
+                                    5 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                            <div class="btn_buy_gift">
+                                <button>Mua</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="btn_close close" title="Close">
+            <img src="images/btn_common_close3_1.png" alt="">
+        </div>
+    </div>
+    <div class="btn_open_you-will-like">
+        <a class="button open" title="Maybe you will like">
+            <img src="images/170104.png" alt="">
+        </a>
+    </div>
+    <a href="pages/lucky_wheel.html" class="luckyWheel" title="Lucky Wheel">
+        <img src="images/lucky_wheel.png" alt="">
+        <span>Lucky Wheel</span>
+    </a>
+    <div class="index_contain">
+        <!-- recommended -->
+        <div class="recommended_game" id="recommended_game">
+            <div class="recommended_game_content">
+                <!-- slider -->
+                <section id="tranding">
+                    <div class="container">
+                        <div class="swiper tranding-slider">
+                            <div class="swiper-wrapper">
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <a href="#">
+                                        <div class="tranding-slide-img">
+                                            <img src="../images/g1.jpg" alt="Tranding">
+                                            <video src="../images/g5.mp4" class="hover-video" muted autoplay loop></video>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g14.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g2.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g5.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g7.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g1.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                                <!-- Slide-start -->
+                                <div class="swiper-slide tranding-slide">
+                                    <div class="tranding-slide-img">
+                                        <img src="../images/g14.jpg" alt="Tranding">
+                                    </div>
+                                </div>
+                                <!-- Slide-end -->
+                            </div>
+                            <div class="tranding-slider-control">
+                                <div class="swiper-button-prev slider-arrow arrow-left">
+                                    <img src="images/arrow.png" alt="">
+                                </div>
+                                <div class="swiper-button-next slider-arrow">
+                                    <img src="images/arrow.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- sale -->
+        <div class="sale_game" id="sale_game">
+            <div class="sale_game__content">
+                <div class="banner">
+                    <span>Sale</span>
+                </div>
+                <div class="list_product">
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__sale">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="infor_game_sale" id="infor_game_sale">
+                    <div class="close_infor_game_sale" id="close_infor_game_sale">
+                        <img src="images/btn_common_close3_1.png" alt="">
+                    </div>
+                    <div class="infor_game_sale__content">
+                        <div class="img_product">
+                            <a href="">
+                                <img src="images/g1.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="infor_product">
+                            <h3>Trailmakers</h3>
+                            <span>Category: <a href="">Act</a></span>
+                            <div class="price_product_sale">
+                                <span class="price_old">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="price_new">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control_sale">
+                            <div class="amount">
+                                <button class="reduce"></button>
+                                <span class="number_amount">1</span>
+                                <button class="increase"></button>
+                            </div>
+                            <div class="btn">
+                                <a href="">Buy</a>
+                                <button>Add to Cart</button>
+                                <a href="" class="detail">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_seeMore">
+                <a href="">See More</a>
+            </div>
+            <div class="seeMore_Store">
+                <a href="">See More</a>
+            </div>
+        </div>
+        <!-- favorite -->
+        <div class="favorite_game" id="favorite_game">
+            <div class="favorite_game_content">
+                <div class="decorate">
+                    <img src="images/pic_zs_hua.png" alt="">
+                </div>
+                <a href="">
+                    <div class="btn_seeMore_favorite">
+                        <span>See</span>
+                        <span>More</span>
+                    </div>
+                </a>
+                <div class="list_product">
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_favorite">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product sale">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="infor_game_sale" id="infor_game_favorite">
+                    <div class="close_infor_game_sale" id="close_infor_game_favorite">
+                        <img src="images/btn_common_close3_1.png" alt="">
+                    </div>
+                    <div class="infor_game_sale__content">
+                        <div class="img_product">
+                            <a href="">
+                                <img src="images/g1.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="infor_product">
+                            <h3>Trailmakers</h3>
+                            <span>Category: <a href="">Act</a></span>
+                            <div class="price_product_sale">
+                                <span class="price_old">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="price_new">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control_sale">
+                            <div class="amount">
+                                <button class="reduce"></button>
+                                <span class="number_amount">1</span>
+                                <button class="increase"></button>
+                            </div>
+                            <div class="btn">
+                                <a href="">Buy</a>
+                                <button>Add to Cart</button>
+                                <a href="" class="detail">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="seeMore_Store">
+                    <a href="">See More</a>
+                </div>
+            </div>
+        </div>
+        <!-- category -->
+        <div class="category_game" id="category_game">
+            <div class="category_game_content">
+                <!-- slider -->
+                <div class="catagory-slider">
+                    <div class="catagory-item">
+                        <div class="catagory-item_content">
+                            <div class="image">
+                                <h2>Adventure</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catagory-item">
+                        <div class="catagory-item_content">
+                            <div class="image">
+                                <h2>Act</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catagory-item">
+                        <div class="catagory-item_content">
+                            <div class="image">
+                                <h2>risky</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="catagory-item">
+                        <div class="catagory-item_content">
+                            <div class="image">
+                                <h2>Sport</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- gear -->
+        <div class="gear_game" id="gear_game">
+            <div class="gear_game_content">
+                <div class="seeMore">
+                    <img src="images/Award3.png" alt="">
+                    <a href="">
+                        <div class="btn_see_More">
+                            <div class="see-more">
+                                <span>See</span>
+                                <span>More</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="list_product">
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product__gear">
+                        <div class="sale_banner">
+                            <span>40%</span>
+                            <p>%Sale</p>
+                        </div>
+                        <div class="img_product gear_product">
+                            <img src="images/s_product_img02.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="old">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="infor_game_sale" id="infor_gear">
+                    <div class="close_infor_game_sale" id="close_infor_gear">
+                        <img src="images/btn_common_close3_1.png" alt="">
+                    </div>
+                    <div class="infor_game_sale__content">
+                        <div class="img_product">
+                            <a href="">
+                                <img src="images/s_product_img02.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="infor_product">
+                            <h3>Trailmakers</h3>
+                            <span>Category: <a href="">Act</a></span>
+                            <div class="price_product_sale">
+                                <span class="price_old">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                                <span class="price_new">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control_sale">
+                            <div class="amount">
+                                <button class="reduce"></button>
+                                <span class="number_amount">1</span>
+                                <button class="increase"></button>
+                            </div>
+                            <div class="btn">
+                                <a href="">Buy</a>
+                                <button>Add to Cart</button>
+                                <a href="" class="detail">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="seeMore_Store">
+                    <a href="">See More</a>
+                </div>
+            </div>
+        </div>
+        <!-- deal -->
+        <div class="deal_game" id="deal_game">
+            <div class="deal_game_content">
+                <img class="decor_img" src="images/pic_zs_hua.png" alt="">
+                <a href="" class="btn_seeMoress">
+                    <div class="seeMore_content">
+                        <div class="see__more">
+                            <span>See</span>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="list_product">
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                    <div class="item_product item_product_deal">
+                        <div class="img_product deal_product">
+                            <img src="images/g1.jpg" alt="">
+                        </div>
+                        <div class="name_product">
+                            <span>trailmakers</span>
+                        </div>
+                        <div class="amout">
+                            <span>x5</span>
+                        </div>
+                        <div class="price_product">
+                            <span class="new">20 <img src="images/Texture_Store_01.png" alt=""> / 1</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="infor_game_sale" id="infor_deal">
+                    <div class="close_infor_game_sale" id="close_infor_deal">
+                        <img src="images/btn_common_close3_1.png" alt="">
+                    </div>
+                    <div class="infor_game_sale__content">
+                        <div class="img_product">
+                            <a href="">
+                                <img src="images/g2.jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="infor_product">
+                            <h3>Trailmakers</h3>
+                            <span>Category: <a href="">Act</a></span>
+                            <div class="price_product_sale">
+                                <span class="price_new">
+                                    20 <img src="images/Texture_Store_01.png" alt="">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control_sale">
+                            <div class="amount">
+                                <button class="reduce"></button>
+                                <span class="number_amount">1/2</span>
+                                <button class="increase"></button>
+                            </div>
+                            <div class="btn">
+                                <a href="">Buy</a>
+                                <button>Add to Cart</button>
+                                <a href="" class="detail">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="seeMore_Store">
+                    <a href="">See More</a>
+                </div>
+            </div>
+        </div>
+        <!-- notification -->
+        <div class="notification" id="notification">
+            <div class="notification_box">
+                <span id="notification_dialog">Hello Xin chao tat ca chung may</span>
+            </div>
+            <div class="notification_bot">
+            </div>
+        </div>
+        <div class="index_menu">
+            <div class="index_menu__content">
+                <div class="item_menu suggestion" id="btn_suggestion">
+                    <span>Recommended</span>
+                </div>
+                <div class="item_menu sale" id="btn_sale">
+                    <span>Sale</span>
+                </div>
+                <div class="item_menu favorite" id="btn_favorite">
+                    <span>Favorite</span>
+                </div>
+                <div class="item_menu category" id="btn_category">
+                    <span>Category</span>
+                </div>
+                <div class="item_menu gear" id="btn_gear">
+                    <span>Gear</span>
+                </div>
+                <div class="item_menu deal" id="btn_deal">
+                    <span>Exchange</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="footer_item">
+            <div class="footer_logo">
+                <a href="">
+                    <span class="logo_gg">
+                        GG<span class="logo_store">Store</span>
+                    </span>
+                </a>
+            </div>
+            <div class="content">
+                <span><i class="fa-solid fa-location-dot"></i> Address:CanTho,VietNam</span>
+                <span><i class="fa-solid fa-phone"></i> Phone:+84 123 456 789</span>
+                <span><i class="fa-solid fa-envelope"></i> Email:info@gmail.com</span>
+            </div>
+        </div>
+        <div class="footer_item">
+            <h3 class="title">Pages</h3>
+            <div class="content">
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+            </div>
+        </div>
+        <div class="footer_item">
+            <h3 class="title">Need Help?</h3>
+            <div class="content">
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+                <a href="">Home</a>
+            </div>
+        </div>
+        <div class="footer_item">
+            <h3 class="title">Follow us</h3>
+            <div class="social">
+                <a href="">
+                    <img src="images/facebook.png" alt="">
+                </a>
+                <a href="">
+                    <img src="images/twitter.png" alt="">
+                </a>
+                <a href="">
+                    <img src="images/telegram.png" alt="">
+                </a>
+                <a href="">
+                    <img src="images/instagram.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer_bottom">
+        <p>Copyright © 2023 <span class="ggstore">GGSTORE</span> All Rights Reserved.</p>
+        <img src="images/card_img.png" alt="">
+    </div>
+    <div class="button_top" id="scrollToTop">
+        <a href="#top" title="Top"><img src="images/504005.png" alt=""></a>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="includes/js/scrollbar.js"></script>
+<script src="includes/js/navbar.js"></script>
+<script src="includes/js/menu.js"></script>
+<script src="includes/js/smooth_scrolling.js"></script>
+<script src="includes/js/swipper.js"></script>
+<script src="includes/js/button_top.js"></script>
+<!-- <script src="includes/js/leaf.js"></script> -->
+<script>
+    const notification = document.getElementById('notification');
+    const notification_dialog = document.getElementById('notification_dialog');
+</script>
+<!-- recommened -->
+<script>
+    // favorite game
+    var swiper = new Swiper(".favorite-game", {
+        direction: "vertical",
+        slidesPerView: 1,
+        spaceBetween: 30,
+        mousewheel: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+</script>
+<!-- gift -->
+<script>
+    //  open close you like
+    const open_container_like = document.querySelector('.btn_open_you-will-like .open');
+    const close_container_like = document.querySelector('.close');
+    const container = document.querySelector('.you_like_container');
+    close_container_like.addEventListener('click', function() {
+        container.style.left = "-100%";
+        open_container_like.style.display = 'flex';
+        close_container_like.style.display = 'none';
+        notification.style.right = '70px';
+        notification_dialog.innerHTML = 'Hello Xin chao tat ca chung may';
+    });
+    open_container_like.addEventListener('click', function() {
+        container.style.left = '0';
+        open_container_like.style.display = 'none';
+        close_container_like.style.display = 'block';
+        notification.style.right = '50%';
+        notification_dialog.innerHTML = 'Bấm vào hộp quà để mở';
+    });
+
+
+    function addAnimation(n) {
+        const audio = new Audio("../sound/summit_task.wav")
+        setTimeout(function() {
+            audio.play();
+        }, 1000);
+        const head = document.head || document.getElementsByTagName('head')[0];
+        const styleElement = document.createElement('style');
+        const clickedBag = event.target.closest('.bag_gift');
+        clickedBag.classList.add('bag-clicked');
+        styleElement.textContent = `
+        .bag-clicked::after {
+        content: '';
+        position: absolute;
+        z-index: 5;
+        background-image: url(../images/a104.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        animation: open_gift_bag 2s ease;
+    }
+`;
+
+        head.appendChild(styleElement);
+
+        setTimeout(function() {
+            head.removeChild(styleElement);
+        }, 3000);
+
+        const clickedContainer = event.target.closest('.bling_container');
+        const close = clickedContainer.querySelector('.close_gift');
+        const open = clickedContainer.querySelector('.open_gift');
+        const bag = clickedContainer.querySelector('.bag_gift');
+        const gift = clickedContainer.querySelector('.gift');
+
+        setTimeout(function() {
+            close.style.display = 'none';
+            open.style.display = 'block';
+        }, 1000);
+
+        setTimeout(function() {
+            bag.style.display = 'none';
+        }, 2000);
+        setTimeout(function() {
+            gift.style.display = 'block';
+        }, 2050);
+    }
+</script>
+<!-- category -->
+<script>
+    const catagoryItems = document.querySelectorAll('.catagory-item');
+    const name_category = document.querySelectorAll('.image h2');
+
+    catagoryItems.forEach((catagoryItem, index) => {
+        const image = catagoryItem.querySelector('.image');
+        let animationActivated = false;
+
+        catagoryItem.addEventListener('click', () => {
+            if (!animationActivated) {
+                image.classList.add('active');
+                image.classList.add('add');
+                name_category[index].style.animation = 'suck-in 2s linear';
+                animationActivated = true;
+
+                setTimeout(function() {
+                    window.location.href = 'index.html'; // Thay đổi URL chuyển trang theo nhu cầu
+                }, 1900);
+
+            }
+        });
+    });
+</script>
+<script>
+    function setupClickListener(items, infor, closeBtn) {
+        const inforElement = document.getElementById(infor);
+        const closeElement = document.getElementById(closeBtn);
+        inforElement.style.display = 'none';
+
+        items.forEach(function(item) {
+            item.addEventListener('click', function() {
+                inforElement.style.display = 'block';
+            });
+        });
+
+        closeElement.onclick = () => {
+            inforElement.style.display = 'none';
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setupClickListener(
+            document.querySelectorAll('.item_product__sale'),
+            'infor_game_sale',
+            'close_infor_game_sale'
+        );
+
+        setupClickListener(
+            document.querySelectorAll('.item_product_favorite'),
+            'infor_game_favorite',
+            'close_infor_game_favorite'
+        );
+
+        setupClickListener(
+            document.querySelectorAll('.item_product__gear'),
+            'infor_gear',
+            'close_infor_gear'
+        );
+        setupClickListener(
+            document.querySelectorAll('.item_product_deal'),
+            'infor_deal',
+            'close_infor_deal'
+        );
+    });
+</script>
+<script>
+    const buttons = [{
+        btn: btn_suggestion,
+        game: recommended_game
+    }, {
+        btn: btn_sale,
+        game: sale_game
+    }, {
+        btn: btn_favorite,
+        game: favorite_game
+    }, {
+        btn: btn_category,
+        game: category_game
+    }, {
+        btn: btn_gear,
+        game: gear_game
+    }, {
+        btn: btn_deal,
+        game: deal_game
+    }];
+
+    const setActiveButton = (activeBtn) => {
+        buttons.forEach(({
+            btn,
+            game
+        }) => {
+            const isActive = btn === activeBtn;
+            game.style.left = isActive ? '50%' : '250%';
+            btn.style.transform = isActive ? 'scale(1.5) translateY(-10px)' : '';
+        });
+    };
+    // Thiết lập trạng thái ban đầu
+    recommended_game.style.left = '50%';
+    btn_suggestion.style.transform = 'scale(1.5) translateY(-10px)';
+    buttons.forEach(({
+        btn
+    }) => {
+        btn.onclick = () => setActiveButton(btn);
+    });
+</script>
+
+</html>
