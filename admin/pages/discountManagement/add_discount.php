@@ -6,20 +6,21 @@ function main()
     include("../../../mod/database_connection.php");
     $task = isset($_GET["task"]) ? $_GET["task"] : "";
     $search = isset($_POST["search"]) ? $_POST["search"] : "";
+    $manufacturer_id = isset($_POST["sl_manufacturer"]) ? $_POST["sl_manufacturer"] : "";
     $discount_amount = isset($_POST["discount_amount"]) ? $_POST["discount_amount"] : "";
     $checkboxes = isset($_POST["cb_select_product"]) ? $_POST["cb_select_product"] : "";
     $date_start = isset($_POST["date_start"]) ? $_POST["date_start"] : "";
     $date_end = isset($_POST["date_end"]) ? $_POST["date_end"] : "";
+
     if ($task == 'save') {
         $check_duplicate = false;
         foreach ($checkboxes as $value) {
-            $sql_check_duplicate = "SELECT * FROM `discounts` WHERE `product_id` = ? 
-                                    AND `discount_amount` = ? AND `start_date` = ? AND `end_date` = ?";
+            $sql_check_duplicate = "SELECT * FROM `discounts` WHERE `product_id` = ? AND `start_date` <= ? AND `end_date` >= ?";
             $stmt_check_duplicate = $conn->prepare($sql_check_duplicate);
             if (!$stmt_check_duplicate) {
                 die("Prepare failed");
             }
-            $stmt_check_duplicate->bind_param("iiss", $value, $discount_amount, $date_start, $date_end);
+            $stmt_check_duplicate->bind_param("iss", $value, $date_end, $date_start);
             $stmt_check_duplicate->execute();
             $result = $stmt_check_duplicate->get_result();
 
@@ -45,7 +46,7 @@ function main()
             }
             createNotification("Add Discount Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
             echo "<script>location.href='add_discount.php';</script>";
-        }else{
+        } else {
             createNotification("Duplicated added data!! Add Discount Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
             echo "<script>location.href='add_discount.php';</script>";
         }
@@ -72,7 +73,7 @@ function main()
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable_filter" class="dataTables_filter">
                                     <label>Manufacturer
-                                        <select name="dataTable_role" onchange="submit()" id="sl_manufacturer"
+                                        <select name="sl_manufacturer" onchange="submit()" id="sl_manufacturer"
                                             aria-controls="dataTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
                                             <option value="all">All</option>
@@ -82,7 +83,7 @@ function main()
 
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
-                                                    if (isset($_POST['dataTable_role']) && $_POST['dataTable_role'] != "all") { ?>
+                                                    if (isset($_POST['sl_manufacturer']) && $_POST['sl_manufacturer'] != "all") { ?>
                                                         <option value="<?php echo $row["id"]; ?>" selected>
                                                             <?php echo $row["full_name"]; ?>
                                                         </option>
@@ -160,10 +161,12 @@ function main()
                                     <tbody>
                                         <?php
                                         $query = "SELECT p.*,u.full_name FROM products p,users u
-                                         WHERE p.id_manufacturer = u.id";
-                                        if (isset($_POST['search'])) {
-                                            $query .= " AND p.product_name LIKE '%$search%'";
+                                         WHERE p.id_manufacturer = u.id AND p.product_name LIKE '%$search%'";
+
+                                        if ($manufacturer_id != "" && $manufacturer_id != "all") {
+                                            $query .= " AND p.id_manufacturer = $manufacturer_id";
                                         }
+
                                         $result = $conn->query($query);
 
                                         if ($result->num_rows > 0) {
@@ -189,21 +192,18 @@ function main()
                                                             if (in_array($row['id'], $checkboxes)) {
                                                                 $new_price = $row['price'] - ($row['price'] * $discount_amount / 100);
                                                                 echo $new_price;
+                                                            } else {
+                                                                echo "0";
                                                             }
                                                         } else {
                                                             echo "0";
                                                         }
-
                                                         ?>
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        <input type="checkbox" onclick="submit()" <?php if ($checkboxes != "") {
-                                                            if (in_array($row['id'], $checkboxes)) {
-                                                                echo "checked";
-                                                            }
-                                                        }
-                                                        ?>
-                                                            value="<?php echo $row['id']; ?>" name="cb_select_product[]"
+                                                        <input type="checkbox" onclick="submit()" 
+                                                        <?php if ($checkboxes != "" && in_array($row['id'], $checkboxes)) echo "checked"; ?>
+                                                            value="<?= $row['id']; ?>" name="cb_select_product[]"
                                                             style="transform: scale(1.5);">
                                                     </td>
                                                 </tr>
@@ -229,9 +229,10 @@ function main()
                     <div class="col-sm-12 col-md-4">
                         Discount amount
                         <div class="input-group">
-                            <input type="number" oninput="submit()" value="<?php echo $discount_amount; ?>"
-                                name="discount_amount" min="1" max="100" step="5" class="form-control">
-                            <span class="input-group-text">%</span>
+                            <input type="number" value="<?php echo $discount_amount; ?>" name="discount_amount" min="1"
+                                max="100" step="5" class="form-control">
+                            <a href="javascript:submit()" style="text-decoration: none;"><span
+                                    class="input-group-text">%</span></a>
                         </div>
 
 

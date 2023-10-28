@@ -360,8 +360,8 @@ function main()
                                                         $status == "no_discount" || $status == "all" && $page == $total_page && $date_start == "" && $date_end == ""
                                                     ) {
                                                         $query_sl_products = "SELECT * FROM products
-                                                        WHERE id NOT IN (SELECT product_id FROM discounts)
-                                                        AND product_name LIKE '%$search%'";
+                                                            WHERE id NOT IN (SELECT product_id FROM discounts)
+                                                            AND product_name LIKE '%$search%'";
                                                         $result_sl_products = $conn->query($query_sl_products);
                                                         if ($result_sl_products->num_rows > 0) {
                                                             while ($row1 = $result_sl_products->fetch_assoc()) {
@@ -392,6 +392,7 @@ function main()
                                                         }
                                                     }
                                                 }
+
                                                 $stmt->close();
                                                 ?>
 
