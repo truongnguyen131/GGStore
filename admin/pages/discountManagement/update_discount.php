@@ -21,7 +21,10 @@ function main()
         $start_date = $_POST['date_start'];
         $end_date = $_POST['date_end'];
 
-        $sql_check_duplicate = "SELECT * FROM discounts WHERE product_id = $product_id AND discount_amount = $percentage AND start_date = '$start_date' AND end_date = '$end_date'";
+        $sql_check_duplicate = "SELECT * FROM discounts WHERE product_id = $product_id 
+            AND start_date <= '$end_date'
+            AND end_date >= '$start_date' 
+            AND id != $id";
         $result_check_duplicate = $conn->query($sql_check_duplicate);
 
         if ($result_check_duplicate->num_rows > 0) {

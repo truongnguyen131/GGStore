@@ -276,10 +276,13 @@ function main()
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         if ($row["id"] == $id_manufacturer) { ?>
-                                            <option value="<?php echo $row["id"]; ?>" selected> <?php echo $row["full_name"]; ?>
+                                            <option value="<?php echo $row["id"]; ?>" selected>
+                                                <?php echo $row["full_name"]; ?>
                                             </option>
                                         <?php } else { ?>
-                                            <option value="<?php echo $row["id"]; ?>"><?php echo $row["full_name"]; ?></option>
+                                            <option value="<?php echo $row["id"]; ?>">
+                                                <?php echo $row["full_name"]; ?>
+                                            </option>
                                         <?php }
                                     }
                                 }
@@ -345,10 +348,36 @@ function main()
                             }
                             $genreDataJSON = json_encode($genreData);
                             ?>
-                            <script>                             function add_sl_genre() { var genreData = <?php echo $genreDataJSON; ?>; var genres = document.getElementsByName("genres[]"); var selectedGenres = Array.from(genres).map(option => option.value); const select = document.createElement('select'); select.className = 'input-left'; select.name = "genres[]"; for (var i = 0; i < genreData.length; i++) { var option = document.createElement("option"); option.value = genreData[i].id; option.textContent = genreData[i].genre_name; select.appendChild(option); } if (selectedGenres.length % 3 == 0 && selectedGenres != 0) { document.getElementById('add_genre').appendChild(document.createElement('br')); } document.getElementById('add_genre').appendChild(select); } function remove_sl_genre() {
-                                    var genres = document.getElementsByName("genres[]"); var selectedGenres = Array.from(genres).map(option => option.value); if (selectedGenres.length > 0) {
-                                        var lastSelect = genres[genres.length - 1]; lastSelect.parentNode.removeChild(lastSelect);
-                                        if ((selectedGenres.length - 1) % 3 == 0) { var addGenreDiv = document.getElementById("add_genre"); addGenreDiv.removeChild(addGenreDiv.lastElementChild); }
+                            <script>
+                                function add_sl_genre() {
+                                    var genreData = <?php echo $genreDataJSON; ?> ;
+                                    var genres = document.getElementsByName("genres[]");
+                                    var selectedGenres = Array.from(genres).map(option => option.value);
+                                    const select = document.createElement('select');
+                                    select.className = 'input-left';
+                                    select.name = "genres[]";
+                                    for (var i = 0; i < genreData.length; i++) {
+                                        var option = document.createElement("option");
+                                        option.value = genreData[i].id;
+                                        option.textContent = genreData[i].genre_name;
+                                        select.appendChild(option);
+                                    }
+                                    if (selectedGenres.length % 3 == 0 && selectedGenres != 0) {
+                                        document.getElementById('add_genre').appendChild(document.createElement('br'));
+                                    }
+                                    document.getElementById('add_genre').appendChild(select);
+                                }
+
+                                function remove_sl_genre() {
+                                    var genres = document.getElementsByName("genres[]");
+                                    var selectedGenres = Array.from(genres).map(option => option.value);
+                                    if (selectedGenres.length > 0) {
+                                        var lastSelect = genres[genres.length - 1];
+                                        lastSelect.parentNode.removeChild(lastSelect);
+                                        if ((selectedGenres.length - 1) % 3 == 0) {
+                                            var addGenreDiv = document.getElementById("add_genre");
+                                            addGenreDiv.removeChild(addGenreDiv.lastElementChild);
+                                        }
                                     }
                                 }
                             </script>
@@ -420,7 +449,9 @@ function main()
                             Source
                         </td>
                         <td>
-                            <a href="../../../uploads/<?php echo $file_source; ?>"><?php echo $file_source; ?></a>
+                            <a href="../../../uploads/<?php echo $file_source; ?>">
+                                <?php echo $file_source; ?>
+                            </a>
                             <input type="file" class="input-left" name="fileSource" accept=".zip">
                         </td>
                         <td id="errorfileSource" class="error"></td>
