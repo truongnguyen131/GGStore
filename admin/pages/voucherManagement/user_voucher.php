@@ -17,7 +17,7 @@ function main()
         $begin = ($page * $show_entries) - $show_entries;
     }
 
-    $query = "SELECT u.id,u.full_name,v.id id_voucher, v.discount_percentage, uv.amount
+    $query = "SELECT u.id,u.full_name,v.id id_voucher, v.value, uv.amount
     FROM user_voucher uv
     JOIN users u ON uv.user_id = u.id
     JOIN vouchers v ON uv.voucher_id = v.id WHERE u.full_name LIKE '%$search%'
@@ -240,7 +240,7 @@ function main()
                                                         <?php echo $row['full_name']; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['discount_percentage']; ?>%
+                                                        <?php echo $row['id_voucher']; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $row['amount']; ?>
@@ -337,11 +337,11 @@ function main()
                                                     while ($row = $result_sl_vouchers->fetch_assoc()) {
                                                         if (isset($_GET['id_voucher']) && $_GET['id_voucher'] == $row["id"]) { ?>
                                                             <option value="<?php echo $row["id"]; ?>" selected>
-                                                                <?php echo $row["discount_percentage"]; ?>
+                                                                <?php echo $row["id"]; ?>
                                                             </option>
                                                         <?php } else { ?>
                                                             <option value="<?php echo $row["id"]; ?>">
-                                                                <?php echo $row["discount_percentage"]; ?>
+                                                                <?php echo $row["id"]; ?>
                                                             </option>
                                                         <?php }
                                                     } ?>

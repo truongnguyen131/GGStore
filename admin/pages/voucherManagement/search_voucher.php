@@ -1,7 +1,10 @@
 <?php
 include("../../../mod/database_connection.php");
 $arrangement = isset($_POST["arrangement"]) ? $_POST["arrangement"] : "";
-$show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : "";
+$show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : 10;
+$voucher_type = isset($_POST["voucher_type"]) ? $_POST["voucher_type"] : "";
+$status = isset($_POST["status"]) ? $_POST["status"] : "";
+
 if (isset($_POST['index_page'])) {
     $page = $_POST['index_page'];
 } else {
@@ -13,13 +16,27 @@ if ($page == "" || $page == 1) {
     $begin = ($page * $show_entries) - $show_entries;
 }
 
-$query = "SELECT id, discount_percentage FROM vouchers ";
+$query = "SELECT * FROM vouchers WHERE id LIKE ? ";
+$params = array("%%");
 
-if($arrangement == "ascending"){
-    $query .= "ORDER BY(discount_percentage) ASC ";
+if ($voucher_type != "all") {
+    $query .= "AND type = ? ";
+    $params[] = $voucher_type;
 }
-if($arrangement == "descending"){
-    $query .= "ORDER BY(discount_percentage) DESC ";
+
+if ($status == "expiration") {
+    $query .= "AND date_expiry >= CURDATE() ";
+}
+
+if ($status == "expired") {
+    $query .= "AND date_expiry < CURDATE() ";
+}
+
+if ($arrangement == "ascending") {
+    $query .= "ORDER BY(value) ASC ";
+}
+if ($arrangement == "descending") {
+    $query .= "ORDER BY(value) DESC ";
 }
 
 //select $total_page
@@ -28,6 +45,8 @@ $stmt = $conn->prepare($query);
 if (!$stmt) {
     die("Prepare failed: Reload page now");
 }
+
+$stmt->bind_param(str_repeat("s", count($params)), ...$params);
 
 if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
@@ -40,15 +59,18 @@ $total_page = ceil($total_num_rows / $show_entries);
 $stmt->close();
 
 //select data
-$query .= "LIMIT ?,?";
+$query .= "LIMIT ?, ?";
+
+$params[] = $begin;
+$params[] = $show_entries;
 
 $stmt = $conn->prepare($query);
 
 if (!$stmt) {
-    die("Prepare failed");
+    die("Prepare failed: Reload page now");
 }
 
-$stmt->bind_param("ii", $begin, $show_entries);
+$stmt->bind_param(str_repeat("s", count($params)), ...$params);
 
 if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
@@ -71,8 +93,24 @@ $result = $stmt->get_result();
                         ID
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                        aria-label="Genre name: activate to sort column ascending" style="width: 307px;">
-                        Voucher
+                        aria-label="Value: activate to sort column ascending" style="width: 203px;">
+                        Value
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Type: activate to sort column ascending" style="width: 307px;">
+                        Type
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Quantity: activate to sort column ascending" style="width: 203px;">
+                        Condition
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Quantity: activate to sort column ascending" style="width: 203px;">
+                        Quantity
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Date expiry: activate to sort column ascending" style="width: 307px;">
+                        Date expiry
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-label="Age: activate to sort column ascending" style="width: 70px;">Update
@@ -86,7 +124,11 @@ $result = $stmt->get_result();
             <tfoot>
                 <tr>
                     <th rowspan="1" colspan="1">ID</th>
-                    <th rowspan="1" colspan="1">Voucher</th>
+                    <th rowspan="1" colspan="1">Value</th>
+                    <th rowspan="1" colspan="1">Type</th>
+                    <th rowspan="1" colspan="1">Condition</th>
+                    <th rowspan="1" colspan="1">Quantity</th>
+                    <th rowspan="1" colspan="1">Date expiry</th>
                     <th rowspan="1" colspan="1">Update</th>
                     <th rowspan="1" colspan="1">Delete</th>
                 </tr>
@@ -101,10 +143,22 @@ $result = $stmt->get_result();
                             <td>
                                 <?php echo $row['id']; ?>
                             </td>
-                            <td id="discount_percentage_<?= $row['id']; ?>" >
-                                <?php echo $row['discount_percentage']; ?>%
+                            <td>
+                                <?php echo $row['value']; ?><?= ($row['type'] == 'percent') ? "%" : "" ?>
                             </td>
-                            <td><a href="javascript:update(<?php echo $row['id']; ?>)">Update</a></td>
+                            <td>
+                                <?php echo $row['type']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['minimum_condition']; ?>
+                            </td>
+                            <td>
+                                <?= $row['quantity']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['date_expiry']; ?>
+                            </td>
+                            <td><a href="update_voucher.php?id=<?php echo $row['id']; ?>">Update</a></td>
                             <td><a href="javascript:deleteItem(<?php echo $row['id']; ?>)">Delete</a></td>
                         </tr>
                         <?php
@@ -137,7 +191,9 @@ $result = $stmt->get_result();
                         echo 'active';
                     } ?>">
                         <a href="javascript:search(<?php echo $i; ?>)" aria-controls="dataTable"
-                            data-dt-idx="<?php echo $i; ?>" tabindex="0" class="page-link"><?php echo $i; ?></a>
+                            data-dt-idx="<?php echo $i; ?>" tabindex="0" class="page-link">
+                            <?php echo $i; ?>
+                        </a>
                     </li>
                 <?php }
                 ?>
@@ -148,17 +204,9 @@ $result = $stmt->get_result();
             </ul>
         </div>
     </div>
-    <div class="col-sm-12 col-md-6 text-md-right">
+    <div class="col-sm-12 col-md-6 text-md-right mt-3">
         <div id="dataTable_filter" class="dataTables_filter">
-            <label>
-                <div class="input-group">
-                    <input type="number" id="add" min="5" max="90" step="5" class="form-control">
-                    <span class="input-group-text">%</span>
-                </div>
-            </label>
-            <input type="button" onclick="add()"
-                style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;"
-                value="Add Voucher">
+            <a href="add_voucher.php">Add new voucher</a>
         </div>
     </div>
 

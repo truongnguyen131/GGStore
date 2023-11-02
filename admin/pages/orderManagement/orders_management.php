@@ -89,7 +89,7 @@ function main()
         <form method="post" name="frmDataDiscount">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">DataTable Discounts</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">DataTable Orders</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -155,9 +155,12 @@ function main()
                                 <div class="col-sm-12 col-md-3" style=" text-align: right;">
                                     <div class="dataTables_filter">
                                         <label>Search
-                                            <input type="search" id="search" name="search" onkeyup="submit()"
-                                                class="form-control form-control-sm" placeholder=""
-                                                aria-controls="dataTable" value="<?= $search; ?>">
+                                            <div class="input-group">
+                                                <input type="search" id="search" name="search"
+                                                    class="form-control form-control-sm" placeholder=""
+                                                    aria-controls="dataTable" value="<?php echo $search; ?>">
+                                                <input type="button" onclick="submit()" value="Find">
+                                            </div>
                                         </label>
                                     </div>
                                 </div>

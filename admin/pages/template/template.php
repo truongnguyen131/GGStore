@@ -162,6 +162,7 @@ include_once('../../../mod/database_connection.php');
                         <a class="collapse-item" href="../voucherManagement/vouchers_management.php">Vouchers
                             Management</a>
                         <a class="collapse-item" href="../voucherManagement/user_voucher.php">User's Voucher</a>
+                        <a class="collapse-item" href="../voucherManagement/voucher_usage.php">Voucher Usage</a>
                     </div>
                 </div>
             </li>
