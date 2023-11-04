@@ -250,9 +250,14 @@ function main()
                                 <div class="col-sm-12 col-md-2" style=" text-align: right;">
                                     <div id="dataTable_filter" class="dataTables_filter">
                                         <label>Search
-                                            <input type="search" id="search" name="search" onkeyup="submit()"
-                                                class="form-control form-control-sm" placeholder=""
-                                                aria-controls="dataTable" value="<?php echo $search; ?>">
+                                            <div class="input-group">
+                                                <input type="search" id="search" name="search"
+                                                    class="form-control form-control-sm" placeholder=""
+                                                    aria-controls="dataTable" value="<?php echo $search; ?>">
+                                                <input type="button" onclick="submit()" value="Find">
+
+                                            </div>
+
                                         </label>
                                     </div>
                                 </div>

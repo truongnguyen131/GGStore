@@ -41,11 +41,22 @@ body {
     font-size: 15px;
     font-weight: 500;
     color: #d4d4d4;
-    background-image: url(../../images/mid-5.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes shaking {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(5deg);
+    }
 }
 
 .luckyWheel {
@@ -117,7 +128,7 @@ body {
     top: 200px;
     left: -100%;
     z-index: 10;
-    background-image: url(../../images/index/T_Share02.png);
+    background-image: url(../../images/UI/T_Share02.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -175,6 +186,10 @@ body {
     height: 60px;
 }
 
+.bag_gift .close_gift {
+    animation: shaking .5s linear infinite alternate;
+}
+
 @keyframes open_gift_bag {
     0% {
         width: 0;
@@ -189,19 +204,12 @@ body {
 }
 
 .gift {
-    background-image: url(../../images/card4.png);
+    background: url(../../images/card4.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100px;
-    height: 180px;
-    padding: 1rem 1rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0.5rem;
     position: relative;
-    border-radius: 5px;
 }
 
 .gift .img_game {
@@ -298,8 +306,8 @@ body {
 
 .old_price img,
 .new_price img {
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 13px;
 }
 
 .btn_buy_gift {
@@ -402,1225 +410,613 @@ body {
 }
 
 
-/* index 2 */
+/* index contain */
 
 .index_contain {
+    margin-top: 6rem;
+    width: 100%;
+}
+
+.index_contain__head {
+    width: 100%;
+    height: 400px;
+    padding: 2rem 6rem 0 6rem;
+    background: url(../../images/bg-sub-head.png) center;
+    background-size: cover;
+}
+
+.index_contain__body {
+    width: 100%;
+    height: auto;
+    padding: 0 6rem;
+    background: url(../../images/bg-main-content.png) center repeat;
+    background-size: cover;
+}
+
+.dialog {
     margin: 0 auto;
-    margin-top: 7rem;
+    margin-bottom: 2rem;
     width: 100%;
     height: 500px;
+    background: url(../../images/UI/ty_mb_shangcheng.png) center no-repeat;
+    background-size: contain;
+    padding: 2.5rem 10rem 3rem 10rem;
+    position: relative;
+}
+
+.title,
+.title_cate,
+.title_recommend {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: relative;
-    overflow-x: hidden;
 }
 
-
-/* menu */
-
-.index_contain .index_menu {
-    width: 400px;
-    height: 100px;
-    background-image: url(../../images/menu1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 1rem;
+.title {
     position: absolute;
-    bottom: 0;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.index_contain .index_menu .index_menu__content {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.index_contain .index_menu .item_menu {
-    cursor: pointer;
-    width: 60px;
-    height: 40px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: .2s linear;
-}
-
-.suggestion {
-    background-image: url(../../images/btn_menu1.png);
-}
-
-.sale {
-    background-image: url(../../images/btn_menu2.png);
-}
-
-.favorite {
-    background-image: url(../../images/btn_menu3.png);
-}
-
-.category {
-    background-image: url(../../images/btn_menu4.png);
-}
-
-.gear {
-    background-image: url(../../images/btn_menu6.png);
-}
-
-.deal {
-    background-image: url(../../images/marketplace.png);
-}
-
-.index_contain .index_menu .item_menu span {
+.title h1,
+.title_cate h1,
+.title_recommend h1 {
     font-family: 'Permanent Marker', cursive;
-    position: absolute;
-    bottom: -5px;
-    font-size: 10px;
-    font-weight: bold;
     color: var(--color_yellow);
-    text-shadow: 1px 1px 1px rgb(128, 0, 49);
-    background: rgba(0, 0, 0, 0.39);
-    border-radius: 5px;
+    text-shadow: 1px 1px 3px var(--color_black);
 }
 
-.index_contain .index_menu .item_menu:hover {
-    transform: scale(1.5) translateY(-10px);
+.line {
+    width: 100%;
+    max-width: 100%;
 }
 
+.line img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
-/* recommended */
-
-.index_contain .recommended_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/T_Share04.png);
+.see_more {
+    position: absolute;
+    top: -18px;
+    right: 8%;
+    background: url(../../images/a301.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 4rem;
-    position: absolute;
-    top: 40%;
-    left: 200%;
-    translate: -50% -50%;
-    transition: left .5s linear;
-}
-
-.index_contain .recommended_game::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 0;
-    background-image: url(../../images/Effect/torch/torch1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-    animation: torch 2s infinite linear;
-}
-
-.index_contain .recommended_game::after {
-    content: '';
-    position: absolute;
-    top: 20px;
-    right: 0;
-    background-image: url(../../images/Effect/torch/torch1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-    animation: torch 2s infinite linear;
-}
-
-@keyframes torch {
-    20% {
-        background-image: url(../../images/Effect/torch/torch2.png);
-    }
-    40% {
-        background-image: url(../../images/Effect/torch/torch3.png);
-    }
-    60% {
-        background-image: url(../../images/Effect/torch/torch4.png);
-    }
-    80% {
-        background-image: url(../../images/Effect/torch/torch5.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/torch/torch6.png);
-    }
-}
-
-.notification {
-    pointer-events: none;
-    position: absolute;
-    z-index: 10;
-    top: 30%;
-    right: 70px;
-    width: 100px;
-    height: 200px;
+    width: 50px;
+    height: 170px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: right 1s linear;
 }
 
-.notification_box {
-    position: absolute;
-    top: -40px;
-    z-index: 5;
-    background: #f6e6c5;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 5px;
-    width: 200px;
-    padding: 5px;
-}
-
-.notification_box::before {
-    content: '';
-    position: absolute;
-    top: 90%;
-    right: 10px;
-    width: 30px;
-    height: 40px;
-    background: #f6e6c5;
-    clip-path: polygon(0 64%, 24% 0, 71% 0);
-    transform: rotate(360deg);
-}
-
-.notification_box span {
-    font-size: 13px;
-    color: var(--color_black);
-}
-
-.notification_bot {
-    pointer-events: none;
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 55%;
-    translate: -50% -50%;
-    background-image: url(../../images/Effect/notification/notification1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 80px;
-    height: 150px;
-    animation: wing 2s infinite linear forwards;
-}
-
-@keyframes wing {
-    7% {
-        background-image: url(../../images/Effect/notification/notification2.png);
-    }
-    14% {
-        background-image: url(../../images/Effect/notification/notification3.png);
-    }
-    21% {
-        background-image: url(../../images/Effect/notification/notification4.png);
-    }
-    28% {
-        background-image: url(../../images/Effect/notification/notification5.png);
-    }
-    35% {
-        background-image: url(../../images/Effect/notification/notification6.png);
-    }
-    42% {
-        background-image: url(../../images/Effect/notification/notification7.png);
-    }
-    49% {
-        background-image: url(../../images/Effect/notification/notification8.png);
-    }
-    56% {
-        background-image: url(../../images/Effect/notification/notification9.png);
-    }
-    63% {
-        background-image: url(../../images/Effect/notification/notification10.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/notification/notification11.png);
-    }
-    77% {
-        background-image: url(../../images/Effect/notification/notification12.png);
-    }
-    85% {
-        background-image: url(../../images/Effect/notification/notification13.png);
-    }
-    92% {
-        background-image: url(../../images/Effect/notification/notification14.png);
-    }
-    99% {
-        background-image: url(../../images/Effect/notification/notification15.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/notification/notification16.png);
-    }
-}
-
-
-/* saleGame */
-
-.index_contain .sale_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/T_Intimacy_01.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 3rem 2rem 9rem;
-    position: absolute;
-    top: 40%;
-    left: 250%;
-    translate: -50% -50%;
-    transition: left .5s linear;
-}
-
-.sale_game__content {
-    position: relative;
-    height: 100%;
-}
-
-.banner {
-    position: absolute;
-    top: -8px;
-    left: -166px;
-    width: 200px;
-    height: 200px;
-    background-image: url(../../images/sale_banner.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn_seeMore {
-    position: absolute;
-    bottom: 10px;
-    left: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url(../../images/btn_seemore.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-}
-
-.btn_seeMore a {
+.see_more span {
     font-family: 'Permanent Marker', cursive;
-    padding: 20px 10px;
-    margin-bottom: 20px;
+    color: black;
     font-size: 10px;
-    color: var(--color_black);
 }
 
 .list_product {
-    width: 100%;
-    height: 100%;
-    --spacing: 10px;
-    --columns: 4;
+    --spacing: 5px;
+    --columns: 3;
     display: flex;
     flex-wrap: wrap;
     margin-left: calc(-1 * var(--spacing));
-    margin-top: 5px;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.list_product::-webkit-scrollbar {
+    display: none;
 }
 
 .item_product {
     cursor: pointer;
     width: calc(calc(100% / var(--columns)) - var(--spacing));
-    height: 160px;
-    background-image: url(../../images/cardd.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 180px;
     margin-left: var(--spacing);
     margin-bottom: var(--spacing);
-    padding: 1rem 1rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 10px;
-    position: relative;
-}
-
-.sale_banner {
-    position: absolute;
-    top: -6px;
-    right: -5px;
-    background-image: url(../../images/sale.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 60px;
-    height: 60px;
-    padding: 5px 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.sale_banner span {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 12px;
-    color: var(--color_yellow);
-}
-
-.sale_banner p {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 8px;
-    color: var(--color_black);
-}
-
-.item_product .img_product {
-    width: 55px;
-    height: 55px;
-    position: relative;
-}
-
-.item_product .sale::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    width: 75px;
-    height: 75px;
-    background-image: url(../../images/Effect/red-00000.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: border_product 2s infinite linear;
-}
-
-@keyframes border_product {
-    0% {
-        background-image: url(../../images/Effect/red-00001.png);
-    }
-    10% {
-        background-image: url(../../images/Effect/red-00002.png);
-    }
-    20% {
-        background-image: url(../../images/Effect/red-00003.png);
-    }
-    30% {
-        background-image: url(../../images/Effect/red-00004.png);
-    }
-    40% {
-        background-image: url(../../images/Effect/red-00005.png);
-    }
-    50% {
-        background-image: url(../../images/Effect/red-00006.png);
-    }
-    60% {
-        background-image: url(../../images/Effect/red-00007.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/red-00008.png);
-    }
-    80% {
-        background-image: url(../../images/Effect/red-00009.png);
-    }
-    90% {
-        background-image: url(../../images/Effect/red-00010.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/red-00011.png);
-    }
-}
-
-.item_product .img_product img {
-    width: 100%;
-    height: 100%;
-}
-
-.item_product .name_product {
-    background-image: url(../../images/text_box1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.item_product .name_product span {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 13px;
-    font-weight: bold;
-    text-shadow: 1px 1px 1px var(--color_yellow);
-    color: var(--color_black);
-    text-align: center;
-}
-
-.item_product_favorite {
-    row-gap: 0 !important;
-    padding: 10px 1rem 0 1rem !important;
-}
-
-.rating i {
-    color: var(--color_yellow);
-}
-
-.banner span {
-    font-family: 'Permanent Marker', cursive;
-    color: var(--color_black);
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.price_product {
-    display: flex;
-    align-items: center;
-    margin-left: 5px;
-}
-
-.price_product span {
-    font-family: 'Permanent Marker', cursive;
-    color: var(--color_black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-}
-
-.price_product .old {
-    color: gray;
-    text-decoration: line-through;
-}
-
-.price_product .new {
-    color: var(--color_yellow);
-    text-shadow: 1px 1px 1px black;
-}
-
-.price_product span img {
-    width: 25px;
-    height: 25px;
-}
-
-.infor_game_sale {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url(../../images/infor_item_web.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 300px;
-    height: 300px;
-    padding: 1.5rem;
-}
-
-.close_infor_game_sale {
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 10px;
-}
-
-.close_infor_game_sale img {
-    width: 25px;
-    height: 25px;
-}
-
-.infor_game_sale__content {
+    background: rgb(230, 210, 171);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 5px;
+    position: relative;
+    overflow: hidden;
 }
 
-.img_product {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.item_infor_full {
+    position: absolute;
+    z-index: 6;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 5px;
+    background: rgba(74, 67, 54, 0.632);
+    backdrop-filter: blur(10px);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: bottom 0.2s linear;
 }
 
-.img_product img {
-    width: 200px;
-    height: 95px;
+.item_product:hover .item_infor_full {
+    bottom: 0;
 }
 
-.infor_product h3 {
+.item_infor_full .cate {
     font-family: 'Permanent Marker', cursive;
-    color: black;
-    text-shadow: 1px 1px 1px var(--color_yellow);
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 3px var(--color_black);
 }
 
-.infor_product span {
+.item_infor_full .cate a {
     font-family: 'Permanent Marker', cursive;
-    color: black;
-}
-
-.infor_product a {
-    font-family: 'Permanent Marker', cursive;
-    color: rgba(255, 0, 0, 0.68);
+    color: red;
     text-decoration: underline;
 }
 
-.price_product_sale {
+.item_infor_full .amount {
+    margin-top: 5px;
     display: flex;
     align-items: center;
 }
 
-.price_product_sale .price_old {
-    font-family: 'Permanent Marker', cursive;
-    color: gray;
-    text-decoration: line-through;
-}
-
-.price_product_sale .price_new {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 20px;
-    color: var(--color_yellow);
-    text-shadow: 1px 1px 1px black;
-}
-
-.price_product_sale img {
-    vertical-align: middle;
-    width: 30px;
-    height: 30px;
-}
-
-.amount {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.amount .reduce {
+.item_infor_full .amount .reduce {
     background: none;
-    outline: none;
     border: none;
-    background-image: url(../../images/minus.png);
+    outline: none;
+    background: url(../../images/minus.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
-.amount .increase {
+.item_infor_full .amount .increase {
     background: none;
-    outline: none;
     border: none;
-    background-image: url(../../images/plus.png);
+    outline: none;
+    background: url(../../images/plus.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
-.amount .reduce:active,
-.amount .increase:active {
+.item_infor_full .amount button {
+    filter: drop-shadow(1px 2px 1px black);
+}
+
+.item_infor_full .amount button:active {
     transform: scale(0.9);
 }
 
-.amount .number_amount {
+.item_infor_full .amount .number_amount {
     font-family: 'Permanent Marker', cursive;
-    color: var(--color_black);
+    color: black;
+    background: rgb(243, 237, 228);
+    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
     width: 100px;
     height: 25px;
-    background: wheat;
-    box-shadow: inset 0 0 1rem 0 rgba(11, 11, 11, 0.374);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 3px;
 }
 
-.btn {
+.item_infor_full .btn {
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 5px;
 }
 
-.btn a {
-    font-family: 'Permanent Marker', cursive;
-    color: var(--color_black);
-    font-size: 13px;
-    background-image: url(../../images/btn.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 12px 22px;
-}
-
-.btn .detail {
-    padding: 12px 15px;
-}
-
-.btn button {
+.item_infor_full .btn button {
     cursor: pointer;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    background: url(../../images/btn06.png) center no-repeat;
+    background-size: contain;
+    width: 80px;
+    height: 50px;
+    transition: .3s linear;
+}
+
+.item_infor_full .btn a {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size: 10px;
+    background: url(../../images/btn06.png) center no-repeat;
+    background-size: contain;
+    padding: 10px 25px;
+    transition: .3s linear;
+}
+
+.item_infor_full .btn .buy {
+    padding: 10px 30px;
+}
+
+.item_infor_full .btn button:hover,
+.item_infor_full .btn a:hover {
+    background: url(../../images/btn07.png) center no-repeat;
+    background-size: contain;
+    color: red;
+}
+
+.item_infor_full .btn button:active,
+.item_infor_full .btn a:active {
+    transform: scale(0.9);
+}
+
+
+/* recommend for you  */
+
+.recommend {
+    height: 200px;
+}
+
+.recommend_item {
+    position: relative;
+    background: url(../../images/border-feature.png) center no-repeat;
+    background-size: contain;
+    padding: 1rem 0.5rem;
+}
+
+.recommend_item video {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    object-fit: cover;
+    transition: opacity .5s linear;
+}
+
+.recommend_item:hover video {
+    opacity: 1;
+}
+
+.recommend_item img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.slick-initialized .slick-slide {
+    margin: 0 6px;
+}
+
+.slick-prev {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
     background: none;
     outline: none;
     border: none;
-    font-family: 'Permanent Marker', cursive;
-    color: var(--color_black);
-    font-size: 10px;
-    background-image: url(../../images/btn.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 70px;
-    height: 35px;
 }
 
-.btn a:hover,
-.btn button:hover {
-    background-image: url(../../images/btn_active.png);
-}
-
-
-/* favorite */
-
-.index_contain .favorite_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/T_Intimacy_02.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 5rem;
-    position: absolute;
-    top: 40%;
-    left: 250%;
-    translate: -50% -50%;
-    transition: left .5s linear;
-}
-
-.decorate {
-    pointer-events: none;
-    position: absolute;
-    z-index: 10;
-    top: -5px;
-    right: 15px;
-}
-
-.decorate img {
-    width: 200px;
-    height: 100px;
+.slick-next img {
     transform: scaleX(-1);
 }
 
-.btn_seeMore_favorite {
+.slick-next {
+    cursor: pointer;
     position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+
+/* sale */
+
+.sale_content {
+    width: 100%;
+    height: 100%;
+}
+
+.item_product {
+    position: relative;
+}
+
+.banner_sale {
+    position: absolute;
+    z-index: 7;
     top: 0;
-    left: 25px;
-    background-image: url(../../images/a301.png);
+    right: -5px;
+    background: url(../../images/sale.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 130px;
-    padding: 2rem;
+    width: 50px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.btn_seeMore_favorite span {
-    margin-bottom: 5px;
+.banner_sale-animation {
+    animation: shaking .5s linear infinite alternate;
+}
+
+.banner_sale span {
     font-family: 'Permanent Marker', cursive;
-    color: purple;
-    font-size: 9px;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 1px black;
+    font-size: 13px;
 }
 
+.banner_sale p {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size: 10px;
+}
 
-/* category */
+.item_product__content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
 
-.index_contain .category_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/Texture_Star_11.png);
+.item_product__content .img {
+    width: 100%;
+    height: 70%;
+}
+
+.item_product__content .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+:is(.product_sale,
+.product_deal) .name_and_price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 5px;
+    height: 50px;
+}
+
+:is(.product_favorite,
+.product_gear) .name_and_price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 5px;
+    height: 30px;
+}
+
+.name_product {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    text-shadow: 1px 1px 1px var(--color_yellow);
+    font-weight: bold;
+    font-size: 20px;
+    width: 55%;
+}
+
+.price {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    background: url(../../images/text_box.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 5rem;
-    position: absolute;
-    top: 40%;
-    left: 250%;
-    translate: -50% -50%;
-    transition: left .5s linear;
 }
 
-.index_contain .category_game::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 20px;
-    background-image: url(../../images/Effect/lantern/lantern1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-    animation: lantern 3s infinite linear;
+.price .old_price span {
+    font-family: 'Permanent Marker', cursive;
+    color: gray;
+    margin-right: 5px;
 }
 
-.index_contain .category_game::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 20px;
-    background-image: url(../../images/Effect/lantern/lantern1.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-    animation: lantern 2s infinite linear;
-}
-
-@keyframes lantern {
-    7% {
-        background-image: url(../../images/Effect/lantern/lantern2.png);
-    }
-    14% {
-        background-image: url(../../images/Effect/lantern/lantern3.png);
-    }
-    21% {
-        background-image: url(../../images/Effect/lantern/lantern4.png);
-    }
-    28% {
-        background-image: url(../../images/Effect/lantern/lantern5.png);
-    }
-    35% {
-        background-image: url(../../images/Effect/lantern/lantern6.png);
-    }
-    42% {
-        background-image: url(../../images/Effect/lantern/lantern7.png);
-    }
-    49% {
-        background-image: url(../../images/Effect/lantern/lantern8.png);
-    }
-    56% {
-        background-image: url(../../images/Effect/lantern/lantern9.png);
-    }
-    63% {
-        background-image: url(../../images/Effect/lantern/lantern10.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/lantern/lantern11.png);
-    }
-    77% {
-        background-image: url(../../images/Effect/lantern/lantern12.png);
-    }
-    84% {
-        background-image: url(../../images/Effect/lantern/lantern13.png);
-    }
-    91% {
-        background-image: url(../../images/Effect/lantern/lantern14.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/lantern/lantern15.png);
-    }
+.price .new_price span {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_yellow);
+    font-size: 20px;
+    text-shadow: 1px 1px 1px black;
+    margin-right: 5px;
 }
 
 
 /* gear */
 
-.index_contain .gear_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/Texture_Bg_06.png);
+.product_gear .img img {
+    object-fit: cover;
+}
+
+
+/* category */
+
+.category {
+    margin: 0 auto;
+    width: 100%;
+    height: 380px;
+    background: url(../../images/UI/T_Share02.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 4rem 2rem 7rem;
-    position: absolute;
-    top: 40%;
-    left: 250%;
-    translate: -50% -50%;
-    transition: left .5s linear;
+    padding: 3rem 6rem;
 }
 
-.seeMore {
-    position: absolute;
-    z-index: 2;
-    top: -20px;
-    left: 0;
+.cate_list {
+    height: 100%;
 }
 
-.seeMore img {
-    width: 150px;
-    height: 100px;
-}
-
-.seeMore a {
-    position: absolute;
-    top: 57%;
-    left: 45px;
-}
-
-.btn_see_More {
-    padding-top: 35px;
-    background-image: url(../../images/tag.png);
+.cate__item {
+    background: url(../../images/card4.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 50px;
-    height: 150px;
-}
-
-.see-more {
-    display: flex;
+    height: 310px !important;
+    display: flex !important;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.see-more span {
+.cate__item h1 {
     font-family: 'Permanent Marker', cursive;
-    color: rgb(186, 4, 4);
-    font-size: 10px;
-}
-
-.gear_product::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    width: 75px;
-    height: 75px;
-    background-image: url(../../images/Effect/pink-00000.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: border_product_gear 2s infinite linear;
-}
-
-@keyframes border_product_gear {
-    0% {
-        background-image: url(../../images/Effect/pink-00001.png);
-    }
-    10% {
-        background-image: url(../../images/Effect/pink-00002.png);
-    }
-    20% {
-        background-image: url(../../images/Effect/pink-00003.png);
-    }
-    30% {
-        background-image: url(../../images/Effect/pink-00004.png);
-    }
-    40% {
-        background-image: url(../../images/Effect/pink-00005.png);
-    }
-    50% {
-        background-image: url(../../images/Effect/pink-00006.png);
-    }
-    60% {
-        background-image: url(../../images/Effect/pink-00007.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/pink-00008.png);
-    }
-    80% {
-        background-image: url(../../images/Effect/pink-00009.png);
-    }
-    90% {
-        background-image: url(../../images/Effect/pink-00010.png);
-    }
-    100% {
-        background-image: url(../../images/Effect/pink-00011.png);
-    }
-}
-
-.seeMore {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 2px black;
 }
 
 
 /* deal */
 
-.index_contain .deal_game {
-    width: 820px;
-    height: 400px;
-    background-image: url(../../images/index/Texture_Star_11.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem 5rem;
+.amount_tag {
     position: absolute;
-    top: 40%;
-    left: 250%;
-    translate: -50% -50%;
-    transition: left .5s linear;
-}
-
-.item_product_deal {
-    row-gap: 0 !important;
-}
-
-.deal_product::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    width: 75px;
-    height: 75px;
-    background-image: url(../../images/Effect/oorange-00000.png);
+    z-index: 7;
+    top: 0;
+    right: -10px;
+    background: url(../../images/sale.png) center no-repeat;
     background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: border_product_deal 2s infinite linear;
+    width: 50px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: shaking .5s linear infinite alternate;
 }
 
-@keyframes border_product_deal {
+.amount_tag span {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+    font-size: 8px;
+}
+
+.amount_tag p {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--color_yellow);
+    text-shadow: 1px 1px 2px black;
+}
+
+.product_deal .price .quantity span {
+    font-family: 'Permanent Marker', cursive;
+    color: black;
+}
+
+
+/* favorite */
+
+@keyframes changeSeven {
     0% {
-        background-image: url(../../images/Effect/oorange-00001.png);
-    }
-    10% {
-        background-image: url(../../images/Effect/oorange-00002.png);
-    }
-    20% {
-        background-image: url(../../images/Effect/oorange-00003.png);
-    }
-    30% {
-        background-image: url(../../images/Effect/oorange-00004.png);
-    }
-    40% {
-        background-image: url(../../images/Effect/oorange-00005.png);
-    }
-    50% {
-        background-image: url(../../images/Effect/oorange-00006.png);
-    }
-    60% {
-        background-image: url(../../images/Effect/oorange-00007.png);
-    }
-    70% {
-        background-image: url(../../images/Effect/oorange-00008.png);
-    }
-    80% {
-        background-image: url(../../images/Effect/oorange-00009.png);
-    }
-    90% {
-        background-image: url(../../images/Effect/oorange-00010.png);
+        transform: scale(1);
     }
     100% {
-        background-image: url(../../images/Effect/oorange-00011.png);
+        transform: scale(1.2);
     }
 }
 
-.amout span {
-    font-family: 'Permanent Marker', cursive;
-    color: black;
-    text-shadow: 1px 1px 1px gray;
-}
-
-.seeMore_content {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    background-image: url(../../images/card4.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 50px;
-    height: 150px;
-}
-
-.deal_game_content .decor_img {
-    pointer-events: none;
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    left: -30px;
-    width: 200px;
-    height: 100px;
-}
-
-.see__more {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.see__more span {
-    font-family: 'Permanent Marker', cursive;
-    color: black;
-    font-size: 12px;
-}
-
-.seeMore_Store {
-    margin: 0 auto;
-    width: 100px;
-    height: 80px;
-    background: url(../../images/btn_dungeon_result_1.png) center no-repeat;
-    background-size: contain;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.seeMore_Store a {
-    font-family: 'Permanent Marker', cursive;
-    color: black;
-    font-size: 12px;
-    font-weight: bold;
+.rating i {
+    color: var(--color_yellow);
+    filter: drop-shadow(1px 1px 1px black);
+    animation: changeSeven 1s linear infinite alternate;
 }
 
 
 /* pesponsive */
 
-@media screen and (min-width: 2560px) {
-    body {
-        background-size: cover;
+@media screen and (min-width: 1440px) {
+    .dialog {
+        height: 680px;
+        padding: 3rem 8rem;
     }
-    .notification {
-        right: 222px;
+    .see_more {
+        top: 10px;
+        right: 1%;
+        width: 75px;
     }
 }
 
-@media screen and (min-width: 1440px) {
-    body {
-        background-size: cover;
+@media screen and (max-width: 1050px) {
+    .dialog {
+        padding: 2.5rem 3.5rem 3rem 3.5rem;
+    }
+    .title {
+        top: 25px;
+    }
+    .see_more {
+        top: -5px;
+        right: -1%;
+    }
+    .category {
+        padding: 3rem 2rem;
+    }
+}
+
+@media screen and (max-width: 1026px) {
+    .dialog {
+        padding: 2.5rem 3.5rem 3rem 3.5rem;
+    }
+    .title {
+        top: 22px;
+    }
+    .see_more {
+        top: -5px;
+        right: -2%;
+    }
+    .category {
+        padding: 3rem 2rem;
     }
 }
 
 @media screen and (max-width: 1025px) {
-    .index_contain {
-        overflow-x: hidden;
-        width: 1000px;
+    /* recommend */
+    .slick-initialized .slick-slide {
+        margin: 0 5px;
     }
-    .avatar {
-        display: none;
+    .index_contain__body {
+        padding: 0;
+    }
+    .dialog {
+        padding: 2.5rem 8rem 3rem 8rem;
+    }
+    .see_more {
+        right: 6%;
+    }
+    .category {
+        padding: 3rem 4rem;
     }
 }
 
 @media screen and (max-width: 769px) {
-    .index_contain {
-        width: 800px;
+    .dialog {
+        padding: 4rem 3rem 3rem 3rem;
     }
-    /* recommended_game */
-    .index_contain .recommended_game {
-        width: 600px;
-        padding: 6.5rem 4rem;
+    .see_more {
+        top: 18px;
+        right: -8px;
     }
-    .tranding-slide {
-        width: 30rem;
+    .title {
+        top: 40px;
     }
-    .tranding-slide {
-        width: 25rem !important;
-        height: 15rem !important;
+    .category {
+        padding: 3rem 2rem;
     }
-    .tranding-slide .tranding-slide-img img {
-        width: 100% !important;
-        height: 100% !important;
+    .name_product {
+        font-size: 15px;
     }
-    #tranding .tranding-slider {
-        padding: 5px !important;
+    .item_infor_full .btn a {
+        padding: 10px 20px;
     }
-    .tranding-slide::before,
-    .tranding-slide::after {
-        height: 195px !important;
-    }
-    .tranding-slide::after {
-        right: -25px !important;
-    }
-    .index_contain .deal_game {
-        width: 770px;
-    }
-    .notification {
-        position: fixed;
-        top: 70%;
-        right: 30px;
-        width: 50px;
-        height: 150px;
-    }
-    .notification_box {
-        width: 100px;
-    }
-    .notification_box span {
-        font-size: 8px;
-    }
-    .notification_bot {
-        width: 50px;
-        height: 80px;
+    .item_infor_full .btn .buy {
+        padding: 10px 25px;
     }
 }
 
 @media screen and (max-width: 426px) {
-    body {
-        background-image: url(../../images/T_Intimacy_04.png);
-    }
-    .index_contain .index_menu {
-        position: fixed;
-        bottom: 0;
-    }
-    .index_contain .index_menu .index_menu__content {
-        justify-content: center;
-    }
-    .index_contain .index_menu .item_menu {
-        width: 55px;
-        height: 35px;
-    }
-    .index_contain .sale_game,
-    .index_contain .favorite_game,
-    .index_contain .gear_game,
-    .index_contain .deal_game {
-        top: 60%;
-        width: 330px;
-        height: auto;
-        background-image: none;
-        padding: 0;
-    }
-    .index_contain .category_game {
-        top: 50%;
-        background-image: none;
-    }
-    .banner,
-    .decorate,
-    .seeMore,
-    .index_contain .category_game::before,
-    .index_contain .category_game::after,
-    .deal_game_content .decor_img,
-    .deal_game_content .btn_seeMoress {
-        display: none;
-    }
-    .btn_seeMore {
-        display: none;
-    }
-    .seeMore_Store {
-        display: flex;
-    }
-    .list_product {
-        --spacing: 10px;
-        --columns: 2;
-        margin-left: calc(-1 * var(--spacing));
-    }
-    .button {
-        left: 10px;
-    }
-    .button img {
-        width: 40px;
-        height: 40px;
-    }
     .luckyWheel {
         width: 30px;
         height: 30px;
@@ -1631,10 +1027,6 @@ body {
     /* you like container */
     .you_like_container {
         width: 420px;
-    }
-    .index_contain {
-        width: 100%;
-        height: 350px;
     }
     .you_like_container .btn_close {
         top: 15px;
@@ -1661,29 +1053,36 @@ body {
         width: 60px;
         height: 60px;
     }
-    /* recommended_game */
-    .index_contain .recommended_game {
-        width: 400px;
-        height: 200px;
-        padding: 0.5rem;
+    .index_contain__head {
+        padding: 5px;
+    }
+    .dialog {
+        background: url(../../images/UI/GetCard_03.png) center no-repeat;
+        background-size: contain;
+        padding: 4rem 4rem 3rem 4rem;
+    }
+    .list_product {
+        --columns: 1;
+    }
+    .category {
         background-image: none;
     }
-    .tranding-slide {
-        width: 20rem !important;
-        height: 15rem !important;
-    }
-    .tranding-slide::before,
-    .tranding-slide::after {
-        height: 160px !important;
-    }
-    .notification {
-        display: none;
+    .see_more {
+        top: -22px;
+        right: 20px;
     }
 }
 
 @media screen and (max-width: 376px) {
     .you_like_container {
         width: 375px;
+    }
+    .dialog {
+        padding: 4rem 3rem 3rem 3rem;
+    }
+    .see_more {
+        top: -18px;
+        right: 0;
     }
 }
 
@@ -1706,5 +1105,12 @@ body {
     .old_price,
     .new_price {
         font-size: 10px;
+    }
+    .dialog {
+        padding: 4rem 2rem 3rem 2rem;
+    }
+    .see_more {
+        top: -15px;
+        right: -10px;
     }
 }
