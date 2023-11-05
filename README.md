@@ -1,2 +1,2 @@
-@@ -0,0 +1 @@
-"# GGStore" 
+# Galaxy_Game_Store
+ Project luận văn tốt nghiệp
