@@ -4,6 +4,9 @@ $search = isset($_POST["search"]) ? $_POST["search"] : "";
 $id_manufacturer = isset($_POST["id_manufacturer"]) ? $_POST["id_manufacturer"] : "";
 $arrangement = isset($_POST["arrangement"]) ? $_POST["arrangement"] : "";
 $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : "";
+$classify = isset($_POST["classify"]) ? $_POST["classify"] : "";
+
+
 if (isset($_POST['index_page'])) {
     $page = $_POST['index_page'];
 } else {
@@ -21,6 +24,11 @@ $params = array("%" . $search . "%");
 if ($id_manufacturer != "all") {
     $query .= "AND id_manufacturer = ? ";
     $params[] = $id_manufacturer;
+}
+
+if ($classify != "") {
+    $query .= "AND classify = ? ";
+    $params[] = $classify;
 }
 
 if ($arrangement == "ascending") {

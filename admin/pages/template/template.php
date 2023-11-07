@@ -136,11 +136,11 @@ include_once('../../../mod/database_connection.php');
                 </div>
             </li>
 
-            <!-- Nav Item - Game Genre Management -->
+            <!-- Nav Item - Genre Management -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
-                    <span>Game Genre Management</span>
+                    <span>Genre Management</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
