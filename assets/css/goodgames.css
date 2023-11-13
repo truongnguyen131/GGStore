@@ -5335,7 +5335,8 @@ img.rounded {
 .icon {
     position: relative;
 }
-.icon::after{
+
+.icon::after {
     cursor: pointer;
     content: '';
     position: absolute;
@@ -5345,7 +5346,8 @@ img.rounded {
     height: 20px;
     background: transparent;
 }
-.user_box{
+
+.user_box {
     position: absolute;
     z-index: 1001;
     top: 90px;
@@ -5361,7 +5363,8 @@ img.rounded {
     clip-path: circle(0% at 100% 0%);
     transition: .3s linear;
 }
-.search_box{
+
+.search_box {
     position: absolute;
     z-index: 1001;
     top: 30px;
@@ -5376,41 +5379,51 @@ img.rounded {
     clip-path: circle(0% at 100% 0%);
     transition: .3s linear;
 }
-.search_box input{
+
+.search_box input {
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
     font-weight: bold;
-    width: 100%;height: 100%;
+    width: 100%;
+    height: 100%;
     background: transparent;
     border: none;
     outline: none;
     color: white;
 }
+
 .active {
     clip-path: circle(144% at 100% 0%);
 }
 
-.hello_user,.finance {
+.hello_user,
+.finance {
     display: flex;
     align-items: center;
     column-gap: 5px;
 }
-.hello_user span ,.finance span{
+
+.hello_user span,
+.finance span {
     font-family: "Montserrat", sans-serif;
     font-size: 18px;
     font-weight: bold;
 }
-.user,.gcoin {
+
+.user,
+.gcoin {
     color: #dd163b;
 }
-.line{
+
+.line {
     display: block;
     width: 100%;
     height: 1px;
     background: gray;
     margin: 10px 0;
 }
-.btn_log a{
+
+.btn_log a {
     font-family: "Montserrat", sans-serif;
     font-size: 15px;
     font-weight: bold;
@@ -5418,18 +5431,19 @@ img.rounded {
     background: #dd163b;
     width: 100%;
     height: 30px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 3px;
     border: 1px solid white;
     transition: .3s linear;
 }
 
-.btn_log a:hover{
+.btn_log a:hover {
     background: #9e0e28;
     text-decoration: none;
 }
+
 .nk-contacts-icons>li>a {
     color: inherit;
     text-decoration: none;
@@ -7254,7 +7268,7 @@ img.rounded {
     display: block;
     width: 100%;
     max-width: 600px;
-    padding: 17px 0;
+    /* padding: 17px 0; */
 }
 
 .nk-carousel.nk-carousel-x2 .flickity-slider>div {
@@ -7468,7 +7482,43 @@ img.rounded {
     display: block;
     overflow: hidden;
 }
-
+.cate_title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+   
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.cate_title span{
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+.cate_title1{
+    background: linear-gradient(rgba(0,0,0,0), rgb(0,139,139) 100%);
+}
+.cate_title2{
+    background: linear-gradient(rgba(0,0,0,0), rgb(233,140,0) 100%);
+}
+.cate_title3{
+    background: linear-gradient(rgba(0,0,0,0), rgb(139,0,0) 100%);
+}
+.cate_title4{
+    background: linear-gradient(rgba(0,0,0,0), rgb(0,0,139) 100%);
+}
+.cate_title5{
+    background: linear-gradient(rgba(0,0,0,0), rgb(0,100,0) 100%);
+}
+.cate_title6{
+    background: linear-gradient(rgba(0,0,0,0), rgb(139,0,139) 100%);
+}
 .nk-gallery-item-box,
 .nk-gallery-item-box:hover,
 .nk-gallery-item-box:focus,
@@ -7556,7 +7606,7 @@ img.rounded {
     bottom: 0;
     left: 0;
     color: #fff;
-    background-color: rgba(221, 22, 59, 0.75);
+    background: rgb(35, 41, 48, 0.7);
     opacity: 0;
     -webkit-transition: .2s opacity;
     -o-transition: .2s opacity;
@@ -11012,4 +11062,152 @@ div.nk-error {
     font-family: "Montserrat", sans-serif;
     color: white;
     font-weight: bold;
+}
+
+
+/* top 10 best SELLERS */
+
+
+.nk-product {
+    width: 100%;
+    height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+.sale {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    z-index: 5;
+    background: green;
+    padding: 2px 3px;
+}
+
+.nk-product-image {
+    display: block;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+}
+
+.nk-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s linear;
+}
+
+.nk-product-content {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(35, 41, 48, 0.7);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    flex-direction: column;
+    row-gap: 5px;
+    transition: opacity .3s linear;
+}
+
+.nk-product:hover .nk-product-content {
+    opacity: 1;
+}
+
+.nk-product:hover .nk-product-image img {
+    transform: scale(1.1);
+}
+
+.nk-product__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.nk-product__btn .btn {
+    background: black;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 15px;
+    transition: .3s linear;
+}
+
+@media screen and (max-width: 321px) {
+    .nk-product__btn {
+        display: flex;
+        justify-content: left;
+        align-items: flex-start;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    .nk-product__btn .btn {
+        width: 100%;
+    }
+}
+
+.nk-product__btn .btn:hover {
+    background: #dd163b;
+    color: black;
+}
+
+
+.btn-seeMore {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    background: #dd163b;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    transition: .3s linear;
+}
+
+.btn-seeMore:hover {
+    background: black;
+    color: #dd163b;
+    text-decoration: none;
+}
+
+.nk-gallery-item-overlay {
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+    row-gap: 5px;
+}
+
+.btn_see_more{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    background: #dd163b;
+    border-radius: 3px;
+    transition: .3s linear;
+}
+
+.btn_see_more:hover{
+    background: black;
+    color: #dd163b;
+    text-decoration: none;
 }

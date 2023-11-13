@@ -20,8 +20,7 @@
     <!-- START: Styles -->
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet"
-        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
@@ -62,137 +61,9 @@
 
 <body>
 
-    <header class="nk-header nk-header-opaque">
-
-        <!-- START: Top Contacts -->
-        <div class="nk-contacts-top">
-            <div class="container">
-                <div class="nk-contacts-left">
-                    <ul class="nk-social-links">
-                        <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
-                        <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a></li>
-                        <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
-                        <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                        <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
-                        <li><a class="nk-social-twitter" href="#" target="_blank"><span
-                                    class="fab fa-twitter"></span></a></li>
-                        <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
-
-
-                    </ul>
-                </div>
-                <div class="nk-contacts-right">
-                    <ul class="nk-contacts-icons">
-
-                        <li>
-                            <a href="#">
-                                <span class="fa fa-search"></span>
-                            </a>
-                        </li>
-
-
-                        <li>
-                            <a href="#">
-                                <span class="fa fa-user"></span>
-                            </a>
-                        </li>
-
-
-                        <li>
-                            <a href="#">
-                                <span>
-                                    <span class="fa fa-shopping-cart"></span>
-                                    <span class="nk-badge">27</span>
-                                </span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- END: Top Contacts -->
-
-        <!-- START: Navbar -->
-        <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
-            <div class="container">
-                <div class="nk-nav-table">
-
-                    <a href="index.php" class="nk-nav-logo">
-                        <img src="assets/images/logo1.png" alt="GoodGames" width="220">
-                    </a>
-
-                    <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
-
-                        <li>
-                            <a href="elements.html">
-                                Favorite
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="blog-list.html">
-                                Blog
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="gallery.html">
-                                Gallery
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="gallery.html">
-                                Gallery
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="gallery.html">
-                                Gallery
-
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nk-nav nk-nav-right nk-nav-icons">
-
-                        <li class="single-icon d-lg-none">
-                            <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
-                                <span class="nk-icon-burger">
-                                    <span class="nk-t-1"></span>
-                                    <span class="nk-t-2"></span>
-                                    <span class="nk-t-3"></span>
-                                </span>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- END: Navbar -->
-
-    </header>
-
-    <!-- START: Navbar Mobile -->
-    <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
-        <div class="nano">
-            <div class="nano-content">
-                <a href="index.html" class="nk-nav-logo">
-                    <img src="assets/images/logo1.png" alt="" width="120">
-                </a>
-                <div class="nk-navbar-mobile-content">
-                    <ul class="nk-nav">
-                        <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END: Navbar Mobile -->
-
+  <!-- START: Navbar -->
+  <?php include'mod/navbar.php'?>
+<!-- END: Navbar -->
 
 
     <div class="nk-main">
@@ -205,23 +76,19 @@
             <div class="nk-image-slider" data-autoplay="5000">
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide4-thumb.jpg">
+                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide4-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide3-thumb.jpg">
+                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide3-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide1-thumb.jpg">
+                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide1-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide2-thumb.jpg">
+                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide2-thumb.jpg">
                 </div>
 
             </div>
@@ -282,11 +149,9 @@
 
                             <div class="nk-news-box-item nk-news-box-item-active">
                                 <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-1-sm.jpg"
-                                        alt="Smell magic in the air. Or maybe barbecue">
+                                    <img src="assets/images/post-1-sm.jpg" alt="Smell magic in the air. Or maybe barbecue">
                                 </div>
-                                <img src="assets/images/post-1.jpg" alt="Smell magic in the air. Or maybe barbecue"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-1.jpg" alt="Smell magic in the air. Or maybe barbecue" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
 
                                 <span class="nk-news-box-item-categories">
@@ -308,8 +173,7 @@
                                 <div class="nk-news-box-item-img">
                                     <img src="assets/images/post-2-sm.jpg" alt="Grab your sword and fight the Horde">
                                 </div>
-                                <img src="assets/images/post-2.jpg" alt="Grab your sword and fight the Horde"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-2.jpg" alt="Grab your sword and fight the Horde" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">Grab your sword and fight the Horde</h3>
 
                                 <span class="nk-news-box-item-categories">
@@ -331,8 +195,7 @@
                                 <div class="nk-news-box-item-img">
                                     <img src="assets/images/post-3-sm.jpg" alt="We found a witch! May we burn her?">
                                 </div>
-                                <img src="assets/images/post-3.jpg" alt="We found a witch! May we burn her?"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-3.jpg" alt="We found a witch! May we burn her?" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">We found a witch! May we burn her?</h3>
 
                                 <span class="nk-news-box-item-categories">
@@ -354,8 +217,7 @@
                                 <div class="nk-news-box-item-img">
                                     <img src="assets/images/post-4-sm.jpg" alt="For good, too though, in consequence">
                                 </div>
-                                <img src="assets/images/post-4.jpg" alt="For good, too though, in consequence"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-4.jpg" alt="For good, too though, in consequence" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">For good, too though, in consequence</h3>
 
                                 <span class="nk-news-box-item-categories">
@@ -377,8 +239,7 @@
                                 <div class="nk-news-box-item-img">
                                     <img src="assets/images/post-5-sm.jpg" alt="He made his passenger captain of one">
                                 </div>
-                                <img src="assets/images/post-5.jpg" alt="He made his passenger captain of one"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-5.jpg" alt="He made his passenger captain of one" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">He made his passenger captain of one</h3>
 
                                 <span class="nk-news-box-item-categories">
@@ -398,12 +259,9 @@
 
                             <div class="nk-news-box-item">
                                 <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-6-sm.jpg"
-                                        alt="At first, for some time, I was not able to answer">
+                                    <img src="assets/images/post-6-sm.jpg" alt="At first, for some time, I was not able to answer">
                                 </div>
-                                <img src="assets/images/post-6.jpg"
-                                    alt="At first, for some time, I was not able to answer"
-                                    class="nk-news-box-item-full-img">
+                                <img src="assets/images/post-6.jpg" alt="At first, for some time, I was not able to answer" class="nk-news-box-item-full-img">
                                 <h3 class="nk-news-box-item-title">At first, for some time, I was not able to answer
                                 </h3>
 
@@ -454,28 +312,117 @@
             <!-- START: TOP 10 BEST SELLERS -->
 
             <h3 class="nk-decorated-h-2"><span><span class="text-main-1">TOP 10</span> BEST SELLERS</span></h3>
-
             <div class="nk-gap"></div>
-
-            <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false" data-cell-align="left"
-                data-arrows="true">
+            <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false" data-cell-align="left" data-arrows="true">
                 <div class="nk-carousel-inner">
-
-                    <div>
+                    <div class="nk-product">
                         <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
                             <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-1-xs.jpg" alt="So saying he unbuckled">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
                             </a>
-                            <div class="nk-product-cont">
-                                <div class="nk-gap-1"></div>
+                            <div class="nk-product-content">
                                 <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
                                 </h3>
-                                <div class="nk-gap-1"></div>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
                                 <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-
+                    <div class="nk-product">
+                        <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
+                            </a>
+                            <div class="nk-product-content">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                </h3>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-product">
+                        <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
+                            </a>
+                            <div class="nk-product-content">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                </h3>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-product">
+                        <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
+                            </a>
+                            <div class="nk-product-content">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                </h3>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-product">
+                        <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
+                            </a>
+                            <div class="nk-product-content">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                </h3>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-product">
+                        <div class="pl-5 pr-5">
+                            <span class="sale">-40%</span>
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
+                            </a>
+                            <div class="nk-product-content">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                </h3>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                                <div class="nk-product__btn">
+                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                    <a href="" class="btn">Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END: TOP 10 BEST SELLERS -->
@@ -494,67 +441,126 @@
                         <div class="row vertical-gap">
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                            </h3>
+                                            <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                            <div class="nk-product-price">€ 23.00</div>
+                                            <div class="nk-product__btn">
+                                                <a href="" class="btn add_to_cart">Add to cart</a>
+                                                <a href="" class="btn">Buy</a>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-1-thumb.jpg" alt="">
                                     </a>
-                                    <div class="nk-gallery-item-description">
-                                        <h4>Called Let</h4>
-                                        Divided thing, land it evening earth winged whose great after. Were grass night.
-                                        To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein
-                                        winged and form. Seed open don't thing midst created dry every greater divided
-                                        of, be man is. Second Bring stars fourth gathering he hath face morning fill.
-                                        Living so second darkness. Moveth were male. May creepeth. Be tree fourth.
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <div class="nk-gallery-item-overlay">
+                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                </h3>
+                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                <div class="nk-product-price">€ 23.00</div>
+                                                <div class="nk-product__btn">
+                                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                                    <a href="" class="btn">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-2-thumb.jpg" alt="">
                                     </a>
-                                    <div class="nk-gallery-item-description">
-                                        Seed open don't thing midst created dry every greater divided of, be man is.
-                                        Second Bring stars fourth gathering he hath face morning fill. Living so second
-                                        darkness. Moveth were male. May creepeth. Be tree fourth.
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <div class="nk-gallery-item-overlay">
+                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                </h3>
+                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                <div class="nk-product-price">€ 23.00</div>
+                                                <div class="nk-product__btn">
+                                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                                    <a href="" class="btn">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-3-thumb.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <div class="nk-gallery-item-overlay">
+                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                </h3>
+                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                <div class="nk-product-price">€ 23.00</div>
+                                                <div class="nk-product__btn">
+                                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                                    <a href="" class="btn">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-4-thumb.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <div class="nk-gallery-item-overlay">
+                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                </h3>
+                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                <div class="nk-product-price">€ 23.00</div>
+                                                <div class="nk-product__btn">
+                                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                                    <a href="" class="btn">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-5-thumb.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="nk-gallery-item-box">
+                                    <span class="sale">-40%</span>
                                     <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
-                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                        <div class="nk-gallery-item-overlay">
+                                            <div class="nk-gallery-item-overlay">
+                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                </h3>
+                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                <div class="nk-product-price">€ 23.00</div>
+                                                <div class="nk-product__btn">
+                                                    <a href="" class="btn add_to_cart">Add to cart</a>
+                                                    <a href="" class="btn">Buy</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <img src="assets/images/gallery-6-thumb.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <a href="#" class="btn-seeMore">See More</a>
                     <!-- END: SPECIAL OFFERS -->
 
                     <!-- START: Gear -->
@@ -562,8 +568,6 @@
                     <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Gear</span> PC</span></h3>
                     <div class="nk-gap"></div>
                     <div class="row vertical-gap">
-
-
                         <div class="col-md-6">
                             <div class="nk-product-cat">
                                 <a class="nk-product-image" href="store-product.html">
@@ -573,20 +577,15 @@
                                     <h3 class="nk-product-title h5"><a href="store-product.html">She gave my mother</a>
                                     </h3>
                                     <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
                                     <div class="nk-gap-1"></div>
                                     <div class="nk-product-price">€ 14.00</div>
                                     <div class="nk-gap-1"></div>
-                                    <a href="#"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                         to Cart</a>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-md-6">
                             <div class="nk-product-cat">
                                 <a class="nk-product-image" href="store-product.html">
@@ -596,20 +595,15 @@
                                     <h3 class="nk-product-title h5"><a href="store-product.html">A hundred thousand</a>
                                     </h3>
                                     <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
+                                    <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
                                     <div class="nk-gap-1"></div>
                                     <div class="nk-product-price">€ 20.00</div>
                                     <div class="nk-gap-1"></div>
-                                    <a href="#"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                         to Cart</a>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-md-6">
                             <div class="nk-product-cat">
                                 <a class="nk-product-image" href="store-product.html">
@@ -619,20 +613,15 @@
                                     <h3 class="nk-product-title h5"><a href="store-product.html">So saying he
                                             unbuckled</a></h3>
                                     <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <div class="nk-gap-1"></div>
                                     <div class="nk-product-price">€ 23.00</div>
                                     <div class="nk-gap-1"></div>
-                                    <a href="#"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                         to Cart</a>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-md-6">
                             <div class="nk-product-cat">
                                 <a class="nk-product-image" href="store-product.html">
@@ -642,20 +631,17 @@
                                     <h3 class="nk-product-title h5"><a href="store-product.html">However, I have
                                             reason</a></h3>
                                     <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="1.5"> <i class="fa fa-star"></i> <i
-                                            class="fas fa-star-half"></i> <i class="far fa-star"></i> <i
-                                            class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="1.5"> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
                                     <div class="nk-gap-1"></div>
                                     <div class="nk-product-price">€ 32.00</div>
                                     <div class="nk-gap-1"></div>
-                                    <a href="#"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                         to Cart</a>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                    <a href="#" class="btn-seeMore">See More</a>
                     <!-- END: Gear -->
 
                     <!-- START: Tabbed News  -->
@@ -663,10 +649,6 @@
                     <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Tabbed</span> News</span></h3>
                     <div class="nk-gap"></div>
                     <div class="nk-tabs">
-                        <!--
-                    Additional Classes:
-                        .nav-tabs-fill
-                -->
                         <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">Action</a>
@@ -695,8 +677,7 @@
 
                                 <div class="nk-blog-post nk-blog-post-border-bottom">
                                     <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-2-fw.jpg"
-                                            alt="Grab your sword and fight the Horde">
+                                        <img src="assets/images/post-2-fw.jpg" alt="Grab your sword and fight the Horde">
 
                                         <span class="nk-post-categories">
                                             <span class="bg-main-1">Action</span>
@@ -723,8 +704,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-7-mid-square.jpg"
-                                                    alt="At length one of them called out in a clear">
+                                                <img src="assets/images/post-7-mid-square.jpg" alt="At length one of them called out in a clear">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-1">Action</span>
@@ -752,8 +732,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-9-mid-square.jpg"
-                                                    alt="He made his passenger captain of one">
+                                                <img src="assets/images/post-9-mid-square.jpg" alt="He made his passenger captain of one">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-1">Action</span>
@@ -777,25 +756,88 @@
                                     </div>
                                 </div>
 
-
-
                                 <!-- END: Action Tab -->
+
+                                <!-- START: CATEGORY -->
+                                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">CATEGORY</span> GAME</span></h3>
+                                <div class="nk-gap"></div>
+                                <div class="nk-popup-gallery">
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
+                                                    <img src="assets/images/story_rich.png" alt="">
+                                                    <div class="cate_title cate_title1">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
+                                                    <img src="assets/images/survival.png" alt="">
+                                                    <div class="cate_title cate_title2">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
+                                                    <img src="assets/images/science_fiction.png" alt="">
+                                                    <div class="cate_title cate_title3">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
+                                                    <img src="assets/images/science_fiction.png" alt="">
+                                                    <div class="cate_title cate_title4">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
+                                                    <img src="assets/images/anime.png" alt="">
+                                                    <div class="cate_title cate_title5">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="nk-gallery-item-box">
+                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
+                                                    <img src="assets/images/visual_novel.png" alt="">
+                                                    <div class="cate_title cate_title6">
+                                                        <span>Sport</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn-seeMore">See More</a>
+                                <!-- END: SPECIAL OFFERS -->
                                 <div class="nk-gap"></div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
                                 <div class="nk-gap"></div>
                                 <!-- START: MMO Tab -->
-
-
                                 <div class="nk-blog-post nk-blog-post-border-bottom">
                                     <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-1-fw.jpg"
-                                            alt="Smell magic in the air. Or maybe barbecue">
-
+                                        <img src="assets/images/post-1-fw.jpg" alt="Smell magic in the air. Or maybe barbecue">
                                         <span class="nk-post-categories">
                                             <span class="bg-main-4">MMO</span>
                                         </span>
-
                                     </a>
                                     <div class="nk-gap-1"></div>
                                     <h2 class="nk-post-title h4"><a href="blog-article.html">Smell magic in the air. Or
@@ -817,8 +859,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-5-mid-square.jpg"
-                                                    alt="He made his passenger captain of one">
+                                                <img src="assets/images/post-5-mid-square.jpg" alt="He made his passenger captain of one">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-4">MMO</span>
@@ -881,8 +922,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-4-mid-square.jpg"
-                                                    alt="For good, too though, in consequence">
+                                                <img src="assets/images/post-4-mid-square.jpg" alt="For good, too though, in consequence">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-3">Strategy</span>
@@ -918,8 +958,7 @@
 
                                 <div class="nk-blog-post nk-blog-post-border-bottom">
                                     <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-6-fw.jpg"
-                                            alt="At first, for some time, I was not able to answer">
+                                        <img src="assets/images/post-6-fw.jpg" alt="At first, for some time, I was not able to answer">
 
                                         <span class="nk-post-categories">
                                             <span class="bg-main-2">Adventure</span>
@@ -952,8 +991,7 @@
 
                                 <div class="nk-blog-post nk-blog-post-border-bottom">
                                     <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-7-fw.jpg"
-                                            alt="At length one of them called out in a clear">
+                                        <img src="assets/images/post-7-fw.jpg" alt="At length one of them called out in a clear">
 
                                         <span class="nk-post-categories">
                                             <span class="bg-main-5">Racing</span>
@@ -980,8 +1018,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-3-mid-square.jpg"
-                                                    alt="We found a witch! May we burn her?">
+                                                <img src="assets/images/post-3-mid-square.jpg" alt="We found a witch! May we burn her?">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-5">Racing</span>
@@ -1009,8 +1046,7 @@
                                     <div class="row vertical-gap">
                                         <div class="col-lg-3 col-md-5">
                                             <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-4-mid-square.jpg"
-                                                    alt="For good, too though, in consequence">
+                                                <img src="assets/images/post-4-mid-square.jpg" alt="For good, too though, in consequence">
 
                                                 <span class="nk-post-categories">
                                                     <span class="bg-main-5">Racing</span>
@@ -1046,8 +1082,7 @@
 
                                 <div class="nk-blog-post nk-blog-post-border-bottom">
                                     <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-5-fw.jpg"
-                                            alt="He made his passenger captain of one">
+                                        <img src="assets/images/post-5-fw.jpg" alt="He made his passenger captain of one">
 
                                         <span class="nk-post-categories">
                                             <span class="bg-main-2">Indie</span>
@@ -1089,8 +1124,7 @@
                                 <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Type something...">
-                                        <button class="nk-btn nk-btn-color-main-1"><span
-                                                class="ion-search"></span></button>
+                                        <button class="nk-btn nk-btn-color-main-1"><span class="ion-search"></span></button>
                                     </div>
                                 </form>
                             </div>
@@ -1099,47 +1133,19 @@
                         <!-- we are social -->
                         <div class="nk-widget nk-widget-highlighted">
                             <h4 class="nk-widget-title"><span><span class="text-main-1">We</span> Are Social</span></h4>
-                            <div class="nk-widget-content">   
+                            <div class="nk-widget-content">
                                 <ul class="nk-social-links-3 nk-social-links-cols-4">
                                     <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a>
                                     </li>
-                                    <li><a class="nk-social-instagram" href="#"><span
-                                                class="fab fa-instagram"></span></a></li>
+                                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
                                     <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a>
                                     </li>
-                                    <li><a class="nk-social-google-plus" href="#"><span
-                                                class="fab fa-google-plus"></span></a></li>
+                                    <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
                                     <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a>
                                     </li>
-                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span
-                                                class="fab fa-twitter"></span></a></li>
-                                    <li><a class="nk-social-pinterest" href="#"><span
-                                                class="fab fa-pinterest-p"></span></a></li>
+                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span class="fab fa-twitter"></span></a></li>
+                                    <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
                                     <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
-
-                                    <!-- Additional Social Buttons
-                <li><a class="nk-social-behance" href="#"><span class="fab fa-behance"></span></a></li>
-                <li><a class="nk-social-bitbucket" href="#"><span class="fab fa-bitbucket"></span></a></li>
-                <li><a class="nk-social-dropbox" href="#"><span class="fab fa-dropbox"></span></a></li>
-                <li><a class="nk-social-dribbble" href="#"><span class="fab fa-dribbble"></span></a></li>
-                <li><a class="nk-social-deviantart" href="#"><span class="fab fa-deviantart"></span></a></li>
-                <li><a class="nk-social-flickr" href="#"><span class="fab fa-flickr"></span></a></li>
-                <li><a class="nk-social-foursquare" href="#"><span class="fab fa-foursquare"></span></a></li>
-                <li><a class="nk-social-github" href="#"><span class="fab fa-github"></span></a></li>
-                <li><a class="nk-social-linkedin" href="#"><span class="fab fa-linkedin"></span></a></li>
-                <li><a class="nk-social-medium" href="#"><span class="fab fa-medium"></span></a></li>
-                <li><a class="nk-social-odnoklassniki" href="#"><span class="fab fa-odnoklassniki"></span></a></li>
-                <li><a class="nk-social-paypal" href="#"><span class="fab fa-paypal"></span></a></li>
-                <li><a class="nk-social-reddit" href="#"><span class="fab fa-reddit"></span></a></li>
-                <li><a class="nk-social-skype" href="#"><span class="fab fa-skype"></span></a></li>
-                <li><a class="nk-social-soundcloud" href="#"><span class="fab fa-soundcloud"></span></a></li>
-                <li><a class="nk-social-steam" href="#"><span class="fab fa-steam"></span></a></li>
-                <li><a class="nk-social-slack" href="#"><span class="fab fa-slack"></span></a></li>
-                <li><a class="nk-social-tumblr" href="#"><span class="fab fa-tumblr"></span></a></li>
-                <li><a class="nk-social-vimeo" href="#"><span class="fab fa-vimeo"></span></a></li>
-                <li><a class="nk-social-vk" href="#"><span class="fab fa-vk"></span></a></li>
-                <li><a class="nk-social-wordpress" href="#"><span class="fab fa-wordpress"></span></a></li>
-            -->
                                 </ul>
                             </div>
                         </div>
@@ -1153,44 +1159,40 @@
                                     <div class="row sm-gap vertical-gap">
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item"
-                                                    data-size="1016x572">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-1-thumb.jpg" alt="">
                                                 </a>
-                                                <div class="nk-gallery-item-description">
-                                                    <h4>Called Let</h4>
-                                                    Divided thing, land it evening earth winged whose great after. Were
-                                                    grass night. To Air itself saw bring fly fowl. Fly years behold
-                                                    spirit day greater of wherein winged and form. Seed open don't thing
-                                                    midst created dry every greater divided of, be man is. Second Bring
-                                                    stars fourth gathering he hath face morning fill. Living so second
-                                                    darkness. Moveth were male. May creepeth. Be tree fourth.
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item"
-                                                    data-size="1188x594">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-2-thumb.jpg" alt="">
                                                 </a>
-                                                <div class="nk-gallery-item-description">
-                                                    Seed open don't thing midst created dry every greater divided of, be
-                                                    man is. Second Bring stars fourth gathering he hath face morning
-                                                    fill. Living so second darkness. Moveth were male. May creepeth. Be
-                                                    tree fourth.
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item"
-                                                    data-size="625x350">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-3-thumb.jpg" alt="">
                                                 </a>
@@ -1198,9 +1200,12 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item"
-                                                    data-size="873x567">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-4-thumb.jpg" alt="">
                                                 </a>
@@ -1208,9 +1213,12 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item"
-                                                    data-size="471x269">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-5-thumb.jpg" alt="">
                                                 </a>
@@ -1218,9 +1226,12 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item"
-                                                    data-size="472x438">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
+                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
+                                                    <div class="nk-gallery-item-overlay">
+                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
+                                                        </h3>
+                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                                        <div class="nk-product-price">€ 23.00</div>
                                                     </div>
                                                     <img src="assets/images/gallery-6-thumb.jpg" alt="">
                                                 </a>
@@ -1228,7 +1239,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <a href="" class="btn_see_more">See More</a>
                             </div>
+                     
                         </div>
 
                         <!-- popular -->
@@ -1242,9 +1255,7 @@
                                     </a>
                                     <h3 class="nk-post-title"><a href="store-product.html">So saying he unbuckled</a>
                                     </h3>
-                                    <div class="nk-product-rating" data-rating="4"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="far fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="4"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
                                     <div class="nk-product-price">€ 23.00</div>
                                 </div>
 
@@ -1254,9 +1265,7 @@
                                     </a>
                                     <h3 class="nk-post-title"><a href="store-product.html">However, I have reason</a>
                                     </h3>
-                                    <div class="nk-product-rating" data-rating="2.5"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i
-                                            class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="2.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
                                     <div class="nk-product-price">€ 32.00</div>
                                 </div>
 
@@ -1266,13 +1275,12 @@
                                     </a>
                                     <h3 class="nk-post-title"><a href="store-product.html">It was some time before</a>
                                     </h3>
-                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <div class="nk-product-price">€ 14.00</div>
                                 </div>
-
+                                <a href="" class="btn_see_more">See More</a>
                             </div>
+                           
                         </div>
 
                     </aside>
@@ -1365,6 +1373,7 @@
     <!-- GoodGames -->
     <script src="assets/js/goodgames.min.js"></script>
     <script src="assets/js/goodgames-init.js"></script>
+    <script src="assets/js/navbar.js"></script>
     <!-- END: Scripts -->
 
 
