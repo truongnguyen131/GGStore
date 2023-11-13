@@ -27,6 +27,7 @@ function main()
     $video_trailer = $row['video_trailer_url'];
     $file_source = $row['source'];
     $date_release = $row['release_date'];
+    $classify = $row['classify'];
 
     $stmt->close();
 
@@ -36,7 +37,9 @@ function main()
         $price = $_POST['txtPrice'];
         $id_manufacturer = $_POST['slManufacturer'];
         $date_release = $_POST['dateRelease'];
+        $classify = $_POST['slClassify'];
         $genres = $_POST['genres'];
+        
         $count = 1;
 
         //select image_url push in $imgs_product array
@@ -161,10 +164,10 @@ function main()
             `id_manufacturer` = ?, `product_name` = ?,
             `image_avt_url` = ?, `description` = ?,
             `video_trailer_url` = ?, `source` = ?, `price` = ?,
-            `release_date` = ? WHERE id = ?";
+            `release_date` = ?, `classify` = ? WHERE id = ?";
 
         $stmt_update_product = $conn->prepare($query_update_product);
-        $stmt_update_product->bind_param("isssssisi", $id_manufacturer, $product_name, $img_avt, $decs, $video_trailer, $file_source, $price, $date_release, $id);
+        $stmt_update_product->bind_param("isssssissi", $id_manufacturer, $product_name, $img_avt, $decs, $video_trailer, $file_source, $price, $date_release, $classify, $id);
         $stmt_update_product->execute();
         $stmt_update_product->close();
         $conn->close();
@@ -239,7 +242,7 @@ function main()
                             Product Name
                         </td>
                         <td>
-                            <input type="text" class="form-control input-left" name="txtProductname"
+                            <input type="text" style="width: 80%;" class="form-control input-left" name="txtProductname"
                                 value="<?php echo $product_name; ?>">
                         </td>
                         <td id="errorProductname" class="error"></td>
@@ -249,7 +252,7 @@ function main()
                             Description
                         </td>
                         <td>
-                            <textarea class="form-control input-left" name="txtDesc"><?php echo $decs; ?></textarea>
+                            <textarea class="form-control input-left" style="width: 80%;" name="txtDesc"><?php echo $decs; ?></textarea>
 
                         <td id="errorDesc" class="error"></td>
                     </tr>
@@ -258,7 +261,7 @@ function main()
                             Price
                         </td>
                         <td>
-                            <input type="number" class="form-control input-left" min="0" max="10000000000" step="5000"
+                            <input type="number" class="form-control input-left" style="width: 80%;" min="0" max="10000000000" step="5000"
                                 name="txtPrice" value="<?php echo $price; ?>">
                         </td>
                         <td id="errorPrice" class="error"></td>
@@ -268,7 +271,7 @@ function main()
                             Manufacturer
                         </td>
                         <td>
-                            <select class="form-control input-left" name="slManufacturer">
+                            <select class="form-control input-left" style="width: 80%;" name="slManufacturer">
                                 <?php
                                 $sql = "SELECT * FROM users WHERE role = 'manufacturer'";
                                 $result = $conn->query($sql);
@@ -290,6 +293,17 @@ function main()
                             </select>
                         </td>
                         <td id="errorManufacturer" class="error"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Classify
+                        </td>
+                        <td>
+                            <select class="form-control input-left" style="width: 80%;" name="slClassify">
+                                <option value="game" <?php echo ($classify == "game") ? 'selected' : ''; ?>>Game</option>
+                                <option value="gear" <?php echo ($classify == "gear") ? 'selected' : ''; ?>>Gear</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -350,7 +364,7 @@ function main()
                             ?>
                             <script>
                                 function add_sl_genre() {
-                                    var genreData = <?php echo $genreDataJSON; ?> ;
+                                    var genreData = <?php echo $genreDataJSON; ?>;
                                     var genres = document.getElementsByName("genres[]");
                                     var selectedGenres = Array.from(genres).map(option => option.value);
                                     const select = document.createElement('select');
@@ -385,7 +399,6 @@ function main()
 
                         <td id="errorGenre" class="error"></td>
                     </tr>
-
                     <tr>
                         <td>
                             Image avt

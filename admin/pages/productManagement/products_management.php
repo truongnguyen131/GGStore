@@ -15,7 +15,7 @@ function main()
 
                         <!-- Show entries and Search -->
                         <div class="row">
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-2">
                                 <div class="dataTables_length">
                                     <label>Show entries
                                         <select name="dataTable_length" onchange="search(0)" id="sl_show_entries"
@@ -70,7 +70,19 @@ function main()
                                 </label>
                             </div>
 
-                            <div class="col-sm-12 col-md-3" style=" text-align: right;">
+                            <div class="col-sm-12 col-md-2">
+                                <label>Classify
+                                    <select name="arrangement" onchange="search(0)" id="sl_classify"
+                                        aria-controls="dataTable"
+                                        class="custom-select custom-select-sm form-control form-control-sm">
+                                        <option value="">--None--</option>
+                                        <option value="game">Game</option>
+                                        <option value="gear">Gear</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="col-sm-12 col-md-2" style=" text-align: right;">
                                 <div id="dataTable_filter" class="dataTables_filter">
                                     <label>Search
                                         <input type="search" id="search" onkeyup="search(0)"
@@ -123,12 +135,14 @@ function main()
             var sl_manufacture = document.getElementById("sl_manufacture").value;
             var sl_arrangement = document.getElementById("sl_arrangement").value;
             var sl_show = document.getElementById("sl_show_entries").value;
+            var sl_classify = document.getElementById("sl_classify").value;
 
             var postData = {
                 search: search,
                 id_manufacturer: sl_manufacture,
                 arrangement: sl_arrangement,
-                show_entries: sl_show
+                show_entries: sl_show,
+                classify: sl_classify
             };
 
             if (page != 0) {

@@ -24,6 +24,7 @@ function main()
 
     if ($task == 'save') {
         $product_name = $_POST['txtProductname'];
+        $classify = $_POST['slClassify'];
         $decs = $_POST['txtDesc'];
         $price = $_POST['txtPrice'];
         $id_manufacturer = $_POST['slManufacturer'];
@@ -53,11 +54,11 @@ function main()
         }
 
         //insert product
-        $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`) 
-        VALUES (?,?,?,?,?,?,?,?)";
+        $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`,  `classify`) 
+        VALUES (?,?,?,?,?,?,?,?,?)";
 
         $stmt_insert_product = $conn->prepare($sql_insert_product);
-        $stmt_insert_product->bind_param("isssssis", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release);
+        $stmt_insert_product->bind_param("isssssiss", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release,$classify);
 
         if ($stmt_insert_product->execute()) {
             // id product just inserted
@@ -208,16 +209,16 @@ function main()
                             <td>
                                 <input type="text" class="form-control input-left" name="txtProductname" value="">
                             </td>
-                            <td id="errorProductname" class="error"></td>
                         </tr>
                         <tr>
                             <td>
                                 Description
                             </td>
                             <td>
-                                <textarea class="form-control input-left" name="txtDesc" value=""></textarea>
+                                <textarea class="form-control input-left" name="txtDesc" value="">
 
-                            <td id="errorDesc" class="error"></td>
+                                        </textarea>
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -227,7 +228,6 @@ function main()
                                 <input type="number" class="form-control input-left" min="0" max="10000000000" value="0"
                                     step="5000" name="txtPrice">
                             </td>
-                            <td id="errorPrice" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -241,13 +241,14 @@ function main()
 
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) { ?>
-                                            <option value="<?php echo $row["id"]; ?>"><?php echo $row["full_name"]; ?></option>
+                                            <option value="<?php echo $row["id"]; ?>">
+                                                <?php echo $row["full_name"]; ?>
+                                            </option>
                                         <?php }
                                     }
                                     ?>
                                 </select>
                             </td>
-                            <td id="errorManufacturer" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -261,13 +262,14 @@ function main()
 
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) { ?>
-                                            <option value="<?php echo $row["id"]; ?>"><?php echo $row["genre_name"]; ?></option>
+                                            <option value="<?php echo $row["id"]; ?>">
+                                                <?php echo $row["genre_name"]; ?>
+                                            </option>
                                         <?php }
                                     }
                                     ?>
                                 </select>
                             </td>
-                            <td id="errorGenre" class="error"></td>
                         </tr>
                     </table>
                 </div>
@@ -280,7 +282,6 @@ function main()
                             <td>
                                 <input type="file" class="input-left" name="fileAVT" accept=".jpg, .jpeg, .png">
                             </td>
-                            <td id="errorfileAVT" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -290,7 +291,6 @@ function main()
                                 <input type="file" class="input-left" name="fileImgDetail[]" multiple
                                     accept=".jpg, .jpeg, .png">
                             </td>
-                            <td id="errorfileImgDetail" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -299,7 +299,6 @@ function main()
                             <td>
                                 <input type="file" class="input-left" name="videoTrailer" accept=".mp4">
                             </td>
-                            <td id="errorvideoTrailer" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -308,7 +307,6 @@ function main()
                             <td>
                                 <input type="file" class="input-left" name="fileSource" accept=".zip">
                             </td>
-                            <td id="errorfileSource" class="error"></td>
                         </tr>
                         <tr>
                             <td>
@@ -317,14 +315,26 @@ function main()
                             <td>
                                 <input type="date" class="input-left" name="dateRelease" max="<?php echo date('Y-m-d'); ?>">
                             </td>
-                            <td id="errorDateRelease" class="error"></td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="button" class="btn btn-info" name="btnSave" value="Save" onClick="save();">
-
+                                Classify
                             </td>
                             <td>
+                                <select class="form-control input-left" style="width: 65%;" name="slClassify ">
+                                    <option value="game">Game</option>
+                                    <option value="gear">Gear</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id="error" class="error"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" class="btn btn-info" name="btnSave" value="Save" onClick="save();">
                                 <input type="button" class="btn btn-secondary" name="btnBack" value="Back"
                                     onClick="goback()">
                             </td>
@@ -339,6 +349,8 @@ function main()
 
     <script>
         function save() {
+            $('#error').html("");
+
             var product_name = document.frmAddProduct.txtProductname.value.trim();
             var decs = document.frmAddProduct.txtDesc.value.trim();
             var price = document.frmAddProduct.txtPrice.value.trim();
@@ -349,28 +361,19 @@ function main()
             var fileImgDetail = document.getElementsByName("fileImgDetail[]");
             var videoTrailer = document.frmAddProduct.videoTrailer;
             var fileSource = document.frmAddProduct.fileSource;
-            $('#errorProductname').html("");
-            $('#errorDesc').html("");
-            $('#errorPrice').html("");
-            $('#errorManufacturer').html("");
-            $('#errorGenre').html("");
-            $('#errorfileAVT').html("");
-            $('#errorfileImgDetail').html("");
-            $('#errorvideoTrailer').html("");
-            $('#errorfileSource').html("");
-            $('#errorDateRelease').html("");
+
             if (product_name.length < 3) {
-                $('#errorProductname').html("Product name must be more than 3 characters")
+                $('#error').html("Product name must be more than 3 characters")
                 document.frmAddProduct.txtProductname.value = product_name;
                 document.frmAddProduct.txtProductname.focus();
                 return false;
             }
             if (decs.length < 20 || !/^[\p{L}\p{N}\s.,?!'"-]+$/u.test(decs)) {
-                $('#errorDesc').html("Improperly formatted description (must be more than 20 characters)");
+                $('#error').html("Improperly formatted description (must be more than 20 characters)");
                 document.frmAddProduct.txtDesc.value = decs; document.frmAddProduct.txtDesc.focus();
                 return false;
             } if (price == "" || isNaN(price)) {
-                $('#errorPrice').html("The price must be numerical");
+                $('#error').html("The price must be numerical");
                 document.frmAddProduct.txtPrice.value = price; document.frmAddProduct.txtPrice.focus();
                 return false;
             }
@@ -379,23 +382,23 @@ function main()
                 if (genres[0].options[index].selected) { selectedCount++; }
             }
             if (selectedCount === 0) {
-                $('#errorGenre').html("Select a genre!!!");
+                $('#error').html("Select a genre!!!");
                 return false;
             }
             if (fileAVT.files.length === 0) {
-                $('#errorfileAVT').html("Select a image avt!!!");
+                $('#error').html("Select a image avt!!!");
                 return false;
             } if (fileImgDetail[0].files.length === 0) {
-                $('#errorfileImgDetail').html("Select a images detail!!!");
+                $('#error').html("Select a images detail!!!");
                 return false;
             } if (videoTrailer.files.length === 0) {
-                $('#errorvideoTrailer').html("Select a images detail!!!");
+                $('#error').html("Select a video trailer!!!");
                 return false;
             } if (fileSource.files.length === 0) {
-                $('#errorfileSource').html("Select a file source!!!");
+                $('#error').html("Select a file source!!!");
                 return false;
             } if (dateRelease == "") {
-                $('#errorDateRelease').html("Select a release date!!!");
+                $('#error').html("Select a release date!!!");
                 return false;
             } else {
                 document.frmAddProduct.action = "add_product.php?task=save";
