@@ -240,7 +240,8 @@ function main()
                                                         <?php echo $row['full_name']; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['id_voucher']; ?>
+                                                        <a href="vouchers_management.php?id=<?= $row['id_voucher'] ?>"><?= $row['id_voucher'] ?></a>
+                                                        
                                                     </td>
                                                     <td>
                                                         <?php echo $row['amount']; ?>

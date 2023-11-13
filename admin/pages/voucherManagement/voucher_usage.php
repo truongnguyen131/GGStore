@@ -117,7 +117,7 @@ function main()
         }
     }
 
-?>
+    ?>
 
     <div class="container-fluid">
 
@@ -135,7 +135,8 @@ function main()
                                 <div class="col-sm-12 col-md-6">
                                     <div class="dataTables_length" id="dataTable_length">
                                         <label>Show entries
-                                            <select onchange="submit()" name="show_entries" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                                            <select onchange="submit()" name="show_entries" aria-controls="dataTable"
+                                                class="custom-select custom-select-sm form-control form-control-sm">
                                                 <option value="10" <?php echo (($show_entries) == 10) ? 'selected' : ''; ?>>10
                                                 </option>
                                                 <option value="25" <?php echo (($show_entries) == 25) ? 'selected' : ''; ?>>25
@@ -156,22 +157,33 @@ function main()
                         <!-- Data -->
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                                    role="grid" aria-describedby="dataTable_info" style="width: 100%;">
 
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 120px;">
+                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="ID: activate to sort column descending" style="width: 120px;">
                                                 ID
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Genre name: activate to sort column ascending" style="width: 120px;">
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Genre name: activate to sort column ascending"
+                                                style="width: 120px;">
                                                 Voucher ID
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Genre name: activate to sort column ascending" style="width: 120px;">
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Genre name: activate to sort column ascending"
+                                                style="width: 120px;">
                                                 Order ID
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 120px;">Update
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                                style="width: 120px;">Update
                                             </th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 120px;">Delete
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Age: activate to sort column ascending"
+                                                style="width: 120px;">Delete
                                             </th>
                                         </tr>
                                     </thead>
@@ -196,17 +208,22 @@ function main()
                                                         <?php echo $row['id']; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['voucher_id']; ?>
+                                                        <a href="vouchers_management.php?id=<?= $row['voucher_id'] ?>">
+                                                            <?= $row['voucher_id'] ?>
+                                                        </a>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row['order_id']; ?>
+                                                        <a href="../orderManagement/orders_management.php?id=<?= $row['order_id'] ?>">
+                                                            <?= $row['order_id'] ?>
+                                                        </a>
                                                     </td>
-                                                    <td><a href="voucher_usage.php?task=update&id_update=<?= $row['id'] ?>">Update</a>
+                                                    <td><a
+                                                            href="voucher_usage.php?task=update&id_update=<?= $row['id'] ?>">Update</a>
                                                     </td>
                                                     <td><a href="javascript:deleteItem(<?= $row['id'] ?>)">Delete</a>
                                                     </td>
                                                 </tr>
-                                        <?php
+                                                <?php
                                             }
                                         } else {
                                             echo '<td style="border: none;">No results found.</td>';
@@ -227,19 +244,25 @@ function main()
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button page-item previous" id="dataTable_previous">
-                                            <a href="javascript:a('user_voucher.php?page=<?= ($page > 1) ? $page - 1 : $page; ?>')" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                            <a href="javascript:a('user_voucher.php?page=<?= ($page > 1) ? $page - 1 : $page; ?>')"
+                                                aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                class="page-link">Previous</a>
                                         </li>
                                         <?php
                                         for ($i = 1; $i <= $total_page; $i++) { ?>
                                             <li class="paginate_button page-item <?= ($i == $page) ? 'active' : '' ?>">
-                                                <a href="javascript:a('user_voucher.php?page=<?= $i; ?>')" aria-controls="dataTable" data-dt-idx="<?= $i; ?>" tabindex="0" class="page-link">
+                                                <a href="javascript:a('user_voucher.php?page=<?= $i; ?>')"
+                                                    aria-controls="dataTable" data-dt-idx="<?= $i; ?>" tabindex="0"
+                                                    class="page-link">
                                                     <?= $i; ?>
                                                 </a>
                                             </li>
                                         <?php }
                                         ?>
                                         <li class="paginate_button page-item next" id="dataTable_next">
-                                            <a href="javascript:a('user_voucher.php?page=<?= ($page < $total_page) ? $page + 1 : $page ?>')" aria-controls="dataTable" data-dt-idx="<?= $total_page + 1; ?>" tabindex="0" class="page-link">Next</a>
+                                            <a href="javascript:a('user_voucher.php?page=<?= ($page < $total_page) ? $page + 1 : $page ?>')"
+                                                aria-controls="dataTable" data-dt-idx="<?= $total_page + 1; ?>" tabindex="0"
+                                                class="page-link">Next</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -254,7 +277,8 @@ function main()
                                     <form method="post" id="FrmAdd_Update">
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <select id="voucher_id" name="voucher_id" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                                                <select id="voucher_id" name="voucher_id" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option value="none">---Select voucher---</option>
                                                     <?php
                                                     $sql_sl_voucher = "SELECT * FROM vouchers";
@@ -269,12 +293,13 @@ function main()
                                                             <option value="<?php echo $row["id"]; ?>">
                                                                 <?php echo $row["id"]; ?>
                                                             </option>
-                                                    <?php }
+                                                        <?php }
                                                     } ?>
                                                 </select>
                                             </div>
                                             <div class="col-md-5">
-                                                <select id="order_id" name="order_id" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                                                <select id="order_id" name="order_id" aria-controls="dataTable"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option value="none">---Select order---</option>
                                                     <?php
                                                     $sql_sl_orders = "SELECT * FROM orders ";
@@ -289,17 +314,21 @@ function main()
                                                             <option value="<?php echo $row["id"]; ?>">
                                                                 <?php echo $row["id"]; ?>
                                                             </option>
-                                                    <?php }
+                                                        <?php }
                                                     } ?>
                                                 </select>
                                             </div>
                                             <div class="col-md-1">
                                                 <?php
                                                 if (!isset($_GET['task'])) { ?>
-                                                    <button onclick="submit_FrmAdd()" style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;" type="button">Add
+                                                    <button onclick="submit_FrmAdd()"
+                                                        style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;"
+                                                        type="button">Add
                                                     </button>
                                                 <?php } else { ?>
-                                                    <button onclick="submit_FrmAdd()" style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;" type="button">Save
+                                                    <button onclick="submit_FrmAdd()"
+                                                        style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;"
+                                                        type="button">Save
                                                     </button>
                                                 <?php }
                                                 ?>
@@ -307,7 +336,9 @@ function main()
                                             <?php
                                             if (isset($_GET['task'])) { ?>
                                                 <div class="col-md-1">
-                                                    <button onclick="cancel_Update()" style="background-color: white; color: red;border: #dddfeb solid 1px; border-radius: 10%;" type="button">X
+                                                    <button onclick="cancel_Update()"
+                                                        style="background-color: white; color: red;border: #dddfeb solid 1px; border-radius: 10%;"
+                                                        type="button">X
                                                     </button>
                                                 </div>
                                             <?php } ?>
@@ -327,7 +358,8 @@ function main()
     </div>
 
     <!-- Confirm Delete Dialog -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

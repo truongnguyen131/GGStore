@@ -3,6 +3,7 @@ include("../add_template.php");
 function main()
 {
     include("../../../mod/database_connection.php");
+    $id_news = isset($_GET["id"]) ? $_GET["id"] : "";
     $search = isset($_POST["search"]) ? $_POST["search"] : "";
     $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : 10;
     $from_date = isset($_POST["from_date"]) ? $_POST["from_date"] : "";
@@ -53,6 +54,11 @@ function main()
     $to_date_obj = new DateTime($to_date);
     $to_date_obj->modify('+1 day');
     $next_day = $to_date_obj->format('Y-m-d H:i:s');
+
+    if ($id_news != "") {
+        $query .= "AND n.id = ? ";
+        $params[] = $id_news;
+    }
 
     if ($to_date != "") {
         $query .= "AND publish_date <= ? ";

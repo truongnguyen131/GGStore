@@ -3,6 +3,7 @@ include("../add_template.php");
 function main()
 {
     include("../../../mod/database_connection.php");
+    $id = isset($_GET["id"]) ? $_GET["id"] : "";
     $search = isset($_POST["search"]) ? $_POST["search"] : "";
     $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : 10;
     $from_date = isset($_POST["from_date"]) ? $_POST["from_date"] : "";
@@ -24,6 +25,11 @@ function main()
     WHERE u.id = o.customer_id AND u.full_name LIKE ? ";
 
     $params = array("%" . $search . "%");
+
+    if ($id != "") {
+        $query .= "AND o.id = ? ";
+        $params[] = $id;
+    }
 
     if ($from_date != "") {
         $query .= "AND o.order_date >= ? ";

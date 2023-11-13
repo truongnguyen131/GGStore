@@ -117,12 +117,14 @@ function main()
             var sl_show = document.getElementById("sl_show_entries").value;
             var voucher_type = document.getElementById("voucher_type").value;
             var status = document.getElementById("status").value;
+            var id = '<?= isset($_GET["id"]) ? $_GET["id"] : "" ?>';
 
             var postData = {
                 arrangement: arrangement,
                 show_entries: sl_show,
                 voucher_type: voucher_type,
-                status: status
+                status: status,
+                id: id
             };
 
             if (page != 0) {

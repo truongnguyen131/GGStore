@@ -250,7 +250,7 @@ function main()
                                                                     <?php echo $row['comment_date']; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <?php echo $row['news_id']; ?>
+                                                                    <a href="news_management.php?id=<?= $row['news_id'] ?>"><?= $row['news_id'] ?></a> 
                                                                 </td>
                                                                 <td><a href="update_news_comment.php?id=<?php echo $row['id']; ?>">Update</a>
                                                                 </td>
