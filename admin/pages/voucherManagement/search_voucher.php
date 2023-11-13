@@ -1,5 +1,6 @@
 <?php
 include("../../../mod/database_connection.php");
+$id = isset($_POST["id"]) ? $_POST["id"] : "";
 $arrangement = isset($_POST["arrangement"]) ? $_POST["arrangement"] : "";
 $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : 10;
 $voucher_type = isset($_POST["voucher_type"]) ? $_POST["voucher_type"] : "";
@@ -18,6 +19,11 @@ if ($page == "" || $page == 1) {
 
 $query = "SELECT * FROM vouchers WHERE id LIKE ? ";
 $params = array("%%");
+
+if ($id != "") {
+    $query .= "AND id = ? ";
+    $params[] = $id;
+}
 
 if ($voucher_type != "all") {
     $query .= "AND type = ? ";
