@@ -1365,6 +1365,7 @@
     <!-- GoodGames -->
     <script src="assets/js/goodgames.min.js"></script>
     <script src="assets/js/goodgames-init.js"></script>
+    <script src="assets/js/navbar.js"></script>
     <!-- END: Scripts -->
 
 
