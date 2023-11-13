@@ -136,6 +136,22 @@ include_once('../../../mod/database_connection.php');
                 </div>
             </li>
 
+             <!-- Nav Item - News Management -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen"
+                    aria-expanded="true" aria-controls="collapseTen">
+                    <span>News Management</span>
+                </a>
+                <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Management components:</h6>
+                        <a class="collapse-item" href="../newsManagement/news_management.php">News Management</a>
+                        <a class="collapse-item" href="../newsManagement/news_categories.php">News Categories</a>
+                        <a class="collapse-item" href="../newsManagement/news_comments.php">News Comments</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Genre Management -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"

@@ -47,118 +47,118 @@ function main()
         $check_stmt->execute();
         $check_result = $check_stmt->get_result();
         if ($check_result->num_rows > 0) {
-            $check_stmt->close();
-            $conn->close();
             createNotification("Product already exists! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
             echo "<script>location.href='add_product.php';</script>";
-        }
+        } else {
+            //insert product
+            $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`,  `classify`) 
+                                    VALUES (?,?,?,?,?,?,?,?,?)";
 
-        //insert product
-        $sql_insert_product = "INSERT INTO `products`(`id_manufacturer`, `product_name`, `image_avt_url`, `description`, `video_trailer_url`, `source`, `price`, `release_date`,  `classify`) 
-        VALUES (?,?,?,?,?,?,?,?,?)";
+            $stmt_insert_product = $conn->prepare($sql_insert_product);
+            $stmt_insert_product->bind_param("isssssiss", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release, $classify);
 
-        $stmt_insert_product = $conn->prepare($sql_insert_product);
-        $stmt_insert_product->bind_param("isssssiss", $id_manufacturer, $product_name, $fileAVT, $decs, $videoTrailer, $fileSource, $price, $date_release,$classify);
-
-        if ($stmt_insert_product->execute()) {
-            // id product just inserted
-            $id_product = mysqli_insert_id($conn);
-            //insert images 
-            foreach ($_FILES['fileImgDetail']['tmp_name'] as $key => $tmp_name) {
-                $fileImgDetail = basename($_FILES['fileImgDetail']['name'][$key]);
-                $sql_insert_imgs = "INSERT INTO `product_images`(`product_id`, `image_url`) VALUES (?,?)";
-                $stmt_insert_imgs = $conn->prepare($sql_insert_imgs);
-                $stmt_insert_imgs->bind_param("is", $id_product, $fileImgDetail);
-                if ($stmt_insert_imgs->execute()) {
-                    $check_result = true;
-                } else {
-                    $check_result = false;
-                    createNotification("The add-in process to the DB crashed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
-                    delete_product($id_product);
-                }
-                $stmt_insert_imgs->close();
-            }
-            if ($check_result) {
-                //insert genres
-                for ($i = 0; $i < count($genres); $i++) {
-                    $sql_insert_genres = "INSERT INTO `genre_product`(`genre_id`, `product_id`) VALUES (?,?)";
-                    $stmt_insert_genres = $conn->prepare($sql_insert_genres);
-                    $stmt_insert_genres->bind_param("ii", $genres[$i], $id_product);
-                    if ($stmt_insert_genres->execute()) {
+            if ($stmt_insert_product->execute()) {
+                // id product just inserted
+                $id_product = mysqli_insert_id($conn);
+                //insert images 
+                foreach ($_FILES['fileImgDetail']['tmp_name'] as $key => $tmp_name) {
+                    $fileImgDetail = basename($_FILES['fileImgDetail']['name'][$key]);
+                    $sql_insert_imgs = "INSERT INTO `product_images`(`product_id`, `image_url`) VALUES (?,?)";
+                    $stmt_insert_imgs = $conn->prepare($sql_insert_imgs);
+                    $stmt_insert_imgs->bind_param("is", $id_product, $fileImgDetail);
+                    if ($stmt_insert_imgs->execute()) {
                         $check_result = true;
                     } else {
                         $check_result = false;
                         createNotification("The add-in process to the DB crashed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                         delete_product($id_product);
                     }
-                    $stmt_insert_genres->close();
+                    $stmt_insert_imgs->close();
                 }
                 if ($check_result) {
-                    //upload fileImgDetail
-                    foreach ($_FILES['fileImgDetail']['tmp_name'] as $key => $tmp_name) {
-                        $fileImgDetail = basename($_FILES['fileImgDetail']['name'][$key]);
-                        $targetPath = $targetDirectory . $fileImgDetail;
-
-                        if (move_uploaded_file($tmp_name, $targetPath)) {
-                            $uploadSuccess = true;
+                    //insert genres
+                    for ($i = 0; $i < count($genres); $i++) {
+                        $sql_insert_genres = "INSERT INTO `genre_product`(`genre_id`, `product_id`) VALUES (?,?)";
+                        $stmt_insert_genres = $conn->prepare($sql_insert_genres);
+                        $stmt_insert_genres->bind_param("ii", $genres[$i], $id_product);
+                        if ($stmt_insert_genres->execute()) {
+                            $check_result = true;
                         } else {
-                            $file_error = $fileImgDetail;
-                            $uploadSuccess = false;
-                            break;
+                            $check_result = false;
+                            createNotification("The add-in process to the DB crashed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                            delete_product($id_product);
                         }
+                        $stmt_insert_genres->close();
                     }
-                    //Delete all successfully uploaded files when any file fails to upload
-                    if (!$uploadSuccess) {
-                        foreach ($_FILES['fileImgDetail']['name'] as $key => $filename) {
-                            $fileImgDetail = basename($filename);
+                    if ($check_result) {
+                        //upload fileImgDetail
+                        foreach ($_FILES['fileImgDetail']['tmp_name'] as $key => $tmp_name) {
+                            $fileImgDetail = basename($_FILES['fileImgDetail']['name'][$key]);
                             $targetPath = $targetDirectory . $fileImgDetail;
-                            if (file_exists($targetPath)) {
-                                unlink($targetPath);
+
+                            if (move_uploaded_file($tmp_name, $targetPath)) {
+                                $uploadSuccess = true;
+                            } else {
+                                $file_error = $fileImgDetail;
+                                $uploadSuccess = false;
+                                break;
                             }
                         }
-                        createNotification("Error when upload file $file_error! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
-                        delete_product($id_product);
-                    }
-                    //upload img_avt, video, source
-                    else {
-                        //upload image avt
-                        $targetPath = $targetDirectory . $fileAVT;
-                        if (move_uploaded_file($_FILES["fileAVT"]["tmp_name"], $targetPath)) {
-                            //upload video trailer 
-                            $targetPath = $targetDirectory . $videoTrailer;
-                            if (move_uploaded_file($_FILES["videoTrailer"]["tmp_name"], $targetPath)) {
-                                //upload source zip 
-                                $targetPath = $targetDirectory . $fileSource;
-                                if (move_uploaded_file($_FILES["fileSource"]["tmp_name"], $targetPath)) {
-                                    createNotification("Add Product Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
-                                    echo "<script>location.href='add_product.php';</script>";
+                        //Delete all successfully uploaded files when any file fails to upload
+                        if (!$uploadSuccess) {
+                            foreach ($_FILES['fileImgDetail']['name'] as $key => $filename) {
+                                $fileImgDetail = basename($filename);
+                                $targetPath = $targetDirectory . $fileImgDetail;
+                                if (file_exists($targetPath)) {
+                                    unlink($targetPath);
+                                }
+                            }
+                            createNotification("Error when upload file $file_error! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                            delete_product($id_product);
+                        }
+                        //upload img_avt, video, source
+                        else {
+                            //upload image avt
+                            $targetPath = $targetDirectory . $fileAVT;
+                            if (move_uploaded_file($_FILES["fileAVT"]["tmp_name"], $targetPath)) {
+                                //upload video trailer 
+                                $targetPath = $targetDirectory . $videoTrailer;
+                                if (move_uploaded_file($_FILES["videoTrailer"]["tmp_name"], $targetPath)) {
+                                    //upload source zip 
+                                    $targetPath = $targetDirectory . $fileSource;
+                                    if (move_uploaded_file($_FILES["fileSource"]["tmp_name"], $targetPath)) {
+                                        createNotification("Add Product Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
+                                        echo "<script>location.href='add_product.php';</script>";
+                                    } else {
+                                        $targetPath_fileAVT = $targetDirectory . $fileAVT;
+                                        unlink($targetPath_fileAVT);
+                                        $targetPath_videoTrailer = $targetDirectory . $videoTrailer;
+                                        unlink($targetPath_videoTrailer);
+                                        createNotification("Error when upload file $fileSource! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                                        delete_product($id_product);
+                                    }
                                 } else {
                                     $targetPath_fileAVT = $targetDirectory . $fileAVT;
                                     unlink($targetPath_fileAVT);
-                                    $targetPath_videoTrailer = $targetDirectory . $videoTrailer;
-                                    unlink($targetPath_videoTrailer);
-                                    createNotification("Error when upload file $fileSource! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                                    createNotification("Error when upload file $videoTrailer! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                                     delete_product($id_product);
                                 }
                             } else {
-                                $targetPath_fileAVT = $targetDirectory . $fileAVT;
-                                unlink($targetPath_fileAVT);
-                                createNotification("Error when upload file $videoTrailer! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                                createNotification("Error when upload file $fileAVT! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                                 delete_product($id_product);
                             }
-                        } else {
-                            createNotification("Error when upload file $fileAVT! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
-                            delete_product($id_product);
                         }
                     }
                 }
-            }
 
-        } else {
-            createNotification("There was a problem adding products! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
-            echo "<script>location.href='add_product.php';</script>";
+            } else {
+                createNotification("There was a problem adding products! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                echo "<script>location.href='add_product.php';</script>";
+            }
+            $stmt_insert_product->close();
         }
-        $stmt_insert_product->close();
+        
+        $check_stmt->close();
         $conn->close();
     }
     ?>
@@ -217,7 +217,7 @@ function main()
                             <td>
                                 <textarea class="form-control input-left" name="txtDesc" value="">
 
-                                        </textarea>
+                                                </textarea>
                             </td>
                         </tr>
                         <tr>
