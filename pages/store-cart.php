@@ -1,3 +1,9 @@
+<!-- START: Connect Database -->
+<?php
+session_start();
+include_once('../mod/database_connection.php');
+?>
+<!-- END: Connect Database -->
 <!DOCTYPE html>
 
 
@@ -59,7 +65,19 @@
 
 </head>
 
+<?php
+// START: Delete product form cart
+$page = isset($_POST['page']) ? $_POST['page'] : "";
+if ($page == 'delete_cart') {
+    $productID = isset($_POST['product_id']) ? $_POST['product_id'] : "";
+    unset($_SESSION['product'][$productID]);
+}
+print_r($_SESSION['product']);
+// END: Delete product form cart
+?>
+
 <body>
+    <?php include './alert_box.php' ?>
     <!-- START: Navbar -->
     <?php include '../mod/navbar.php' ?>
     <!-- END: Navbar -->
@@ -68,116 +86,71 @@
         <div class="nk-gap-1"></div>
         <div class="container">
             <ul class="nk-breadcrumbs">
-
-
                 <li><a href="index.html">Home</a></li>
-
-
                 <li><span class="fa fa-angle-right"></span></li>
-
                 <li><a href="store.html">Store</a></li>
-
-
                 <li><span class="fa fa-angle-right"></span></li>
-
                 <li><span>Cart</span></li>
-
             </ul>
         </div>
         <div class="nk-gap-1"></div>
         <!-- END: Breadcrumbs -->
-
-
-
-
         <div class="container">
             <div class="nk-store nk-store-cart">
                 <div class="table-responsive">
-
                     <!-- START: Products in Cart -->
                     <table class="table nk-store-cart-products">
                         <tbody>
+                            <?php
+                          if (isset($_SESSION['product']) && is_array($_SESSION['product']) && !empty($_SESSION['product'])) {
+                            foreach ($_SESSION['product'] as $product_id => $item) {
+                                $name_product = $item[0];
+                                $imgAvt_product = $item[1];
+                                $classify_product = $item[2];
+                                $price_product = $item[3];
+                                $product_quantity = $item[4];
+                            ?>
+                                <tr>
+                                    <td class="nk-product-cart-thumb">
+                                        <a href="store-product.html" class="nk-image-box-1 nk-post-image">
+                                            <img src="../uploads/<?php echo $imgAvt_product ?>" alt="However, I have reason" width="115">
+                                        </a>
+                                    </td>
+                                    <td class="nk-product-cart-title">
+                                        <h5 class="h6">Product: <?php echo $classify_product ?></h5>
+                                        <div class="nk-gap-1"></div>
 
-                            <tr>
-                                <td class="nk-product-cart-thumb">
-                                    <a href="store-product.html" class="nk-image-box-1 nk-post-image">
-                                        <img src="../assets/images/product-2-xs.jpg" alt="However, I have reason" width="115">
-                                    </a>
-                                </td>
-                                <td class="nk-product-cart-title">
-                                    <h5 class="h6">Product:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <h2 class="nk-post-title h4">
-                                        <a href="store-product.html">However, I have reason</a>
-                                    </h2>
-                                </td>
-                                <td class="nk-product-cart-price">
-                                    <h5 class="h6">Price:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <strong>€ 32.00</strong>
-                                </td>
-                                <td class="nk-product-cart-quantity">
-                                    <h5 class="h6">Quantity:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <div class="nk-form">
-                                        <input type="number" class="form-control" value="1" min="1" max="21">
-                                    </div>
-                                </td>
-                                <td class="nk-product-cart-total">
-                                    <h5 class="h6">Total:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <strong>€ 32.00</strong>
-                                </td>
-                                <td class="nk-product-cart-remove"><a href="#"><span
-                                            class="ion-android-close"></span></a></td>
-                            </tr>
-
-                            <tr>
-                                <td class="nk-product-cart-thumb">
-                                    <a href="store-product.html" class="nk-image-box-1 nk-post-image">
-                                        <img src="../assets/images/product-4-xs.jpg" alt="She was bouncing" width="115">
-                                    </a>
-                                </td>
-                                <td class="nk-product-cart-title">
-                                    <h5 class="h6">Product:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <h2 class="nk-post-title h4">
-                                        <a href="store-product.html">She was bouncing</a>
-                                    </h2>
-                                </td>
-                                <td class="nk-product-cart-price">
-                                    <h5 class="h6">Price:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <strong>€ 20.00</strong>
-                                </td>
-                                <td class="nk-product-cart-quantity">
-                                    <h5 class="h6">Quantity:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <div class="nk-form">
-                                        <input type="number" class="form-control" value="1" min="1" max="21">
-                                    </div>
-                                </td>
-                                <td class="nk-product-cart-total">
-                                    <h5 class="h6">Total:</h5>
-                                    <div class="nk-gap-1"></div>
-
-                                    <strong>€ 20.00</strong>
-                                </td>
-                                <td class="nk-product-cart-remove"><a href="#"><span
-                                            class="ion-android-close"></span></a></td>
-                            </tr>
-
+                                        <h2 class="nk-post-title h4">
+                                            <a href="store-product.html"><?php echo $name_product ?></a>
+                                        </h2>
+                                    </td>
+                                    <td class="nk-product-cart-price">
+                                        <h5 class="h6">Price:</h5>
+                                        <div class="nk-gap-1"></div>
+                                        <strong><?php echo $price_product?> G-Coin</strong>
+                                    </td>
+                                    <td class="nk-product-cart-quantity">
+                                        <h5 class="h6">Quantity:</h5>
+                                        <div class="nk-gap-1"></div>
+                                        <div class="nk-form">
+                                            <input type="number" class="form-control" value="<?php echo $product_quantity ?>" min="1" max="21">
+                                        </div>
+                                    </td>
+                                    <td class="nk-product-cart-total">
+                                        <h5 class="h6">Total:</h5>
+                                        <div class="nk-gap-1"></div>
+                                        <strong><?php echo ($price_product * $product_quantity) ?> G-Coin</strong>
+                                    </td>
+                                    <td class="nk-product-cart-remove">
+                                        <button class="btn_delete" name="btn__delete_product" value="<?php echo $product_id ?>">
+                                            <span class="ion-android-close"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php } }?>
                         </tbody>
                     </table>
                     <!-- END: Products in Cart -->
-
                 </div>
                 <div class="nk-gap-1"></div>
                 <a class="nk-btn nk-btn-rounded nk-btn-color-white float-right" href="#">Update Cart</a>
@@ -186,7 +159,6 @@
                 <div class="nk-gap-2"></div>
                 <div class="row vertical-gap">
                     <div class="col-md-6">
-
                         <!-- START: Calculate Shipping -->
                         <h3 class="nk-title h4">Calculate Shipping</h3>
                         <form action="#" class="nk-form">
@@ -260,17 +232,12 @@
 
         <div class="nk-gap-2"></div>
 
-
-
         <!-- START: Footer -->
         <?php include '../mod/footer.php' ?>
         <!-- END: Footer -->
 
 
     </div>
-
-
-
 
     <!-- START: Page Background -->
 
@@ -320,20 +287,14 @@
     <script src="../assets/vendor/moment/min/moment.min.js"></script>
     <script src="../assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 
-    <!-- Hammer.js -->
-    <script src="../assets/vendor/hammerjs/hammer.min.js"></script>
-
     <!-- NanoSroller -->
     <script src="../assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
 
-    <!-- SoundManager2 -->
-    <script src="../assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
 
     <!-- Seiyria Bootstrap Slider -->
     <script src="../assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
 
-    <!-- Summernote -->
-    <script src="../assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+
 
     <!-- nK Share -->
     <script src="../assets/plugins/nk-share/nk-share.js"></script>
@@ -344,8 +305,26 @@
     <script src="../../assets/js/navbar.js"></script>
     <!-- END: Scripts -->
 
-
-
 </body>
+<script>
+    const btn__delete_products = document.querySelectorAll('.btn_delete');
+    const btn_yes = document.getElementById('btn_yes');
+    btn__delete_products.forEach(btn__delete_product => {
+        btn__delete_product.onclick = (event) => {
+            const productID = btn__delete_product.value;
+            event.stopPropagation();
+            alert_box.style.display = 'block';
+            setting('Do you want to remove this product from your shopping cart?');
+                btn_yes.onclick = () => {
+                $.post('./store-cart.php', {
+                    page: 'delete_cart',
+                    product_id: productID,
+                }, function(data) {
+                    $('body').html(data);
+                })
+            }
+        }
+    });
+</script>
 
 </html>

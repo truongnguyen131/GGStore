@@ -1,6 +1,10 @@
+<!-- START: Connect Database -->
+<?php
+session_start();
+include_once('../mod/database_connection.php');
+?>
+<!-- END: Connect Database -->
 <!DOCTYPE html>
-
-
 <html lang="en">
 
 <head>
@@ -68,16 +72,11 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
-<!-- START: Connect Database -->
-<?php
-session_start();
-include_once('../mod/database_connection.php');
-?>
-<!-- END: Connect Database -->
+
 <!-- ================================ -->
 <?php
 $user_id = isset($_GET['us_id']) ? $_GET['us_id'] : "33";
-$product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "1";
+$product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "2";
 // ============================================
 //START: Select database form table products
 $sql_Product = "SELECT * FROM products AS p
@@ -136,6 +135,24 @@ $stmt->bind_param("i", $product_id);
 $stmt->execute();
 $genre_Product = $stmt->get_result();
 //END: Select database form table genres and genre_product
+
+// START : Add product to cart
+if (!isset($_SESSION['product'])) {
+    $_SESSION['product'] = array();
+}
+$quantity = isset($_POST['quantity']) ? $_POST['quantity'] : "";
+
+if (isset($_POST['btn_AddToCart'])) {
+    if (isset($_SESSION['product'][$product_id])){
+        $_SESSION['product'][$product_id][4] += $quantity;
+    }else{
+        $_SESSION['product'][$product_id] = array($name_product, $imgAvt_product,  $classify_product ,$price_product , $quantity);
+    }
+    $url = './store-cart.php';
+    header('location:' . $url);
+}
+print_r($_SESSION['product']);
+// END : Add product to cart
 ?>
 
 <body>
@@ -207,12 +224,12 @@ $genre_Product = $stmt->get_result();
                             </div>
                             <div class="col-md-12">
                                 <!-- START: Add to Cart -->
-                                <form action="#" class="nk-product-addtocart">
+                                <form action="#" class="nk-product-addtocart" method="post">
                                     <div class="nk-product-price"><?php echo $price_product ?> G-Coin</div>
                                     <div class="nk-gap-1"></div>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" value="1" min="1" max="21">
-                                        <button class="nk-btn nk-btn-rounded nk-btn-color-main-1">Add to Cart</button>
+                                        <input type="number" name="quantity" class="form-control" value="1" min="1" max="21">
+                                        <button class="nk-btn nk-btn-rounded nk-btn-color-main-1" name="btn_AddToCart">Add to Cart</button>
                                         <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Buy</a>
                                     </div>
                                 </form>
@@ -549,14 +566,7 @@ $genre_Product = $stmt->get_result();
                     <!-- END: Related Products -->
                 </div>
                 <div class="col-lg-4">
-                    <!--
-                START: Sidebar
-
-                Additional Classes:
-                    .nk-sidebar-left
-                    .nk-sidebar-right
-                    .nk-sidebar-sticky
-            -->
+                    <!-- START: Sidebar -->
                     <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
                         <div class="nk-widget">
                             <div class="nk-widget-content">
@@ -573,12 +583,12 @@ $genre_Product = $stmt->get_result();
                             </h4>
                             <div class="nk-widget-content">
                                 <select class="nk-widget-categories">
-                                    <?php 
-                                     $sql_genres =  mysqli_query($conn, "SELECT * FROM `genres`") or die();
-                                     while($row = mysqli_fetch_array( $sql_genres)){
+                                    <?php
+                                    $sql_genres =  mysqli_query($conn, "SELECT * FROM `genres`") or die();
+                                    while ($row = mysqli_fetch_array($sql_genres)) {
                                     ?>
-                                    <option><a href="#"><?php echo $row['genre_name']?></a></option>
-                                  <?php }?>
+                                        <option><a href="#"><?php echo $row['genre_name'] ?></a></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -877,7 +887,7 @@ $genre_Product = $stmt->get_result();
             }
         }
         if (check_cmt == true) {
-            $.post('./processing_sql.php', {
+            $.post('./processing-sql.php', {
                 page: 'comment',
                 us_id: user_id,
                 product_id: product_id,
