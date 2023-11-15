@@ -745,7 +745,7 @@ $genre_Product = $stmt->get_result();
     <!-- GoodGames -->
     <script src="../assets/js/goodgames.min.js"></script>
     <script src="../assets/js/goodgames-init.js"></script>
-    <script src="../../assets/js/navbar.js"></script>
+    <script src="../assets/js/navbar.js"></script>
     <!-- END: Scripts -->
 
 
@@ -753,14 +753,6 @@ $genre_Product = $stmt->get_result();
 </body>
 
 </html>
-<!-- nK Share -->
-<script src="../assets/plugins/nk-share/nk-share.js"></script>
-
-<!-- GoodGames -->
-<script src="../assets/js/goodgames.min.js"></script>
-<script src="../assets/js/goodgames-init.js"></script>
-<!-- END: Scripts -->
-
 
 <script>
     function showMore() {
