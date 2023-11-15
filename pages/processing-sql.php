@@ -1,10 +1,13 @@
 <?php
+//  START: Connect Database 
 session_start();
 include_once('../mod/database_connection.php');
+//  END: Connect Database 
+// ======================================================
 $page = isset($_POST['page']) ? $_POST['page'] : "";
 $user_id = isset($_POST['us_id']) ? $_POST['us_id'] : "";
 $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : "";
-
+// =================================================================
 // START: Handling product comments and reviews
 $input_cmt = isset($_POST['input_cmt']) ? $_POST['input_cmt'] : "";
 $number_star = isset($_POST['star']) ? $_POST['star'] : "0";
@@ -18,9 +21,7 @@ if($page == 'comment'){
         window.location.href = './store-product.php?product_id=$product_id';
         </script>";
     }
-
-    // END: Handling product comments and reviews
-
-    
+// END: Handling product comments and reviews
+// =================================================================
 ?>
 
