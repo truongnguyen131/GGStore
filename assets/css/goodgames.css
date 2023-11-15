@@ -9437,7 +9437,11 @@ div.nk-error {
     -ms-transform: scale(1.05);
     transform: scale(1.05);
 }
-
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .nk-store-cart .nk-store-cart-products .nk-product-cart-remove a {
     display: block;
     margin-top: -15px;
