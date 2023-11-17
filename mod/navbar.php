@@ -36,7 +36,7 @@
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="../pages/store-cart.php">
                             <span>
                                 <span class="fa fa-shopping-cart"></span>
                                 <span class="nk-badge">27</span>

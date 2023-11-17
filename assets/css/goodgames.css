@@ -9453,7 +9453,7 @@ div.nk-error {
 }
 
 .nk-store-cart .nk-store-cart-products tbody .nk-product-cart-thumb {
-    width: 150px;
+    width: 40%;
     padding-right: 20px;
     padding-left: 20px;
 }
@@ -9461,6 +9461,7 @@ div.nk-error {
 .nk-store-cart .nk-store-cart-products tbody .nk-product-cart-thumb .nk-post-image {
     display: block;
     overflow: hidden;
+    width: 100%;height: 100%;
     -webkit-transition: opacity .15s ease-in-out;
     -o-transition: opacity .15s ease-in-out;
     transition: opacity .15s ease-in-out;
@@ -9480,6 +9481,7 @@ div.nk-error {
     -ms-transform: scale(1);
     transform: scale(1);
     will-change: transform;
+    width: 100%;height: 100%;object-fit: cover;
 }
 
 .nk-store-cart .nk-store-cart-products tr:hover .nk-product-cart-thumb .nk-post-image img {
@@ -9487,8 +9489,13 @@ div.nk-error {
     -ms-transform: scale(1.05);
     transform: scale(1.05);
 }
-
-.nk-store-cart .nk-store-cart-products .nk-product-cart-remove a {
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove button {
+    cursor: pointer;
     display: block;
     margin-top: -15px;
     font-size: 1.8rem;
@@ -9499,12 +9506,15 @@ div.nk-error {
     -webkit-transition: .15s opacity;
     -o-transition: .15s opacity;
     transition: .15s opacity;
+    background: none;
+    border: none;
+    outline: none;
 }
 
-.nk-store-cart .nk-store-cart-products .nk-product-cart-remove a:hover,
-.nk-store-cart .nk-store-cart-products .nk-product-cart-remove a.hover,
-.nk-store-cart .nk-store-cart-products .nk-product-cart-remove a:focus,
-.nk-store-cart .nk-store-cart-products .nk-product-cart-remove a:active {
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove button:hover,
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove button.hover,
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove button:focus,
+.nk-store-cart .nk-store-cart-products .nk-product-cart-remove button:active {
     opacity: .5;
 }
 
@@ -11062,6 +11072,219 @@ div.nk-error {
     font-family: "Montserrat", sans-serif;
     color: white;
     font-weight: bold;
+<<<<<<< Updated upstream
+=======
+}
+
+
+/* top 10 best SELLERS */
+
+
+.nk-product {
+    width: 100%;
+    height: 230px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+.sale {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    z-index: 5;
+    background: green;
+    padding: 2px 3px;
+}
+
+.nk-product-image {
+    display: block;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+}
+
+.nk-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s linear;
+}
+
+.nk-product-content {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(35, 41, 48, 0.7);
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    flex-direction: column;
+    row-gap: 5px;
+    transition: opacity .3s linear;
+}
+
+.nk-product:hover .nk-product-content {
+    opacity: 1;
+}
+
+.nk-product:hover .nk-product-image img {
+    transform: scale(1.1);
+}
+
+.nk-product__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.nk-product__btn .btn {
+    background: black;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 15px;
+    transition: .3s linear;
+}
+
+@media screen and (max-width: 321px) {
+    .nk-product__btn {
+        display: flex;
+        justify-content: left;
+        align-items: flex-start;
+        flex-direction: column;
+        row-gap: 5px;
+    }
+
+    .nk-product__btn .btn {
+        width: 100%;
+    }
+}
+
+.nk-product__btn .btn:hover {
+    background: #dd163b;
+    color: black;
+}
+
+
+.btn-seeMore {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    background: #dd163b;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    transition: .3s linear;
+}
+
+.btn-seeMore:hover {
+    background: black;
+    color: #dd163b;
+    text-decoration: none;
+}
+
+.nk-gallery-item-overlay {
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+    row-gap: 5px;
+}
+
+.btn_see_more{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    background: #dd163b;
+    border-radius: 3px;
+    transition: .3s linear;
+}
+
+.btn_see_more:hover{
+    background: black;
+    color: #dd163b;
+    text-decoration: none;
+}
+
+
+#errocmt{
+    font-family: "Montserrat", sans-serif;
+    color: #dd163b;
+    font-weight: bold;
+}
+
+
+.alert_box{
+    position: fixed;
+    z-index: 1002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    width: 100%;
+    height: 100vh;
+    background: rgb(15, 15, 15,0.5);
+}
+
+.alert_box_content{
+    position: fixed;
+    z-index: 1002;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    background: white;
+    width: 350px;
+    height: auto;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: rgb(255, 234, 167,0.35) 0px 5px 15px;
+}
+
+.alert_box_content span{
+    font-family: "Montserrat", sans-serif;
+    color: black;
+    font-weight: bold;
+}
+.alert_box_content .btnControl{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alert_box_content .btnControl button{
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+    width: 50%;
+    border: 1px solid rgb(156, 157, 158,0.5);
+    outline: none;
+    background: whitesmoke;
+    color: #dd163b;
+    transition: .3s linear;
+}
+
+.alert_box_content .btnControl button:hover{
+    background: rgb(165, 165, 165);
+}
+.alert_box_content .btnControl button:active{
+    transform: scale(0.9);
+>>>>>>> Stashed changes
 }
 
 
