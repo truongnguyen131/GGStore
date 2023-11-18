@@ -203,6 +203,7 @@
             <div class="row vertical-gap">
                 <div class="col-lg-8">
                     <div class="row vertical-gap">
+<<<<<<< Updated upstream
                         <div class="col-md-4">
                             <select class="form-control">
                         <option value="" disabled selected>Select Platform</option>
@@ -210,6 +211,23 @@
                         <option value="xbox">Xbox 1</option>
                         <option value="pc">PC</option>
                     </select>
+=======
+                        <div class="col-md-4 genre">
+                            <div class="form-control select_genre" id="select_genre">
+                                <span>Select Genres</span>
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </div>
+                            <div class="list_genre" id="list_genre">
+                                <?php
+                                while ($rows = mysqli_fetch_array($list_genres)) {
+                                ?>
+                                    <label for="<?php echo $rows['id'] ?>" class="genre_item" title="<?php echo $rows['genre_name'] ?>">
+                                        <input type="checkbox" class="genre_checkbox" id="<?php echo $rows['id'] ?>" value="<?php echo $rows['id'] ?>">
+                                        <label for="<?php echo $rows['id'] ?>" class="genre_name"><?php echo $rows['genre_name'] ?></label>
+                                    </label>
+                                <?php } ?>
+                            </div>
+>>>>>>> Stashed changes
                         </div>
                         <div class="col-md-8">
                             <div class="nk-input-slider-inline">
@@ -722,5 +740,56 @@
 
 
 </body>
+<<<<<<< Updated upstream
+=======
+<script>
+    const genre_select = document.getElementById('select_genre');
+    const genres = document.getElementById('list_genre');
+
+    genre_select.onclick = (event) => {
+        event.stopPropagation();
+        genres.style.display = 'flex';
+    }
+
+    document.onclick = (event) => {
+        const isClickedInsideGenres = genres.contains(event.target);
+        if (!isClickedInsideGenres) {
+            genres.style.display = 'none';
+        }
+    };
+</script>
+
+<script>
+var inputElements = document.querySelectorAll('.genre_checkbox');
+var selectedValues = [];
+
+for (var i = 0; i < inputElements.length; i++) {
+  inputElements[i].addEventListener('change', function() {
+    if (this.checked) {
+      var inputValue = this.value;
+      selectedValues.push(inputValue);
+    } else {
+      var inputValue = this.value;
+      var index = selectedValues.indexOf(inputValue);
+      if (index > -1) {
+        selectedValues.splice(index, 1);
+      }
+    }
+    console.log(selectedValues);
+  });
+}
+</script>
+<script>
+    // const price_min = document.getElementById('price_min');
+    // const price_max = document.getElementById('price_max');
+    // $.post('./store.php', {
+    //     page: 'filter',
+    //     price_min: price_min.innerText,
+    //     price_max: price_max.innerText,
+    // }, function(data) {
+    //     $('body').html(data);
+    // })
+</script>
+>>>>>>> Stashed changes
 
 </html>
