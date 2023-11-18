@@ -69,23 +69,13 @@
         <div class="nk-gap-1"></div>
         <div class="container">
             <ul class="nk-breadcrumbs">
-
-
                 <li><a href="index.html">Home</a></li>
-
-
                 <li><span class="fa fa-angle-right"></span></li>
-
                 <li><span>Profile</span></li>
-
             </ul>
         </div>
         <div class="nk-gap-1"></div>
         <!-- END: Breadcrumbs -->
-
-
-
-
         <div class="container">
 
             <div class="nk-store nk-store-checkout">

@@ -57,30 +57,32 @@ include_once('../mod/database_connection.php');
     <!-- Custom Styles -->
     <link rel="stylesheet" href="../assets/css/custom.css">
 
-    <!-- END: Styles -->
-
     <!-- jQuery -->
     <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+
+    <!-- END: Styles -->
 
 
 </head>
 
 <?php
+$product = isset($_SESSION['product']) ? $_SESSION['product'] : "";
 // START: Delete product form cart
 $page = isset($_POST['page']) ? $_POST['page'] : "";
 if ($page == 'delete_cart') {
     $productID = isset($_POST['product_id']) ? $_POST['product_id'] : "";
-    unset($_SESSION['product'][$productID]);
+    unset($product[$productID]);
+    $_SESSION['product'] = $product;
 }
-print_r($_SESSION['product']);
+print_r($product);
 // END: Delete product form cart
 ?>
 
 <body>
-    <?php include './alert_box.php' ?>
     <!-- START: Navbar -->
     <?php include '../mod/navbar.php' ?>
     <!-- END: Navbar -->
+    <?php include './alert_box.php' ?>
     <div class="nk-main">
         <!-- START: Breadcrumbs -->
         <div class="nk-gap-1"></div>
@@ -102,52 +104,53 @@ print_r($_SESSION['product']);
                     <table class="table nk-store-cart-products">
                         <tbody>
                             <?php
-                          if (isset($_SESSION['product']) && is_array($_SESSION['product']) && !empty($_SESSION['product'])) {
-                            foreach ($_SESSION['product'] as $product_id => $item) {
-                                $name_product = $item[0];
-                                $imgAvt_product = $item[1];
-                                $classify_product = $item[2];
-                                $price_product = $item[3];
-                                $product_quantity = $item[4];
+                            if (isset($product) && is_array($product) && !empty($product)) {
+                                foreach ($product as $product_id => $item) {
+                                    $name_product = $item[0];
+                                    $imgAvt_product = $item[1];
+                                    $classify_product = $item[2];
+                                    $price_product = $item[3];
+                                    $product_quantity = $item[4];
                             ?>
-                                <tr>
-                                    <td class="nk-product-cart-thumb">
-                                        <a href="store-product.html" class="nk-image-box-1 nk-post-image">
-                                            <img src="../uploads/<?php echo $imgAvt_product ?>" alt="However, I have reason" width="115">
-                                        </a>
-                                    </td>
-                                    <td class="nk-product-cart-title">
-                                        <h5 class="h6">Product: <?php echo $classify_product ?></h5>
-                                        <div class="nk-gap-1"></div>
+                                    <tr>
+                                        <td class="nk-product-cart-thumb">
+                                            <a href="store-product.html" class="nk-image-box-1 nk-post-image">
+                                                <img src="../uploads/<?php echo $imgAvt_product ?>" alt="However, I have reason" width="115">
+                                            </a>
+                                        </td>
+                                        <td class="nk-product-cart-title">
+                                            <h5 class="h6">Product: <?php echo $classify_product ?></h5>
+                                            <div class="nk-gap-1"></div>
 
-                                        <h2 class="nk-post-title h4">
-                                            <a href="store-product.html"><?php echo $name_product ?></a>
-                                        </h2>
-                                    </td>
-                                    <td class="nk-product-cart-price">
-                                        <h5 class="h6">Price:</h5>
-                                        <div class="nk-gap-1"></div>
-                                        <strong><?php echo $price_product?> G-Coin</strong>
-                                    </td>
-                                    <td class="nk-product-cart-quantity">
-                                        <h5 class="h6">Quantity:</h5>
-                                        <div class="nk-gap-1"></div>
-                                        <div class="nk-form">
-                                            <input type="number" class="form-control" value="<?php echo $product_quantity ?>" min="1" max="21">
-                                        </div>
-                                    </td>
-                                    <td class="nk-product-cart-total">
-                                        <h5 class="h6">Total:</h5>
-                                        <div class="nk-gap-1"></div>
-                                        <strong><?php echo ($price_product * $product_quantity) ?> G-Coin</strong>
-                                    </td>
-                                    <td class="nk-product-cart-remove">
-                                        <button class="btn_delete" name="btn__delete_product" value="<?php echo $product_id ?>">
-                                            <span class="ion-android-close"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php } }?>
+                                            <h2 class="nk-post-title h4">
+                                                <a href="store-product.html"><?php echo $name_product ?></a>
+                                            </h2>
+                                        </td>
+                                        <td class="nk-product-cart-price">
+                                            <h5 class="h6">Price:</h5>
+                                            <div class="nk-gap-1"></div>
+                                            <strong><?php echo $price_product ?> G-Coin</strong>
+                                        </td>
+                                        <td class="nk-product-cart-quantity">
+                                            <h5 class="h6">Quantity:</h5>
+                                            <div class="nk-gap-1"></div>
+                                            <div class="nk-form">
+                                                <input type="number" class="form-control" value="<?php echo $product_quantity ?>" min="1" max="21">
+                                            </div>
+                                        </td>
+                                        <td class="nk-product-cart-total">
+                                            <h5 class="h6">Total:</h5>
+                                            <div class="nk-gap-1"></div>
+                                            <strong><?php echo ($price_product * $product_quantity) ?> G-Coin</strong>
+                                        </td>
+                                        <td class="nk-product-cart-remove">
+                                            <button class="btn_delete" name="btn__delete_product" value="<?php echo $product_id ?>">
+                                                <span class="ion-android-close"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                            <?php }
+                            } ?>
                         </tbody>
                     </table>
                     <!-- END: Products in Cart -->
@@ -164,7 +167,6 @@ print_r($_SESSION['product']);
                         <form action="#" class="nk-form">
                             <label for="state">Address <span class="text-main-1">*</span>:</label>
                             <input type="text" class="form-control required" name="state" id="state">
-
 
                             <div class="nk-gap-1"></div>
                             <div class="row vertical-gap">
@@ -302,9 +304,8 @@ print_r($_SESSION['product']);
     <!-- GoodGames -->
     <script src="../assets/js/goodgames.min.js"></script>
     <script src="../assets/js/goodgames-init.js"></script>
-    <script src="../../assets/js/navbar.js"></script>
+    <script src="../assets/js/navbar.js"></script>
     <!-- END: Scripts -->
-
 </body>
 <script>
     const btn__delete_products = document.querySelectorAll('.btn_delete');
@@ -315,7 +316,7 @@ print_r($_SESSION['product']);
             event.stopPropagation();
             alert_box.style.display = 'block';
             setting('Do you want to remove this product from your shopping cart?');
-                btn_yes.onclick = () => {
+            btn_yes.onclick = () => {
                 $.post('./store-cart.php', {
                     page: 'delete_cart',
                     product_id: productID,

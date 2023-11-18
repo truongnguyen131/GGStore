@@ -1,5 +1,29 @@
-<header class="nk-header nk-header-opaque">
+<script>
+    function searchInput(str) {
+        var searchTypeValue = document.getElementById("search_type").value; 
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("suggest_search").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "../mod/search.php?search=" + str + "&type=" + searchTypeValue, true);
+        xmlhttp.send();
+    }
 
+    function searchType(str) {
+        var searchInputValue = document.getElementById("search_textbox").value; 
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("suggest_search").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "../mod/search.php?search=" + searchInputValue + "&type=" + str, true);
+        xmlhttp.send();
+    }
+</script>
+<header class="nk-header nk-header-opaque">
     <!-- START: Top Contacts -->
     <div class="nk-contacts-top">
         <div class="container">
@@ -10,10 +34,21 @@
                             <span class="fa fa-search"></span>
                         </a>
                         <div class="search_box" id="search_box">
-                            <input type="text" name="" id="" placeholder="Search">
+                            <form action="" method="post">
+                                <select name="option_search" id="search_type" onchange="searchType(this.value)">
+                                    <option value="all">All</option>
+                                    <option value="game">Game</option>
+                                    <option value="gear">Gear</option>
+                                    <option value="category">Category</option>
+                                    <option value="news">News</option>
+                                </select>
+                                <input type="text" name="search_textbox" id="search_textbox" placeholder="Search" onkeyup="searchInput(this.value)">
+                            </form>
+                            <div class="suggest_search" id="suggest_search">
+                            </div>
                         </div>
-                    </li>
 
+                    </li>
                     <li class="user_icon icon" id="user_icon">
                         <a href="#">
                             <span class="fa fa-user"></span>
@@ -34,7 +69,6 @@
                             </div>
                         </div>
                     </li>
-
                     <li>
                         <a href="../pages/store-cart.php">
                             <span>
@@ -43,7 +77,6 @@
                             </span>
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -58,40 +91,33 @@
                     <img src="../assets/images/logo1.png" alt="GoodGames" width="220">
                 </a>
                 <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
-
                     <li>
                         <a href="elements.html">
                             Favorite
                         </a>
-
                     </li>
                     <li>
                         <a href="blog-list.html">
                             Blog
                         </a>
-
                     </li>
                     <li>
                         <a href="gallery.html">
                             Gallery
-
                         </a>
                     </li>
                     <li>
                         <a href="gallery.html">
                             Gallery
-
                         </a>
                     </li>
                     <li>
                         <a href="gallery.html">
                             Gallery
-
                         </a>
                     </li>
                 </ul>
                 <ul class="nk-nav nk-nav-right nk-nav-icons">
-
                     <li class="single-icon d-lg-none">
                         <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
                             <span class="nk-icon-burger">
@@ -101,14 +127,11 @@
                             </span>
                         </a>
                     </li>
-
-
                 </ul>
             </div>
         </div>
     </nav>
     <!-- END: Navbar -->
-
 </header>
 
 <!-- START: Navbar Mobile -->

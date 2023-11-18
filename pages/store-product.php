@@ -76,7 +76,7 @@ include_once('../mod/database_connection.php');
 <!-- ================================ -->
 <?php
 $user_id = isset($_GET['us_id']) ? $_GET['us_id'] : "33";
-$product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "2";
+$product_id = isset($_GET['product_id']) ? $_GET['product_id'] : "1";
 // ============================================
 //START: Select database form table products
 $sql_Product = "SELECT * FROM products AS p

@@ -11,10 +11,14 @@ user_icon.addEventListener('mouseleave', function() {
     user_box.classList.remove('active');
 });
 
-search_icon.addEventListener('mouseenter', function() {
-    search_box.classList.add('active');
-});
+search_icon.onclick = function(event) {
+    event.stopPropagation();
+    search_box.style.display = 'flex';
+};
 
-search_icon.addEventListener('mouseleave', function(){
-    search_box.classList.remove('active');
+document.addEventListener('click', function(event) {
+    const isClickInside = search_box.contains(event.target);
+    if (search_box.style.display === 'flex' && !isClickInside) {
+        search_box.style.display = 'none';
+    }
 });
