@@ -100,7 +100,7 @@
 
  -------------------------------------------------------------------*/
 
-body {
+ body {
     position: relative;
     color: #7f8b92;
     background-color: #171e22;
@@ -5335,7 +5335,8 @@ img.rounded {
 .icon {
     position: relative;
 }
-.icon::after{
+
+.icon::after {
     cursor: pointer;
     content: '';
     position: absolute;
@@ -5345,7 +5346,8 @@ img.rounded {
     height: 20px;
     background: transparent;
 }
-.user_box{
+
+.user_box {
     position: absolute;
     z-index: 1001;
     top: 90px;
@@ -5361,7 +5363,8 @@ img.rounded {
     clip-path: circle(0% at 100% 0%);
     transition: .3s linear;
 }
-.search_box{
+
+.search_box {
     position: absolute;
     z-index: 1001;
     top: 40px;
@@ -5394,27 +5397,34 @@ img.rounded {
     clip-path: circle(144% at 100% 100%);
 }
 
-.hello_user,.finance {
+.hello_user,
+.finance {
     display: flex;
     align-items: center;
     column-gap: 5px;
 }
-.hello_user span ,.finance span{
+
+.hello_user span,
+.finance span {
     font-family: "Montserrat", sans-serif;
     font-size: 18px;
     font-weight: bold;
 }
-.user,.gcoin {
+
+.user,
+.gcoin {
     color: #dd163b;
 }
-.line{
+
+.line {
     display: block;
     width: 100%;
     height: 1px;
     background: gray;
     margin: 10px 0;
 }
-.btn_log a{
+
+.btn_log a {
     font-family: "Montserrat", sans-serif;
     font-size: 15px;
     font-weight: bold;
@@ -5422,18 +5432,19 @@ img.rounded {
     background: #dd163b;
     width: 100%;
     height: 30px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 3px;
     border: 1px solid white;
     transition: .3s linear;
 }
 
-.btn_log a:hover{
+.btn_log a:hover {
     background: #9e0e28;
     text-decoration: none;
 }
+
 .nk-contacts-icons>li>a {
     color: inherit;
     text-decoration: none;
@@ -7258,7 +7269,7 @@ img.rounded {
     display: block;
     width: 100%;
     max-width: 600px;
-    padding: 17px 0;
+    /* padding: 17px 0; */
 }
 
 .nk-carousel.nk-carousel-x2 .flickity-slider>div {
@@ -7596,7 +7607,7 @@ img.rounded {
     bottom: 0;
     left: 0;
     color: #fff;
-    background-color: rgba(221, 22, 59, 0.75);
+    background: rgb(35, 41, 48, 0.7);
     opacity: 0;
     -webkit-transition: .2s opacity;
     -o-transition: .2s opacity;

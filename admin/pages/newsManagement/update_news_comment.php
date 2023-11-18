@@ -13,6 +13,7 @@ function main()
     $news_id = $row_dID["news_id"];
     $comment = $row_dID["comment"];
     $comment_date = $row_dID["comment_date"];
+    $reply_id = $row_dID["reply_id"];
 
     $task = isset($_GET["task"]) ? $_GET["task"] : "";
 
@@ -21,23 +22,20 @@ function main()
         $news_id = $_POST["news_id"];
         $comment = $_POST["comment"];
         $comment_date = $_POST["comment_date"];
+        $reply_id = ($_POST["reply_id"] == "") ? null : $_POST["reply_id"];
 
-        $sql_check_duplicate = "SELECT * FROM news_comments WHERE comment = '$comment' AND comment_date = '$comment_date' AND news_id = $news_id AND user_id = $user_id";
-        $result_check_duplicate = $conn->query($sql_check_duplicate);
+        $update_query = "UPDATE `news_comments` SET `comment`=?,`comment_date`=?,`news_id`=?,`user_id`=?, `reply_id`=? WHERE `id`=?";
+        $update_stmt = $conn->prepare($update_query);
+        $update_stmt->bind_param("ssiiii", $comment, $comment_date, $news_id, $user_id, $reply_id, $id);
 
-        if ($result_check_duplicate->num_rows > 0) {
-            createNotification("Duplicated updated data!! Update Comment Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+        if ($update_stmt->execute()) {
+            createNotification("Update Comment Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
             echo "<script>location.href='update_news_comment.php?id=$id';</script>";
         } else {
-            $sql_update = "UPDATE `news_comments` SET `comment`='$comment',`comment_date`='$comment_date',`news_id`='$news_id',`user_id`='$user_id' WHERE `id`= $id";
-            if ($conn->query($sql_update) === TRUE) {
-                createNotification("Update Comment Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
-                echo "<script>location.href='update_news_comment.php?id=$id';</script>";
-            } else {
-                createNotification("An error occurred during the update process!! Update Comment Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
-                echo "<script>location.href='update_news_comment.php?id=$id';</script>";
-            }
+            createNotification("An error occurred during the update process!! Update Comment Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+            echo "<script>location.href='update_news_comment.php?id=$id';</script>";
         }
+        $update_stmt->close();
     }
 
     ?>
@@ -102,6 +100,32 @@ function main()
                                 while ($row1 = $result_sql->fetch_assoc()) { ?>
 
                                     <option value="<?php echo $row1["id"]; ?>" <?= ($news_id == $row1["id"]) ? "selected" : "" ?>>
+                                        <?php echo $row1["id"]; ?>
+                                    </option>
+                                    <?php
+                                }
+                            } else {
+                                echo "";
+                            }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Reply ID
+                    </td>
+                    <td>
+                        <select name="reply_id" id="reply_id"
+                            class="custom-select custom-select-sm form-control form-control-sm input-left">
+                            <option value="">None</option>
+                            <?php
+                            $sql1 = "SELECT * FROM news_comments";
+                            $result_sql = $conn->query($sql1);
+
+                            if ($result_sql->num_rows > 0) {
+                                while ($row1 = $result_sql->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row1["id"]; ?>" <?= ($reply_id == $row1["id"]) ? "selected" : "" ?>>
                                         <?php echo $row1["id"]; ?>
                                     </option>
                                     <?php

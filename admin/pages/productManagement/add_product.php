@@ -70,7 +70,7 @@ function main()
                         $check_result = true;
                     } else {
                         $check_result = false;
-                        createNotification("The add-in process to the DB crashed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                        createNotification("Insert Images! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                         delete_product($id_product);
                     }
                     $stmt_insert_imgs->close();
@@ -85,7 +85,7 @@ function main()
                             $check_result = true;
                         } else {
                             $check_result = false;
-                            createNotification("The add-in process to the DB crashed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                            createNotification("Insert Genres! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                             delete_product($id_product);
                         }
                         $stmt_insert_genres->close();
@@ -152,12 +152,12 @@ function main()
                 }
 
             } else {
-                createNotification("There was a problem adding products! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
+                createNotification("Insert Product Failed! Add Product Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
                 echo "<script>location.href='add_product.php';</script>";
             }
             $stmt_insert_product->close();
         }
-        
+
         $check_stmt->close();
         $conn->close();
     }
@@ -217,7 +217,7 @@ function main()
                             <td>
                                 <textarea class="form-control input-left" name="txtDesc" value="">
 
-                                                </textarea>
+                                                    </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -297,7 +297,7 @@ function main()
                                 Video trailer
                             </td>
                             <td>
-                                <input type="file" class="input-left" name="videoTrailer" accept=".mp4">
+                                <input type="file" class="input-left" name="videoTrailer" accept=".mp4, .webm">
                             </td>
                         </tr>
                         <tr>
@@ -313,7 +313,7 @@ function main()
                                 Release date
                             </td>
                             <td>
-                                <input type="date" class="input-left" name="dateRelease" max="<?php echo date('Y-m-d'); ?>">
+                                <input type="date" class="input-left" name="dateRelease">
                             </td>
                         </tr>
                         <tr>
@@ -321,7 +321,7 @@ function main()
                                 Classify
                             </td>
                             <td>
-                                <select class="form-control input-left" style="width: 65%;" name="slClassify ">
+                                <select class="form-control input-left" style="width: 65%;" name="slClassify">
                                     <option value="game">Game</option>
                                     <option value="gear">Gear</option>
                                 </select>
@@ -368,8 +368,8 @@ function main()
                 document.frmAddProduct.txtProductname.focus();
                 return false;
             }
-            if (decs.length < 20 || !/^[\p{L}\p{N}\s.,?!'"-]+$/u.test(decs)) {
-                $('#error').html("Improperly formatted description (must be more than 20 characters)");
+            if (decs.length < 20) {
+                $('#error').html("Description must be more than 20 characters");
                 document.frmAddProduct.txtDesc.value = decs; document.frmAddProduct.txtDesc.focus();
                 return false;
             } if (price == "" || isNaN(price)) {

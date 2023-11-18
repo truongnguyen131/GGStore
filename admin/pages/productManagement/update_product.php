@@ -453,7 +453,7 @@ function main()
                             <video width="200px" class="input-left" controls>
                                 <source src="../../../uploads/<?php echo $video_trailer; ?>" type="video/mp4">
                             </video>
-                            <input type="file" name="videoTrailer" accept=".mp4">
+                            <input type="file" name="videoTrailer" accept=".mp4, .webm">
                         </td>
                         <td id="errorvideoTrailer" class="error"></td>
                     </tr>
@@ -474,8 +474,7 @@ function main()
                             Release date
                         </td>
                         <td>
-                            <input type="date" class="input-left" name="dateRelease" value="<?php echo $date_release; ?>"
-                                max="<?php echo date('Y-m-d'); ?>">
+                            <input type="date" class="input-left" name="dateRelease" value="<?php echo $date_release; ?>" >
                         </td>
                         <td id="errorDateRelease" class="error"></td>
                     </tr>
@@ -511,8 +510,8 @@ function main()
                 document.frmAddProduct.txtProductname.focus();
                 return false;
             }
-            if (decs.length < 20 || !/^[\p{L}\p{N}\s.,?!"-]+$/u.test(decs)) {
-                $('#errorDesc').html("Improperly formatted description");
+            if (decs.length < 20) {
+                $('#errorDesc').html("Description must be more than 20 characters");
                 document.frmAddProduct.txtDesc.value = decs;
                 document.frmAddProduct.txtDesc.focus();
                 return false;
