@@ -166,7 +166,7 @@
      * @return {[type]} [description]
      */
     // kiểm tra tiền đang có
-    const a = 9;
+    const a = 11;
     const notification = document.getElementById('notification');
     function events() {
         bind(btn, "click", function() {

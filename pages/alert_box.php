@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="#" method="post">
 <div class="alert_box" id="alert_box" style="display: none;">
     <div class="alert_box_content">
         <span id="alert_title"></span>
