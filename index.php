@@ -324,7 +324,7 @@ include_once('./mod/database_connection.php');
                             </ul>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="../Galaxy_Game_Store/news">
                                 NEWS
                             </a>
                         </li>

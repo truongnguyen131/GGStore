@@ -5,4 +5,5 @@
     RewriteRule ^forgot_password pages/forgot_password.php [L]
     RewriteRule ^register pages/register.php [L]
     RewriteRule ^login pages/login.php [L,R]
+    RewriteRule ^news pages/news.php [L]
 </IfModule>
