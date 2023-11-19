@@ -1,5 +1,6 @@
 <?php
 include("../../../mod/database_connection.php");
+$id = isset($_POST["id"]) ? $_POST["id"] : "";
 $search = isset($_POST["search"]) ? $_POST["search"] : "";
 $id_manufacturer = isset($_POST["id_manufacturer"]) ? $_POST["id_manufacturer"] : "";
 $arrangement = isset($_POST["arrangement"]) ? $_POST["arrangement"] : "";
@@ -20,6 +21,11 @@ if ($page == "" || $page == 1) {
 
 $query = "SELECT * FROM products WHERE product_name LIKE ? ";
 $params = array("%" . $search . "%");
+
+if ($id != "") {
+    $query .= "AND id = ? ";
+    $params[] = $id;
+}
 
 if ($id_manufacturer != "all") {
     $query .= "AND id_manufacturer = ? ";

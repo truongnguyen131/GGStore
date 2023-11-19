@@ -88,6 +88,8 @@ include_once('../../../mod/database_connection.php');
                         <h6 class="collapse-header">Management components:</h6>
                         <a class="collapse-item" href="../productManagement/products_management.php">Products
                             Management</a>
+                        <a class="collapse-item" href="../productManagement/product_comments.php">Product
+                            Comments</a>
                     </div>
                 </div>
             </li>
@@ -136,8 +138,8 @@ include_once('../../../mod/database_connection.php');
                 </div>
             </li>
 
-             <!-- Nav Item - News Management -->
-             <li class="nav-item">
+            <!-- Nav Item - News Management -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen"
                     aria-expanded="true" aria-controls="collapseTen">
                     <span>News Management</span>
@@ -227,7 +229,7 @@ include_once('../../../mod/database_connection.php');
 
                         <!-- Nav Item - Home -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link" href="../../../home" >
+                            <a class="nav-link" href="../../../home">
                                 <i class="fas fa-home home-icon"></i>
                             </a>
                         </li>

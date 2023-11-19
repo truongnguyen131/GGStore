@@ -1,5 +1,6 @@
 <?php
 include("../../../mod/database_connection.php");
+$id = isset($_POST["id"]) ? $_POST["id"] : "";
 $search = isset($_POST["search"]) ? $_POST["search"] : "";
 $role = isset($_POST["role"]) ? $_POST["role"] : "";
 $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : "";
@@ -16,6 +17,11 @@ if ($page == "" || $page == 1) {
 
 $query = "SELECT id, role, full_name, phone_number, email FROM users WHERE full_name LIKE ? ";
 $params = array("%" . $search . "%");
+
+if ($id != "") {
+    $query .= "AND id = ? ";
+    $params[] = $id;
+}
 
 if ($role != "all") {
     $query .= "AND role = ? ";
