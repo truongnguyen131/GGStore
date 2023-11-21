@@ -14,9 +14,7 @@ include_once('./mod/database_connection.php');
 
 <body>
 
-
     <?php include "./mod/nav.php"; ?>
-
 
     <div class="nk-main">
 

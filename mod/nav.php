@@ -1,3 +1,28 @@
+<script>
+    function searchInput(str) {
+        var searchTypeValue = document.getElementById("search_type").value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("suggest_search").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "../mod/search.php?search=" + str + "&type=" + searchTypeValue, true);
+        xmlhttp.send();
+    }
+
+    function searchType(str) {
+        var searchInputValue = document.getElementById("search_textbox").value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("suggest_search").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "../mod/search.php?search=" + searchInputValue + "&type=" + str, true);
+        xmlhttp.send();
+    }
+</script>
 <header class="nk-header nk-header-opaque">
 
     <!-- START: Top Contacts -->
@@ -22,24 +47,39 @@
 
                     <li>
                         <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:add_to_cart(<?= 2 ?>)"
-                                class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">Add to card</a>
+                            <a href="javascript:add_to_cart(<?= 2 ?>)" class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">Add to card</a>
                         </div>
 
                         <script>
                             function add_to_cart(id) {
-                                $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id }, function (data) {
+                                $.post('../Galaxy_Game_Store/pages/add_to_cart.php', {
+                                    product_id: id
+                                }, function(data) {
                                     $('#product_count').html(data);
                                 });
                             }
                         </script>
                     </li>
 
-                    <li>
-                        <a href="#" id="dialog_notification" data-toggle="modal" style="display: none;"
-                            data-target="#modalSearch">
+                    <li class="search_icon icon" id="search_icon">
+                        <a href="#">
                             <span class="fa fa-search"></span>
                         </a>
+                        <div class="search_box" id="search_box">
+                            <form action="" method="post">
+                                <select name="option_search" id="search_type" onchange="searchType(this.value)">
+                                    <option value="all">All</option>
+                                    <option value="game">Game</option>
+                                    <option value="gear">Gear</option>
+                                    <option value="category">Category</option>
+                                    <option value="news">News</option>
+                                </select>
+                                <input type="text" name="search_textbox" id="search_textbox" placeholder="Search" onkeyup="searchInput(this.value)">
+                            </form>
+                            <div class="suggest_search" id="suggest_search">
+                            </div>
+                        </div>
+
                     </li>
 
                     <li>
@@ -64,8 +104,7 @@
                                 <div class="nk-gap"></div>
                                 <?php
                                 if ($_SESSION["role"] == "developer") { ?>
-                                    <a href="./admin/pages/template/dashboard.php"
-                                        class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    <a href="./admin/pages/template/dashboard.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         GGS Admin</a>
                                 <?php } else { ?>
                                     <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
@@ -81,8 +120,7 @@
                             </div>
 
                             <div class="text-center">
-                                <a href="./pages/logout.php"
-                                    class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                <a href="./pages/logout.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                     Logout</a>
                             </div>
                         </div>
@@ -132,8 +170,7 @@
                         <a href="">
                             CATEGORY
                         </a>
-                        <ul class="dropdown"
-                            style="margin-top: 38.7656px; display: none; opacity: 0; margin-left: -9px;">
+                        <ul class="dropdown" style="margin-top: 38.7656px; display: none; opacity: 0; margin-left: -9px;">
 
                             <li>
                                 <a href="">
@@ -238,5 +275,4 @@
 
         document.getElementById("dialog_notification").click();
     }
-
 </script>
