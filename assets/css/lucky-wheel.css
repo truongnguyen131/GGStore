@@ -233,6 +233,17 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 550;
 }
+
+.swal2-popup{
+    background: rgb(23, 30, 34) !important;
+}
+.swal2-styled.swal2-confirm{
+    background: #dd163b !important;
+}
+.swal2-title ,.swal2-content{
+    font-family: "Montserrat", sans-serif !important;
+    color: white !important;
+}
 /* notification */
 .notification {
     position: fixed;
