@@ -82,50 +82,6 @@
 
                     </li>
 
-                    <li>
-                        <?php
-                        if (isset($_SESSION["userName"]) && $_SESSION['userName']) { ?>
-                            <span class="nk-cart-toggle">
-                                <?= $_SESSION["userName"] ?> <span class="fa fa-user"></span>
-                            </span>
-                        <?php } else { ?>
-                            <a href="../Galaxy_Game_Store/login">
-                                <span class="fa fa-user"></span>
-                            </a>
-                        <?php } ?>
-
-                        <div class="nk-cart-dropdown" style="width: 60%;">
-
-                            <div class="text-center">
-
-                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                    Infomation</a>
-
-                                <div class="nk-gap"></div>
-                                <?php
-                                if ($_SESSION["role"] == "developer") { ?>
-                                    <a href="./admin/pages/template/dashboard.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                        GGS Admin</a>
-                                <?php } else { ?>
-                                    <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                        My bag</a>
-                                <?php }
-                                ?>
-
-
-                            </div>
-                            <div class="nk-gap"></div>
-                            <div class="text-center">
-
-                            </div>
-
-                            <div class="text-center">
-                                <a href="./pages/logout.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                    Logout</a>
-                            </div>
-                        </div>
-
-                    </li>
 
                     <li>
                         <a href="../Galaxy_Game_Store/shopping_cart">
@@ -144,6 +100,47 @@
                         </a>
                     </li>
 
+                    <li>
+                        <?php
+
+                        if (isset($_SESSION["userName"]) && $_SESSION['userName']) { ?>
+                            <span class="nk-cart-toggle">
+                                <span class="fa fa-user"></span>
+                                <div class="name_and_money">
+                                    <span><?= $_SESSION["userName"] ?></span>
+                                    <span>120 <i class="fas fa-gem"></i></span>
+                                </div>
+                            </span>
+                        <?php } else { ?>
+                            <a href="../Galaxy_Game_Store/login">
+                                <span class="fa fa-user"></span>
+                            </a>
+                        <?php } ?>
+
+                        <div class="nk-cart-dropdown" style="width: 60%;">
+                            <div class="text-center">
+                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    Infomation</a>
+                                <div class="nk-gap"></div>
+                                <?php
+                                if ($_SESSION["role"] == "developer") { ?>
+                                    <a href="./admin/pages/template/dashboard.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                        GGS Admin</a>
+                                <?php } else { ?>
+                                    <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                        My bag</a>
+                                <?php }
+                                ?>
+                            </div>
+                            <div class="nk-gap"></div>
+                            <div class="text-center">
+                            </div>
+                            <div class="text-center">
+                                <a href="./pages/logout.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    Logout</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -166,58 +163,64 @@
                             Store
                         </a>
                     </li>
-                    <li class="nk-drop-item">
+                    <li class="nk-drop-item" id="genre_item">
                         <a href="">
                             CATEGORY
                         </a>
-                        <ul class="dropdown" style="margin-top: 38.7656px; display: none; opacity: 0; margin-left: -9px;">
+                        <div class="dropdown_menu" id="genre_dropdown" style="margin-top: 38.7656px; margin-left: -9px;">
+                            <?php
+                            $sql_genres = 'SELECT * FROM genres';
+                            $result = $conn->query($sql_genres);
+                            $count = 0;
 
-                            <li>
-                                <a href="">
-                                    Tournament
+                            while ($row = mysqli_fetch_array($result)) {
+                                if ($count % 5 == 0) {
 
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Teams
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    Teammate
-
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                                    if ($count > 0) {
+                                        echo '</ul>';
+                                    }
+                                    echo '<ul>';
+                                }
+                            ?>
                     <li>
-                        <a href="../Galaxy_Game_Store/main_news">
-                            NEWS
+                        <a href="../pages/store.php?genre_id=<?= $row['id'] ?>">
+                            <?= $row['genre_name'] ?>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            CONTACT US
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nk-nav nk-nav-right nk-nav-icons">
-
-                    <li class="single-icon d-lg-none">
-                        <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
-                            <span class="nk-icon-burger">
-                                <span class="nk-t-1"></span>
-                                <span class="nk-t-2"></span>
-                                <span class="nk-t-3"></span>
-                            </span>
-                        </a>
-                    </li>
-
-
-                </ul>
+                <?php
+                                $count++;
+                            }
+                            if ($count % 5 != 0) {
+                                echo '</ul>';
+                            }
+                ?>
             </div>
+
+            </li>
+            <li>
+                <a href="../Galaxy_Game_Store/main_news">
+                    NEWS
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    CONTACT US
+                </a>
+            </li>
+            </ul>
+            <ul class="nk-nav nk-nav-right nk-nav-icons">
+
+                <li class="single-icon d-lg-none">
+                    <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                        <span class="nk-icon-burger">
+                            <span class="nk-t-1"></span>
+                            <span class="nk-t-2"></span>
+                            <span class="nk-t-3"></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         </div>
     </nav>
     <!-- END: Navbar -->
@@ -252,8 +255,6 @@
                     </div>
                     <h3 id="status"></h3>
                     <em id="message"></em>
-
-
                 </div>
             </div>
         </div>

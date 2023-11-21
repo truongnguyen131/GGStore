@@ -30,7 +30,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 
-    <!-- Flickity -->
+    <!--   -->
     <link rel="stylesheet" href="assets/vendor/flickity/dist/flickity.min.css">
 
     <!-- Photoswipe -->

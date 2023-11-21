@@ -3,8 +3,6 @@ session_start();
 include_once('./mod/database_connection.php');
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +106,6 @@ include_once('./mod/database_connection.php');
                                 <h3>Call of Duty</h3>
                             </a>
                         </div>
-                        <div class="nk-gap-1"></div>
                         <div class="tab-slideshow__img">
                             <div class="tab-slideshow__img-item">
                                 <img src="uploads/g2_1.jpg" alt="" class="tab-img"
@@ -160,6 +157,7 @@ include_once('./mod/database_connection.php');
                     </script>
 
                 </div>
+             
             </div>
             <!-- END: Recommended games -->
             <div class="nk-gap-3"></div>

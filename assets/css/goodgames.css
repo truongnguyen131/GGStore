@@ -5190,6 +5190,7 @@ img.rounded {
 }
 
 .nk-btn-color-main-1 {
+    width: 100%;
     background-color: #dd163b;
     border-color: #a5102c;
     border-style: solid;

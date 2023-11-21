@@ -4,9 +4,9 @@ $('.recommend-slider').flickity({
     // options
     cellAlign: 'left',
     contain: true,
-    prevNextButtons: false,
-    pageDots: true,
-    autoPlay: true
+    prevNextButtons: true,
+    pageDots: true
+    // autoPlay: true
 });
 
 
