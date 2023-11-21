@@ -15,8 +15,7 @@
     <!-- START: Styles -->
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet"
-        type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
@@ -27,6 +26,9 @@
 
     <!-- IonIcons -->
     <link rel="stylesheet" href="assets/vendor/ionicons/css/ionicons.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
     <!-- Flickity -->
     <link rel="stylesheet" href="assets/vendor/flickity/dist/flickity.min.css">
@@ -51,4 +53,7 @@
     <!-- jQuery -->
     <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
 
+
+    <!-- myCSS -->
+    <link rel="stylesheet" href="assets/css/lucky-wheel.css">
 </head>

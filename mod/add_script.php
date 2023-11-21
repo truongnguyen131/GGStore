@@ -59,3 +59,6 @@
 <!-- GoodGames -->
 <script src="assets/js/goodgames.min.js"></script>
 <script src="assets/js/goodgames-init.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="assets/js/lucky-wheel.js"></script>

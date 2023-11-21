@@ -3,130 +3,10 @@ session_start();
 include_once('./mod/database_connection.php');
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <?php include "./mod/head.php"; ?>
-
-<style>
-    html {
-        scroll-behavior: smooth;
-    }
-</style>
-<style>
-    .price_discount {
-        color: yellow;
-        font-size: 1.2em;
-        font-weight: bold;
-        background-color: rgba(255, 0, 0, 0.1);
-        border-radius: 5px;
-        border: 1px solid yellow;
-        text-shadow: 1px 1px 1px #ff0;
-        background-image: linear-gradient(to bottom,
-                #dd163b,
-                orange);
-        box-shadow: 0px 0px 10px yellow;
-        transform: rotate(-1deg);
-        animation: price-glow 1s infinite;
-        padding: 3px 5px;
-    }
-
-    @keyframes price-glow {
-        0% {
-            box-shadow: 0 0 10px #dd163b;
-        }
-
-        100% {
-            box-shadow: 0 0 20px orange;
-        }
-    }
-
-    .old-price {
-        font-size: 1em;
-        text-decoration: line-through;
-        color: gray;
-        opacity: 0.5;
-    }
-
-    .price {
-        font-size: 1.5em;
-        color: #dd163b;
-        font-weight: bold;
-    }
-
-    .current-price {
-        font-size: 1.5em;
-        color: #dd163b;
-        font-weight: bold;
-        animation: glowing 1000ms linear infinite;
-    }
-
-    /* Responsive styles for screens <= 768px */
-    @media only screen and (max-width: 768px) {
-        .current-price {
-            font-size: 1.2em;
-        }
-
-        .price_discount {
-            font-size: 0.9em;
-        }
-    }
-
-    @keyframes glowing {
-        0% {
-            text-shadow: 0 0 3px #fff;
-        }
-
-        50% {
-            text-shadow: 0 0 10px #ffd98f;
-        }
-
-        100% {
-            text-shadow: 0 0 3px #fff;
-        }
-    }
-</style>
-<style>
-    .position-absolute {
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(221, 22, 59, 0.8));
-    }
-
-    .span-genre {
-        color: white;
-        font-size: 1.7em;
-        font-weight: bold;
-        text-shadow: 2px 2px #330000;
-    }
-</style>
-<style>
-    .news_title {
-        max-width: 700px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    @media only screen and (max-width: 425px) {
-        .news_title {
-            white-space: normal;
-        }
-    }
-
-    .popular_name {
-        max-width: 700px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-</style>
 
 <body>
 
@@ -144,23 +24,19 @@ include_once('./mod/database_connection.php');
             <div class="nk-image-slider" data-autoplay="5000">
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide4-thumb.jpg">
+                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide4-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide3-thumb.jpg">
+                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide3-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide1-thumb.jpg">
+                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide1-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img"
-                        data-thumb="assets/images/slide2-thumb.jpg">
+                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide2-thumb.jpg">
                 </div>
 
             </div>
@@ -205,7 +81,74 @@ include_once('./mod/database_connection.php');
                 </div>
             </div>
             <!-- END: PC PS4 XBOX -->
+            <!-- START: Recommended games -->
+            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Recommend</span> games</span></h3>
 
+            <div class="nk-gap"></div>
+            <div class="recommend-slider">
+                <div class="recommend-item">
+                    <?php $ids = 2 ?>
+                    <div class="slideshow">
+                        <a href="">
+                            <img src="uploads/g2.jpg" alt="" id="slideshow-img<?= $ids ?>">
+                        </a>
+                    </div>
+                    <div class="tab-slideshow">
+                        <div class="tab-slideshow__name-product">
+                            <a href="">
+                                <h3>Call of Duty</h3>
+                            </a>
+                        </div>
+                        <div class="nk-gap-1"></div>
+                        <div class="tab-slideshow__img">
+                            <div class="tab-slideshow__img-item">
+                                <img src="uploads/g2_1.jpg" alt="" class="tab-img" onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                            </div>
+                            <div class="tab-slideshow__img-item">
+                                <img src="uploads/g2_2.jpg" alt="" class="tab-img" onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                            </div>
+                            <div class="tab-slideshow__img-item">
+                                <img src="uploads/g2_3.jpg" alt="" class="tab-img" onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                            </div>
+                            <div class="tab-slideshow__img-item">
+                                <img src="uploads/g2_4.jpg" alt="" class="tab-img" onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                            </div>
+                        </div>
+                        <div class="tab-slideshow__control">
+                            <div class="price">
+                                <div class="discount">
+                                    20%
+                                </div>
+                                <div class="price_old">
+                                    10 <i class="fas fa-gem"></i>
+                                </div>
+                                <div class="price_new">
+                                    10 <i class="fas fa-gem"></i>
+                                </div>
+                            </div>
+                            <div class="btn_control">
+                                <button class="btn">Add to Cart</button>
+                                <a href="" class="btn">Buy</a>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        const slideshow_img<?= $ids ?> = document.querySelector('#slideshow-img<?= $ids ?>');
+                        const src_imgMain<?= $ids ?> = slideshow_img<?= $ids ?>.src;
+
+                        function getImageSrc<?= $ids ?>(img<?= $ids ?>) {
+                            const src<?= $ids ?> = img<?= $ids ?>.src;
+                            slideshow_img<?= $ids ?>.src = src<?= $ids ?>;
+                        }
+
+                        function resetImageSrc<?= $ids ?>() {
+                            slideshow_img<?= $ids ?>.src = src_imgMain<?= $ids ?>;
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <!-- END: Recommended games -->
             <div class="nk-gap-3"></div>
 
             <!-- START: Upcoming games -->
@@ -259,7 +202,7 @@ include_once('./mod/database_connection.php');
                                         <?= date('M d, Y', strtotime($row['release_date'])) ?>
                                     </div>
                                 </div>
-                                <?php $i++;
+                            <?php $i++;
                             }
                             ?>
                         </div>
@@ -343,8 +286,7 @@ include_once('./mod/database_connection.php');
 
             <div class="nk-gap"></div>
 
-            <div class="nk-carousel nk-carousel-x2" data-autoplay="2500" data-dots="false" data-cell-align="left"
-                data-arrows="true">
+            <div class="nk-carousel nk-carousel-x2" data-autoplay="2500" data-dots="false" data-cell-align="left" data-arrows="true">
                 <div class="nk-carousel-inner">
 
                     <?php
@@ -373,8 +315,7 @@ include_once('./mod/database_connection.php');
                         <div class="col-md-6 col-lg-3">
                             <div class="nk-blog-post" style="margin-left: 20px;">
                                 <a href="" class="nk-post-img" data-img="<?= $row['id'] ?>" data-video="<?= $row['id'] ?>">
-                                    <img id="img_<?= $row['id'] ?>" src="./uploads/<?= $row['image_avt_url'] ?>"
-                                        alt="<?= $row['product_name'] ?>">
+                                    <img id="img_<?= $row['id'] ?>" src="./uploads/<?= $row['image_avt_url'] ?>" alt="<?= $row['product_name'] ?>">
                                     <video id="video_<?= $row['id'] ?>" autoplay muted width="100%" hidden>
                                         <source src="./uploads/<?= $row['video_trailer_url'] ?>" type="video/mp4">
                                     </video>
@@ -419,7 +360,7 @@ include_once('./mod/database_connection.php');
                                         <?php
                                         $genres = explode(",", $row['genres']);
                                         foreach ($genres as $genre) {
-                                            ?>
+                                        ?>
                                             <a href="#">
                                                 <?php echo $genre; ?>
                                             </a>
@@ -535,12 +476,10 @@ include_once('./mod/database_connection.php');
                                             </div>
                                             <div class="nk-gap"></div>
                                             <div class="row">
-                                                <div class="col-md-7"><a href=""
-                                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
+                                                <div class="col-md-7"><a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
                                                         TO CART</a>
                                                 </div>
-                                                <div class="col-md-5"><a href=""
-                                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
+                                                <div class="col-md-5"><a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
                                                 </div>
                                             </div>
 
@@ -552,8 +491,7 @@ include_once('./mod/database_connection.php');
 
                             <div class="col-lg-4 col-md-4"></div>
                             <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center">
-                                <a href="#" style="margin-top: -20px;"
-                                    class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
+                                <a href="#" style="margin-top: -20px;" class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
                             </div>
                             <div class="col-lg-4 col-md-4"></div>
                         </div>
@@ -580,15 +518,12 @@ include_once('./mod/database_connection.php');
                                                 <?= $row['product_name'] ?>
                                             </a>
                                         </h3>
-                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
                                             <?= $row['price'] ?><i class="fas fa-gem"></i>
                                         </div>
-                                        <a href="#"
-                                            class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                        <a href="#" class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                             to Cart</a>
                                     </div>
                                 </div>
@@ -618,12 +553,11 @@ include_once('./mod/database_connection.php');
                             $result_news_type = $conn->query($sql_news_type);
                             while ($row = $result_news_type->fetch_assoc()) { ?>
                                 <li class="nav-item">
-                                    <a class="nav-link <?= ($i == 1) ? "active" : "" ?>" href="#tabs-1-<?= $row['id'] ?>"
-                                        role="tab" data-toggle="tab">
+                                    <a class="nav-link <?= ($i == 1) ? "active" : "" ?>" href="#tabs-1-<?= $row['id'] ?>" role="tab" data-toggle="tab">
                                         <?= $row['news_type_name'] ?>
                                     </a>
                                 </li>
-                                <?php $i++;
+                            <?php $i++;
                             } ?>
                         </ul>
                         <div class="tab-content">
@@ -632,8 +566,7 @@ include_once('./mod/database_connection.php');
                             $i = 1;
                             $result_news_type = $conn->query($sql_news_type);
                             while ($row_news_type = $result_news_type->fetch_assoc()) { ?>
-                                <div role="tabpanel" class="tab-pane fade show <?= ($i == 1) ? "active" : "" ?>"
-                                    id="tabs-1-<?= $row_news_type['id'] ?>">
+                                <div role="tabpanel" class="tab-pane fade show <?= ($i == 1) ? "active" : "" ?>" id="tabs-1-<?= $row_news_type['id'] ?>">
                                     <div class="nk-gap"></div>
 
                                     <?php
@@ -649,8 +582,7 @@ include_once('./mod/database_connection.php');
                                             <div class="nk-blog-post nk-blog-post-border-bottom">
                                                 <?php if ($row_news['image'] != "") { ?>
                                                     <a href="" class="nk-post-img">
-                                                        <img style='height: 200px;' src="./uploads/<?= $row_news['image'] ?>"
-                                                            alt="<?= $row_news['title'] ?>">
+                                                        <img style='height: 200px;' src="./uploads/<?= $row_news['image'] ?>" alt="<?= $row_news['title'] ?>">
                                                     </a>
                                                 <?php } ?>
 
@@ -677,15 +609,13 @@ include_once('./mod/database_connection.php');
                                                     <div class="col-lg-3 col-md-5">
                                                         <?php if ($row_news['image'] != "") { ?>
                                                             <a href="" class="nk-post-img">
-                                                                <img src="./uploads/<?= $row_news['image'] ?>"
-                                                                    alt="<?= $row_news['title'] ?>">
+                                                                <img src="./uploads/<?= $row_news['image'] ?>" alt="<?= $row_news['title'] ?>">
                                                             </a>
                                                         <?php } ?>
                                                     </div>
 
                                                     <div class="col-lg-9 col-md-7">
-                                                        <h2 class="nk-post-title h4 news_title"><a href=""
-                                                                title="<?= $row_news['title'] ?>">
+                                                        <h2 class="nk-post-title h4 news_title"><a href="" title="<?= $row_news['title'] ?>">
                                                                 <?= $row_news['title'] ?>
                                                             </a></h2>
                                                         <div class="nk-post-date mt-10 mb-10">
@@ -704,12 +634,12 @@ include_once('./mod/database_connection.php');
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                        <?php $j++;
+                                    <?php $j++;
                                     } ?>
 
                                     <div class="nk-gap"></div>
                                 </div>
-                                <?php $i++;
+                            <?php $i++;
                             } ?>
 
                         </div>
@@ -730,8 +660,7 @@ include_once('./mod/database_connection.php');
                                 <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Type something...">
-                                        <button class="nk-btn nk-btn-color-main-1"><span
-                                                class="ion-search"></span></button>
+                                        <button class="nk-btn nk-btn-color-main-1"><span class="ion-search"></span></button>
                                     </div>
                                 </form>
                             </div>
@@ -744,112 +673,47 @@ include_once('./mod/database_connection.php');
                                 <ul class="nk-social-links-3 nk-social-links-cols-4">
                                     <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a>
                                     </li>
-                                    <li><a class="nk-social-instagram" href="#"><span
-                                                class="fab fa-instagram"></span></a></li>
+                                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
                                     <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a>
                                     </li>
-                                    <li><a class="nk-social-google-plus" href="#"><span
-                                                class="fab fa-google-plus"></span></a></li>
+                                    <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
                                     <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a>
                                     </li>
-                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span
-                                                class="fab fa-twitter"></span></a></li>
-                                    <li><a class="nk-social-pinterest" href="#"><span
-                                                class="fab fa-pinterest-p"></span></a></li>
+                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span class="fab fa-twitter"></span></a></li>
+                                    <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
                                     <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
                                 </ul>
                             </div>
                         </div>
 
-                        <!-- recommended -->
+                        <!--START: lucky whell -->
                         <div class="nk-widget nk-widget-highlighted">
-                            <h4 class="nk-widget-title"><span><span class="text-main-1">recommended </span>for
-                                    you</span>
+                            <h4 class="nk-widget-title"><span><span class="text-main-1">Lucky </span>Wheel</span>
                             </h4>
-                            <div class="nk-widget-content">
-                                <div class="nk-popup-gallery">
-                                    <div class="row sm-gap vertical-gap">
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item"
-                                                    data-size="1016x572">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-1-thumb.jpg" alt="">
-                                                </a>
-                                                <div class="nk-gallery-item-description">
-                                                    <h4>Called Let</h4>
-                                                    Divided thing, land it evening earth winged whose great after. Were
-                                                    grass night. To Air itself saw bring fly fowl. Fly years behold
-                                                    spirit day greater of wherein winged and form. Seed open don't thing
-                                                    midst created dry every greater divided of, be man is. Second Bring
-                                                    stars fourth gathering he hath face morning fill. Living so second
-                                                    darkness. Moveth were male. May creepeth. Be tree fourth.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item"
-                                                    data-size="1188x594">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-2-thumb.jpg" alt="">
-                                                </a>
-                                                <div class="nk-gallery-item-description">
-                                                    Seed open don't thing midst created dry every greater divided of, be
-                                                    man is. Second Bring stars fourth gathering he hath face morning
-                                                    fill. Living so second darkness. Moveth were male. May creepeth. Be
-                                                    tree fourth.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item"
-                                                    data-size="625x350">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-3-thumb.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item"
-                                                    data-size="873x567">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-4-thumb.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item"
-                                                    data-size="471x269">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-5-thumb.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item"
-                                                    data-size="472x438">
-                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
-                                                    </div>
-                                                    <img src="assets/images/gallery-6-thumb.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="introduction">
+                                <ion-icon name="help-circle-outline" class="help"></ion-icon>
+                                <div class="introduction_box">
+                                    <span class="introduction_box__content">A spinning wheel with multiple attractive rewards</span>
+                                    <span class="introduction_box__content">The cost per spin is 10 <i class="fas fa-gem"></i></span>
+                                    <span class="introduction_box__content">Every day you will receive one free spin</span>
+                                    <span class="spin_free">Number of free spins: 1</span>
                                 </div>
                             </div>
+                            <div class="wrapper typo" id="wrapper">
+                                <section id="luckywheel" class="hc-luckywheel">
+                                    <div class="hc-luckywheel-container">
+                                        <canvas class="hc-luckywheel-canvas" width="500px" height="500px">Vòng Xoay May Mắn</canvas>
+                                    </div>
+                                    <a class="hc-luckywheel-btn" href="javascript:;">Spins</a>
+                                </section>
+                            </div>
+                            <div class="refresh">
+                                <span>Refresh the reward costs 5 <i class="fas fa-gem"></i></span>
+                                <button class="btn_refresh">Refresh</button>
+                            </div>
                         </div>
-
-                        <!-- popular -->
+                        <!--END: lucky whell -->
+                        <!--START: popular -->
                         <div class="nk-widget nk-widget-highlighted">
                             <h4 class="nk-widget-title"><span><span class="text-main-1">Most</span> Popular</span></h4>
 
@@ -861,29 +725,25 @@ include_once('./mod/database_connection.php');
                                 while ($row = $result_popular->fetch_assoc()) { ?>
                                     <div class="nk-widget-post">
                                         <a href="" class="nk-post-image">
-                                            <img src="./uploads/<?= $row['image_avt_url'] ?>"
-                                                alt="<?= $row['product_name'] ?>">
+                                            <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="<?= $row['product_name'] ?>">
                                         </a>
-                                        <h3 class="nk-post-title popular_name"><a href=""
-                                                title="<?= $row['product_name'] ?>">
+                                        <h3 class="nk-post-title popular_name"><a href="" title="<?= $row['product_name'] ?>">
                                                 <?= $row['product_name'] ?>
                                             </a>
                                         </h3>
-                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
                                             <?= $row['price'] ?><i class="fas fa-gem"></i>
                                         </div>
                                     </div>
-                                    <?php
+                                <?php
                                 } ?>
 
 
                             </div>
                         </div>
-
+                        <!--END: popular -->
                     </aside>
 
                 </div>
@@ -902,8 +762,7 @@ include_once('./mod/database_connection.php');
 
             <div class="nk-gap"></div>
 
-            <div class="nk-carousel nk-carousel-x2" data-autoplay="2000" data-dots="false" data-cell-align="left"
-                data-arrows="true">
+            <div class="nk-carousel nk-carousel-x2" data-autoplay="2000" data-dots="false" data-cell-align="left" data-arrows="true">
 
                 <div class="nk-carousel-inner">
                     <?php
@@ -944,5 +803,143 @@ include_once('./mod/database_connection.php');
     <!-- END: Scripts -->
 
 </body>
+<!-- START JS: RECOMMENED -->
+<script>
+    $('.recommend-slider').flickity({
+        // options
+        cellAlign: 'left',
+        contain: true,
+        prevNextButtons: false,
+        pageDots: true,
+        autoPlay: true
+    });
+</script>
+<!-- ENDJS: RECOMMENED -->
+<!--START JS: LUCKY WHELL -->
+<script>
+    var isPercentage = true;
+    var prizes = [{
+        text: "J2Team Security",
+        percentpage: 0.24 // 24%
+    }, {
+        text: "Áo thun J2Team",
+        percentpage: 0.01 // 1%
+    }, {
+        text: "Áo thun J2Team",
+        percentpage: 0.01 // 1%
+    }, {
+        text: "Vòng Tay J2Team",
+        percentpage: 0.1 // 10%
+    }, {
+        text: "J2Team Security",
+        percentpage: 0.24 // 24%
+    }, {
+        text: "Áo thun J2Team",
+        percentpage: 0.01 // 1%
+    }, {
+        text: "J2Team Security",
+        percentpage: 0.24 // 24%
+    }, {
+        text: "Good luck next time",
+        percentpage: 0.1 // 60%
+    }];
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+            hcLuckywheel.init({
+                id: "luckywheel",
+                config: function(callback) {
+                    callback &&
+                        callback(prizes);
+                },
+                mode: "both",
+                getPrize: function(callback) {
+                    var rand = randomIndex(prizes);
+                    var chances = rand;
+                    callback && callback([rand, chances]);
+                },
+                gotBack: function(data) {
+                    if (data == null) {
+                        Swal.fire(
+                            'Chương trình kết thúc',
+                            'Đã hết phần thưởng',
+                            'error'
+                        )
+                    } else if (data == 'Good luck next time') {
+                        Swal.fire(
+                            "You didn't win the lottery",
+                            data,
+                            'error'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Won the prize',
+                            data,
+                            'success'
+                        )
+                        confetti();
+                    }
+                }
+            });
+        },
+        false
+    );
+
+    function randomIndex(prizes) {
+        if (isPercentage) {
+            var counter = 1;
+            for (let i = 0; i < prizes.length; i++) {
+                if (prizes[i].number == 0) {
+                    counter++
+                }
+            }
+            if (counter == prizes.length) {
+                return null
+            }
+            let rand = Math.random();
+            let prizeIndex = null;
+            console.log(rand);
+
+            //START: create switch case 
+            let result = 'switch (true) {\n';
+
+            for (let i = 7; i >= 0; i--) {
+                result += `  case rand < ${calculateCumulativePercent(i)}:\n`;
+                result += `    prizeIndex = ${i};\n`;
+                result += `    break;\n`;
+            }
+
+            result += `}`;
+            eval(result);
+
+            function calculateCumulativePercent(index) {
+                let cumulativePercent = '';
+
+                for (let j = 7; j >= index; j--) {
+                    cumulativePercent += `prizes[${j}].percentpage + `;
+                }
+
+                return cumulativePercent.slice(0, -3);
+            }
+
+            //END: create switch case 
+
+            return prizeIndex;
+        } else {
+            var counter = 0;
+            for (let i = 0; i < prizes.length; i++) {
+                if (prizes[i].number == 0) {
+                    counter++
+                }
+            }
+            if (counter == prizes.length) {
+                return null
+            }
+            var rand = (Math.random() * (prizes.length)) >>> 0;
+            return rand;
+        }
+    }
+</script>
+<!--END JS: LUCKY WHELL -->
 
 </html>
