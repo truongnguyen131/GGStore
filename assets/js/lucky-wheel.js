@@ -113,22 +113,26 @@
             ctx.rotate((((360 / num) * i - rotateDeg) * Math.PI) / 180);
             ctx.arc(0, 0, 250, 0, (2 * Math.PI) / num, false); // Radius
             if (i % 2 == 0) {
-                ctx.fillStyle = "transparent";
+                ctx.fillStyle = "#dd163b";
             } else {
-                ctx.fillStyle = "transparent";
+                ctx.fillStyle = "#e3405e";
             }
-
-
-
+            ctx.fill();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "#e4370e";
+            ctx.stroke();
+            ctx.restore();
             var prizeList = opts.prizes;
             html.push('<li class="hc-luckywheel-item"> <span style="');
             html.push(transform + ": rotate(" + i * turnNum + 'turn)">');
             if (opts.mode == "both") {
-                // html.push("<p id='curve'>" + prizeList[i].text + "</p>");
-                html.push('<img src="' + prizeList[i].img + '" />');
-            } else if (prizeList[i].img) {
-                html.push('<img src="' + prizeList[i].img + '" />');
-            } else {
+                html.push("<p id='curve'>" + prizeList[i].text + "</p>");
+                // html.push('<img src="' + prizeList[i].img + '" />');
+            }
+            // else if (prizeList[i].img) {
+            //     html.push('<img src="' + prizeList[i].img + '" />');
+            // } 
+            else {
                 html.push('<p id="curve">' + prizeList[i].text + "</p>");
             }
             html.push("</span> </li>");
@@ -161,23 +165,30 @@
     /**
      * @return {[type]} [description]
      */
+    // kiểm tra tiền đang có
+    const a = 11;
+    const notification = document.getElementById('notification');
     function events() {
         bind(btn, "click", function() {
 
-            addClass(btn, "disabled");
+            if (a < 10) {
+                notification.style.display = "flex";
+            } else {
+                addClass(btn, "disabled");
+                fnGetPrize(function(data) {
+                    if (data[0] == null && !data[1] == null) {
+                        return;
+                    }
+                    optsPrize = {
+                        prizeId: data[0],
+                        chances: data[1]
+                    };
+                    deg = deg || 0;
+                    deg = deg + (360 - (deg % 360)) + (360 * 10 - data[0] * (360 / num));
+                    runRotate(deg);
+                });
+            }
 
-            fnGetPrize(function(data) {
-                if (data[0] == null && !data[1] == null) {
-                    return;
-                }
-                optsPrize = {
-                    prizeId: data[0],
-                    chances: data[1]
-                };
-                deg = deg || 0;
-                deg = deg + (360 - (deg % 360)) + (360 * 10 - data[0] * (360 / num));
-                runRotate(deg);
-            });
             bind(container, transitionEnd, eGot);
         });
     }
