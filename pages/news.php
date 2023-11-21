@@ -5,67 +5,6 @@ include_once('../mod/database_connection.php');
 $id = $_GET['id'];
 $user_id = $_SESSION['id_account'];
 
-$comment = (isset($_POST['comment'])) ? $_POST['comment'] : '';
-
-if (isset($_POST['comment'])) {
-
-    if ($comment == '') {
-        echo 'Enter comment!!!';
-    } else {
-        if ($_POST['edit_id'] != "") {
-            $edit_id = $_POST['edit_id'];
-            $sql = "UPDATE `news_comments` SET `comment`= ?,`comment_date`= NOW() WHERE `id` = ?";
-            $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die("Error preparing statement");
-            }
-            $stmt->bind_param("si", $comment, $edit_id);
-            if (!$stmt->execute()) {
-                die("Execute failed: " . $stmt->error);
-            }
-            echo 'Edit Successful!!';
-        } else {
-            $comment_date = date('Y-m-d H:i:s');
-            if ($_POST['reply_id'] == "") {
-                $reply_id = null;
-            } else {
-                $reply_id = $_POST['reply_id'];
-            }
-
-
-            $sql = "INSERT INTO `news_comments`(`comment`, `comment_date`, `news_id`, `user_id`, `reply_id`) 
-            VALUES (?,NOW(),?,?,?)";
-            $stmt = $conn->prepare($sql);
-            if ($stmt === false) {
-                die("Error preparing statement");
-            }
-            $stmt->bind_param("siii", $comment, $id, $user_id, $reply_id);
-            if (!$stmt->execute()) {
-                die("Execute failed: " . $stmt->error);
-            }
-            echo 'Comment Successful!!';
-        }
-
-    }
-}
-
-
-
-if (isset($_GET['delete'])) {
-    $id_comment = $_GET['delete'];
-
-    $sql = "DELETE FROM `news_comments` WHERE id = ? OR reply_id = ?";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        die("Error preparing statement");
-    }
-    $stmt->bind_param("ii", $id_comment, $id_comment);
-    if (!$stmt->execute()) {
-        die("Execute failed: " . $stmt->error);
-    }
-    echo 'Delete Successful!!';
-}
-
 
 $sql = "SELECT * FROM news n, news_type nt WHERE n.news_type_id = nt.id AND n.id = $id";
 $result = $conn->query($sql);
@@ -83,9 +22,104 @@ $news_type_id = $row["news_type_id"];
 
 <body>
 
-
     <?php include "../mod/nav.php"; ?>
 
+    <?php
+
+    if (isset($_POST['delete_id']) && $_POST['delete_id'] != "") {
+        $id_comment = $_POST['delete_id'];
+
+        $sql = "DELETE FROM `news_comments` WHERE id = ? OR reply_id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt === false) {
+            die("Error preparing statement");
+        }
+        $stmt->bind_param("ii", $id_comment, $id_comment);
+        if (!$stmt->execute()) {
+            die("Execute failed: " . $stmt->error);
+        }
+
+        echo '<script>
+    window.addEventListener("load", function() {
+    notification_dialog("Success", "Delete Successful!!");
+    $("html, body").animate({
+        scrollTop: $("#frm_post_comment").offset().top 
+      }, 1000);
+    });
+
+    </script>';
+    } else {
+        $comment = (isset($_POST['comment'])) ? $_POST['comment'] : '';
+        if (isset($_POST['comment'])) {
+
+            if ($comment == '') {
+                echo '<script>
+            window.addEventListener("load", function() {
+            notification_dialog("Failed", "Enter comment!!!");
+            $("html, body").animate({
+                scrollTop: $("#frm_post_comment").offset().top 
+              }, 1000);
+            });
+            </script>';
+
+            } else {
+                if ($_POST['edit_id'] != "") {
+                    $edit_id = $_POST['edit_id'];
+                    $sql = "UPDATE `news_comments` SET `comment`= ?,`comment_date`= NOW() WHERE `id` = ?";
+                    $stmt = $conn->prepare($sql);
+                    if ($stmt === false) {
+                        die("Error preparing statement");
+                    }
+                    $stmt->bind_param("si", $comment, $edit_id);
+                    if (!$stmt->execute()) {
+                        die("Execute failed: " . $stmt->error);
+                    }
+
+                    echo '<script>
+                window.addEventListener("load", function() {
+                notification_dialog("Success", "Edit Successful!!");
+                $("html, body").animate({
+                    scrollTop: $("#frm_post_comment").offset().top 
+                  }, 1000);
+                });
+                </script>';
+
+                } else {
+                    $comment_date = date('Y-m-d H:i:s');
+                    if ($_POST['reply_id'] == "") {
+                        $reply_id = null;
+                    } else {
+                        $reply_id = $_POST['reply_id'];
+                    }
+
+
+                    $sql = "INSERT INTO `news_comments`(`comment`, `comment_date`, `news_id`, `user_id`, `reply_id`) 
+            VALUES (?,NOW(),?,?,?)";
+                    $stmt = $conn->prepare($sql);
+                    if ($stmt === false) {
+                        die("Error preparing statement");
+                    }
+                    $stmt->bind_param("siii", $comment, $id, $user_id, $reply_id);
+                    if (!$stmt->execute()) {
+                        die("Execute failed: " . $stmt->error);
+                    }
+                    echo '<script>
+                window.addEventListener("load", function() {
+                notification_dialog("Success", "Comment Successful!!");
+                $("html, body").animate({
+                    scrollTop: $("#frm_post_comment").offset().top 
+                  }, 1000);
+                });
+                </script>';
+                }
+
+            }
+        }
+
+    }
+
+
+    ?>
 
     <div class="nk-main">
 
@@ -280,7 +314,8 @@ $news_type_id = $row["news_type_id"];
                         <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Leave</span> a Reply</span></h3>
                         <div class="nk-gap"></div>
                         <div class="nk-reply">
-                            <form name="frm_post_comment" method="post" class="nk-form" novalidate="novalidate">
+                            <form id="frm_post_comment" name="frm_post_comment" method="post" class="nk-form"
+                                novalidate="novalidate">
                                 <div class="row vertical-gap sm-gap">
                                     <div class="col-md-6">
                                         <input type="text" class="form-control required" value="" name="reply_id"
@@ -288,6 +323,10 @@ $news_type_id = $row["news_type_id"];
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control required" value="" name="edit_id" hidden>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control required" value="" name="delete_id"
+                                            hidden>
                                     </div>
                                 </div>
                                 <textarea class="form-control required" required name="comment" rows="5"
@@ -308,7 +347,8 @@ $news_type_id = $row["news_type_id"];
                                 }
 
                                 function delete_comments(id) {
-                                    location.href = '../Galaxy_Game_Store/news?id=<?= $id ?>&delete=' + id;
+                                    document.frm_post_comment.delete_id.value = id;
+                                    document.frm_post_comment.submit();
                                 }
 
                                 function edit_comment(edit_id, comment) {

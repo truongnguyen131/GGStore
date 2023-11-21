@@ -43,12 +43,14 @@
     <!-- Summernote -->
     <link rel="stylesheet" type="text/css" href="assets/vendor/summernote/dist/summernote-bs4.css">
 
+        <!-- Custom Styles -->
+        <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- END: Styles -->
+
     <!-- GoodGames -->
     <link rel="stylesheet" href="assets/css/goodgames.css">
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/css/custom.css">
-    <!-- END: Styles -->
+
 
     <!-- jQuery -->
     <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
