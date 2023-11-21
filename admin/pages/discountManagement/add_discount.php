@@ -6,7 +6,7 @@ function main()
     include("../../../mod/database_connection.php");
     $task = isset($_GET["task"]) ? $_GET["task"] : "";
     $search = isset($_POST["search"]) ? $_POST["search"] : "";
-    $manufacturer_id = isset($_POST["sl_manufacturer"]) ? $_POST["sl_manufacturer"] : "";
+    $genre_id = isset($_POST["genre_id"]) ? $_POST["genre_id"] : "";
     $discount_amount = isset($_POST["discount_amount"]) ? $_POST["discount_amount"] : "";
     $checkboxes = isset($_POST["cb_select_product"]) ? $_POST["cb_select_product"] : "";
     $date_start = isset($_POST["date_start"]) ? $_POST["date_start"] : "";
@@ -56,7 +56,7 @@ function main()
     ?>
     <style>
         .table-responsive {
-            max-height: 400px;
+            max-height: 300px;
         }
     </style>
     <div id="data"></div>
@@ -72,24 +72,24 @@ function main()
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable_filter" class="dataTables_filter">
-                                    <label>Manufacturer
-                                        <select name="sl_manufacturer" onchange="submit()" id="sl_manufacturer"
+                                    <label>Genres
+                                        <select name="genre_id" onchange="submit()" id="genre_id"
                                             aria-controls="dataTable"
                                             class="custom-select custom-select-sm form-control form-control-sm">
                                             <option value="all">All</option>
                                             <?php
-                                            $sql = "SELECT * FROM users WHERE role = 'manufacturer'";
+                                            $sql = "SELECT * FROM genres";
                                             $result = $conn->query($sql);
 
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
-                                                    if (isset($_POST['sl_manufacturer']) && $_POST['sl_manufacturer'] != "all") { ?>
+                                                    if ($genre_id == $row["id"]) { ?>
                                                         <option value="<?php echo $row["id"]; ?>" selected>
-                                                            <?php echo $row["full_name"]; ?>
+                                                            <?php echo $row["genre_name"]; ?>
                                                         </option>
                                                     <?php } else { ?>
                                                         <option value="<?php echo $row["id"]; ?>">
-                                                            <?php echo $row["full_name"]; ?>
+                                                            <?php echo $row["genre_name"]; ?>
                                                         </option>
                                                     <?php }
                                                 }
@@ -135,10 +135,6 @@ function main()
                                                 style="width: 147px;">
                                                 Product name</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                colspan="1" aria-label="Product name: activate to sort column ascending"
-                                                style="width: 147px;">
-                                                Manufacturer</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                 colspan="1" aria-label="Price old: activate to sort column ascending"
                                                 style="width: 100px;">
                                                 Price old
@@ -160,11 +156,10 @@ function main()
 
                                     <tbody>
                                         <?php
-                                        $query = "SELECT p.*,u.full_name FROM products p,users u
-                                         WHERE p.id_manufacturer = u.id AND p.product_name LIKE '%$search%'";
+                                        $query = "SELECT * FROM products WHERE product_name LIKE '%$search%'";
 
-                                        if ($manufacturer_id != "" && $manufacturer_id != "all") {
-                                            $query .= " AND p.id_manufacturer = $manufacturer_id";
+                                        if ($genre_id != "" && $genre_id != "all") {
+                                            $query .= " AND id in (SELECT id FROM products p, genre_product gp WHERE p.id = gp.product_id AND gp.genre_id = $genre_id)";
                                         }
 
                                         $result = $conn->query($query);
@@ -177,9 +172,6 @@ function main()
                                                     </td>
                                                     <td>
                                                         <?php echo $row['product_name']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row['full_name']; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $row['price']; ?>

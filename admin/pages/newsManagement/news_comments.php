@@ -202,8 +202,13 @@ function main()
                                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                         colspan="1"
                                                         aria-label="Publish date: activate to sort column ascending"
-                                                        style="width: 80px;">
+                                                        style="width: 70px;">
                                                         News id
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                        colspan="1" aria-label="Reply: activate to sort column ascending"
+                                                        style="width: 60px;">
+                                                        Reply
                                                     </th>
                                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                         colspan="1" aria-label="Age: activate to sort column ascending"
@@ -223,6 +228,7 @@ function main()
                                                     <th rowspan="1" colspan="1">Contents of comments</th>
                                                     <th rowspan="1" colspan="1">Comment date</th>
                                                     <th rowspan="1" colspan="1">News id</th>
+                                                    <th rowspan="1" colspan="1">Reply</th>
                                                     <th rowspan="1" colspan="1">Update</th>
                                                     <th rowspan="1" colspan="1">Delete</th>
                                                 </tr>
@@ -250,11 +256,19 @@ function main()
                                                                     <?php echo $row['comment_date']; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="news_management.php?id=<?= $row['news_id'] ?>"><?= $row['news_id'] ?></a> 
+                                                                    <a href="news_management.php?id=<?= $row['news_id'] ?>">
+                                                                        <?= $row['news_id'] ?>
+                                                                    </a>
                                                                 </td>
-                                                                <td><a href="update_news_comment.php?id=<?php echo $row['id']; ?>">Update</a>
+                                                                <td>
+                                                                    <?php echo $row['reply_id']; ?>
                                                                 </td>
-                                                                <td><a
+                                                                <td>
+                                                                    <a
+                                                                        href="update_news_comment.php?id=<?php echo $row['id']; ?>">Update</a>
+                                                                </td>
+                                                                <td>
+                                                                    <a
                                                                         href="javascript:deleteItem(<?php echo $row['id']; ?>)">Delete</a>
                                                                 </td>
                                                             </tr>

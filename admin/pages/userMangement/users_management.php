@@ -105,6 +105,12 @@ function main()
                 postData.index_page = page;
             }
 
+            <?php
+            if (isset($_GET["id"])) {
+                $id = $_GET["id"];
+                echo "postData.id = $id;";
+            }
+            ?>
             $.post('search_user.php', postData, function (data) {
                 $('#table_data_return').html(data);
             });

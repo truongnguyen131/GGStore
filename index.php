@@ -1,69 +1,140 @@
+<<<<<<< HEAD
+=======
+<?php
+session_start();
+include_once('./mod/database_connection.php');
+?>
+
+
+>>>>>>> dev
 <!DOCTYPE html>
-
-
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<?php include "./mod/head.php"; ?>
 
-    <title>Galaxy Game Store</title>
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+<style>
+    .price_discount {
+        color: yellow;
+        font-size: 1.2em;
+        font-weight: bold;
+        background-color: rgba(255, 0, 0, 0.1);
+        border-radius: 5px;
+        border: 1px solid yellow;
+        text-shadow: 1px 1px 1px #ff0;
+        background-image: linear-gradient(to bottom,
+                #dd163b,
+                orange);
+        box-shadow: 0px 0px 10px yellow;
+        transform: rotate(-1deg);
+        animation: price-glow 1s infinite;
+        padding: 3px 5px;
+    }
 
-    <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
-    <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
-    <meta name="author" content="_nK">
+    @keyframes price-glow {
+        0% {
+            box-shadow: 0 0 10px #dd163b;
+        }
 
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+        100% {
+            box-shadow: 0 0 20px orange;
+        }
+    }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    .old-price {
+        font-size: 1em;
+        text-decoration: line-through;
+        color: gray;
+        opacity: 0.5;
+    }
 
-    <!-- START: Styles -->
+    .price {
+        font-size: 1.5em;
+        color: #dd163b;
+        font-weight: bold;
+    }
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+    .current-price {
+        font-size: 1.5em;
+        color: #dd163b;
+        font-weight: bold;
+        animation: glowing 1000ms linear infinite;
+    }
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+    /* Responsive styles for screens <= 768px */
+    @media only screen and (max-width: 768px) {
+        .current-price {
+            font-size: 1.2em;
+        }
 
-    <!-- FontAwesome -->
-    <script defer src="assets/vendor/fontawesome-free/js/all.js"></script>
-    <script defer src="assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+        .price_discount {
+            font-size: 0.9em;
+        }
+    }
 
-    <!-- IonIcons -->
-    <link rel="stylesheet" href="assets/vendor/ionicons/css/ionicons.min.css">
+    @keyframes glowing {
+        0% {
+            text-shadow: 0 0 3px #fff;
+        }
 
-    <!-- Flickity -->
-    <link rel="stylesheet" href="assets/vendor/flickity/dist/flickity.min.css">
+        50% {
+            text-shadow: 0 0 10px #ffd98f;
+        }
 
-    <!-- Photoswipe -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/dist/photoswipe.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+        100% {
+            text-shadow: 0 0 3px #fff;
+        }
+    }
+</style>
+<style>
+    .position-absolute {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(221, 22, 59, 0.8));
+    }
 
-    <!-- Seiyria Bootstrap Slider -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">
+    .span-genre {
+        color: white;
+        font-size: 1.7em;
+        font-weight: bold;
+        text-shadow: 2px 2px #330000;
+    }
+</style>
+<style>
+    .news_title {
+        max-width: 700px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-    <!-- Summernote -->
-    <link rel="stylesheet" type="text/css" href="assets/vendor/summernote/dist/summernote-bs4.css">
+    @media only screen and (max-width: 425px) {
+        .news_title {
+            white-space: normal;
+        }
+    }
 
-    <!-- GoodGames -->
-    <link rel="stylesheet" href="assets/css/goodgames.css">
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/css/custom.css">
-
-    <!-- END: Styles -->
-
-    <!-- jQuery -->
-    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
-
-
-</head>
+    .popular_name {
+        max-width: 700px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 
 <body>
 
-  <!-- START: Navbar -->
-  <?php include'mod/navbar.php'?>
-<!-- END: Navbar -->
+
+    <?php include "./mod/nav.php"; ?>
 
 
     <div class="nk-main">
@@ -76,19 +147,23 @@
             <div class="nk-image-slider" data-autoplay="5000">
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide4-thumb.jpg">
+                    <img src="assets/images/slide4.jpg" alt="" class="nk-image-slider-img"
+                        data-thumb="assets/images/slide4-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide3-thumb.jpg">
+                    <img src="assets/images/slide3.jpg" alt="" class="nk-image-slider-img"
+                        data-thumb="assets/images/slide3-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide1-thumb.jpg">
+                    <img src="assets/images/slide1.jpg" alt="" class="nk-image-slider-img"
+                        data-thumb="assets/images/slide1-thumb.jpg">
                 </div>
 
                 <div class="nk-image-slider-item">
-                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img" data-thumb="assets/images/slide2-thumb.jpg">
+                    <img src="assets/images/slide2.jpg" alt="" class="nk-image-slider-img"
+                        data-thumb="assets/images/slide2-thumb.jpg">
                 </div>
 
             </div>
@@ -137,148 +212,59 @@
             <div class="nk-gap-3"></div>
 
             <!-- START: Upcoming games -->
-            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Upcoming</span> games</span></h3>
+            <h3 id="UPCOMING" class="nk-decorated-h-2"><span><span class="text-main-1">Upcoming</span> games</span></h3>
 
             <div class="nk-gap"></div>
 
             <div class="nk-news-box">
                 <div class="nk-news-box-list">
                     <div class="nano">
-                        <div class="nano-content">
+                        <div class="nano-content" id="nano-content-1">
+                            <?php
+                            $sql = "SELECT * FROM products WHERE classify = 'game' AND release_date > NOW() ORDER BY release_date";
+                            $stmt = $conn->prepare($sql);
 
+                            if ($stmt === false) {
+                                die("Error preparing statement");
+                            }
 
-                            <div class="nk-news-box-item nk-news-box-item-active">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-1-sm.jpg" alt="Smell magic in the air. Or maybe barbecue">
+                            if (!$stmt->execute()) {
+                                die("Execute failed: " . $stmt->error);
+                            }
+                            $result = $stmt->get_result();
+                            $stmt->close();
+                            ?>
+                            <?php $i = 1;
+                            while ($row = $result->fetch_assoc()) {
+                                if ($i == 1) {
+                                    $video = $row["video_trailer_url"];
+                                    $description = $row["description"];
+                                    $release_date = $row["release_date"];
+                                    $product_name = $row["product_name"];
+                                } ?>
+                                <div class="nk-news-box-item <?= ($i == 1) ? "nk-news-box-item-active" : "" ?>">
+                                    <div class="nk-news-box-item-img">
+                                        <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="<?= $row['product_name'] ?>">
+                                    </div>
+                                    <video autoplay muted width="100%" hidden>
+                                        <source src="./uploads/<?= $row["video_trailer_url"] ?>" type="video/mp4">
+                                    </video>
+                                    <h3 class="nk-news-box-item-title">
+                                        <?= $row['product_name'] ?>
+                                    </h3>
+                                    <div class="nk-news-box-item-text">
+                                        <p>
+                                            <?= $row['description'] ?>
+                                        </p>
+                                    </div>
+                                    <div class="nk-news-box-item-date">
+                                        <span class="fa fa-calendar"></span>
+                                        <?= date('M d, Y', strtotime($row['release_date'])) ?>
+                                    </div>
                                 </div>
-                                <img src="assets/images/post-1.jpg" alt="Smell magic in the air. Or maybe barbecue" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">MMO</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>With what mingled joy and sorrow do I take up the pen to write to my dearest
-                                        friend! Oh, what a change between to-day and yesterday! Now I am friendless and
-                                        alone...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 18, 2018
-                                </div>
-                            </div>
-
-
-                            <div class="nk-news-box-item">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-2-sm.jpg" alt="Grab your sword and fight the Horde">
-                                </div>
-                                <img src="assets/images/post-2.jpg" alt="Grab your sword and fight the Horde" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">Grab your sword and fight the Horde</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-1">Action</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>For good, too; though, in consequence of my previous emotions, I was still
-                                        occasionally seized with a stormy sob . After we had jogged on for some little
-                                        time, I asked the carrier...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Sep 5, 2018
-                                </div>
-                            </div>
-
-
-                            <div class="nk-news-box-item">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-3-sm.jpg" alt="We found a witch! May we burn her?">
-                                </div>
-                                <img src="assets/images/post-3.jpg" alt="We found a witch! May we burn her?" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">We found a witch! May we burn her?</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-2">Adventure</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>And she went on planning to herself how she would manage it. `They must go by the
-                                        carrier,' she thought; `and how funny it'll seem, sending presents to one's own
-                                        feet!...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 27, 2018
-                                </div>
-                            </div>
-
-
-                            <div class="nk-news-box-item">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-4-sm.jpg" alt="For good, too though, in consequence">
-                                </div>
-                                <img src="assets/images/post-4.jpg" alt="For good, too though, in consequence" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">For good, too though, in consequence</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-3">Strategy</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>This little wandering journey, without settled place of abode, had been so
-                                        unpleasant to me, that my own house, as I called it to myself, was a perfect
-                                        settlement to me compared to that...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Aug 14, 2018
-                                </div>
-                            </div>
-
-
-                            <div class="nk-news-box-item">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-5-sm.jpg" alt="He made his passenger captain of one">
-                                </div>
-                                <img src="assets/images/post-5.jpg" alt="He made his passenger captain of one" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">He made his passenger captain of one</h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-5">Indie</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>Just then her head struck against the roof of the hall: in fact she was now more
-                                        than nine feet high, and she at once took up the little golden key and hurried
-                                        off to the garden door...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 23, 2018
-                                </div>
-                            </div>
-
-
-                            <div class="nk-news-box-item">
-                                <div class="nk-news-box-item-img">
-                                    <img src="assets/images/post-6-sm.jpg" alt="At first, for some time, I was not able to answer">
-                                </div>
-                                <img src="assets/images/post-6.jpg" alt="At first, for some time, I was not able to answer" class="nk-news-box-item-full-img">
-                                <h3 class="nk-news-box-item-title">At first, for some time, I was not able to answer
-                                </h3>
-
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-5">Racing</span>
-                                </span>
-
-                                <div class="nk-news-box-item-text">
-                                    <p>This little wandering journey, without settled place of abode, had been so
-                                        unpleasant to me, that my own house, as I called it to myself, was a perfect
-                                        settlement to me compared to that...</p>
-                                </div>
-                                <a href="blog-article.html" class="nk-news-box-item-url">Read More</a>
-                                <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> Jul 3, 2018
-                                </div>
-                            </div>
-
+                                <?php $i++;
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -286,836 +272,459 @@
                     <div class="nano">
                         <div class="nano-content">
                             <!-- There will be inserted info about selected news-->
-                            <div class="nk-news-box-item-image">
-                                <img src="assets/images/post-1.jpg" alt="">
-                                <span class="nk-news-box-item-categories">
-                                    <span class="bg-main-4">MMO</span>
-                                </span>
+                            <div class="nk-news-box-item-video">
+                                <video autoplay muted width="100%">
+                                    <source src="./uploads/<?= $video ?>" type="video/mp4">
+                                </video>
                             </div>
-                            <h3 class="nk-news-box-item-title">Smell magic in the air. Or maybe barbecue</h3>
+                            <h3 class="nk-news-box-item-title">
+                                <?= $product_name ?>
+                            </h3>
                             <div class="nk-news-box-item-text">
-                                <p>With what mingled joy and sorrow do I take up the pen to write to my dearest friend!
-                                    Oh, what a change between to-day and yesterday! Now I am friendless and alone...</p>
+                                <p>
+                                    <?= $description ?>
+                                </p>
                             </div>
-                            <a href="blog-article.html" class="nk-news-box-item-more">Read More</a>
+                            <a href="" class="nk-news-box-item-more">Add to shopping cart</a>
                             <div class="nk-news-box-item-date">
-                                <span class="fa fa-calendar"></span> Sep 18, 2018
+                                <span class="fa fa-calendar"></span>
+                                <?= date('M d, Y', strtotime($release_date)) ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                const nanoContent = document.getElementById('nano-content-1');
+                nanoContent.addEventListener('click', handleClick);
+
+                // Kiểm tra xem có phần tử được thêm class hay không
+                async function handleClick(event) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+
+                    // Lấy video element từ nk-news-box-item-active
+                    const activeVideo = document.querySelector('.nk-news-box-item-active video source');
+
+                    // Lấy source từ video trong nk-news-box-item-active
+                    const source_replace = activeVideo.src;
+
+                    // Lưu container video
+                    const videoContainer = document.querySelector('.nk-news-box-item-video');
+
+                    // Tạo video mới
+                    const newVideo = document.createElement('video');
+
+                    // Set lại các thuộc tính
+                    newVideo.autoplay = true;
+                    newVideo.muted = true;
+                    newVideo.style.width = '100%';
+
+                    // Thêm source mới
+                    const source_new = document.createElement('source');
+                    source_new.src = source_replace;
+                    source_new.type = 'video/mp4';
+
+                    // Thêm source vào video
+                    newVideo.appendChild(source_new);
+
+                    // Xóa nội dung cũ 
+                    videoContainer.innerHTML = '';
+
+                    // Thêm video mới vào container
+                    videoContainer.appendChild(newVideo);
+                }
+            </script>
             <!-- END: Upcoming games -->
 
             <div class="nk-gap-3"></div>
 
             <!-- START: TOP 10 BEST SELLERS -->
 
-            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">TOP 10</span> BEST SELLERS</span></h3>
+            <h3 id="TOP_10" class="nk-decorated-h-2"><span><span class="text-main-1">TOP 10</span> BEST SELLERS</span>
+            </h3>
+
             <div class="nk-gap"></div>
-            <div class="nk-carousel nk-carousel-x4" data-autoplay="5000" data-dots="false" data-cell-align="left" data-arrows="true">
+
+            <div class="nk-carousel nk-carousel-x2" data-autoplay="2500" data-dots="false" data-cell-align="left"
+                data-arrows="true">
                 <div class="nk-carousel-inner">
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
+
+                    <?php
+                    $sql_top10 = "SELECT *, GROUP_CONCAT(g.genre_name) AS genres,
+                    IF(
+                      d.product_id IS NULL,
+                      p.price, 
+                      ROUND(p.price * (1 - d.discount_amount/100))
+                    ) AS price_new,
+                    IF(
+                      d.product_id IS NULL,
+                      0,
+                      IF(CURDATE() BETWEEN d.start_date AND d.end_date, 1, 0) 
+                    ) AS is_discounted
+                  FROM 
+                    (SELECT * FROM products ORDER BY units_sold DESC LIMIT 10) p
+                  
+                  LEFT JOIN genre_product gp ON p.id = gp.product_id
+                  LEFT JOIN genres g ON gp.genre_id = g.id 
+                  
+                  LEFT JOIN discounts d ON p.id = d.product_id
+                  GROUP BY p.id ORDER BY p.units_sold DESC";
+
+                    $result_top10 = $conn->query($sql_top10);
+                    while ($row = $result_top10->fetch_assoc()) { ?>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="nk-blog-post" style="margin-left: 20px;">
+                                <a href="" class="nk-post-img" data-img="<?= $row['id'] ?>" data-video="<?= $row['id'] ?>">
+                                    <img id="img_<?= $row['id'] ?>" src="./uploads/<?= $row['image_avt_url'] ?>"
+                                        alt="<?= $row['product_name'] ?>">
+                                    <video id="video_<?= $row['id'] ?>" autoplay muted width="100%" hidden>
+                                        <source src="./uploads/<?= $row['video_trailer_url'] ?>" type="video/mp4">
+                                    </video>
+                                </a>
+                                <div class="nk-gap"></div>
+                                <h2 class="nk-post-title h4">
+                                    <a href="">
+                                        <?= $row['product_name'] ?>
+                                    </a>
+                                </h2>
+                                <div class="nk-post-by">
+                                    <span style="color: white;">Release date:</span>&nbsp;
+                                    <?= date('M d, Y', strtotime($row['release_date'])) ?>
                                 </div>
+                                <div class="nk-post-text">
+                                    <p>
+                                        <?= substr($row['description'], 0, 70) . (strlen($row['description']) > 50 ? '...' : '') ?>
+                                    </p>
+                                </div>
+
+                                <div class="nk-post-text" style="margin-top: 8px; margin-bottom: 20px;">
+                                    <span style="color: white;font-size: 1.1em;">Price:</span>&nbsp;
+                                    <?php
+                                    if ($row['is_discounted'] == 1) { ?>
+                                        <span class="price_discount"><i class="fas fa-tag-alt"></i>
+                                            <?= $row['discount_amount'] ?>%
+                                        </span>&nbsp;
+                                        <span class="old-price">
+                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                        </span>&nbsp;
+                                        <span class="current-price">
+                                            <?= $row['price_new'] ?><i class="fas fa-gem"></i>
+                                        </span>
+                                    <?php } else { ?>
+                                        <span class="price">
+                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                        </span>
+                                    <?php } ?>
+                                </div>
+                                <div class="nk-post-text" style="font-size: 0.8em;">
+                                    <p> <span style="color: white;">Genre-tags:</span>
+                                        <?php
+                                        $genres = explode(",", $row['genres']);
+                                        foreach ($genres as $genre) {
+                                            ?>
+                                            <a href="#">
+                                                <?php echo $genre; ?>
+                                            </a>
+                                        <?php } ?>
+                                    </p>
+                                </div>
+                                <div class="nk-gap"></div>
+
+                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
+                                    TO CART</a>
+                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BY
+                                    NOW</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-product">
-                        <div class="pl-5 pr-5">
-                            <span class="sale">-40%</span>
-                            <a class="nk-product-image" href="store-product.html">
-                                <img src="assets/images/product-12-xs.jpg" alt="So saying he unbuckled">
-                            </a>
-                            <div class="nk-product-content">
-                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                </h3>
-                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                <div class="nk-product-price">€ 23.00</div>
-                                <div class="nk-product__btn">
-                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                    <a href="" class="btn">Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php } ?>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const postImgs = document.querySelectorAll('.nk-post-img');
+
+                            postImgs.forEach(img => {
+
+                                img.addEventListener('mouseenter', e => {
+                                    handleMouseEnter(e.target.dataset.img, e.target.dataset.video);
+                                });
+
+                                img.addEventListener('mouseleave', e => {
+                                    handleMouseLeave(e.target.dataset.img, e.target.dataset.video);
+                                });
+
+                            });
+                        })
+
+                        function handleMouseEnter(imgId, videoId) {
+                            var img_id = 'img_' + imgId;
+                            var video_id = 'video_' + videoId;
+                            const img = document.getElementById(img_id);
+                            const video = document.getElementById(video_id);
+                            img.hidden = true;
+                            video.hidden = false;
+                        }
+
+                        function handleMouseLeave(imgId, videoId) {
+                            var img_id = 'img_' + imgId;
+                            var video_id = 'video_' + videoId;
+                            const img = document.getElementById(img_id);
+                            const video = document.getElementById(video_id);
+                            img.hidden = false;
+                            video.hidden = true;
+                        }
+                    </script>
+
                 </div>
             </div>
+
             <!-- END: TOP 10 BEST SELLERS -->
 
-
+            <!-- START: SPECIAL OFFERS, GEAR PC, TABBED NEWS, RECOMMENDED, POPULAR -->
             <div class="nk-gap-2"></div>
 
             <div class="row vertical-gap">
 
+                <!-- START: Sidebar1 -->
                 <div class="col-lg-8">
 
                     <!-- START: SPECIAL OFFERS -->
-                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">SPECIAL</span> OFFERS</span></h3>
+                    <h3 id="SPECIAL_OFFERS" class="nk-decorated-h-2"><span><span class="text-main-1">SPECIAL</span>
+                            OFFERS</span></h3>
                     <div class="nk-gap"></div>
                     <div class="nk-popup-gallery">
                         <div class="row vertical-gap">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
-                                        <div class="nk-gallery-item-overlay">
-                                            <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                            </h3>
-                                            <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                            <div class="nk-product-price">€ 23.00</div>
-                                            <div class="nk-product__btn">
-                                                <a href="" class="btn add_to_cart">Add to cart</a>
-                                                <a href="" class="btn">Buy</a>
-                                            </div>
-                                        </div>
-                                        <img src="assets/images/gallery-1-thumb.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
-                                        <div class="nk-gallery-item-overlay">
-                                            <div class="nk-gallery-item-overlay">
-                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                </h3>
-                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                <div class="nk-product-price">€ 23.00</div>
-                                                <div class="nk-product__btn">
-                                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                                    <a href="" class="btn">Buy</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="assets/images/gallery-2-thumb.jpg" alt="">
-                                    </a>
 
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
-                                        <div class="nk-gallery-item-overlay">
-                                            <div class="nk-gallery-item-overlay">
-                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                </h3>
-                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                <div class="nk-product-price">€ 23.00</div>
-                                                <div class="nk-product__btn">
-                                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                                    <a href="" class="btn">Buy</a>
+                            <?php
+                            $sql_offer = "SELECT *, ROUND(p.price * (1 - d.discount_amount/100)) AS price_new  
+                            FROM products p JOIN discounts d ON p.id = d.product_id
+                            WHERE CURDATE() BETWEEN d.start_date AND d.end_date  
+                            ORDER BY d.discount_amount DESC LIMIT 6";
+
+                            $result_offer = $conn->query($sql_offer);
+                            while ($row = $result_offer->fetch_assoc()) { ?>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="nk-gallery-item-box">
+                                        <a href="" class="nk-gallery-item">
+                                            <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="">
+                                        </a>
+
+                                        <div class="nk-gap"></div>
+
+                                        <h2 class="nk-post-title h4">
+                                            <a href="">
+                                                <?= $row['product_name'] ?>
+                                            </a>
+                                        </h2>
+
+                                        <div class="nk-product-rating" data-rating="3">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                            <i class="far fa-star"></i> <i class="far fa-star"></i>
+                                        </div>
+
+                                        <div class="mt-5">
+                                            <div>
+                                                <span class="price_discount"><i class="fas fa-tag-alt"></i>
+                                                    <?= $row['discount_amount'] ?>%
+                                                </span>&nbsp;
+                                                <span class="old-price">
+                                                    <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                                </span>&nbsp;
+                                                <span class="current-price">
+                                                    <?= $row['price_new'] ?><i class="fas fa-gem"></i>
+                                                </span>
+
+                                            </div>
+                                            <div class="nk-gap"></div>
+                                            <div class="row">
+                                                <div class="col-md-7"><a href=""
+                                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
+                                                        TO CART</a>
+                                                </div>
+                                                <div class="col-md-5"><a href=""
+                                                        class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
                                                 </div>
                                             </div>
+
+                                            <div class="nk-gap"></div>
                                         </div>
-                                        <img src="assets/images/gallery-3-thumb.jpg" alt="">
-                                    </a>
+                                    </div>
                                 </div>
+                            <?php } ?>
+
+                            <div class="col-lg-4 col-md-4"></div>
+                            <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center">
+                                <a href="#" style="margin-top: -20px;"
+                                    class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
                             </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
-                                        <div class="nk-gallery-item-overlay">
-                                            <div class="nk-gallery-item-overlay">
-                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                </h3>
-                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                <div class="nk-product-price">€ 23.00</div>
-                                                <div class="nk-product__btn">
-                                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                                    <a href="" class="btn">Buy</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="assets/images/gallery-4-thumb.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
-                                        <div class="nk-gallery-item-overlay">
-                                            <div class="nk-gallery-item-overlay">
-                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                </h3>
-                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                <div class="nk-product-price">€ 23.00</div>
-                                                <div class="nk-product__btn">
-                                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                                    <a href="" class="btn">Buy</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="assets/images/gallery-5-thumb.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="nk-gallery-item-box">
-                                    <span class="sale">-40%</span>
-                                    <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
-                                        <div class="nk-gallery-item-overlay">
-                                            <div class="nk-gallery-item-overlay">
-                                                <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                </h3>
-                                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                <div class="nk-product-price">€ 23.00</div>
-                                                <div class="nk-product__btn">
-                                                    <a href="" class="btn add_to_cart">Add to cart</a>
-                                                    <a href="" class="btn">Buy</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img src="assets/images/gallery-6-thumb.jpg" alt="">
-                                    </a>
-                                </div>
-                            </div>
+                            <div class="col-lg-4 col-md-4"></div>
                         </div>
                     </div>
-                    <a href="#" class="btn-seeMore">See More</a>
                     <!-- END: SPECIAL OFFERS -->
 
                     <!-- START: Gear -->
                     <div class="nk-gap-3"></div>
-                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Gear</span> PC</span></h3>
+                    <h3 id="GEAR_PC" class="nk-decorated-h-2"><span><span class="text-main-1">Gear</span> PC</span></h3>
                     <div class="nk-gap"></div>
                     <div class="row vertical-gap">
-                        <div class="col-md-6">
-                            <div class="nk-product-cat">
-                                <a class="nk-product-image" href="store-product.html">
-                                    <img src="assets/images/product-11-xs.jpg" alt="She gave my mother">
-                                </a>
-                                <div class="nk-product-cont">
-                                    <h3 class="nk-product-title h5"><a href="store-product.html">She gave my mother</a>
-                                    </h3>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-price">€ 14.00</div>
-                                    <div class="nk-gap-1"></div>
-                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
-                                        to Cart</a>
+                        <?php
+                        $sql_gear = "SELECT * FROM `products` WHERE classify = 'gear'";
+
+                        $result_gear = $conn->query($sql_gear);
+                        while ($row = $result_gear->fetch_assoc()) { ?>
+                            <div class="col-md-6">
+                                <div class="nk-product-cat">
+                                    <a class="nk-product-image" href="store-product.html">
+                                        <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="<?= $row['product_name'] ?>">
+                                    </a>
+                                    <div class="nk-product-cont">
+                                        <h3 class="nk-product-title h5 mb-10"><a href="">
+                                                <?= $row['product_name'] ?>
+                                            </a>
+                                        </h3>
+                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
+                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="nk-product-price mb-5 mt-5">
+                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                        </div>
+                                        <a href="#"
+                                            class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
+                                            to Cart</a>
+                                    </div>
                                 </div>
                             </div>
+                        <?php } ?>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
                         </div>
-                        <div class="col-md-6">
-                            <div class="nk-product-cat">
-                                <a class="nk-product-image" href="store-product.html">
-                                    <img src="assets/images/product-12-xs.jpg" alt="A hundred thousand">
-                                </a>
-                                <div class="nk-product-cont">
-                                    <h3 class="nk-product-title h5"><a href="store-product.html">A hundred thousand</a>
-                                    </h3>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-price">€ 20.00</div>
-                                    <div class="nk-gap-1"></div>
-                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
-                                        to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="nk-product-cat">
-                                <a class="nk-product-image" href="store-product.html">
-                                    <img src="assets/images/product-13-xs.jpg" alt="So saying he unbuckled">
-                                </a>
-                                <div class="nk-product-cont">
-                                    <h3 class="nk-product-title h5"><a href="store-product.html">So saying he
-                                            unbuckled</a></h3>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-price">€ 23.00</div>
-                                    <div class="nk-gap-1"></div>
-                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
-                                        to Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="nk-product-cat">
-                                <a class="nk-product-image" href="store-product.html">
-                                    <img src="assets/images/product-14-xs.jpg" alt="However, I have reason">
-                                </a>
-                                <div class="nk-product-cont">
-                                    <h3 class="nk-product-title h5"><a href="store-product.html">However, I have
-                                            reason</a></h3>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-rating" data-rating="1.5"> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                    <div class="nk-gap-1"></div>
-                                    <div class="nk-product-price">€ 32.00</div>
-                                    <div class="nk-gap-1"></div>
-                                    <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
-                                        to Cart</a>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="col-md-4"></div>
+
                     </div>
-                    <a href="#" class="btn-seeMore">See More</a>
+
                     <!-- END: Gear -->
 
                     <!-- START: Tabbed News  -->
                     <div class="nk-gap-3"></div>
-                    <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Tabbed</span> News</span></h3>
+                    <h3 id="TABBED_NEWS" class="nk-decorated-h-2"><span><span class="text-main-1">Tabbed</span>
+                            News</span></h3>
                     <div class="nk-gap"></div>
                     <div class="nk-tabs">
                         <ul class="nav nav-tabs nav-tabs-fill" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">Action</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">MMO</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tabs-1-3" role="tab" data-toggle="tab">Strategy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tabs-1-4" role="tab" data-toggle="tab">Adventure</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tabs-1-5" role="tab" data-toggle="tab">Racing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#tabs-1-6" role="tab" data-toggle="tab">Indie</a>
-                            </li>
+
+                            <?php
+                            $sql_news_type = "SELECT * FROM news_type";
+                            $i = 1;
+                            $result_news_type = $conn->query($sql_news_type);
+                            while ($row = $result_news_type->fetch_assoc()) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= ($i == 1) ? "active" : "" ?>" href="#tabs-1-<?= $row['id'] ?>"
+                                        role="tab" data-toggle="tab">
+                                        <?= $row['news_type_name'] ?>
+                                    </a>
+                                </li>
+                                <?php $i++;
+                            } ?>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
-                                <div class="nk-gap"></div>
-                                <!-- START: Action Tab -->
+                            <?php
+                            $sql_news_type = "SELECT * FROM news_type";
+                            $i = 1;
+                            $result_news_type = $conn->query($sql_news_type);
+                            while ($row_news_type = $result_news_type->fetch_assoc()) { ?>
+                                <div role="tabpanel" class="tab-pane fade show <?= ($i == 1) ? "active" : "" ?>"
+                                    id="tabs-1-<?= $row_news_type['id'] ?>">
+                                    <div class="nk-gap"></div>
 
+                                    <?php
+                                    $news_type_id = $row_news_type['id'];
+                                    $sql_news = "SELECT *, 
+                                    (SELECT COUNT(*) FROM news_comments nc WHERE nc.news_id = n.id) AS comment_count,
+                                    (SELECT image FROM news_content WHERE news_id = n.id AND image != '' LIMIT 1) AS image
+                                    FROM news n WHERE news_type_id = $news_type_id ORDER BY `n`.`publish_date` ASC LIMIT 3";
+                                    $result_news = $conn->query($sql_news);
+                                    $j = 1;
+                                    while ($row_news = $result_news->fetch_assoc()) {
+                                        if ($j == 1) { ?>
+                                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                                <?php if ($row_news['image'] != "") { ?>
+                                                    <a href="" class="nk-post-img">
+                                                        <img style='height: 200px;' src="./uploads/<?= $row_news['image'] ?>"
+                                                            alt="<?= $row_news['title'] ?>">
+                                                    </a>
+                                                <?php } ?>
 
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-2-fw.jpg" alt="Grab your sword and fight the Horde">
-
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-1">Action</span>
-                                        </span>
-
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">Grab your sword and fight
-                                            the Horde</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Sep 5, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">7 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>For good, too; though, in consequence of my previous emotions, I was still
-                                            occasionally seized with a stormy sob . After we had jogged on for some
-                                            little time, I asked the carrier...</p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-7-mid-square.jpg" alt="At length one of them called out in a clear">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-1">Action</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">At length one of
-                                                    them called out in a clear</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Jul 3, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">0 comments</a>
+                                                <div class="nk-gap-1"></div>
+                                                <h2 class="nk-post-title h4"><a href="">
+                                                        <?= $row_news['title'] ?>
+                                                    </a></h2>
+                                                <div class="nk-post-date mt-10 mb-10">
+                                                    <span class="fa fa-calendar"></span>
+                                                    <?= date('M d, Y', strtotime($row_news['publish_date'])) ?>
+                                                    <span class="fa fa-comments"></span> <a href="#">
+                                                        <?= $row_news['comment_count'] ?> comments
+                                                    </a>
+                                                </div>
+                                                <div class="nk-post-text">
+                                                    <p>
+                                                        <?= substr($row_news['header'], 0, 170) . (strlen($row_news['header']) > 170 ? '...' : '') ?>
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="nk-post-text">
-                                                <p>TJust then her head struck against the roof of the hall: in fact she
-                                                    was now more than nine feet high, and she at once took up the little
-                                                    golden key and hurried off to the garden door...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-9-mid-square.jpg" alt="He made his passenger captain of one">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-1">Action</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">He made his
-                                                    passenger captain of one</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Jul 3, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">0 comments</a>
-                                            </div>
-                                            <div class="nk-post-text">
-                                                <p>Just then her head struck against the roof of the hall: in fact she
-                                                    was now more than nine feet high, and she at once took up the little
-                                                    golden key and hurried off to the garden door...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- END: Action Tab -->
-
-                                <!-- START: CATEGORY -->
-                                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">CATEGORY</span> GAME</span></h3>
-                                <div class="nk-gap"></div>
-                                <div class="nk-popup-gallery">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
-                                                    <img src="assets/images/story_rich.png" alt="">
-                                                    <div class="cate_title cate_title1">
-                                                        <span>Sport</span>
+                                        <?php } else { ?>
+                                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                                <div class="row vertical-gap">
+                                                    <div class="col-lg-3 col-md-5">
+                                                        <?php if ($row_news['image'] != "") { ?>
+                                                            <a href="" class="nk-post-img">
+                                                                <img src="./uploads/<?= $row_news['image'] ?>"
+                                                                    alt="<?= $row_news['title'] ?>">
+                                                            </a>
+                                                        <?php } ?>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
-                                                    <img src="assets/images/survival.png" alt="">
-                                                    <div class="cate_title cate_title2">
-                                                        <span>Sport</span>
+
+                                                    <div class="col-lg-9 col-md-7">
+                                                        <h2 class="nk-post-title h4 news_title"><a href=""
+                                                                title="<?= $row_news['title'] ?>">
+                                                                <?= $row_news['title'] ?>
+                                                            </a></h2>
+                                                        <div class="nk-post-date mt-10 mb-10">
+                                                            <span class="fa fa-calendar"></span>
+                                                            <?= date('M d, Y', strtotime($row_news['publish_date'])) ?>
+                                                            <span class="fa fa-comments"></span> <a href="#">
+                                                                <?= $row_news['comment_count'] ?> comments
+                                                            </a>
+                                                        </div>
+                                                        <div class="nk-post-text">
+                                                            <p>
+                                                                <?= substr($row_news['header'], 0, 60) . (strlen($row_news['header']) > 60 ? '...' : '') ?>
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
-                                                    <img src="assets/images/science_fiction.png" alt="">
-                                                    <div class="cate_title cate_title3">
-                                                        <span>Sport</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
-                                                    <img src="assets/images/science_fiction.png" alt="">
-                                                    <div class="cate_title cate_title4">
-                                                        <span>Sport</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
-                                                    <img src="assets/images/anime.png" alt="">
-                                                    <div class="cate_title cate_title5">
-                                                        <span>Sport</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
-                                                    <img src="assets/images/visual_novel.png" alt="">
-                                                    <div class="cate_title cate_title6">
-                                                        <span>Sport</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <?php } ?>
+                                        <?php $j++;
+                                    } ?>
+
+                                    <div class="nk-gap"></div>
                                 </div>
-                                <a href="#" class="btn-seeMore">See More</a>
-                                <!-- END: SPECIAL OFFERS -->
-                                <div class="nk-gap"></div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-2">
-                                <div class="nk-gap"></div>
-                                <!-- START: MMO Tab -->
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-1-fw.jpg" alt="Smell magic in the air. Or maybe barbecue">
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-4">MMO</span>
-                                        </span>
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">Smell magic in the air. Or
-                                            maybe barbecue</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Sep 18, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">4 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>With what mingled joy and sorrow do I take up the pen to write to my dearest
-                                            friend! Oh, what a change between to-day and yesterday! Now I am friendless
-                                            and alone...</p>
-                                    </div>
-                                </div>
+                                <?php $i++;
+                            } ?>
 
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-5-mid-square.jpg" alt="He made his passenger captain of one">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-4">MMO</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">He made his
-                                                    passenger captain of one</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Jul 23, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">13 comments</a>
-                                            </div>
-                                            <div class="nk-post-text">
-                                                <p>Just then her head struck against the roof of the hall: in fact she
-                                                    was now more than nine feet high, and she at once took up the little
-                                                    golden key and hurried off to the garden door...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- END: MMO Tab -->
-                                <div class="nk-gap"></div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-3">
-                                <div class="nk-gap"></div>
-                                <!-- START: Strategy Tab -->
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-3-fw.jpg" alt="We found a witch! May we burn her?">
-
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-3">Strategy</span>
-                                        </span>
-
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">We found a witch! May we
-                                            burn her?</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Aug 27, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">7 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>And she went on planning to herself how she would manage it. `They must go by
-                                            the carrier,' she thought; `and how funny it'll seem, sending presents to
-                                            one's own feet!...</p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-4-mid-square.jpg" alt="For good, too though, in consequence">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-3">Strategy</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">For good, too
-                                                    though, in consequence</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Aug 14, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">23 comments</a>
-                                            </div>
-                                            <div class="nk-post-text">
-                                                <p>This little wandering journey, without settled place of abode, had
-                                                    been so unpleasant to me, that my own house, as I called it to
-                                                    myself, was a perfect settlement to me compared to that...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- END: Strategy Tab -->
-                                <div class="nk-gap"></div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-4">
-                                <div class="nk-gap"></div>
-                                <!-- START: Adventure Tab -->
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-6-fw.jpg" alt="At first, for some time, I was not able to answer">
-
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-2">Adventure</span>
-                                        </span>
-
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">At first, for some time, I
-                                            was not able to answer</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Jul 3, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">0 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>This little wandering journey, without settled place of abode, had been so
-                                            unpleasant to me, that my own house, as I called it to myself, was a perfect
-                                            settlement to me compared to that...</p>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- END: Adventure Tab -->
-                                <div class="nk-gap"></div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-5">
-                                <div class="nk-gap"></div>
-                                <!-- START: Racing Tab -->
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-7-fw.jpg" alt="At length one of them called out in a clear">
-
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-5">Racing</span>
-                                        </span>
-
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">At length one of them
-                                            called out in a clear</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Jul 3, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">0 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>TJust then her head struck against the roof of the hall: in fact she was now
-                                            more than nine feet high, and she at once took up the little golden key and
-                                            hurried off to the garden door...</p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-3-mid-square.jpg" alt="We found a witch! May we burn her?">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-5">Racing</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">We found a witch!
-                                                    May we burn her?</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Aug 27, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">7 comments</a>
-                                            </div>
-                                            <div class="nk-post-text">
-                                                <p>And she went on planning to herself how she would manage it. `They
-                                                    must go by the carrier,' she thought; `and how funny it'll seem,
-                                                    sending presents to one's own feet!...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <div class="row vertical-gap">
-                                        <div class="col-lg-3 col-md-5">
-                                            <a href="blog-article.html" class="nk-post-img">
-                                                <img src="assets/images/post-4-mid-square.jpg" alt="For good, too though, in consequence">
-
-                                                <span class="nk-post-categories">
-                                                    <span class="bg-main-5">Racing</span>
-                                                </span>
-
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-9 col-md-7">
-                                            <h2 class="nk-post-title h4"><a href="blog-article.html">For good, too
-                                                    though, in consequence</a></h2>
-                                            <div class="nk-post-date mt-10 mb-10">
-                                                <span class="fa fa-calendar"></span> Aug 14, 2018
-                                                <span class="fa fa-comments"></span> <a href="#">23 comments</a>
-                                            </div>
-                                            <div class="nk-post-text">
-                                                <p>This little wandering journey, without settled place of abode, had
-                                                    been so unpleasant to me, that my own house, as I called it to
-                                                    myself, was a perfect settlement to me compared to that...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- END: Racing Tab -->
-                                <div class="nk-gap"></div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tabs-1-6">
-                                <div class="nk-gap"></div>
-                                <!-- START: Indie Tab -->
-
-
-                                <div class="nk-blog-post nk-blog-post-border-bottom">
-                                    <a href="blog-article.html" class="nk-post-img">
-                                        <img src="assets/images/post-5-fw.jpg" alt="He made his passenger captain of one">
-
-                                        <span class="nk-post-categories">
-                                            <span class="bg-main-2">Indie</span>
-                                        </span>
-
-                                    </a>
-                                    <div class="nk-gap-1"></div>
-                                    <h2 class="nk-post-title h4"><a href="blog-article.html">He made his passenger
-                                            captain of one</a></h2>
-                                    <div class="nk-post-date mt-10 mb-10">
-                                        <span class="fa fa-calendar"></span> Jul 23, 2018
-                                        <span class="fa fa-comments"></span> <a href="#">13 comments</a>
-                                    </div>
-                                    <div class="nk-post-text">
-                                        <p>Just then her head struck against the roof of the hall: in fact she was now
-                                            more than nine feet high, and she at once took up the little golden key and
-                                            hurried off to the garden door...</p>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- END: Indie Tab -->
-                                <div class="nk-gap"></div>
-                            </div>
                         </div>
                     </div>
                     <!-- END: Tabbed News -->
 
                 </div>
+                <!-- END: Sidebar1 -->
 
+
+                <!-- START: Sidebar2 -->
                 <div class="col-lg-4">
-                    <!-- START: Sidebar -->
                     <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
 
                         <!-- search -->
@@ -1124,7 +733,8 @@
                                 <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Type something...">
-                                        <button class="nk-btn nk-btn-color-main-1"><span class="ion-search"></span></button>
+                                        <button class="nk-btn nk-btn-color-main-1"><span
+                                                class="ion-search"></span></button>
                                     </div>
                                 </form>
                             </div>
@@ -1137,14 +747,18 @@
                                 <ul class="nk-social-links-3 nk-social-links-cols-4">
                                     <li><a class="nk-social-twitch" href="#"><span class="fab fa-twitch"></span></a>
                                     </li>
-                                    <li><a class="nk-social-instagram" href="#"><span class="fab fa-instagram"></span></a></li>
+                                    <li><a class="nk-social-instagram" href="#"><span
+                                                class="fab fa-instagram"></span></a></li>
                                     <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a>
                                     </li>
-                                    <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
+                                    <li><a class="nk-social-google-plus" href="#"><span
+                                                class="fab fa-google-plus"></span></a></li>
                                     <li><a class="nk-social-youtube" href="#"><span class="fab fa-youtube"></span></a>
                                     </li>
-                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span class="fab fa-twitter"></span></a></li>
-                                    <li><a class="nk-social-pinterest" href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                                    <li><a class="nk-social-twitter" href="#" target="_blank"><span
+                                                class="fab fa-twitter"></span></a></li>
+                                    <li><a class="nk-social-pinterest" href="#"><span
+                                                class="fab fa-pinterest-p"></span></a></li>
                                     <li><a class="nk-social-rss" href="#"><span class="fa fa-rss"></span></a></li>
                                 </ul>
                             </div>
@@ -1152,47 +766,52 @@
 
                         <!-- recommended -->
                         <div class="nk-widget nk-widget-highlighted">
-                            <h4 class="nk-widget-title"><span><span class="text-main-1">recommended </span>for you</span>
+                            <h4 class="nk-widget-title"><span><span class="text-main-1">recommended </span>for
+                                    you</span>
                             </h4>
                             <div class="nk-widget-content">
                                 <div class="nk-popup-gallery">
                                     <div class="row sm-gap vertical-gap">
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item" data-size="1016x572">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-1.jpg" class="nk-gallery-item"
+                                                    data-size="1016x572">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-1-thumb.jpg" alt="">
                                                 </a>
-
+                                                <div class="nk-gallery-item-description">
+                                                    <h4>Called Let</h4>
+                                                    Divided thing, land it evening earth winged whose great after. Were
+                                                    grass night. To Air itself saw bring fly fowl. Fly years behold
+                                                    spirit day greater of wherein winged and form. Seed open don't thing
+                                                    midst created dry every greater divided of, be man is. Second Bring
+                                                    stars fourth gathering he hath face morning fill. Living so second
+                                                    darkness. Moveth were male. May creepeth. Be tree fourth.
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item" data-size="1188x594">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-2.jpg" class="nk-gallery-item"
+                                                    data-size="1188x594">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-2-thumb.jpg" alt="">
                                                 </a>
-
+                                                <div class="nk-gallery-item-description">
+                                                    Seed open don't thing midst created dry every greater divided of, be
+                                                    man is. Second Bring stars fourth gathering he hath face morning
+                                                    fill. Living so second darkness. Moveth were male. May creepeth. Be
+                                                    tree fourth.
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item" data-size="625x350">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-3.jpg" class="nk-gallery-item"
+                                                    data-size="625x350">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-3-thumb.jpg" alt="">
                                                 </a>
@@ -1200,12 +819,9 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item" data-size="873x567">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-4.jpg" class="nk-gallery-item"
+                                                    data-size="873x567">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-4-thumb.jpg" alt="">
                                                 </a>
@@ -1213,12 +829,9 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item" data-size="471x269">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-5.jpg" class="nk-gallery-item"
+                                                    data-size="471x269">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-5-thumb.jpg" alt="">
                                                 </a>
@@ -1226,12 +839,9 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="nk-gallery-item-box">
-                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item" data-size="472x438">
-                                                    <div class="nk-gallery-item-overlay">
-                                                        <h3 class="nk-product-title h5"><a href="store-product.html">So saying he unbuckled</a>
-                                                        </h3>
-                                                        <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                                        <div class="nk-product-price">€ 23.00</div>
+                                                <a href="assets/images/gallery-6.jpg" class="nk-gallery-item"
+                                                    data-size="472x438">
+                                                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span>
                                                     </div>
                                                     <img src="assets/images/gallery-6-thumb.jpg" alt="">
                                                 </a>
@@ -1239,58 +849,90 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="" class="btn_see_more">See More</a>
                             </div>
-                     
                         </div>
 
                         <!-- popular -->
                         <div class="nk-widget nk-widget-highlighted">
                             <h4 class="nk-widget-title"><span><span class="text-main-1">Most</span> Popular</span></h4>
+
                             <div class="nk-widget-content">
+                                <?php
+                                $sql_popular = "SELECT * FROM `products` WHERE classify = 'gear' LIMIT 3";
+                                $result_popular = $conn->query($sql_popular);
 
-                                <div class="nk-widget-post">
-                                    <a href="store-product.html" class="nk-post-image">
-                                        <img src="assets/images/product-1-xs.jpg" alt="So saying he unbuckled">
-                                    </a>
-                                    <h3 class="nk-post-title"><a href="store-product.html">So saying he unbuckled</a>
-                                    </h3>
-                                    <div class="nk-product-rating" data-rating="4"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
-                                    <div class="nk-product-price">€ 23.00</div>
-                                </div>
+                                while ($row = $result_popular->fetch_assoc()) { ?>
+                                    <div class="nk-widget-post">
+                                        <a href="" class="nk-post-image">
+                                            <img src="./uploads/<?= $row['image_avt_url'] ?>"
+                                                alt="<?= $row['product_name'] ?>">
+                                        </a>
+                                        <h3 class="nk-post-title popular_name"><a href=""
+                                                title="<?= $row['product_name'] ?>">
+                                                <?= $row['product_name'] ?>
+                                            </a>
+                                        </h3>
+                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
+                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="nk-product-price mb-5 mt-5">
+                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } ?>
 
-                                <div class="nk-widget-post">
-                                    <a href="store-product.html" class="nk-post-image">
-                                        <img src="assets/images/product-2-xs.jpg" alt="However, I have reason">
-                                    </a>
-                                    <h3 class="nk-post-title"><a href="store-product.html">However, I have reason</a>
-                                    </h3>
-                                    <div class="nk-product-rating" data-rating="2.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
-                                    <div class="nk-product-price">€ 32.00</div>
-                                </div>
 
-                                <div class="nk-widget-post">
-                                    <a href="store-product.html" class="nk-post-image">
-                                        <img src="assets/images/product-3-xs.jpg" alt="It was some time before">
-                                    </a>
-                                    <h3 class="nk-post-title"><a href="store-product.html">It was some time before</a>
-                                    </h3>
-                                    <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                    <div class="nk-product-price">€ 14.00</div>
-                                </div>
-                                <a href="" class="btn_see_more">See More</a>
                             </div>
-                           
                         </div>
 
                     </aside>
-                    <!-- END: Sidebar -->
+
                 </div>
+                <!-- END: Sidebar2 -->
+
 
             </div>
+
+            <!-- END: SPECIAL OFFERS, GEAR PC, TABBED NEWS, RECOMMENDED, POPULAR -->
+
+            <div class="nk-gap-3"></div>
+
+            <!-- START: CATEGORY GAME -->
+            <h3 id="CATEGORY_GAME" class="nk-decorated-h-2"><span><span class="text-main-1">CATEGORY</span> GAME</span>
+            </h3>
+
+            <div class="nk-gap"></div>
+
+            <div class="nk-carousel nk-carousel-x2" data-autoplay="2000" data-dots="false" data-cell-align="left"
+                data-arrows="true">
+
+                <div class="nk-carousel-inner">
+                    <?php
+                    $sql_category = "SELECT * FROM `genres` LIMIT 16";
+
+                    $result_category = $conn->query($sql_category);
+                    while ($row = $result_category->fetch_assoc()) { ?>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="nk-blog-post position-relative" style="margin-left: 20px;">
+                                <a href="" class="nk-post-img">
+                                    <img src="./uploads/genre_<?= $row['id'] ?>.png" alt="<?= $row['genre_name'] ?>">
+                                </a>
+
+                                <span class="span-genre position-absolute">
+                                    <?= $row['genre_name'] ?>
+                                </span>
+
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <!-- END: CATEGORY GAME -->
         </div>
 
-        <div class="nk-gap-4"></div>
+        <div class="nk-gap-3"></div>
 
         <!-- START: Footer -->
         <?php include "./mod/footer.php"; ?>
@@ -1300,83 +942,9 @@
     </div>
 
 
-
-
-    <!-- START: Page Background -->
-
-    <img class="nk-page-background-top" src="assets/images/bg-top.png" alt="">
-    <img class="nk-page-background-bottom" src="assets/images/bg-bottom.png" alt="">
-
-    <!-- END: Page Background -->
-
-
-
-
     <!-- START: Scripts -->
-
-    <!-- Object Fit Polyfill -->
-    <script src="assets/vendor/object-fit-images/dist/ofi.min.js"></script>
-
-    <!-- GSAP -->
-    <script src="assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
-    <script src="assets/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
-
-    <!-- Popper -->
-    <script src="assets/vendor/popper.js/dist/umd/popper.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Sticky Kit -->
-    <script src="assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-
-    <!-- Jarallax -->
-    <script src="assets/vendor/jarallax/dist/jarallax.min.js"></script>
-    <script src="assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
-
-    <!-- imagesLoaded -->
-    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-
-    <!-- Flickity -->
-    <script src="assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
-
-    <!-- Photoswipe -->
-    <script src="assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
-    <script src="assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
-
-    <!-- Jquery Validation -->
-    <script src="assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-
-    <!-- Jquery Countdown + Moment -->
-    <script src="assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
-    <script src="assets/vendor/moment/min/moment.min.js"></script>
-    <script src="assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
-
-    <!-- Hammer.js -->
-    <script src="assets/vendor/hammerjs/hammer.min.js"></script>
-
-    <!-- NanoSroller -->
-    <script src="assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
-
-    <!-- SoundManager2 -->
-    <script src="assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
-
-    <!-- Seiyria Bootstrap Slider -->
-    <script src="assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
-
-    <!-- Summernote -->
-    <script src="assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
-
-    <!-- nK Share -->
-    <script src="assets/plugins/nk-share/nk-share.js"></script>
-
-    <!-- GoodGames -->
-    <script src="assets/js/goodgames.min.js"></script>
-    <script src="assets/js/goodgames-init.js"></script>
-    <script src="assets/js/navbar.js"></script>
+    <?php include "./mod/add_script.php"; ?>
     <!-- END: Scripts -->
-
-
 
 </body>
 

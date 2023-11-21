@@ -10,24 +10,25 @@ function main()
         $news_id = $_POST["news_id"];
         $comment = $_POST["comment"];
         $comment_date = $_POST["comment_date"];
+        $reply_id = ($_POST["reply_id"]=="") ? null :$_POST["reply_id"];
 
         //check news exists
-        $check_query = "SELECT * FROM news_comments WHERE comment = ? and comment_date	 = ? and news_id = ? and user_id = ?";
+        $check_query = "SELECT * FROM news_comments WHERE comment = ? and comment_date	 = ? and news_id = ? and user_id = ? and reply_id = ?";
         $check_stmt = $conn->prepare($check_query);
         if ($check_stmt === false) {
             die("Error preparing statement");
         }
-        $check_stmt->bind_param("ssii", $comment, $comment_date, $news_id, $user_id);
+        $check_stmt->bind_param("ssiii", $comment, $comment_date, $news_id, $user_id, $reply_id);
         $check_stmt->execute();
         $check_result = $check_stmt->get_result();
         if ($check_result->num_rows > 0) {
             createNotification("Comment already exists! Add Comment Failed!", "error", date('Y-m-d H:i:s'), "undisplayed");
             echo "<script>location.href='add_news_comment.php';</script>";
         } else {
-            $insert_query = "INSERT INTO news_comments (user_id, news_id, comment, comment_date) VALUES (?, ?, ?, ?)";
+            $insert_query = "INSERT INTO news_comments (user_id, news_id, comment, comment_date, reply_id) VALUES (?, ?, ?, ?, ?)";
 
             $insert_stmt = $conn->prepare($insert_query);
-            $insert_stmt->bind_param("iiss", $user_id, $news_id, $comment, $comment_date);
+            $insert_stmt->bind_param("iissi", $user_id, $news_id, $comment, $comment_date, $reply_id);
             $insert_stmt->execute();
             $insert_stmt->close();
 
@@ -123,6 +124,32 @@ function main()
                     </td>
                     <td>
                         <input type="datetime-local" class="form-control input-left" name="comment_date">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Reply to comment
+                    </td>
+                    <td>
+                        <select name="reply_id" id="reply_id"
+                            class="custom-select custom-select-sm form-control form-control-sm input-left">
+                            <option value="">None</option>
+                            <?php
+                            $sql1 = "SELECT * FROM news_comments";
+                            $result_sql = $conn->query($sql1);
+
+                            if ($result_sql->num_rows > 0) {
+                                while ($row1 = $result_sql->fetch_assoc()) { ?>
+                                    <option value="<?php echo $row1["id"]; ?>">
+                                        <?php echo $row1["id"]; ?>
+                                    </option>
+                                    <?php
+                                }
+                            } else {
+                                echo "";
+                            }
+                            ?>
+                        </select>
                     </td>
                 </tr>
                 <tr>
