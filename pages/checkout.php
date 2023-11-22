@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once('../mod/database_connection.php');
+$user_id = $_SESSION['id_account'];
 ?>
 
 <!DOCTYPE html>
@@ -75,79 +76,102 @@ include_once('../mod/database_connection.php');
                         <form action="#" class="nk-form">
                             <div class="row vertical-gap">
                                 <div class="col-lg-6">
-                                    <div class="row vertical-gap">
-                                        <div class="col-sm-6">
-                                            <label for="fname">First Name <span class="text-main-1">*</span>:</label>
-                                            <input type="text" class="form-control required" name="fname" id="fname">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label for="lname">Last Name <span class="text-main-1">*</span>:</label>
-                                            <input type="text" class="form-control required" name="lname" id="lname">
-                                        </div>
-                                    </div>
+                                    <?php
+                                    $sql_info_user = "SELECT * FROM `users` WHERE id = $user_id";
+                                    $result_info_user = $conn->query($sql_info_user);
+                                    $row_info_user = $result_info_user->fetch_assoc();
+                                    ?>
 
-                                    <div class="nk-gap-1"></div>
-                                    <label for="company">Company Name:</label>
-                                    <input type="text" class="form-control" name="company" id="company">
+                                    <label for="email">Email Address:</label>
+                                    <input type="email" class="form-control required" name="email" id="email" readonly
+                                        style="color: #dd163b;" value="<?= $row_info_user['email'] ?>">
 
                                     <div class="nk-gap-1"></div>
                                     <div class="row vertical-gap">
                                         <div class="col-sm-6">
-                                            <label for="email">Email Address <span class="text-main-1">*</span>:</label>
-                                            <input type="email" class="form-control required" name="email" id="email">
+                                            <label for="full_name">Full Name:</label>
+                                            <input type="text" class="form-control required"
+                                                value="<?= $row_info_user['full_name'] ?>" name="full_name" id="full_name"
+                                                readonly style="color: #dd163b;">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="phone">Phone <span class="text-main-1">*</span>:</label>
-                                            <input type="tel" class="form-control required" name="phone" id="phone">
+                                            <label for="phone">Phone Number:</label>
+                                            <input type="tel" class="form-control required" name="phone" id="phone"
+                                                value="<?= $row_info_user['phone_number'] ?>" readonly style="color: #dd163b;">
                                         </div>
                                     </div>
 
                                     <div class="nk-gap-1"></div>
-                                    <label for="country-sel">Country <span class="text-main-1">*</span>:</label>
-                                    <select name="country" class="form-control required" id="country-sel">
-                                        <option value="">Select a country...</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
                                     <label for="address">Address <span class="text-main-1">*</span>:</label>
                                     <input type="text" class="form-control required" name="address" id="address">
 
-                                    <div class="nk-gap-1"></div>
-                                    <label for="city">Town / City <span class="text-main-1">*</span>:</label>
-                                    <input type="text" class="form-control required" name="city" id="city">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="country-sel">Province <span class="text-main-1">*</span>:</label>
+                                    <select name="province" class="form-control required" id="province">
+                                    </select>
 
                                     <div class="nk-gap-1"></div>
-                                    <div class="row vertical-gap">
-                                        <div class="col-sm-6">
-                                            <label for="state">State / Country <span class="text-main-1">*</span>:</label>
-                                            <input type="text" class="form-control required" name="state" id="state">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label for="zip">Postcode / ZIP <span class="text-main-1">*</span>:</label>
-                                            <input type="tel" class="form-control required" name="zip" id="zip">
-                                        </div>
-                                    </div>
+                                    <label for="city">District <span class="text-main-1">*</span>:</label>
+                                    <select name="district" class="form-control required" id="district">
+                                        <option value="">--district--</option>
+                                    </select>
 
-                                    <div class="nk-gap-1"></div>
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-indicator"></span>
-                                        Ship to different address?
-                                    </label>
+                                    <div class="nk-gap-2"></div>
+                                    <label for="state">Ward <span class="text-main-1">*</span>:</label>
+                                    <select name="ward" class="form-control required" id="ward">
+                                        <option value="">--ward--</option>
+                                    </select>
+
                                 </div>
                             </div>
                         </form>
+
+
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+                            integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+                            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+                        <script>
+                            const host = "https://provinces.open-api.vn/api/";
+                            var callAPI = (api) => {
+                                return axios.get(api)
+                                    .then((response) => {
+                                        renderData(response.data, "province");
+                                    });
+                            }
+                            callAPI('https://provinces.open-api.vn/api/?depth=1');
+                            var callApiDistrict = (api) => {
+                                return axios.get(api)
+                                    .then((response) => {
+                                        renderData(response.data.districts, "district");
+                                    });
+                            }
+                            var callApiWard = (api) => {
+                                return axios.get(api)
+                                    .then((response) => {
+                                        renderData(response.data.wards, "ward");
+                                    });
+                            }
+
+                            var renderData = (array, select) => {
+                                let row = ' <option disable value="">--'+select+'--</option>';
+                                array.forEach(element => {
+                                    row += `<option value="${element.code}">${element.name}</option>`
+                                });
+                                document.querySelector("#" + select).innerHTML = row
+                            }
+
+                            $("#province").change(() => {
+                                callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
+                            });
+                            $("#district").change(() => {
+                                callApiWard(host + "d/" + $("#district").val() + "?depth=2");
+                            });
+                        </script>
+                        
                         <!-- END: Billing Details -->
 
-
-
-                        <div class="nk-gap-2"></div>
-                        <form action="#" class="nk-form">
-                            <div class="nk-gap-1"></div>
-                            <label for="notes">Order Notes:</label>
-                            <textarea class="form-control" name="notes" id="notes" placeholder="Order Notes"
-                                rows="6"></textarea>
-                        </form>
                         <div class="nk-gap-3"></div>
                     <?php } ?>
 
@@ -182,32 +206,89 @@ include_once('../mod/database_connection.php');
                                     </td>
                                     <td>
                                         <?php
-                                        $total_price = array_sum(array_map(function ($item) {
+                                        $subtotal = array_sum(array_map(function ($item) {
                                             return $item['price'] * $item['quantity'];
                                         }, $_SESSION['shopping_cart']));
-                                        echo $total_price;
+                                        echo $subtotal;
                                         ?><i class="fas fa-gem"></i>
                                     </td>
                                 </tr>
+
+                                <?php if ($has_gear) { ?>
+                                    <tr class="nk-store-cart-totals-shipping">
+                                        <td>
+                                            Delivery fee
+                                        </td>
+                                        <td>
+                                            <i class="fas fa-gem"></i>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="nk-store-cart-totals-shipping">
+                                        <td>
+                                            Freeship voucher
+                                        </td>
+                                        <td>
+                                            <select name="freeship_id" id="freeship_id" class="form-control required"
+                                                onchange="update_total_price()">
+                                                <option value="none">--None----</option>
+                                                <?php
+
+                                                $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
+                                            INNER JOIN user_voucher uv ON v.id = uv.voucher_id
+                                            WHERE uv.user_id = $user_id AND v.type = 'freeship'
+                                            AND v.minimum_condition <= $subtotal AND (v.quantity >= 1 OR v.quantity IS NULL)
+                                            AND (v.date_expiry >= NOW() OR v.date_expiry IS NULL)";
+
+                                                $result_sl_voucher = $conn->query($sql_sl_voucher);
+                                                if ($result_sl_voucher->num_rows > 0) {
+                                                    while ($row_sl_voucher = $result_sl_voucher->fetch_assoc()) { ?>
+                                                        <option value="<?php echo $row_sl_voucher["id"]; ?>">
+                                                            <?php
+                                                            $string_discount = "Freeship " . $row_sl_voucher["value"] . "Gcoin";
+
+                                                            if ($row_sl_voucher["minimum_condition"] != 0) {
+                                                                $string_discount .= " for minimum order " . $row_sl_voucher["minimum_condition"] . " Gcoin";
+                                                            }
+                                                            echo $string_discount;
+                                                            ?>
+                                                        </option>
+                                                    <?php }
+                                                } ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
 
                                 <tr class="nk-store-cart-totals-shipping">
                                     <td>
                                         Voucher
                                     </td>
                                     <td>
-                                        <select name="voucher_id" style="width: 180px;" class="form-control required">
+                                        <select name="voucher_id" id="voucher_id" class="form-control required"
+                                            onchange="update_total_price()">
+                                            <option value="none">--None----</option>
                                             <?php
-                                            $user_id = $_SESSION['id_account'];
-                                            $sql_sl_voucher = "SELECT  v.*, uv.user_id FROM vouchers v
-                                                LEFT JOIN user_voucher uv ON v.id = uv.voucher_id
-                                                WHERE v.date_expiry >= NOW() OR v.date_expiry IS NULL
-                                                AND uv.user_id = $user_id";
+
+                                            $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
+                                            INNER JOIN user_voucher uv ON v.id = uv.voucher_id
+                                            WHERE uv.user_id = $user_id AND v.type != 'freeship' AND v.minimum_condition <= $subtotal 
+                                            AND (v.quantity >= 1 OR v.quantity is NULL) 
+                                            AND (v.date_expiry >= NOW() OR v.date_expiry IS NULL)";
 
                                             $result_sl_voucher = $conn->query($sql_sl_voucher);
                                             if ($result_sl_voucher->num_rows > 0) {
                                                 while ($row_sl_voucher = $result_sl_voucher->fetch_assoc()) { ?>
                                                     <option value="<?php echo $row_sl_voucher["id"]; ?>">
-                                                        <?php echo $row_sl_voucher["id"]; ?>
+                                                        <?php
+                                                        $string_discount = "Discount " . $row_sl_voucher["value"];
+                                                        $string_discount .= $row_sl_voucher["type"] == "percent" ? "%" : "Gcoin";
+
+                                                        if ($row_sl_voucher["minimum_condition"] != 0) {
+                                                            $string_discount .= " for minimum order " . $row_sl_voucher["minimum_condition"] . " Gcoin";
+                                                        }
+                                                        echo $string_discount;
+                                                        ?>
                                                     </option>
                                                 <?php }
                                             } ?>
@@ -215,12 +296,24 @@ include_once('../mod/database_connection.php');
                                     </td>
                                 </tr>
 
+                                <script>
+                                    function update_total_price() {
+                                        var voucher_id = document.getElementById("voucher_id").value;
+                                        $.post('../Galaxy_Game_Store/pages/update_total_price.php', { voucher_id: voucher_id }, function (data) {
+                                            $('#total_price').html(data);
+                                        });
+                                    }
+                                </script>
+
                                 <tr class="nk-store-cart-totals-total">
                                     <td>
                                         Total
                                     </td>
                                     <td>
-                                        € 52.00
+                                        <span id="total_price">
+                                            <?= $subtotal ?>
+                                        </span>
+                                        <i class="fas fa-gem"></i>
                                     </td>
                                 </tr>
                             </tbody>

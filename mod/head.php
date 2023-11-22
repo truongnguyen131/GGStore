@@ -30,7 +30,7 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 
-    <!--   -->
+    <!-- Flickity -->
     <link rel="stylesheet" href="assets/vendor/flickity/dist/flickity.min.css">
 
     <!-- Photoswipe -->
@@ -55,7 +55,7 @@
     <!-- jQuery -->
     <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
 
-
+    <link rel="stylesheet" href="./assets/css/grand_custom.css">
     <!-- myCSS -->
     <link rel="stylesheet" href="assets/css/lucky-wheel.css">
 </head>

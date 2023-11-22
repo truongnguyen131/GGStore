@@ -1,29 +1,32 @@
-<script>
-    function searchInput(str) {
-        var searchTypeValue = document.getElementById("search_type").value;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("suggest_search").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "../mod/search.php?search=" + str + "&type=" + searchTypeValue, true);
-        xmlhttp.send();
-    }
-
-    function searchType(str) {
-        var searchInputValue = document.getElementById("search_textbox").value;
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("suggest_search").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "../mod/search.php?search=" + searchInputValue + "&type=" + str, true);
-        xmlhttp.send();
-    }
-</script>
 <header class="nk-header nk-header-opaque">
+
+    <style>
+        .item_suggest .type_suggest_ver1 {
+            width: 30%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .item_suggest .name_suggest_ver1 {
+            width: 70%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .item_suggest .name_suggest_ver1 span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+
+
+        .swal2-styled.swal2-confirm {
+            background-color: #dd163b !important;
+        }
+    </style>
 
     <!-- START: Top Contacts -->
     <div class="nk-contacts-top">
@@ -45,20 +48,27 @@
             <div class="nk-contacts-right">
                 <ul class="nk-contacts-icons">
 
-                    <li>
+                    <!-- <li>
                         <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:add_to_cart(<?= 2 ?>)" class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">Add to card</a>
+                            <a href="javascript:add_to_cart()"
+                                class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">Add to cart</a>
                         </div>
 
-                        <script>
-                            function add_to_cart(id) {
-                                $.post('../Galaxy_Game_Store/pages/add_to_cart.php', {
-                                    product_id: id
-                                }, function(data) {
-                                    $('#product_count').html(data);
-                                });
-                            }
-                        </script>
+                        
+                    </li> -->
+
+                    <script>
+                        function add_to_cart(id) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id }, function (data) {
+                                $('#product_count').html(data);
+                            });
+                        }
+                    </script>
+
+                    <li>
+                        <a href="#" id="dialog_notification" data-toggle="modal" style="display: none;"
+                            data-target="#modalSearch">a
+                        </a>
                     </li>
 
                     <li class="search_icon icon" id="search_icon">
@@ -71,17 +81,60 @@
                                     <option value="all">All</option>
                                     <option value="game">Game</option>
                                     <option value="gear">Gear</option>
-                                    <option value="category">Category</option>
+                                    <option value="genre">Category</option>
                                     <option value="news">News</option>
                                 </select>
-                                <input type="text" name="search_textbox" id="search_textbox" placeholder="Search" onkeyup="searchInput(this.value)">
+                                <input type="text" name="search_textbox" id="search_textbox" placeholder="Search"
+                                    onkeyup="searchInput(this.value)">
                             </form>
                             <div class="suggest_search" id="suggest_search">
                             </div>
                         </div>
+                        <script>
+                            const user_icon = document.getElementById('user_icon');
+                            const user_box = document.getElementById('user_box');
+                            const search_icon = document.getElementById('search_icon');
+                            const search_box = document.getElementById('search_box');
 
+                            search_icon.onclick = function (event) {
+                                event.stopPropagation();
+                                search_box.style.display = 'flex';
+                            };
+
+                            document.addEventListener('click', function (event) {
+                                const isClickInside = search_box.contains(event.target);
+                                if (search_box.style.display === 'flex' && !isClickInside) {
+                                    search_box.style.display = 'none';
+                                }
+                            });
+                        </script>
                     </li>
 
+                    <script>
+                        function searchInput(str) {
+                            var searchTypeValue = document.getElementById("search_type").value;
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("suggest_search").innerHTML = this.responseText;
+                                }
+                            };
+                            xmlhttp.open("GET", "./mod/search.php?search=" + str + "&type=" + searchTypeValue, true);
+                            xmlhttp.send();
+                        }
+
+                        function searchType(str) {
+                            var searchInputValue = document.getElementById("search_textbox").value;
+                            var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    document.getElementById("suggest_search").innerHTML = this.responseText;
+                                }
+                            };
+                            xmlhttp.open("GET", "./mod/search.php?search=" + searchInputValue + "&type=" + str, true);
+                            xmlhttp.send();
+                        }
+                    </script>
 
                     <li>
                         <a href="../Galaxy_Game_Store/shopping_cart">
@@ -107,8 +160,10 @@
                             <span class="nk-cart-toggle">
                                 <span class="fa fa-user"></span>
                                 <div class="name_and_money">
-                                    <span><?= $_SESSION["userName"] ?></span>
-                                    <span>120 <i class="fas fa-gem"></i></span>
+                                    <span>
+                                        <?= $_SESSION["userName"] ?>
+                                    </span>
+                                    <span style="margin-left: 20px;">120 <i class="fas fa-gem"></i></span>
                                 </div>
                             </span>
                         <?php } else { ?>
@@ -120,11 +175,12 @@
                         <div class="nk-cart-dropdown" style="width: 60%;">
                             <div class="text-center">
                                 <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                    Infomation</a>
+                                    Profile</a>
                                 <div class="nk-gap"></div>
                                 <?php
                                 if ($_SESSION["role"] == "developer") { ?>
-                                    <a href="./admin/pages/template/dashboard.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    <a href="./admin/pages/template/dashboard.php"
+                                        class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         GGS Admin</a>
                                 <?php } else { ?>
                                     <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
@@ -136,11 +192,15 @@
                             <div class="text-center">
                             </div>
                             <div class="text-center">
-                                <a href="./pages/logout.php" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                <a href="./pages/logout.php"
+                                    class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                     Logout</a>
                             </div>
                         </div>
                     </li>
+
+
+
                 </ul>
             </div>
         </div>
@@ -167,13 +227,14 @@
                         <a href="">
                             CATEGORY
                         </a>
-                        <div class="dropdown_menu" id="genre_dropdown" style="margin-top: 38.7656px; margin-left: -9px;">
+                        <div class="dropdown_menu" id="genre_dropdown"
+                            style="margin-top: 38.7656px; margin-left: -9px;">
                             <?php
                             $sql_genres = 'SELECT * FROM genres';
-                            $result = $conn->query($sql_genres);
+                            $result_genres = $conn->query($sql_genres);
                             $count = 0;
 
-                            while ($row = mysqli_fetch_array($result)) {
+                            while ($row_genres = mysqli_fetch_array($result_genres)) {
                                 if ($count % 5 == 0) {
 
                                     if ($count > 0) {
@@ -181,19 +242,19 @@
                                     }
                                     echo '<ul>';
                                 }
-                            ?>
-                    <li>
-                        <a href="../pages/store.php?genre_id=<?= $row['id'] ?>">
-                            <?= $row['genre_name'] ?>
-                        </a>
-                    </li>
-                <?php
-                                $count++;
+                                ?>
+                        <li>
+                            <a href="">
+                                <?= $row_genres['genre_name'] ?>
+                            </a>
+                        </li>
+                        <?php
+                        $count++;
                             }
                             if ($count % 5 != 0) {
                                 echo '</ul>';
                             }
-                ?>
+                            ?>
             </div>
 
             </li>
@@ -255,6 +316,8 @@
                     </div>
                     <h3 id="status"></h3>
                     <em id="message"></em>
+
+
                 </div>
             </div>
         </div>
@@ -276,4 +339,5 @@
 
         document.getElementById("dialog_notification").click();
     }
+
 </script>

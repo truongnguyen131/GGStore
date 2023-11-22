@@ -3,16 +3,19 @@ session_start();
 include_once('./mod/database_connection.php');
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <?php include "./mod/head.php"; ?>
 
-<link rel="stylesheet" href="./assets/css/grand_custom.css">
 
 <body>
 
+
     <?php include "./mod/nav.php"; ?>
+
 
     <div class="nk-main">
 
@@ -90,8 +93,6 @@ include_once('./mod/database_connection.php');
 
             <!-- START: Recommended games -->
             <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Recommend</span> games</span></h3>
-
-            <div class="nk-gap"></div>
             <div class="recommend-slider">
                 <div class="recommend-item">
                     <?php $ids = 2 ?>
@@ -157,7 +158,6 @@ include_once('./mod/database_connection.php');
                     </script>
 
                 </div>
-             
             </div>
             <!-- END: Recommended games -->
             <div class="nk-gap-3"></div>
