@@ -914,3 +914,97 @@ html {
     font-family: "Montserrat", sans-serif;
     font-weight: 550;
 }
+
+
+/* START:STORE */
+.nk-post-title{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* START store: select genre */
+.select_genre{
+    cursor: pointer;
+    padding: 4px 10px;
+    font-size: 1em;
+    font-weight: 400;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #303e47;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: relative;
+}
+
+.list_genre{
+    position: absolute;
+    z-index: 100;
+    top: 105%;
+    left: 0;right: 0;
+    width: 100%;
+    background: #303e47cb;
+    height: auto;
+    max-height: 200px;
+    overflow: auto;
+    --col:3 ;
+    --space : 10px ;
+    display: none;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+.list_genre::-webkit-scrollbar{
+    display: none;
+}
+.genre_item input{
+    display: none;
+}
+.genre_item{
+cursor: pointer;
+width: calc(calc(100% / var(--col)) - var(--space));
+padding: 5px;
+margin-right: 5px;
+transition: .3s linear;
+font-size: 10px;
+font-weight: 500;
+}
+
+.genre_item:hover{
+    background: #dd163b;
+}
+
+.form_price{
+    height: 32px !important;
+}
+.type_genre{
+    font-weight: 600;
+    color: #dd163b;
+    text-decoration: underline;
+}
+#search_input{
+    height: 32px;
+}
+@media screen and (max-width: 767px) {
+#search_input{
+    padding-top: 0;
+   
+    text-align: left;
+    padding: 5px;
+}
+}
+
+/* END store: select genre */
+.nk-gallery-item{
+    height: 150px;
+}
+.nk-gallery-item img{
+    width: 100%;height: 100%;
+    object-fit: cover;
+}
+/* END:STORE */
+
