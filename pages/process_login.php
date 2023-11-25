@@ -4,7 +4,7 @@ function success($conn, $id_account, $username, $role)
     $_SESSION["id_account"] = $id_account;
     $_SESSION["userName"] = $username;
     $_SESSION["role"] = $role;
-    $sql = "UPDATE users SET login_attempts = 0 WHERE username = '$username'";
+    $sql = "UPDATE users SET login_attempts = 0, lastest_login = NOW() WHERE username = '$username'";
     $conn->query($sql);
     echo '<script>window.location="http://localhost:82/Galaxy_Game_Store/home"</script>';
 }
@@ -21,14 +21,12 @@ function error()
 function fail($conn, $username, $login_attempts)
 {
 
-    $sql = "UPDATE users SET login_attempts = login_attempts + 1 WHERE username = '$username'";
+    $sql = "UPDATE users SET login_attempts = login_attempts + 1, lastest_login = NOW() WHERE username = '$username'";
     $conn->query($sql);
     if ($login_attempts == 4) {
         $currentDateTime = new DateTime();
         $lockedUntil = $currentDateTime->modify('+1 day')->format('Y-m-d');
-        $sql = "UPDATE users SET locked_until = '$lockedUntil' WHERE username = '$username'";
-        $conn->query($sql);
-        $sql = "UPDATE users SET login_attempts = 0 WHERE username = '$username'";
+        $sql = "UPDATE users SET locked_until = '$lockedUntil', login_attempts = 0 WHERE username = '$username'";
         $conn->query($sql);
         echo '<script>
                 $("#alert").html("Your account is locked for 1 day");
@@ -56,8 +54,8 @@ if ($rememberMe == "checked") {
     setcookie("username", $username, time() + (86400 * 30));
     setcookie("password", $post_password, time() + (86400 * 30));
 }
-
-$sql = "SELECT id, password, role, login_attempts, locked_until FROM users WHERE username = ?";
+echo $username;
+$sql = "SELECT id, password, role, login_attempts, locked_until, lastest_login FROM users WHERE username = ?";
 $stmt = $conn->prepare($sql);
 
 if ($stmt === false) {
@@ -73,15 +71,26 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 if ($result->num_rows == 0) {
-    error();
+    echo '<script>
+                $("#errorUsername").html("Username invalid");
+                $("#errorPassword").html("Password invalid");
+            </script>';
 } else {
     $id_account = $row['id'];
     $hashed_password = $row['password'];
     $role = $row['role'];
     $login_attempts = $row['login_attempts'];
     $locked_until = $row['locked_until'];
+    $lastest_login = strtotime($row['lastest_login']);
+    $current_date = strtotime(date('Y-m-d'));
+    $days_diff = ($current_date - $lastest_login) / 60 / 60 / 24;
+    if ($days_diff >= 1) {
+        $sql = "UPDATE users SET login_attempts = 0 WHERE id = $id_account";
+        $conn->query($sql);
+    }
 
-    if ($locked_until != null && $locked_until > date('Y-m-d')) {
+
+    if ($locked_until != null && strtotime($locked_until) > $current_date) {
         echo '<script>
                     $("#alert").html("Your account is being locked");
                 </script>';

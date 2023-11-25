@@ -84,7 +84,7 @@ $user_id = $_SESSION['id_account'];
 
                                     <label for="email">Email Address:</label>
                                     <input type="email" class="form-control required" name="email" id="email" readonly
-                                        style="color: #dd163b;" value="<?= $row_info_user['email'] ?>">
+                                        style="color: #dd163b;background-color: transparent;" value="<?= $row_info_user['email'] ?>">
 
                                     <div class="nk-gap-1"></div>
                                     <div class="row vertical-gap">
@@ -92,18 +92,18 @@ $user_id = $_SESSION['id_account'];
                                             <label for="full_name">Full Name:</label>
                                             <input type="text" class="form-control required"
                                                 value="<?= $row_info_user['full_name'] ?>" name="full_name" id="full_name"
-                                                readonly style="color: #dd163b;">
+                                                readonly style="color: #dd163b;background-color: transparent;">
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="phone">Phone Number:</label>
                                             <input type="tel" class="form-control required" name="phone" id="phone"
-                                                value="<?= $row_info_user['phone_number'] ?>" readonly style="color: #dd163b;">
+                                                value="<?= $row_info_user['phone_number'] ?>" readonly style="color: #dd163b;background-color: transparent;">
                                         </div>
                                     </div>
 
                                     <div class="nk-gap-1"></div>
                                     <label for="address">Address <span class="text-main-1">*</span>:</label>
-                                    <input type="text" class="form-control required" name="address" id="address">
+                                    <input type="text" class="form-control required" placeholder="Number house - Street name" name="address" id="address">
 
                                 </div>
                                 <div class="col-lg-6">

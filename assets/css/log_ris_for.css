@@ -18,7 +18,6 @@
     flex-direction: column;
     row-gap: 5px;
     padding: 20px;
-    user-select: none;
 }
 @media screen and (max-width: 1025px) {
     .form_login{

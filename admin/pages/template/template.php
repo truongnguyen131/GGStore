@@ -132,8 +132,8 @@ include_once('../../../mod/database_connection.php');
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Management components:</h6>
-                        <a class="collapse-item" href="">Change password</a>
-                        <a class="collapse-item" href="">Users Management</a>
+                        <a class="collapse-item" href="../exchangeManagement/exchanges_management.php">Exchanges Management</a>
+                        <a class="collapse-item" href="../exchangeManagement/tradings_history.php">Tradings History</a>
                     </div>
                 </div>
             </li>

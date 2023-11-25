@@ -91,75 +91,140 @@ include_once('./mod/database_connection.php');
 
             <div class="nk-gap-3"></div>
 
-            <!-- START: Recommended games -->
+            <!-- START: RECOMMENDED -->
             <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Recommend</span> games</span></h3>
             <div class="recommend-slider">
-                <div class="recommend-item">
-                    <?php $ids = 2 ?>
-                    <div class="slideshow">
-                        <a href="">
-                            <img src="uploads/g1.jpg" alt="" id="slideshow-img<?= $ids ?>">
-                        </a>
-                    </div>
-                    <div class="tab-slideshow">
-                        <div class="tab-slideshow__name-product">
-                            <a href="">
-                                <h3>Call of Duty</h3>
+
+
+                <?php
+                $game_recently_launched = true;
+
+                if (isset($_SESSION['id_account'])) {
+                    $user_id = $_SESSION["id_account"];
+                    $sql_top_3_genre = 'SELECT g.genre_name, COUNT(*) AS total FROM order_details od
+                        INNER JOIN orders o ON o.id = od.order_id
+                        INNER JOIN genre_product gp ON gp.product_id = od.product_id
+                        INNER JOIN products p ON gp.product_id = p.id                                    
+                        INNER JOIN genres g ON g.id = gp.genre_id 
+                        WHERE o.customer_id = ? AND p.classify = "game"
+                        GROUP BY g.genre_name ORDER BY total DESC LIMIT 3';
+
+                    $stmt_top_3_genre = $conn->prepare($sql_top_3_genre);
+                    $stmt_top_3_genre->bind_param("i", $user_id);
+                    $stmt_top_3_genre->execute();
+                    $result_top_3_genre = $stmt_top_3_genre->get_result();
+                    $stmt_top_3_genre->close();
+
+                    $genres = '';
+
+                    if ($result_top_3_genre->num_rows > 0) {
+
+                        while ($row = $result_top_3_genre->fetch_assoc()) {
+                            $genres .= "'" . $row['genre_name'] . "'" . ',';
+                        }
+                        $genres = trim($genres, ',');
+
+                        $sql_recommended = "SELECT p.*, d.discount_amount,
+                        GROUP_CONCAT(pi.image_url ORDER BY pi.product_id SEPARATOR ',' LIMIT 4) AS imgs_detail,
+                        round(p.price - (p.price * d.discount_amount/100)) AS new_price FROM products p
+                        JOIN genre_product gp ON gp.product_id = p.id
+                        JOIN genres g ON g.id = gp.genre_id  
+                        JOIN discounts d ON d.product_id = p.id
+                        JOIN product_images pi ON pi.product_id = p.id
+                        WHERE g.genre_name IN ($genres) 
+                        AND p.id NOT IN (SELECT product_id FROM purchased_products
+                        WHERE customer_id = ? AND status = 'not trading')
+                        AND NOW() BETWEEN d.start_date AND d.end_date
+                        GROUP BY p.id ORDER BY d.discount_amount DESC LIMIT 6;";
+
+                        $stmt_recommended = $conn->prepare($sql_recommended);
+                        $stmt_recommended->bind_param("i", $user_id);
+                        $stmt_recommended->execute();
+                        $result_recommended = $stmt_recommended->get_result();
+                        $stmt_recommended->close();
+
+                        if ($result_recommended->num_rows > 0) {
+                            $game_recently_launched = false;
+                        }
+                    }
+                }
+
+                if ($game_recently_launched) {
+                    $sql_game_recently_launched = "SELECT p.*, d.discount_amount,round(p.price - (p.price * d.discount_amount/100)) AS new_price,
+                    GROUP_CONCAT(pi.image_url ORDER BY pi.product_id SEPARATOR ',' LIMIT 4) AS imgs_detail
+                    FROM products p JOIN discounts d ON d.product_id = p.id JOIN product_images pi ON pi.product_id = p.id
+                    WHERE release_date <= NOW() AND classify = 'game' AND NOW() BETWEEN d.start_date AND d.end_date
+                    GROUP BY p.id ORDER BY release_date DESC LIMIT 6";
+                    $result_recommended = $conn->query($sql_game_recently_launched);
+                }
+
+                while ($row_recommended = $result_recommended->fetch_assoc()) {
+                    ?>
+                    <div class="recommend-item">
+                        <div class="slideshow">
+                            <a href="../Galaxy_Game_Store/product_details?id=<?= $row_recommended['id'] ?>">
+                                <img src="./uploads/<?= $row_recommended['image_avt_url'] ?>"
+                                    alt="<?= $row_recommended['product_name'] ?>"
+                                    id="slideshow-img-<?= $row_recommended['id'] ?>">
                             </a>
                         </div>
-                        <div class="tab-slideshow__img">
-                            <div class="tab-slideshow__img-item">
-                                <img src="uploads/g2_1.jpg" alt="" class="tab-img"
-                                    onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                        <div class="tab-slideshow">
+                            <div class="tab-slideshow__name-product">
+                                <a href="../Galaxy_Game_Store/product_details?id=<?= $row_recommended['id'] ?>">
+                                    <h3>
+                                        <?= $row_recommended['product_name'] ?>
+                                    </h3>
+                                </a>
                             </div>
-                            <div class="tab-slideshow__img-item">
-                                <img src="uploads/g2_2.jpg" alt="" class="tab-img"
-                                    onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
+                            <div class="tab-slideshow__img">
+                                <?php
+                                $imgs_detail = explode(",", $row_recommended['imgs_detail']);
+                                foreach ($imgs_detail as $value) { ?>
+                                    <div class="tab-slideshow__img-item">
+                                        <img src="uploads/<?= $value ?>" alt="" class="tab-img"
+                                            onmouseover="getImageSrc(<?= $row_recommended['id'] ?>,'<?= $value ?>')"
+                                            onmouseout="resetImageSrc(<?= $row_recommended['id'] ?>,'<?= $row_recommended['image_avt_url'] ?>')">
+                                    </div>
+                                <?php } ?>
                             </div>
-                            <div class="tab-slideshow__img-item">
-                                <img src="uploads/g2_3.jpg" alt="" class="tab-img"
-                                    onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
-                            </div>
-                            <div class="tab-slideshow__img-item">
-                                <img src="uploads/g2_4.jpg" alt="" class="tab-img"
-                                    onmouseover="getImageSrc<?= $ids ?>(this)" onmouseout="resetImageSrc<?= $ids ?>()">
-                            </div>
-                        </div>
-                        <div class="tab-slideshow__control">
-                            <div class="price">
-                                <div class="discount">
-                                    20%
+                            <div class="tab-slideshow__control">
+                                <div class="price">
+                                    <div class="discount">
+                                        <?= $row_recommended['discount_amount'] ?>%
+                                    </div>
+                                    <div class="price_old">
+                                        <?= $row_recommended['price'] ?> <i class="fas fa-gem"></i>
+                                    </div>
+                                    <div class="price_new">
+                                        <?= $row_recommended['new_price'] ?> <i class="fas fa-gem"></i>
+                                    </div>
                                 </div>
-                                <div class="price_old">
-                                    10 <i class="fas fa-gem"></i>
+                                <div class="btn_control">
+                                    <a href="javascript:add_to_cart(<?= $row_recommended['id'] ?>)"><button class="btn">Add
+                                            to Cart</button></a>
+                                    <a href="javascript:by_now(<?= $row_recommended['id'] ?>)" class="btn">Buy</a>
                                 </div>
-                                <div class="price_new">
-                                    10 <i class="fas fa-gem"></i>
-                                </div>
-                            </div>
-                            <div class="btn_control">
-                                <button class="btn">Add to Cart</button>
-                                <a href="" class="btn">Buy</a>
                             </div>
                         </div>
                     </div>
-                    <script>
-                        const slideshow_img<?= $ids ?> = document.querySelector('#slideshow-img<?= $ids ?>');
-                        const src_imgMain<?= $ids ?> = slideshow_img<?= $ids ?>.src;
+                <?php } ?>
 
-                        function getImageSrc<?= $ids ?>(img<?= $ids ?>) {
-                            const src<?= $ids ?> = img<?= $ids ?>.src;
-                            slideshow_img<?= $ids ?>.src = src<?= $ids ?>;
-                        }
+                <script>
+                    function getImageSrc(id_main_img, url_img) {
+                        var id_main_img = "slideshow-img-" + id_main_img;
+                        const main_img = document.getElementById(id_main_img).src;
+                        document.getElementById(id_main_img).src = "uploads/" + url_img;
+                    }
 
-                        function resetImageSrc<?= $ids ?>() {
-                            slideshow_img<?= $ids ?>.src = src_imgMain<?= $ids ?>;
-                        }
-                    </script>
+                    function resetImageSrc(id_main_img, url_main_img) {
+                        var id_main_img = "slideshow-img-" + id_main_img;
+                        document.getElementById(id_main_img).src = "uploads/" + url_main_img;
+                    }
+                </script>
 
-                </div>
             </div>
-            <!-- END: Recommended games -->
+            <!-- END: RECOMMENDED -->
+
             <div class="nk-gap-3"></div>
 
             <!-- START: Upcoming games -->
@@ -236,7 +301,7 @@ include_once('./mod/database_connection.php');
                                     <?= $description ?>
                                 </p>
                             </div>
-                            <a href="" class="nk-news-box-item-more">Add to shopping cart</a>
+
                             <div class="nk-news-box-item-date">
                                 <span class="fa fa-calendar"></span>
                                 <?= date('M d, Y', strtotime($release_date)) ?>
@@ -323,55 +388,56 @@ include_once('./mod/database_connection.php');
                   GROUP BY p.id ORDER BY p.units_sold DESC";
 
                     $result_top10 = $conn->query($sql_top10);
-                    while ($row = $result_top10->fetch_assoc()) { ?>
+                    while ($row_top10 = $result_top10->fetch_assoc()) { ?>
                         <div class="col-md-6 col-lg-3">
                             <div class="nk-blog-post" style="margin-left: 20px;">
-                                <a href="" class="nk-post-img" data-img="<?= $row['id'] ?>" data-video="<?= $row['id'] ?>">
-                                    <img id="img_<?= $row['id'] ?>" src="./uploads/<?= $row['image_avt_url'] ?>"
-                                        alt="<?= $row['product_name'] ?>">
-                                    <video id="video_<?= $row['id'] ?>" autoplay muted width="100%" hidden>
-                                        <source src="./uploads/<?= $row['video_trailer_url'] ?>" type="video/mp4">
+                                <a href="" class="nk-post-img" data-img="<?= $row_top10['id'] ?>"
+                                    data-video="<?= $row_top10['id'] ?>">
+                                    <img id="img_<?= $row_top10['id'] ?>" src="./uploads/<?= $row_top10['image_avt_url'] ?>"
+                                        alt="<?= $row_top10['product_name'] ?>">
+                                    <video id="video_<?= $row_top10['id'] ?>" autoplay muted width="100%" hidden>
+                                        <source src="./uploads/<?= $row_top10['video_trailer_url'] ?>" type="video/mp4">
                                     </video>
                                 </a>
                                 <div class="nk-gap"></div>
                                 <h2 class="nk-post-title h4">
                                     <a href="">
-                                        <?= $row['product_name'] ?>
+                                        <?= $row_top10['product_name'] ?>
                                     </a>
                                 </h2>
                                 <div class="nk-post-by">
                                     <span style="color: white;">Release date:</span>&nbsp;
-                                    <?= date('M d, Y', strtotime($row['release_date'])) ?>
+                                    <?= date('M d, Y', strtotime($row_top10['release_date'])) ?>
                                 </div>
                                 <div class="nk-post-text">
                                     <p>
-                                        <?= substr($row['description'], 0, 70) . (strlen($row['description']) > 50 ? '...' : '') ?>
+                                        <?= substr($row_top10['description'], 0, 70) . (strlen($row_top10['description']) > 50 ? '...' : '') ?>
                                     </p>
                                 </div>
 
                                 <div class="nk-post-text" style="margin-top: 8px; margin-bottom: 20px;">
                                     <span style="color: white;font-size: 1.1em;">Price:</span>&nbsp;
                                     <?php
-                                    if ($row['is_discounted'] == 1) { ?>
+                                    if ($row_top10['is_discounted'] == 1) { ?>
                                         <span class="price_discount"><i class="fas fa-tag-alt"></i>
-                                            <?= $row['discount_amount'] ?>%
+                                            <?= $row_top10['discount_amount'] ?>%
                                         </span>&nbsp;
                                         <span class="old-price">
-                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                            <?= $row_top10['price'] ?><i class="fas fa-gem"></i>
                                         </span>&nbsp;
                                         <span class="current-price">
-                                            <?= $row['price_new'] ?><i class="fas fa-gem"></i>
+                                            <?= $row_top10['price_new'] ?><i class="fas fa-gem"></i>
                                         </span>
                                     <?php } else { ?>
                                         <span class="price">
-                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                            <?= $row_top10['price'] ?><i class="fas fa-gem"></i>
                                         </span>
                                     <?php } ?>
                                 </div>
                                 <div class="nk-post-text" style="font-size: 0.8em;">
                                     <p> <span style="color: white;">Genre-tags:</span>
                                         <?php
-                                        $genres = explode(",", $row['genres']);
+                                        $genres = explode(",", $row_top10['genres']);
                                         foreach ($genres as $genre) {
                                             ?>
                                             <a href="#">
@@ -382,9 +448,11 @@ include_once('./mod/database_connection.php');
                                 </div>
                                 <div class="nk-gap"></div>
 
-                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
+                                <a href="javascript:add_to_cart(<?= $row_top10['product_id'] ?>)"
+                                    class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
                                     TO CART</a>
-                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BY
+                                <a href="javascript:by_now(<?= $row_top10['product_id'] ?>)"
+                                    class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BY
                                     NOW</a>
                             </div>
                         </div>
@@ -447,53 +515,58 @@ include_once('./mod/database_connection.php');
                         <div class="row vertical-gap">
 
                             <?php
-                            $sql_offer = "SELECT *, ROUND(p.price * (1 - d.discount_amount/100)) AS price_new  
-                            FROM products p JOIN discounts d ON p.id = d.product_id
-                            WHERE CURDATE() BETWEEN d.start_date AND d.end_date  
+                            $sql_offer = "SELECT *, ROUND(p.price * (1 - d.discount_amount/100)) AS price_new, 
+                            IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
+                            FROM products p LEFT JOIN discounts d ON p.id = d.product_id
+                            LEFT JOIN product_comments pc ON p.id = pc.product_id
+                            WHERE CURDATE() BETWEEN d.start_date AND d.end_date GROUP BY p.id
                             ORDER BY d.discount_amount DESC LIMIT 6";
 
                             $result_offer = $conn->query($sql_offer);
-                            while ($row = $result_offer->fetch_assoc()) { ?>
+                            while ($row_offer = $result_offer->fetch_assoc()) { ?>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="nk-gallery-item-box">
                                         <a href="" class="nk-gallery-item">
-                                            <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="">
+                                            <img src="./uploads/<?= $row_offer['image_avt_url'] ?>" alt="">
                                         </a>
 
                                         <div class="nk-gap"></div>
 
                                         <h2 class="nk-post-title h4">
                                             <a href="">
-                                                <?= $row['product_name'] ?>
+                                                <?= $row_offer['product_name'] ?>
                                             </a>
                                         </h2>
 
-                                        <div class="nk-product-rating" data-rating="3">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                            <i class="far fa-star"></i> <i class="far fa-star"></i>
+                                        <div class="nk-product-rating">
+                                            <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                <i
+                                                    class="<?= ($i <= $row_offer['avg_star']) ? 'fa fa-star' : 'far fa-star' ?>"></i>
+                                            <?php } ?>
                                         </div>
 
                                         <div class="mt-5">
                                             <div>
                                                 <span class="price_discount"><i class="fas fa-tag-alt"></i>
-                                                    <?= $row['discount_amount'] ?>%
+                                                    <?= $row_offer['discount_amount'] ?>%
                                                 </span>&nbsp;
                                                 <span class="old-price">
-                                                    <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                                    <?= $row_offer['price'] ?><i class="fas fa-gem"></i>
                                                 </span>&nbsp;
                                                 <span class="current-price">
-                                                    <?= $row['price_new'] ?><i class="fas fa-gem"></i>
+                                                    <?= $row_offer['price_new'] ?><i class="fas fa-gem"></i>
                                                 </span>
 
                                             </div>
                                             <div class="nk-gap"></div>
                                             <div class="row">
-                                                <div class="col-md-7"><a href=""
+                                                <div class="col-md-7"><a
+                                                        href="javascript:add_to_cart(<?= $row_offer['product_id'] ?>)"
                                                         class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD
                                                         TO CART</a>
                                                 </div>
-                                                <div class="col-md-5"><a href=""
+                                                <div class="col-md-5"><a
+                                                        href="javascript:by_now(<?= $row_offer['product_id'] ?>)"
                                                         class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
                                                 </div>
                                             </div>
@@ -506,7 +579,7 @@ include_once('./mod/database_connection.php');
 
                             <div class="col-lg-4 col-md-4"></div>
                             <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center">
-                                <a href="#" style="margin-top: -20px;"
+                                <a href="../Galaxy_Game_Store/store?classify=game" style="margin-top: -20px;"
                                     class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
                             </div>
                             <div class="col-lg-4 col-md-4"></div>
@@ -520,28 +593,33 @@ include_once('./mod/database_connection.php');
                     <div class="nk-gap"></div>
                     <div class="row vertical-gap">
                         <?php
-                        $sql_gear = "SELECT * FROM `products` WHERE classify = 'gear'";
+                        $sql_gear = "SELECT *, IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
+                        FROM `products` p LEFT JOIN product_comments pc ON p.id = pc.product_id 
+                        WHERE classify = 'gear' GROUP BY p.id";
 
                         $result_gear = $conn->query($sql_gear);
-                        while ($row = $result_gear->fetch_assoc()) { ?>
+                        while ($row_gear = $result_gear->fetch_assoc()) { ?>
                             <div class="col-md-6">
                                 <div class="nk-product-cat">
                                     <a class="nk-product-image" href="store-product.html">
-                                        <img src="./uploads/<?= $row['image_avt_url'] ?>" alt="<?= $row['product_name'] ?>">
+                                        <img src="./uploads/<?= $row_gear['image_avt_url'] ?>"
+                                            alt="<?= $row_gear['product_name'] ?>">
                                     </a>
                                     <div class="nk-product-cont">
                                         <h3 class="nk-product-title h5 mb-10"><a href="">
-                                                <?= $row['product_name'] ?>
+                                                <?= $row_gear['product_name'] ?>
                                             </a>
                                         </h3>
-                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        <div class="nk-product-rating mb-5">
+                                            <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                <i
+                                                    class="<?= ($i <= $row_gear['avg_star']) ? 'fa fa-star' : 'far fa-star' ?>"></i>
+                                            <?php } ?>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
-                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                            <?= $row_gear['price'] ?><i class="fas fa-gem"></i>
                                         </div>
-                                        <a href="#"
+                                        <a href="javascript:add_to_cart(<?= $row_gear['id'] ?>)"
                                             class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                             to Cart</a>
                                     </div>
@@ -550,7 +628,8 @@ include_once('./mod/database_connection.php');
                         <?php } ?>
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
+                            <a href="../Galaxy_Game_Store/store?classify=gear"
+                                class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">See More</a>
                         </div>
                         <div class="col-md-4"></div>
 
@@ -570,11 +649,11 @@ include_once('./mod/database_connection.php');
                             $sql_news_type = "SELECT * FROM news_type";
                             $i = 1;
                             $result_news_type = $conn->query($sql_news_type);
-                            while ($row = $result_news_type->fetch_assoc()) { ?>
+                            while ($row_news_type = $result_news_type->fetch_assoc()) { ?>
                                 <li class="nav-item">
-                                    <a class="nav-link <?= ($i == 1) ? "active" : "" ?>" href="#tabs-1-<?= $row['id'] ?>"
-                                        role="tab" data-toggle="tab">
-                                        <?= $row['news_type_name'] ?>
+                                    <a class="nav-link <?= ($i == 1) ? "active" : "" ?>"
+                                        href="#tabs-1-<?= $row_news_type['id'] ?>" role="tab" data-toggle="tab">
+                                        <?= $row_news_type['news_type_name'] ?>
                                     </a>
                                 </li>
                                 <?php $i++;
@@ -602,14 +681,15 @@ include_once('./mod/database_connection.php');
                                         if ($j == 1) { ?>
                                             <div class="nk-blog-post nk-blog-post-border-bottom">
                                                 <?php if ($row_news['image'] != "") { ?>
-                                                    <a href="" class="nk-post-img">
+                                                    <a href="../Galaxy_Game_Store/news?id=<?= $row_news['id'] ?>" class="nk-post-img">
                                                         <img style='height: 200px;' src="./uploads/<?= $row_news['image'] ?>"
                                                             alt="<?= $row_news['title'] ?>">
                                                     </a>
                                                 <?php } ?>
 
                                                 <div class="nk-gap-1"></div>
-                                                <h2 class="nk-post-title h4"><a href="">
+                                                <h2 class="nk-post-title h4"><a
+                                                        href="../Galaxy_Game_Store/news?id=<?= $row_news['id'] ?>">
                                                         <?= $row_news['title'] ?>
                                                     </a></h2>
                                                 <div class="nk-post-date mt-10 mb-10">
@@ -630,7 +710,8 @@ include_once('./mod/database_connection.php');
                                                 <div class="row vertical-gap">
                                                     <div class="col-lg-3 col-md-5">
                                                         <?php if ($row_news['image'] != "") { ?>
-                                                            <a href="" class="nk-post-img">
+                                                            <a href="../Galaxy_Game_Store/news?id=<?= $row_news['id'] ?>"
+                                                                class="nk-post-img">
                                                                 <img src="./uploads/<?= $row_news['image'] ?>"
                                                                     alt="<?= $row_news['title'] ?>">
                                                             </a>
@@ -638,7 +719,8 @@ include_once('./mod/database_connection.php');
                                                     </div>
 
                                                     <div class="col-lg-9 col-md-7">
-                                                        <h2 class="nk-post-title h4 news_title"><a href=""
+                                                        <h2 class="nk-post-title h4 news_title"><a
+                                                                href="../Galaxy_Game_Store/news?id=<?= $row_news['id'] ?>"
                                                                 title="<?= $row_news['title'] ?>">
                                                                 <?= $row_news['title'] ?>
                                                             </a></h2>
@@ -678,19 +760,6 @@ include_once('./mod/database_connection.php');
                 <div class="col-lg-4">
                     <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
 
-                        <!-- search -->
-                        <div class="nk-widget">
-                            <div class="nk-widget-content">
-                                <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Type something...">
-                                        <button class="nk-btn nk-btn-color-main-1"><span
-                                                class="ion-search"></span></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
                         <!-- we are social -->
                         <div class="nk-widget nk-widget-highlighted">
                             <h4 class="nk-widget-title"><span><span class="text-main-1">We</span> Are Social</span></h4>
@@ -715,64 +784,36 @@ include_once('./mod/database_connection.php');
                             </div>
                         </div>
 
-                        <!--START: lucky whell -->
-                        <div class="nk-widget nk-widget-highlighted">
-                            <h4 class="nk-widget-title"><span><span class="text-main-1">Lucky </span>Wheel</span>
-                            </h4>
-                            <div class="introduction">
-                                <ion-icon name="help-circle-outline" class="help"></ion-icon>
-                                <div class="introduction_box">
-                                    <span class="introduction_box__content">A spinning wheel with multiple attractive
-                                        rewards</span>
-                                    <span class="introduction_box__content">The cost per spin is 10 <i
-                                            class="fas fa-gem"></i></span>
-                                    <span class="introduction_box__content">Every day you will receive one free
-                                        spin</span>
-                                    <span class="spin_free">Number of free spins: 1</span>
-                                </div>
-                            </div>
-                            <div class="wrapper typo" id="wrapper">
-                                <section id="luckywheel" class="hc-luckywheel">
-                                    <div class="hc-luckywheel-container">
-                                        <canvas class="hc-luckywheel-canvas" width="500px" height="500px">Vòng Xoay May
-                                            Mắn</canvas>
-                                    </div>
-                                    <a class="hc-luckywheel-btn" href="javascript:;">Spins</a>
-                                </section>
-                            </div>
-                            <div class="refresh">
-                                <span>Refresh the reward costs 5 <i class="fas fa-gem"></i></span>
-                                <button class="btn_refresh">Refresh</button>
-                            </div>
-                        </div>
-                        <!--END: lucky whell -->
-
                         <!-- popular -->
                         <div class="nk-widget nk-widget-highlighted">
                             <h4 class="nk-widget-title"><span><span class="text-main-1">Most</span> Popular</span></h4>
 
                             <div class="nk-widget-content">
                                 <?php
-                                $sql_popular = "SELECT * FROM `products` WHERE classify = 'gear' LIMIT 3";
+                                $sql_popular = "SELECT *, IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
+                                FROM `products` p LEFT JOIN product_comments pc ON p.id = pc.product_id 
+                                WHERE classify = 'gear' GROUP BY p.id LIMIT 3";
                                 $result_popular = $conn->query($sql_popular);
 
-                                while ($row = $result_popular->fetch_assoc()) { ?>
+                                while ($row_popular = $result_popular->fetch_assoc()) { ?>
                                     <div class="nk-widget-post">
                                         <a href="" class="nk-post-image">
-                                            <img src="./uploads/<?= $row['image_avt_url'] ?>"
-                                                alt="<?= $row['product_name'] ?>">
+                                            <img src="./uploads/<?= $row_popular['image_avt_url'] ?>"
+                                                alt="<?= $row_popular['product_name'] ?>">
                                         </a>
                                         <h3 class="nk-post-title popular_name"><a href=""
-                                                title="<?= $row['product_name'] ?>">
-                                                <?= $row['product_name'] ?>
+                                                title="<?= $row_popular['product_name'] ?>">
+                                                <?= $row_popular['product_name'] ?>
                                             </a>
                                         </h3>
-                                        <div class="nk-product-rating mb-5" data-rating="3"> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="far fa-star"></i> <i class="far fa-star"></i>
+                                        <div class="nk-product-rating mb-5">
+                                            <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                <i
+                                                    class="<?= ($i <= $row_popular['avg_star']) ? 'fa fa-star' : 'far fa-star' ?>"></i>
+                                            <?php } ?>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
-                                            <?= $row['price'] ?><i class="fas fa-gem"></i>
+                                            <?= $row_popular['price'] ?><i class="fas fa-gem"></i>
                                         </div>
                                     </div>
                                     <?php
@@ -808,17 +849,17 @@ include_once('./mod/database_connection.php');
                     $sql_category = "SELECT * FROM `genres` LIMIT 16";
 
                     $result_category = $conn->query($sql_category);
-                    while ($row = $result_category->fetch_assoc()) { ?>
+                    while ($row_category = $result_category->fetch_assoc()) { ?>
                         <div class="col-md-6 col-lg-3">
                             <div class="nk-blog-post position-relative" style="margin-left: 20px;">
-                                <a href="" class="nk-post-img">
-                                    <img src="./uploads/genre_<?= $row['id'] ?>.png" alt="<?= $row['genre_name'] ?>">
+                                <a href="../Galaxy_Game_Store/store?id_category=<?= password_hash($row_category['id'], PASSWORD_DEFAULT) ?>"
+                                    class="nk-post-img">
+                                    <img src="./uploads/genre_<?= $row_category['id'] ?>.png"
+                                        alt="<?= $row_category['genre_name'] ?>">
+                                    <span class="span-genre position-absolute">
+                                        <?= $row_category['genre_name'] ?>
+                                    </span>
                                 </a>
-
-                                <span class="span-genre position-absolute">
-                                    <?= $row['genre_name'] ?>
-                                </span>
-
                             </div>
                         </div>
                     <?php } ?>
@@ -827,7 +868,7 @@ include_once('./mod/database_connection.php');
             <!-- END: CATEGORY GAME -->
         </div>
 
-        <div class="nk-gap-3"></div>
+        <div class="nk-gap-3" id="Contact"></div>
 
         <!-- START: Footer -->
         <?php include "./mod/footer.php"; ?>
@@ -839,7 +880,6 @@ include_once('./mod/database_connection.php');
 
     <!-- START: Scripts -->
     <?php include "./mod/add_script.php"; ?>
-    <?php include "./mod/recommend_index.php"; ?>
     <!-- END: Scripts -->
 
 

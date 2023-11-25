@@ -12,13 +12,13 @@ include_once('../mod/database_connection.php');
     <title>Register</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../assets/css/log_ris_for.css">
+    <link rel="stylesheet" href="./assets/css/log_ris_for.css">
 </head>
 <style>
     body {
         position: relative;
         width: 100%;height: 100vh;
-        background-image: url(../assets/images/slider_bg02.jpg);
+        background-image: url(./assets/images/slider_bg02.jpg);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -29,7 +29,7 @@ include_once('../mod/database_connection.php');
         position: absolute;
         top: 50%;left: 50%;
         translate: -50% -50%;
-        background-image: url(../assets/images/slider_circle.png);
+        background-image: url(./assets/images/slider_circle.png);
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -149,7 +149,7 @@ include_once('../mod/database_connection.php');
     </form>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script src="../assets/js/background.js"></script> -->
+
 <p id="getProcessRegister"></p>
 
 <script>

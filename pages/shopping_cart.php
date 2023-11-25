@@ -2,6 +2,11 @@
 session_start();
 include_once('../mod/database_connection.php');
 
+if (!isset($_SESSION['id_account'])) {
+    header("Location: ../Galaxy_Game_Store/login");
+}
+
+
 if (isset($_GET['delete'])) {
     $product_id = $_GET['delete'];
     foreach ($_SESSION['shopping_cart'] as $key => $item) {
@@ -93,9 +98,18 @@ if (isset($_GET['delete'])) {
                                             <div class="nk-gap"></div>
 
                                             <div class="nk-form">
-                                                <input type="number" id="<?= $key ?>" class="form-control"
-                                                    onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
-                                                    min="1" max="21">
+                                                <?php
+                                                if ($value['type'] == "product") { ?>
+                                                    <input type="number" id="<?= $key ?>" class="form-control"
+                                                        onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
+                                                        min="1" max="21">
+                                                <?php } else { ?>
+                                                    <input type="number" style="background-color: transparent;" readonly id="<?= $key ?>" class="form-control"
+                                                        onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
+                                                        min="1" max="21">
+                                                <?php } ?>
+
+
                                             </div>
                                         </td>
                                         <td class="nk-product-cart-total">

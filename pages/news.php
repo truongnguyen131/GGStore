@@ -3,7 +3,7 @@ session_start();
 include_once('../mod/database_connection.php');
 
 $id = $_GET['id'];
-$user_id = $_SESSION['id_account'];
+$user_id = (isset($_SESSION['id_account'])) ? $_SESSION['id_account'] : 0;
 
 
 $sql = "SELECT * FROM news n, news_type nt WHERE n.news_type_id = nt.id AND n.id = $id";
@@ -50,7 +50,7 @@ $news_type_id = $row["news_type_id"];
     </script>';
     } else {
         $comment = (isset($_POST['comment'])) ? $_POST['comment'] : '';
-        if (isset($_POST['comment'])) {
+        if (isset($_POST['comment']) && isset($_SESSION['id_account'])) {
 
             if ($comment == '') {
                 echo '<script>
@@ -115,9 +115,18 @@ $news_type_id = $row["news_type_id"];
 
             }
         }
+        if (isset($_POST['comment']) && !isset($_SESSION['id_account'])) {
+            echo '<script>
+            window.addEventListener("load", function() {
+            notification_dialog("Failed", "Please log in before commenting!!!");
+            $("html, body").animate({
+                scrollTop: $("#frm_post_comment").offset().top 
+              }, 1000);
+            });
+            </script>';
+        }
 
     }
-
 
     ?>
 

@@ -15,7 +15,8 @@
     <!-- START: Styles -->
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet"
+        type="text/css">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
@@ -43,12 +44,15 @@
     <!-- Summernote -->
     <link rel="stylesheet" type="text/css" href="assets/vendor/summernote/dist/summernote-bs4.css">
 
-        <!-- Custom Styles -->
-        <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/custom.css">
     <!-- END: Styles -->
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <!-- GoodGames -->
-    <link rel="stylesheet" href="assets/css/goodgames.css">
+    <link rel="stylesheet" href="assets/css/goodgames1.css">
 
 
 
@@ -57,5 +61,5 @@
 
     <link rel="stylesheet" href="./assets/css/grand_custom.css">
     <!-- myCSS -->
-    <link rel="stylesheet" href="assets/css/lucky-wheel.css">
+    <link rel="stylesheet" href="./assets/css/css_custom.css">
 </head>

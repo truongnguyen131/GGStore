@@ -48,18 +48,24 @@
             <div class="nk-contacts-right">
                 <ul class="nk-contacts-icons">
 
-                    <!-- <li>
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:add_to_cart()"
-                                class="nk-btn nk-btn-rounded nk-btn-color-main-1 w-100">Add to cart</a>
-                        </div>
-
-                        
-                    </li> -->
-
                     <script>
                         function add_to_cart(id) {
                             $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id }, function (data) {
+                                $('#product_count').html(data);
+                            });
+                        }
+                        function by_now(id) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id }, function (data) {
+                                $('#product_count').html(data);
+                            });
+                        }
+                        function add_to_cart1(id) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id, type: "exchange" }, function (data) {
+                                $('#product_count').html(data);
+                            });
+                        }
+                        function by_now1(id) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id, type: "exchange" }, function (data) {
                                 $('#product_count').html(data);
                             });
                         }
@@ -174,15 +180,16 @@
 
                         <div class="nk-cart-dropdown" style="width: 60%;">
                             <div class="text-center">
-                                <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
-                                    Profile</a>
-                                <div class="nk-gap"></div>
+
                                 <?php
                                 if ($_SESSION["role"] == "developer") { ?>
                                     <a href="./admin/pages/template/dashboard.php"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         GGS Admin</a>
                                 <?php } else { ?>
+                                    <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                        Profile</a>
+                                    <div class="nk-gap"></div>
                                     <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         My bag</a>
                                 <?php }
@@ -219,12 +226,13 @@
                 <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
 
                     <li>
-                        <a href="">
+                        <a href="../Galaxy_Game_Store/store">
                             Store
                         </a>
                     </li>
+
                     <li class="nk-drop-item" id="genre_item">
-                        <a href="">
+                        <a>
                             CATEGORY
                         </a>
                         <div class="dropdown_menu" id="genre_dropdown"
@@ -244,7 +252,8 @@
                                 }
                                 ?>
                         <li>
-                            <a href="">
+                            <a
+                                href="../Galaxy_Game_Store/store?id_category=<?= password_hash($row_genres['id'], PASSWORD_DEFAULT) ?>">
                                 <?= $row_genres['genre_name'] ?>
                             </a>
                         </li>
@@ -258,13 +267,14 @@
             </div>
 
             </li>
+
             <li>
                 <a href="../Galaxy_Game_Store/main_news">
                     NEWS
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="#Contact">
                     CONTACT US
                 </a>
             </li>
