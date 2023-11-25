@@ -1,0 +1,182 @@
+/* START: LOGIN */
+
+/* start : form login */
+
+.form_login {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    background: #1e2e42ad;
+    border: 3px solid #1e2e42e0;
+    width: 25%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 20px;
+    user-select: none;
+}
+@media screen and (max-width: 1025px) {
+    .form_login{
+        width: 35%;
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 426px){
+    .form_login{
+        width: 70%;
+        font-size: 13px;
+    }
+    body::after{
+        display: none;
+    }
+}
+@media screen and (max-width: 321px){
+    .form_login{
+        font-size: 11px;
+    }
+}
+
+.home {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.login {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.link_icon .icon {
+    color: white;
+    width: 30px;
+    height: 30px;
+    transition: .3s linear;
+}
+
+.link_icon .icon:hover {
+    color: #dd163b;
+}
+
+.from_title {
+    margin-bottom: 10px;
+}
+
+.from_title h3 {
+    font-weight: 600;
+    color: #dd163b;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.form_item {
+    width: 100%;
+    height: auto;
+}
+
+.form_item label {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    color: white;
+}
+
+.form_item .form_item__input {
+    padding: 5px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid gray;
+    border-radius: 3px;
+    outline: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.is-invalid {
+    border: 1px solid red !important;
+}
+.form_item .form_item__input input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 600;
+}
+
+.remember_and_forgorPass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember_and_forgorPass a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+    color: gray;
+}
+
+.remember_and_forgorPass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    margin: 20px 0;
+}
+
+.form_item button {
+    cursor: pointer;
+    background: #f14161;
+    width: 30%;
+    height: 30px;
+    font-weight: 600;
+    color: white;
+    border: 3px solid #dd163b;
+    outline: none;
+    transition: .3s linear;
+}
+
+.form_item button:hover {
+    transform: translateY(-5px);
+}
+
+.form_login__register span {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+    color: rgb(92, 92, 92);
+}
+
+.form_login__register a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 550;
+    color: gray;
+}
+
+.remember_and_forgorPass a:hover,
+.form_login__register a:hover {
+    color: #dd163b;
+}
+
+.erro {
+    font-family: "Montserrat", sans-serif;
+    color: #dd163b !important;
+    font-size: 12px;
+}
+
+
+
+/* end : form login */
+/* END: LOGIN */

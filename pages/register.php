@@ -10,42 +10,146 @@ include_once('../mod/database_connection.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="../assets/css/log_ris_for.css">
 </head>
+<style>
+    body {
+        position: relative;
+        width: 100%;height: 100vh;
+        background-image: url(../assets/images/slider_bg02.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+    body::after{
+        content: '';
+        position: absolute;
+        top: 50%;left: 50%;
+        translate: -50% -50%;
+        background-image: url(../assets/images/slider_circle.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 600px;
+        height: 600px;
+        opacity: 0.1;
+        animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate{
+        0%{
+            transform: rotate(0deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+    .form_register {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    background: #1e2e42ad;
+    border: 3px solid #1e2e42e0;
+    width: 25%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 5px;
+    padding: 20px;
+    user-select: none;
+}
+@media screen and (max-width: 1025px) {
+    .form_register{
+        width: 35%;
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 426px){
+    .form_register{
+        width: 70%;
+        font-size: 13px;
+    }
+    body::after{
+        display: none;
+    }
+}
+@media screen and (max-width: 321px){
+    .form_register{
+        font-size: 11px;
+    }
+}
+</style>
 
 <body>
-    <form method="post">
-        <a href="/Galaxy_Game_Store/login">login</a>
-        <a href="/Galaxy_Game_Store/home">home</a><br>
+<canvas></canvas>
+    <form method="post" class="form_register">
+        <a class="link_icon home" href="/Galaxy_Game_Store/home" title="Home"> <ion-icon class="icon" name="home-outline"></ion-icon></a>
+        <a class="link_icon login" href="/Galaxy_Game_Store/login" title="Login"><ion-icon class="icon" name="log-in-outline"></ion-icon></a>
+        <div class="from_title">
+            <h3>Register</h3>
+        </div>
+        <div class="form_item">
+            <label for="fullname">Full name</label>
+            <div class="form_item__input" id="divFullName">
+                <input type="text" name="fullname" id="fullname">
+            </div>
+            <label class="erro" id="errorFullname"></label>
+        </div>
 
-        <label for="fullname">Full name</label><br>
-        <input type="text" name="fullname" id="fullname">
-        <label id="errorFullname"></label>
+        <div class="form_item">
+            <label for="phone">Phone number</label>
+            <div class="form_item__input" id="divPhone">
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <label class="erro" id="errorPhoneNumber"></label>
+        </div>
 
-        <br><label for="phone">Phone number</label><br>
-        <input type="tel" id="phone" name="phone">
-        <label id="errorPhoneNumber"></label>
+        <div class="form_item">
+            <label for="email">Email</label>
+            <div class="form_item__input" id="divEmail">
+                <input type="email" id="email" name="email">
+            </div>
+            <label class="erro" id="errorEmail"></label>
+        </div>
 
-        <br><label for="email">Email</label><br>
-        <input type="email" id="email" name="email">
-        <label id="errorEmail"></label>
+        <div class="form_item">
+            <label for="username">Username</label>
+            <div class="form_item__input" id="divUserName">
+                <input type="text" name="username" id="username">
+            </div>
+            <label class="erro" id="errorUsername"></label>
+        </div>
 
-        <br><label for="username">Username</label><br>
-        <input type="text" name="username" id="username">
-        <label id="errorUsername"></label>
+        <div class="form_item">
+            <label for="password">Password</label>
+            <div class="form_item__input" id="divPassword">
+                <input type="password" name="password" id="password">
+            </div>
+            <label class="erro" id="errorPassword"></label>
+        </div>
 
-        <br><label for="password">Password</label><br>
-        <input type="password" name="password" id="password">
-        <label id="errorPassword"></label>
+        <div class="form_item">
+            <label for="confirm_password">Confirm password</label>
+            <div class="form_item__input" id="divConfirmPassword">
+                <input type="password" name="confirm_password" id="confirm_password">
+            </div>
+            <label class="erro" id="errorConfirmPassword"></label>
+        </div>
 
-        <br><label for="confirm_password">Confirm password</label><br>
-        <input type="password" name="confirm_password" id="confirm_password">
-        <label id="errorConfirmPassword"></label>
-
-        <br><button onclick="Register()" type="button">Register</button>
-        <button type="button" onclick="Cancel()">Cancel</button>
+        <div class="form_item form__btn">
+            <button onclick="Register()" type="button">Register</button>
+            <button type="button" onclick="Cancel()">Cancel</button>
+        </div>
     </form>
 </body>
-<script src="/Galaxy_Game_Store/includes/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="../assets/js/background.js"></script> -->
 <p id="getProcessRegister"></p>
 
 <script>
@@ -64,18 +168,18 @@ include_once('../mod/database_connection.php');
         $('#errorPassword').html("")
         $('#errorConfirmPassword').html("")
 
-        $('#fullname').removeClass('is-invalid')
-        $('#phone').removeClass('is-invalid')
-        $('#email').removeClass('is-invalid')
-        $('#username').removeClass('is-invalid')
-        $('#password').removeClass('is-invalid')
-        $('#confirm_password').removeClass('is-invalid')
+        $('#divFullName').removeClass('is-invalid')
+        $('#divPhone').removeClass('is-invalid')
+        $('#divEmail').removeClass('is-invalid')
+        $('#divUserName').removeClass('is-invalid')
+        $('#divPassword').removeClass('is-invalid')
+        $('#divConfirmPassword').removeClass('is-invalid')
     }
 </script>
 
 <script>
     function Register() {
-        
+
         var check = 0
         var fullname = $('#fullname').val()
         var phone = $('#phone').val()
@@ -88,55 +192,55 @@ include_once('../mod/database_connection.php');
         const emailRegex = /^[a-zA-Z0-9_.+-]+@gmail\.com$/;
 
         if (fullNameRegex.test(fullname) != true) {
-            $('#fullName').addClass('is-invalid');
+            $('#divFullName').addClass('is-invalid');
             $('#errorFullname').html("Fullname has more than 3 characters")
         } else {
-            $('#fullName').removeClass('is-invalid')
+            $('#divFullName').removeClass('is-invalid')
             $('#errorFullname').html("")
             check += 1
         }
 
         if (phoneNumberRegex.test(phone) != true) {
-            $('#phone').addClass('is-invalid');
+            $('#divPhone').addClass('is-invalid');
             $('#errorPhoneNumber').html("The numberphone has 10 numbers and starts with 0")
         } else {
-            $('#phone').removeClass('is-invalid')
+            $('#divPhone').removeClass('is-invalid')
             $('#errorPhoneNumber').html("")
             check += 1
         }
 
         if (emailRegex.test(email) != true) {
-            $('#email').addClass('is-invalid');
+            $('#divEmail').addClass('is-invalid');
             $('#errorEmail').html("Email invalid")
         } else {
-            $('#email').removeClass('is-invalid')
+            $('#divEmail').removeClass('is-invalid')
             $('#errorEmail').html("")
             check += 1
         }
 
         if (username.length < 5 || !isNaN(username)) {
-            $('#username').addClass('is-invalid');
+            $('#divUserName').addClass('is-invalid');
             $('#errorUsername').html("Username has more than 4 characters and not is a number")
         } else {
-            $('#username').removeClass('is-invalid')
+            $('#divUserName').removeClass('is-invalid')
             $('#errorUsername').html("")
             check += 1
         }
 
         if (password.length == 0) {
-            $('#password').addClass('is-invalid');
+            $('#divPassword').addClass('is-invalid');
             $('#errorPassword').html("Password must not be empty")
         } else {
-            $('#password').removeClass('is-invalid')
+            $('#divPassword').removeClass('is-invalid')
             $('#errorPassword').html("")
             check += 1
         }
 
         if (confirm_password != password) {
-            $('#confirm_password').addClass('is-invalid');
+            $('#divConfirmPassword').addClass('is-invalid');
             $('#errorConfirmPassword').html("Password confirmation must be the same as Password")
         } else {
-            $('#password').removeClass('is-invalid')
+            $('#divConfirmPassword').removeClass('is-invalid')
             $('#errorConfirmPassword').html("")
             check += 1
         }
@@ -149,13 +253,12 @@ include_once('../mod/database_connection.php');
                 email: email,
                 username: username,
                 password: password
-            }, function (data) {
+            }, function(data) {
                 $('#getProcessRegister').html(data);
             })
 
         }
     }
-
 </script>
 
 </html>

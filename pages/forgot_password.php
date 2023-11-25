@@ -17,14 +17,12 @@ if (isset($_GET['send_info'])) {
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
-        
     } else {
         echo "<p>Incorrect user information</p>";
     }
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,36 +30,92 @@ if (isset($_GET['send_info'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot password</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="../assets/css/log_ris_for.css">
 </head>
+<style>
+    body {
+        position: relative;
+        width: 100%;height: 100vh;
+        background-image: url(../assets/images/slider_bg02.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+    body::after{
+        content: '';
+        position: absolute;
+        top: 50%;left: 50%;
+        translate: -50% -50%;
+        background-image: url(../assets/images/slider_circle.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 600px;
+        height: 600px;
+        opacity: 0.1;
+        animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate{
+        0%{
+            transform: rotate(0deg);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+</style>
 
 <body>
-    <form name="frmForgotPassword" action="forgot_password?send_info" method="post">
-        <h3>Confirm information</h3>
-        
-        <label for="txtFullname">Full name</label><br>
-        <input type="text" name="txtFullname" id="txtFullname">
-        <label id="errorFullname"></label>
+    <form name="frmForgotPassword" action="forgot_password?send_info" method="post" class="form_login">
+        <div class="from_title">
+            <h3>Confirm information</h3>
+        </div>
 
-        <br><label for="txtTelephone">Telephone</label><br>
-        <input type="tel" name="txtTelephone" id="txtTelephone">
-        <label id="errorTelephone"></label>
 
-        <br><label for="txtEmail">Email Address</label><br>
-        <input type="email" name="txtEmail" id="txtEmail">
-        <label id="errorEmail"></label>
+        <div class="form_item">
+            <label for="txtFullname">Full name</label>
+            <div class="form_item__input" id="divFullName">
+            <input type="text" name="txtFullname" id="txtFullname">
+            </div>
+            <label class="erro" id="errorFullname"></label>
+        </div>
 
-        <br><label for="txtUsername">Username</label><br>
-        <input type="text" name="txtUsername" id="txtUsername">
-        <label id="errorUsername"></label>
+        <div class="form_item">
+            <label for="txtTelephone">Telephone</label>
+            <div class="form_item__input" id="divPhone">
+            <input type="tel" name="txtTelephone" id="txtTelephone">
+            </div>
+            <label class="erro" id="errorTelephone"></label>
+        </div>
+        <div class="form_item">
+            <label for="txtEmail">Email</label>
+            <div class="form_item__input" id="divEmail">
+            <input type="email" name="txtEmail" id="txtEmail">
+            </div>
+            <label class="erro" id="errorEmail"></label>
+        </div>
 
-        <br><button onclick="confirm_info()" type="button">Confirm</button>
-        <button type="button" onclick="back()">Back</button><br>
+        <div class="form_item">
+            <label for="txtUsername">Username</label>
+            <div class="form_item__input" id="divUserName">
+            <input type="text" name="txtUsername" id="txtUsername">
+            </div>
+            <label class="erro" id="errorUsername"></label>
+        </div>
+
+        <div class="form_item form__btn">
+            <button onclick="confirm_info()" type="button">Confirm</button>
+            <button type="button" onclick="back()">Back</button>
+        </div>
     </form>
 </body>
-<script src="/Galaxy_Game_Store/includes/js/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="../assets/js/background.js"></script> -->
 
 <script>
-
     function confirm_info() {
         document.getElementById("errorFullname").innerHTML = "";
         document.getElementById("errorTelephone").innerHTML = "";
@@ -78,37 +132,37 @@ if (isset($_GET['send_info'])) {
         var username = document.getElementById("txtUsername").value;
 
         if (fullNameRegex.test(fullname) != true) {
-            $('#fullName').addClass('is-invalid');
+            $('#divFullName').addClass('is-invalid');
             $('#errorFullname').html("Fullname has more than 3 characters")
             document.getElementById("txtFullname").focus()
             return;
         } else {
-            $('#fullName').removeClass('is-invalid')
+            $('#divFullName').removeClass('is-invalid')
             $('#errorFullname').html("")
         }
 
         if (phoneNumberRegex.test(phone) != true) {
-            $('#phone').addClass('is-invalid');
+            $('#divPhone').addClass('is-invalid');
             $('#errorTelephone').html("The numberphone has 10 numbers and starts with 0")
             document.getElementById("txtTelephone").focus()
             return;
         } else {
-            $('#phone').removeClass('is-invalid')
+            $('#divPhone').removeClass('is-invalid')
             $('#errorPhoneNumber').html("")
         }
 
         if (emailRegex.test(email) != true) {
-            $('#email').addClass('is-invalid');
+            $('#divEmail').addClass('is-invalid');
             $('#errorEmail').html("Email invalid")
             document.getElementById("txtEmail").focus()
             return;
         } else {
-            $('#email').removeClass('is-invalid')
+            $('#divEmail').removeClass('is-invalid')
             $('#errorEmail').html("")
         }
 
         if (username.length < 5 || !isNaN(username)) {
-            $('#username').addClass('is-invalid');
+            $('#divUserName').addClass('is-invalid');
             $('#errorUsername').html("Username has more than 4 characters and not is a number")
             document.getElementById("txtUsername").focus()
             return;
