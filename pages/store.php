@@ -237,15 +237,9 @@ include_once '../mod/database_connection.php';
     window.onload = function () {
 
         <?php
-        if (isset($_GET['id_category'])) {
-            $sql_sl_genres = "SELECT * FROM `genres`";
-            $result_genres = $conn->query($sql_sl_genres);
-            while ($row_genre = $result_genres->fetch_assoc()) {
-                if (password_verify($row_genre['id'], $_GET['id_category'])) {
-                    echo "document.getElementById(" . $row_genre['id'] . ").click();";
-                }
-            }
-        }
+        if (isset($_GET['id_category'])) { ?>
+            document.getElementById(<?= $_GET['id_category'] ?>).click();
+        <?php }
 
         if (isset($_GET['classify'])) { ?>
             var select = document.getElementById("classify_product");
@@ -254,15 +248,13 @@ include_once '../mod/database_connection.php';
                 if (options[i].value == "<?= $_GET['classify'] ?>") {
                     options[i].selected = true;
                 }
-
             }
-
         <?php } ?>
-
-
 
         filter();
     }
 </script>
+
+
 
 </html>

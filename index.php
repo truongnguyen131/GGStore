@@ -391,7 +391,8 @@ include_once('./mod/database_connection.php');
                     while ($row_top10 = $result_top10->fetch_assoc()) { ?>
                         <div class="col-md-6 col-lg-3">
                             <div class="nk-blog-post" style="margin-left: 20px;">
-                                <a href="" class="nk-post-img" data-img="<?= $row_top10['id'] ?>"
+                                <a href="../Galaxy_Game_Store/product_details?id=<?= $row_top10['product_id'] ?>"
+                                    class="nk-post-img" data-img="<?= $row_top10['id'] ?>"
                                     data-video="<?= $row_top10['id'] ?>">
                                     <img id="img_<?= $row_top10['id'] ?>" src="./uploads/<?= $row_top10['image_avt_url'] ?>"
                                         alt="<?= $row_top10['product_name'] ?>">
@@ -401,7 +402,7 @@ include_once('./mod/database_connection.php');
                                 </a>
                                 <div class="nk-gap"></div>
                                 <h2 class="nk-post-title h4">
-                                    <a href="">
+                                    <a href="../Galaxy_Game_Store/product_details?id=<?= $row_top10['product_id'] ?>">
                                         <?= $row_top10['product_name'] ?>
                                     </a>
                                 </h2>
@@ -515,7 +516,8 @@ include_once('./mod/database_connection.php');
                         <div class="row vertical-gap">
 
                             <?php
-                            $sql_offer = "SELECT *, ROUND(p.price * (1 - d.discount_amount/100)) AS price_new, 
+                            $sql_offer = "SELECT d.product_id,d.discount_amount, p.product_name,p.image_avt_url,p.price,
+                            ROUND(p.price * (1 - d.discount_amount/100)) AS price_new, 
                             IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
                             FROM products p LEFT JOIN discounts d ON p.id = d.product_id
                             LEFT JOIN product_comments pc ON p.id = pc.product_id
@@ -526,14 +528,15 @@ include_once('./mod/database_connection.php');
                             while ($row_offer = $result_offer->fetch_assoc()) { ?>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="nk-gallery-item-box">
-                                        <a href="" class="nk-gallery-item">
+                                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_offer['product_id'] ?>">
                                             <img src="./uploads/<?= $row_offer['image_avt_url'] ?>" alt="">
                                         </a>
 
                                         <div class="nk-gap"></div>
 
                                         <h2 class="nk-post-title h4">
-                                            <a href="">
+                                            <a
+                                                href="../Galaxy_Game_Store/product_details?id=<?= $row_offer['product_id'] ?>">
                                                 <?= $row_offer['product_name'] ?>
                                             </a>
                                         </h2>
@@ -593,20 +596,28 @@ include_once('./mod/database_connection.php');
                     <div class="nk-gap"></div>
                     <div class="row vertical-gap">
                         <?php
-                        $sql_gear = "SELECT *, IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
-                        FROM `products` p LEFT JOIN product_comments pc ON p.id = pc.product_id 
-                        WHERE classify = 'gear' GROUP BY p.id";
+                        $sql_gear = "SELECT p.id, p.image_avt_url, p.price, p.product_name,
+                        IF( d.product_id IS NULL, p.price, ROUND( p.price *(1 - d.discount_amount / 100) ) ) AS price_new,
+                        IF( d.product_id IS NULL, 0, IF( CURDATE() BETWEEN d.start_date AND d.end_date, 1, 0) ) AS is_discounted,
+                        IF( pc.product_id IS NULL, 0, ROUND(AVG(rating)) ) AS avg_star
+                        FROM `products` p
+                        LEFT JOIN product_comments pc ON p.id = pc.product_id
+                        LEFT JOIN discounts d ON p.id = d.product_id
+                        WHERE classify = 'gear'
+                        GROUP BY p.id LIMIT 4";
 
                         $result_gear = $conn->query($sql_gear);
                         while ($row_gear = $result_gear->fetch_assoc()) { ?>
                             <div class="col-md-6">
                                 <div class="nk-product-cat">
-                                    <a class="nk-product-image" href="store-product.html">
+                                    <a class="nk-product-image"
+                                        href="../Galaxy_Game_Store/product_details?id=<?= $row_gear['id'] ?>">
                                         <img src="./uploads/<?= $row_gear['image_avt_url'] ?>"
                                             alt="<?= $row_gear['product_name'] ?>">
                                     </a>
                                     <div class="nk-product-cont">
-                                        <h3 class="nk-product-title h5 mb-10"><a href="">
+                                        <h3 class="nk-product-title h5 mb-10"><a
+                                                href="../Galaxy_Game_Store/product_details?id=<?= $row_gear['id'] ?>">
                                                 <?= $row_gear['product_name'] ?>
                                             </a>
                                         </h3>
@@ -617,7 +628,17 @@ include_once('./mod/database_connection.php');
                                             <?php } ?>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
-                                            <?= $row_gear['price'] ?><i class="fas fa-gem"></i>
+                                            <?php
+                                            if ($row_gear['is_discounted']) { ?>
+                                                <span class="old-price">
+                                                    <?= $row_gear['price'] ?><i class="fas fa-gem"></i>
+                                                </span>&nbsp;
+                                                <span>
+                                                    <?= $row_gear['price_new'] ?><i class="fas fa-gem"></i>
+                                                </span>
+                                            <?php } else { ?>
+                                                <?= $row_gear['price'] ?><i class="fas fa-gem"></i>
+                                            <?php } ?>
                                         </div>
                                         <a href="javascript:add_to_cart(<?= $row_gear['id'] ?>)"
                                             class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
@@ -790,18 +811,27 @@ include_once('./mod/database_connection.php');
 
                             <div class="nk-widget-content">
                                 <?php
-                                $sql_popular = "SELECT *, IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
-                                FROM `products` p LEFT JOIN product_comments pc ON p.id = pc.product_id 
-                                WHERE classify = 'gear' GROUP BY p.id LIMIT 3";
+                                $sql_popular = "SELECT p.id, p.image_avt_url, p.price, p.product_name,
+                                IF( d.product_id IS NULL, p.price, ROUND( p.price *(1 - d.discount_amount / 100) ) ) AS price_new,
+                                IF( d.product_id IS NULL, 0, IF( CURDATE() BETWEEN d.start_date AND d.end_date, 1, 0) ) AS is_discounted,
+                                IF( pc.product_id IS NULL, 0, ROUND(AVG(rating)) ) AS avg_star
+                                FROM `products` p
+                                LEFT JOIN product_comments pc ON p.id = pc.product_id
+                                LEFT JOIN discounts d ON p.id = d.product_id
+                                WHERE classify = 'gear'
+                                GROUP BY p.id LIMIT 3";
+
                                 $result_popular = $conn->query($sql_popular);
 
                                 while ($row_popular = $result_popular->fetch_assoc()) { ?>
                                     <div class="nk-widget-post">
-                                        <a href="" class="nk-post-image">
+                                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_popular['id'] ?>"
+                                            class="nk-post-image">
                                             <img src="./uploads/<?= $row_popular['image_avt_url'] ?>"
                                                 alt="<?= $row_popular['product_name'] ?>">
                                         </a>
-                                        <h3 class="nk-post-title popular_name"><a href=""
+                                        <h3 class="nk-post-title popular_name">
+                                            <a href="../Galaxy_Game_Store/product_details?id=<?= $row_popular['id'] ?>"
                                                 title="<?= $row_popular['product_name'] ?>">
                                                 <?= $row_popular['product_name'] ?>
                                             </a>
@@ -813,7 +843,17 @@ include_once('./mod/database_connection.php');
                                             <?php } ?>
                                         </div>
                                         <div class="nk-product-price mb-5 mt-5">
-                                            <?= $row_popular['price'] ?><i class="fas fa-gem"></i>
+                                            <?php
+                                            if ($row_popular['is_discounted']) { ?>
+                                                <span class="old-price">
+                                                    <?= $row_popular['price'] ?><i class="fas fa-gem"></i>
+                                                </span>&nbsp;
+                                                <span>
+                                                    <?= $row_popular['price_new'] ?><i class="fas fa-gem"></i>
+                                                </span>
+                                            <?php } else { ?>
+                                                <?= $row_popular['price'] ?><i class="fas fa-gem"></i>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <?php
@@ -852,7 +892,7 @@ include_once('./mod/database_connection.php');
                     while ($row_category = $result_category->fetch_assoc()) { ?>
                         <div class="col-md-6 col-lg-3">
                             <div class="nk-blog-post position-relative" style="margin-left: 20px;">
-                                <a href="../Galaxy_Game_Store/store?id_category=<?= password_hash($row_category['id'], PASSWORD_DEFAULT) ?>"
+                                <a href="../Galaxy_Game_Store/store?id_category=<?= $row_category['id'] ?>"
                                     class="nk-post-img">
                                     <img src="./uploads/genre_<?= $row_category['id'] ?>.png"
                                         alt="<?= $row_category['genre_name'] ?>">

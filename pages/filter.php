@@ -59,6 +59,7 @@ if ($classify != "exchange") {
     $sql_filter_product .= " GROUP BY p.id";
     $result_filter_product = $conn->query($sql_filter_product);
     $nums_product = $result_filter_product->num_rows;
+
 }
 
 if ($classify == "exchange" || $classify == "all") {
@@ -108,6 +109,8 @@ if ($nums_exchange > 0) {
 }
 ?>
 
+
+
 <div class="row vertical-gap">
 
     <?php if ($nums_product > 0) {
@@ -115,12 +118,12 @@ if ($nums_exchange > 0) {
 
             <div class="col-lg-3 col-sm-6">
                 <div class="nk-gallery-item-box">
-                    <a href="" class="nk-gallery-item">
+                    <a href="../Galaxy_Game_Store/product_details?id=<?= $row_product['id'] ?>" class="nk-gallery-item">
                         <img src="./uploads/<?= $row_product['image_avt_url'] ?>" alt="<?= $row_product['product_name'] ?>">
                     </a>
                     <div class="nk-gap"></div>
                     <h2 class="nk-post-title h4">
-                        <a href="" title="<?= $row_product['product_name'] ?>">
+                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_product['id'] ?>" title="<?= $row_product['product_name'] ?>">
                             <?= $row_product['product_name'] ?>
                         </a>
                     </h2>
@@ -133,7 +136,7 @@ if ($nums_exchange > 0) {
                         <?php $product_id = $row_product['id'];
                         $genres = $conn->query("SELECT g.genre_name,g.id FROM genre_product gp, genres g WHERE g.id = gp.genre_id AND gp.product_id = $product_id")->fetch_all(MYSQLI_ASSOC); ?>
                         <?php foreach ($genres as $genre) { ?>
-                            <a href="../Galaxy_Game_Store/store?id_category=<?= password_hash($genre['id'], PASSWORD_DEFAULT) ?>">
+                            <a href="../Galaxy_Game_Store/store?id_category=<?= $genre['id'] ?>">
                                 <?= $genre['genre_name'] ?>
                             </a>
                         <?php } ?>
@@ -177,12 +180,12 @@ if ($nums_exchange > 0) {
 
             <div class="col-lg-3 col-sm-6">
                 <div class="nk-gallery-item-box">
-                    <a href="" class="nk-gallery-item">
+                    <a href="../Galaxy_Game_Store/product_details?id=<?= $row_exchange['id'] ?>" class="nk-gallery-item">
                         <img src="./uploads/<?= $row_exchange['image_avt_url'] ?>" alt="<?= $row_exchange['product_name'] ?>">
                     </a>
                     <div class="nk-gap"></div>
                     <h2 class="nk-post-title h4">
-                        <a href="" title="<?= $row_exchange['product_name'] ?>">
+                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_exchange['id'] ?>" title="<?= $row_exchange['product_name'] ?>">
                             <?= $row_exchange['product_name'] ?>
                         </a>
                         x

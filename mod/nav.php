@@ -69,6 +69,7 @@
                                 $('#product_count').html(data);
                             });
                         }
+                       
                     </script>
 
                     <li>
@@ -253,7 +254,7 @@
                                 ?>
                         <li>
                             <a
-                                href="../Galaxy_Game_Store/store?id_category=<?= password_hash($row_genres['id'], PASSWORD_DEFAULT) ?>">
+                                href="../Galaxy_Game_Store/store?id_category=<?= $row_genres['id'] ?>">
                                 <?= $row_genres['genre_name'] ?>
                             </a>
                         </li>
