@@ -69,7 +69,7 @@
                                 $('#product_count').html(data);
                             });
                         }
-                       
+
                     </script>
 
                     <li>
@@ -170,7 +170,16 @@
                                     <span>
                                         <?= $_SESSION["userName"] ?>
                                     </span>
-                                    <span style="margin-left: 20px;">120 <i class="fas fa-gem"></i></span>
+                                    <span style="margin-left: 20px;">
+                                        <?php
+                                        $id_account = $_SESSION["id_account"];
+                                        $sql_dID = "SELECT Gcoin FROM users WHERE id = $id_account";
+                                        $result_dID = $conn->query($sql_dID);
+                                        $row_dID = $result_dID->fetch_assoc();
+                                        echo $row_dID['Gcoin'];
+                                        ?>
+                                        <i class="fas fa-gem"></i>
+                                    </span>
                                 </div>
                             </span>
                         <?php } else { ?>
@@ -253,8 +262,7 @@
                                 }
                                 ?>
                         <li>
-                            <a
-                                href="../Galaxy_Game_Store/store?id_category=<?= $row_genres['id'] ?>">
+                            <a href="../Galaxy_Game_Store/store?id_category=<?= $row_genres['id'] ?>">
                                 <?= $row_genres['genre_name'] ?>
                             </a>
                         </li>

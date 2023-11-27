@@ -1,13 +1,13 @@
 <?php
-include_once('../mod/database_connection.php');
+include_once('./database_connection.php');
 $search_textbox = isset($_GET['search']) ? $_GET['search'] : "";
 $search_type = isset($_GET['type']) ? $_GET['type'] : "";
-$sql_name = "SELECT product_id, name, classify FROM (
-  SELECT id as product_id, product_name as name, classify FROM products
+$sql_name = "SELECT * FROM (
+  SELECT id , product_name as name, classify FROM products WHERE release_date <= NOW()
   UNION
-  SELECT id as genre_id, genre_name as name, 'genre' as classify FROM genres
+  SELECT id , genre_name as name, 'genre' as classify FROM genres
   UNION
-  SELECT id as new_id, title as name, 'news' as classify FROM news
+  SELECT id , title as name, 'news' as classify FROM news
 ) AS combined_results
 WHERE name LIKE '%" . $search_textbox . "%'";
 
@@ -22,12 +22,14 @@ $sql = $sql_name . $sql_type;
 $result = mysqli_query($conn, $sql);
 if ($result->num_rows > 0) {
   while ($row = mysqli_fetch_array($result)) {
-    $url = '';
     if ($row['classify'] == 'game' || $row['classify'] == 'gear') {
-      $url = "";
+      $url = "../Galaxy_Game_Store/product_details?id=" . $row['id'] . "";
     } else if ($row['classify'] == 'genre') {
-      $url = "";
+      $url = "../Galaxy_Game_Store/store?id_category=" . $row['id'] . "";
+    } else {
+      $url = "../Galaxy_Game_Store/news?id=" . $row['id'] . "";
     }
+
     echo '<a href="' . $url . '" title="' . $row['name'] . '">';
     echo '<div class="item_suggest">';
     echo ' <div class="type_suggest_ver1">';

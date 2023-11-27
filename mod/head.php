@@ -59,7 +59,7 @@
     <!-- jQuery -->
     <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="./assets/css/grand_custom.css">
+    <link rel="stylesheet" href="./assets/css/grand_custom1.css">
     <!-- myCSS -->
-    <link rel="stylesheet" href="./assets/css/css_custom.css">
+    <link rel="stylesheet" href="./assets/css/css_custom1.css">
 </head>
