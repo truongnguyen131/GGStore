@@ -1,4 +1,3 @@
-
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -29,28 +28,23 @@ try {
 
     //Recipients
     $mail->setFrom('truongnguyennnt131@gmail.com', 'GGStore');
-    $mail->addAddress($email, mb_encode_mimeheader($fullname,'UTF-8'));
+    $mail->addAddress($email, mb_encode_mimeheader($fullname, 'UTF-8'));
     $mail->addAddress('truongnguyennnt131@gmail.com');
     // Content
 
     $mail->isHTML(true);
     $mail->Subject = mb_encode_mimeheader("Galaxy Game Store: New Password", 'UTF-8');
-    $mail->Body = "Mật khẩu mới của ".$fullname."<br><b>Mật khẩu: " . $new_pass . "</b>";
+    $mail->Body = "New password of " . $fullname . "<br><b> " . $new_pass . "</b>";
 
 
     $mail->send();
     echo '<script>
-            window.addEventListener("load", function() {
             notification_dialog("Success", "The password has been changed. Please check your email.!");
-            });
             </script>';
 } catch (Exception $e) {
     echo '<script>
-    window.addEventListener("load", function() {
     notification_dialog("Failed", "The password has been changed. Please check your email.!");
-    });
     </script>';
 }
 
 ?>
-

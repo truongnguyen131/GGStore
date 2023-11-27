@@ -1,3 +1,7 @@
+<?php
+session_start();
+include_once('../mod/database_connection.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot password</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="../assets/css/log_ris_for.css">
+    <link rel="stylesheet" href="./assets/css/log_ris_for.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- IonIcons -->
-    <link rel="stylesheet" href="../assets/vendor/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="./assets/vendor/ionicons/css/ionicons.min.css">
 
     <!-- GoodGames -->
-    <link rel="stylesheet" href="../assets/css/goodgames.css">
+    <link rel="stylesheet" href="./assets/css/goodgames1.css">
 
 </head>
 
@@ -23,7 +27,7 @@
         position: relative;
         width: 100%;
         height: 100vh;
-        background-image: url(../assets/images/slider_bg02.jpg);
+        background-image: url(./assets/images/slider_bg02.jpg);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -36,7 +40,7 @@
         top: 50%;
         left: 50%;
         translate: -50% -50%;
-        background-image: url(../assets/images/slider_circle.png);
+        background-image: url(./assets/images/slider_circle.png);
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -72,58 +76,70 @@
         translate: -50% -50%;
         margin: 0 !important;
     }
-    .from_title h3{
+
+    .from_title h3 {
         font-size: 25px;
     }
 </style>
 
-<?php
-session_start();
-include_once('../mod/database_connection.php');
-
-if (isset($_GET['send_info'])) {
-    $fullname = $_POST['txtFullname'];
-    $phone = $_POST['txtTelephone'];
-    $email = $_POST['txtEmail'];
-    $username = $_POST['txtUsername'];
-
-    $query = "SELECT * FROM users WHERE full_name = ? AND phone_number = ? AND email = ? AND username = ?";
-    $stmt = $conn->prepare($query);
-    if ($stmt === false) {
-        die("Error preparing statement");
-    }
-    $stmt->bind_param("ssss", $fullname, $phone, $email, $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $pass_new = rand(1, 1000);
-        $update_pass = "UPDATE `users` SET `password`='" . $pass_new . "'WHERE username = ?";
-        $stmts = $conn->prepare($update_pass);
-        $stmts->bind_param("s", $username);
-        if ($stmts->execute()) {
-            echo "
-            <script>
-                $.post('./send_mail.php', {
-                    fullname: '" . $fullname . "',
-                    email: '" . $email . "',
-                    password: " . $pass_new . "
-                }, function(data) {
-                    $('#send_mail').html(data);
-                });
-            </script>
-            ";
-        }
-    } else {
-        echo "<p>Incorrect user information</p>";
-    }
-}
-?>
 
 <body>
+
+    <?php
+    if (isset($_POST['txtFullname'])) {
+        $fullname = $_POST['txtFullname'];
+        $phone = $_POST['txtTelephone'];
+        $email = $_POST['txtEmail'];
+        $username = $_POST['txtUsername'];
+
+        $query = "SELECT * FROM users WHERE full_name = ? AND phone_number = ? AND email = ? AND username = ?";
+        $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die("Error preparing statement");
+        }
+        $stmt->bind_param("ssss", $fullname, $phone, $email, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $numbers = '0123456789';
+            $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $pass_new = '';
+            $n = rand(2, 4);
+            $l = rand(6, 8);
+            for ($i = 0; $i < $n; $i++)
+                $pass_new .= $numbers[rand(0, 9)];
+            for ($i = 0; $i < $l; $i++)
+                $pass_new .= $letters[rand(0, 25)];
+
+            $pass_new_arr = str_split($pass_new);
+            shuffle($pass_new_arr);
+            $pass_new = implode('', $pass_new_arr);
+            $hass_pass = password_hash($pass_new, PASSWORD_DEFAULT);
+
+            $update_pass = "UPDATE `users` SET `password`= ? WHERE username = ?";
+            $stmts = $conn->prepare($update_pass);
+            $stmts->bind_param("ss", $hass_pass, $username);
+            if ($stmts->execute()) {
+                echo " <script>
+            $.post('./pages/send_mail.php', {
+                fullname: '" . $fullname . "',
+                email: '" . $email . "',
+                password: '" . $pass_new . "'
+            }, function(data) {
+                $('#send_mail').html(data);
+            }); </script> ";
+            }
+    
+        } else {
+            echo "<p>Incorrect user information</p>";
+        }
+    }
+    ?>
     <a id="dialog_notification" data-toggle="modal" style="display: none;" data-target="#modalSearch">a
     </a>
     <!-- START: Dialog Notification -->
-    <div class="nk-modal modal fade" id="modalSearch" style="display: none;" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="nk-modal modal fade" id="modalSearch" style="display: none;" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-sm modal_box animate__animated animate__rubberBand" role="document">
             <div class="modal-content">
                 <div class="modal-body" style="padding: 20px;">
@@ -155,7 +171,7 @@ if (isset($_GET['send_info'])) {
 
             document.getElementById("dialog_notification").click();
             // Thêm sự kiện lắng nghe click cho cả trang web
-            document.addEventListener("click", function(event) {
+            document.addEventListener("click", function (event) {
                 // Kiểm tra xem phần tử được nhấp có là modalSearch hay không
                 if (!modalSearch.contains(event.target)) {
                     // Nếu không phải, ẩn modalSearch đi
@@ -166,7 +182,7 @@ if (isset($_GET['send_info'])) {
     </script>
 
     <p id="send_mail"></p>
-    <form name="frmForgotPassword" action="./forgot_password.php?send_info" method="post" class="form_login">
+    <form name="frmForgotPassword" action="./forgot_password.php" method="post" class="form_login">
         <div class="from_title">
             <h3>Confirm information</h3>
         </div>
@@ -204,7 +220,7 @@ if (isset($_GET['send_info'])) {
 
         <div class="form_item form__btn">
             <button onclick="confirm_info()" type="button">Confirm</button>
-            <button type="button">Back</button>
+            <button type="button" onclick="back()">Back</button>
         </div>
     </form>
 </body>
@@ -266,9 +282,9 @@ if (isset($_GET['send_info'])) {
 
     }
 
-    // function back() {
-    //     window.location = "http://localhost:82/Galaxy_Game_Store/pages/login.php";
-    // }
+    function back() {
+        window.location = "http://localhost:82/Galaxy_Game_Store/login";
+    }
 </script>
 
 </html>
