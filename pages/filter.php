@@ -84,7 +84,7 @@ if ($classify == "exchange" || $classify == "all") {
         $sql_filter_exchange .= " AND gp.genre_id IN ($list_genres_string)";
     }
 
-    $sql_filter_exchange .= " GROUP BY p.id";
+    $sql_filter_exchange .= " GROUP BY p.id, pp.id";
     $result_filter_exchange = $conn->query($sql_filter_exchange);
     $nums_exchange = $result_filter_exchange->num_rows;
 }

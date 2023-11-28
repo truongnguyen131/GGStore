@@ -1,4 +1,4 @@
-<footer class="nk-footer">
+<footer class="nk-footer" id="Contact">
 
     <div class="container">
         <div class="nk-gap-3"></div>

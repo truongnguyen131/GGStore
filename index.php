@@ -908,7 +908,7 @@ include_once('./mod/database_connection.php');
             <!-- END: CATEGORY GAME -->
         </div>
 
-        <div class="nk-gap-3" id="Contact"></div>
+        <div class="nk-gap-3"></div>
 
         <!-- START: Footer -->
         <?php include "./mod/footer.php"; ?>

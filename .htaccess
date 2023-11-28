@@ -9,6 +9,7 @@
     RewriteRule ^main_news pages/main_news.php [L]
     RewriteRule ^profile pages/profile_user.php [L]
     RewriteRule ^recharge pages/recharge.php [L]
+    RewriteRule ^bag pages/user_bag.php [L]
     RewriteRule ^product_details pages/product_details.php [L]
     RewriteRule ^shopping_cart pages/shopping_cart.php [L]
     RewriteRule ^checkout pages/checkout.php [L]

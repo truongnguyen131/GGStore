@@ -197,10 +197,12 @@
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         GGS Admin</a>
                                 <?php } else { ?>
-                                    <a href="../Galaxy_Game_Store/profile" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    <a href="../Galaxy_Game_Store/profile"
+                                        class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         Profile</a>
                                     <div class="nk-gap"></div>
-                                    <a href="" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                    <a href="../Galaxy_Game_Store/bag"
+                                        class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         My bag</a>
                                 <?php }
                                 ?>
@@ -280,6 +282,11 @@
             <li>
                 <a href="../Galaxy_Game_Store/main_news">
                     NEWS
+                </a>
+            </li>
+            <li>
+                <a href="../Galaxy_Game_Store/recharge">
+                    Recharge
                 </a>
             </li>
             <li>
