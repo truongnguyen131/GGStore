@@ -2,7 +2,7 @@
 session_start();
 include_once('../mod/database_connection.php');
 if (!isset($_SESSION['id_account'])) {
-    echo '<script> window.location = "./login"; </script>';
+    echo '<script> window.location = "./pages/login.php"; </script>';
 } else {
     if (isset($_POST['newQuantity']) && isset($_POST['key'])) {
         $_SESSION['shopping_cart'][$_POST['key']]['quantity'] = $_POST['newQuantity'];

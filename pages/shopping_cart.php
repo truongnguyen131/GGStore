@@ -3,7 +3,7 @@ session_start();
 include_once('../mod/database_connection.php');
 
 if (!isset($_SESSION['id_account'])) {
-    header("Location: ../Galaxy_Game_Store/login");
+    header("Location: pages/login.php");
 }
 
 

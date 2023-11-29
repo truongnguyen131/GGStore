@@ -6,7 +6,7 @@ function success($conn, $id_account, $username, $role)
     $_SESSION["role"] = $role;
     $sql = "UPDATE users SET login_attempts = 0, lastest_login = NOW() WHERE username = '$username'";
     $conn->query($sql);
-    echo '<script>window.location="http://localhost:82/Galaxy_Game_Store/home"</script>';
+    echo '<script>window.location="../home"</script>';
 }
 
 function error()

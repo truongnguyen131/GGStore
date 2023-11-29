@@ -34,7 +34,6 @@ include_once('../mod/database_connection.php');
 
             </ul>
         </div>
-        <div class="nk-gap-1"></div>
         <!-- END: Breadcrumbs -->
 
         <div class="container">

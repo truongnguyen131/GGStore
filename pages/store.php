@@ -23,14 +23,14 @@ include_once '../mod/database_connection.php';
                 <li><span>Store</span></li>
             </ul>
         </div>
-        <div class="nk-gap-1"></div>
+        <div class="nk-gap"></div>
         <!-- END: Breadcrumbs -->
 
         <div class="container">
 
 
             <!-- START: Products Filter -->
-            <div class="nk-gap-2"></div>
+            <div class="nk-gap-1"></div>
             <div class="row vertical-gap">
                 <div class="col-lg-12">
                     <div class="row vertical-gap">

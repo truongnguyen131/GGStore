@@ -40,7 +40,7 @@ $row_p = $result_product->fetch_assoc();
               }, 1000);
             });
             setTimeout(() => {
-                location.href= "http://localhost:82/Galaxy_Game_Store/product_details.php?id=' . $id_product . '";
+                location.href= "./product_details.php?id=' . $id_product . '";
               }, 2500);
         </script>';
     }

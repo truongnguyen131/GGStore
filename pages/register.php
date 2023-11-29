@@ -90,9 +90,9 @@ include_once('../mod/database_connection.php');
 <canvas></canvas>
     <form method="post" class="form_register">
         <a class="link_icon home" href="/Galaxy_Game_Store/home" title="Home"> <ion-icon class="icon" name="home-outline"></ion-icon></a>
-        <a class="link_icon login" href="/Galaxy_Game_Store/login" title="Login"><ion-icon class="icon" name="log-in-outline"></ion-icon></a>
+        <a class="link_icon login" href="./pages/login.php" title="Login"><ion-icon class="icon" name="log-in-outline"></ion-icon></a>
         <div class="from_title">
-            <h3>Register</h3>
+            <h3>Register</h3>    
         </div>
         <div class="form_item">
             <label for="fullname">Full name</label>
