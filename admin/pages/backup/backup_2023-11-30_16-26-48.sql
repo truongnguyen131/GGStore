@@ -155,7 +155,7 @@ CREATE TABLE `news_comments` (
 
 LOCK TABLES `news_comments` WRITE;
 /*!40000 ALTER TABLE `news_comments` DISABLE KEYS */;
-INSERT INTO `news_comments` VALUES (3,'nice game!!!','2023-11-13 02:43:00',1,33,NULL),(4,'nai xừ','2023-11-19 13:08:16',1,35,NULL),(15,'ok ok','2023-11-19 13:07:55',1,35,3),(16,'à há','2023-11-19 13:09:24',2,35,NULL),(28,'ádsad','2023-11-25 13:11:28',2,35,NULL);
+INSERT INTO `news_comments` VALUES (3,'nice game!!!','2023-11-13 02:43:00',1,33,NULL),(4,'nai xừ!','2023-11-29 14:26:22',1,35,NULL),(15,'ok ok','2023-11-19 13:07:55',1,35,3),(16,'à há','2023-11-19 13:09:24',2,35,NULL),(28,'ádsad','2023-11-25 13:11:28',2,35,NULL);
 /*!40000 ALTER TABLE `news_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +230,7 @@ CREATE TABLE `order_details` (
   KEY `order_details_ibfk_2` (`product_id`),
   CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +239,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (19,3,29,1),(20,3,30,1);
+INSERT INTO `order_details` VALUES (19,3,29,1),(20,3,30,1),(21,9,20,1),(22,9,19,1),(23,9,16,1),(24,10,21,1);
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,12 +255,12 @@ CREATE TABLE `orders` (
   `customer_id` int(11) NOT NULL,
   `order_date` datetime NOT NULL,
   `total_amount` int(11) NOT NULL,
-  `address` varchar(500) NOT NULL,
-  `status` enum('Waiting for confirmation','Waiting for delivery','Paid','Cancelled') DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `status` enum('Waiting for confirmation','Waiting for delivery','Paid','Cancelled') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `orders_ibfk_1` (`customer_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +269,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (3,33,'2023-10-26 14:50:00',408000,'343/14 khu vực Bình Yên A Phường Long Hòa Quận Bình Thuỷ Thành phố Cần Thơ','Paid'),(5,35,'2023-10-26 14:57:00',2808000,'343/14 khu vực Bình Yên A Phường Long Hòa Quận Bình Thuỷ Thành phố Cần Thơ','Waiting for confirmation');
+INSERT INTO `orders` VALUES (3,33,'2023-10-26 14:50:00',408000,'343/14 khu vực Bình Yên A Phường Long Hòa Quận Bình Thuỷ Thành phố Cần Thơ','Paid'),(5,35,'2023-10-26 14:57:00',2808000,'343/14 khu vực Bình Yên A Phường Long Hòa Quận Bình Thuỷ Thành phố Cần Thơ','Waiting for confirmation'),(9,35,'2023-11-30 14:34:32',63,' ','Paid'),(10,35,'2023-11-30 20:42:15',9,'','Paid');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +292,7 @@ CREATE TABLE `product_comments` (
   KEY `fk_user` (`user_id`),
   CONSTRAINT `fk_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +301,7 @@ CREATE TABLE `product_comments` (
 
 LOCK TABLES `product_comments` WRITE;
 /*!40000 ALTER TABLE `product_comments` DISABLE KEYS */;
-INSERT INTO `product_comments` VALUES (2,'ok ok','2023-11-01','5',11,35),(3,'OK','2023-11-25','4',19,33),(29,'a','2023-11-25','3',21,33),(30,'ok','2023-11-25','5',21,33),(31,'a','2023-11-25','1',21,33),(32,'ok','2023-11-27','5',14,1),(33,'ko ok ','2023-11-28','1',14,35);
+INSERT INTO `product_comments` VALUES (2,'ok ok','2023-11-01','5',11,35),(3,'OK','2023-11-25','4',19,33),(29,'a','2023-11-25','3',21,33),(30,'ok','2023-11-25','5',21,33),(31,'a','2023-11-25','1',21,33),(32,'ok','2023-11-27','5',14,1),(33,'ko ok ','2023-11-28','1',14,35),(34,'ôk','2023-11-29','3',21,35);
 /*!40000 ALTER TABLE `product_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,7 +384,7 @@ CREATE TABLE `purchased_products` (
   KEY `exchanges_ibfk_2` (`product_id`),
   CONSTRAINT `purchased_products_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `purchased_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,7 +393,7 @@ CREATE TABLE `purchased_products` (
 
 LOCK TABLES `purchased_products` WRITE;
 /*!40000 ALTER TABLE `purchased_products` DISABLE KEYS */;
-INSERT INTO `purchased_products` VALUES (1,33,29,1,7,'trading'),(3,33,11,1,40,'trading'),(4,33,19,1,1,'traded'),(7,35,13,1,0,'not trading'),(10,35,13,2,16,'review'),(11,35,13,3,22,'trading'),(13,35,13,1,6,'trading');
+INSERT INTO `purchased_products` VALUES (1,33,29,1,19,'trading'),(3,33,11,1,54,'trading'),(4,33,19,1,1,'traded'),(7,35,21,2,0,'not trading'),(17,35,13,4,27,'trading'),(18,35,21,1,8,'traded'),(19,35,20,1,0,'not trading'),(20,35,19,1,0,'not trading'),(21,35,16,1,0,'not trading'),(22,35,18,1,0,'not trading'),(23,35,21,1,8,'trading');
 /*!40000 ALTER TABLE `purchased_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +415,7 @@ CREATE TABLE `tradings_history` (
   KEY `tradings_history_ibfk_3` (`product_id`),
   CONSTRAINT `tradings_history_ibfk_2` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tradings_history_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `purchased_products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +424,7 @@ CREATE TABLE `tradings_history` (
 
 LOCK TABLES `tradings_history` WRITE;
 /*!40000 ALTER TABLE `tradings_history` DISABLE KEYS */;
-INSERT INTO `tradings_history` VALUES (2,35,4,2,'2023-05-12 00:00:00');
+INSERT INTO `tradings_history` VALUES (2,35,4,2,'2023-05-12 00:00:00'),(4,35,18,8,'2023-11-30 20:42:15');
 /*!40000 ALTER TABLE `tradings_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -485,7 +485,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'ggs_administrator_01','$2y$10$7poHRO8H3.BvTvs2DQT4ju3JfRyuHrEmn.UYpIGq8eAi8l8ukV0K2','developer','Trương Minh Trí','0938441905','truongminhtri1905@gmail.com',0,NULL,0,'2023-11-29'),(24,'vng_official','$2y$10$cbpLLzJMxr1zDU/nqqZJPeQj18rwxYsdQNJJPDg7yK54aKSRkjUYq','manufacturer','VNG Game','0225982431','vng_official@gmail.com',0,NULL,0,'0000-00-00'),(33,'lvluyen902','$2y$10$vt2NoRBx31nEAB0GWPTEkeU5utBltx8FqxffI5yQDQZYAZua21kdK','user','Lê Văn Luyện','0938665889','lvluyen902@gmail.com',0,NULL,0,'2023-11-27'),(35,'thesi2000pl','$2y$10$5/QF.PaRVJFNKiJp4RvUA.HidvfFGv8YLZtsdNpvAzgg8GhDo9.MO','user','The Si','0123954634','tmtri1905@gmail.com',0,NULL,0,'2023-11-28');
+INSERT INTO `users` VALUES (1,'ggs_administrator_01','$2y$10$7poHRO8H3.BvTvs2DQT4ju3JfRyuHrEmn.UYpIGq8eAi8l8ukV0K2','developer','Trương Minh Trí','0938441905','truongminhtri1905@gmail.com',0,NULL,0,'2023-11-30'),(24,'vng_official','$2y$10$cbpLLzJMxr1zDU/nqqZJPeQj18rwxYsdQNJJPDg7yK54aKSRkjUYq','manufacturer','VNG Game','0225982431','vng_official@gmail.com',0,NULL,0,'0000-00-00'),(33,'lvluyen902','$2y$10$vt2NoRBx31nEAB0GWPTEkeU5utBltx8FqxffI5yQDQZYAZua21kdK','user','Lê Văn Luyện','0938665889','lvluyen902@gmail.com',50,NULL,0,'2023-11-30'),(35,'thesi2000pl','$2y$10$5/QF.PaRVJFNKiJp4RvUA.HidvfFGv8YLZtsdNpvAzgg8GhDo9.MO','user','The Si','0123954634','tmtri1905@gmail.com',28,NULL,0,'2023-11-30');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -553,4 +553,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-29  0:28:32
+-- Dump completed on 2023-11-30 22:26:49

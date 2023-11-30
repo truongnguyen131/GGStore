@@ -2,6 +2,7 @@
 session_start();
 include_once('../mod/database_connection.php');
 
+$user_id = $_SESSION['id_account'];
 
 $classify = isset($_POST['postData']['classify_product']) ? $_POST['postData']['classify_product'] : "all";
 $list_genres = isset($_POST['postData']['list_genres']) ? $_POST['postData']['list_genres'] : "";
@@ -31,7 +32,7 @@ if ($classify == "exchange" || $classify == "all") {
     LEFT JOIN products p ON p.id = pp.product_id
     LEFT JOIN genre_product gp ON p.id = gp.product_id
     LEFT JOIN product_comments pc ON p.id = pc.product_id
-    WHERE p.release_date <= NOW() AND pp.status = 'trading'";
+    WHERE p.release_date <= NOW() AND pp.status = 'trading' AND pp.customer_id  != $user_id";
 
     if ($classify == "game" || $classify == "gear") {
         $sql_filter_exchange .= " AND p.classify = '$classify'";
