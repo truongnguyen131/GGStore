@@ -43,7 +43,7 @@ if (!isset($_SESSION['id_account'])) {
     <?php
 
     if (isset($_GET['message']) && $_GET['message'] == "Successful.") {
-        $amount = $_GET['amount']/1000;
+        $amount = $_GET['amount'] / 1000;
 
         $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin+? WHERE `id`= ?";
         $stmt_update_gcoin = $conn->prepare($sql_update_gcoin);
@@ -93,8 +93,6 @@ if (!isset($_SESSION['id_account'])) {
                     <div class="btn_tabs">
                         <button class="btn_tab" id="momo"><img style="border-radius: 10%;"
                                 src="./assets/images/momo_logo.png" alt>Momo</button>
-                        <button class="btn_tab" id="paypal"><img style="border-radius: 10%;"
-                                src="./assets/images/paypal-logo.png" alt>PayPal</button>
                         <button class="btn_tab" id="vnpay"><img style="border-radius: 10%;"
                                 src="./assets/images/vnpay-logo.png" alt>VNPay</button>
                     </div>
@@ -199,7 +197,7 @@ if (!isset($_SESSION['id_account'])) {
     <!-- END: Scripts -->
 
     <script>
-        const paypal = document.getElementById('paypal');
+
         const momo = document.getElementById('momo');
         const vnpay = document.getElementById('vnpay');
         document.getElementById("payment_methods").innerHTML = 'MoMo';
@@ -208,21 +206,14 @@ if (!isset($_SESSION['id_account'])) {
         momo.onclick = () => {
             momo.style.border = '1px solid #dd163b';
             vnpay.style.border = '1px solid gray';
-            paypal.style.border = '1px solid gray';
             document.getElementById("payment_methods").innerHTML = 'MoMo';
         }
         vnpay.onclick = () => {
             vnpay.style.border = '1px solid #dd163b';
             momo.style.border = '1px solid gray';
-            paypal.style.border = '1px solid gray';
             document.getElementById("payment_methods").innerHTML = 'VNPay';
         }
-        paypal.onclick = () => {
-            paypal.style.border = '1px solid #dd163b';
-            momo.style.border = '1px solid gray';
-            vnpay.style.border = '1px solid gray';
-            document.getElementById("payment_methods").innerHTML = 'PayPal';
-        }
+
 
     </script>
 
@@ -284,9 +275,6 @@ if (!isset($_SESSION['id_account'])) {
             }
             if (payment_methods == "VNPay") {
                 location.href = './vnpay_php/vnpay_pay.php';
-            }
-            if (payment_methods == "PayPal") {
-                location.href = 'http://localhost:3000/PayPal/index.php';
             }
 
         }
