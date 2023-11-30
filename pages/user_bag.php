@@ -9,8 +9,9 @@ $type_item = isset($_POST["type_item"]) ? $_POST["type_item"] : "all";
 $game_status = isset($_POST["game_status"]) ? $_POST["game_status"] : "all";
 $type_voucher = isset($_POST["type_voucher"]) ? $_POST["type_voucher"] : "all";
 
-
-
+if (isset($_GET['game'])) {
+    $type_item = 'game';
+}
 
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -23,6 +24,9 @@ if ($page == 1) {
     $begin = ($page * 4) - 4;
 }
 
+$nums_game = 0;
+$nums_voucher = 0;
+
 if ($type_item == "game" || $type_item == "all") {
     $sql_sl_purchased_products = "SELECT pp.*,p.product_name,p.image_avt_url,p.price FROM `purchased_products` pp 
                                     LEFT JOIN products p ON p.id = pp.product_id
@@ -33,10 +37,8 @@ if ($type_item == "game" || $type_item == "all") {
 
     $result_sl_pp = $conn->query($sql_sl_purchased_products);
 
-    $total_num_rows += $result_sl_pp->num_rows;
+    $nums_game = $result_sl_pp->num_rows;
 
-    $sql_sl_purchased_products .= " LIMIT $begin, 4";
-    $result_sl_pp = $conn->query($sql_sl_purchased_products);
 
 }
 
@@ -49,12 +51,31 @@ AND u.user_id = $user_id";
     }
     $result_sl_uv = $conn->query($sql_sl_user_voucher);
 
+    $nums_voucher = $result_sl_uv->num_rows;
 
-    $total_num_rows += $result_sl_uv->num_rows;
+}
 
+if ($nums_voucher >= $nums_game) {
+    $total_num_rows = $nums_voucher;
+} else {
+    $total_num_rows = $nums_game;
+}
+
+$total_page = ceil($total_num_rows / 4);
+if ($page > $total_page) {
+    $page = 1;
+    $begin = 0;
+}
+
+if ($nums_voucher > 0) {
     $sql_sl_user_voucher .= " LIMIT $begin, 4";
     $result_sl_uv = $conn->query($sql_sl_user_voucher);
 }
+if ($nums_game > 0) {
+    $sql_sl_purchased_products .= " LIMIT $begin, 4";
+    $result_sl_pp = $conn->query($sql_sl_purchased_products);
+}
+
 
 ?>
 
@@ -395,7 +416,6 @@ AND u.user_id = $user_id";
                     <span class="ion-ios-arrow-back"></span>
                 </a>
                 <nav>
-                    <?php $total_page = ceil($total_num_rows / 8); ?>
                     <?php for ($i = 1; $i <= $total_page; $i++) { ?>
                         <a class="<?= ($i == $page) ? "nk-pagination-current" : "" ?>"
                             href='javascript:page_user_bag("bag?page=<?= $i ?>")'>

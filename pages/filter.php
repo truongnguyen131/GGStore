@@ -49,7 +49,7 @@ if ($classify == "exchange" || $classify == "all") {
     $sql_filter_exchange .= " GROUP BY p.id, pp.id";
     $result_filter_exchange = $conn->query($sql_filter_exchange);
     $nums_exchange = $result_filter_exchange->num_rows;
-    $total_num_rows = $nums_exchange;
+
 }
 
 if ($classify != "exchange") {
@@ -87,6 +87,11 @@ if ($classify != "exchange") {
     $sql_filter_product .= " GROUP BY p.id";
     $result_filter_product = $conn->query($sql_filter_product);
     $nums_product = $result_filter_product->num_rows;
+}
+
+if($nums_exchange >= $nums_product){
+    $total_num_rows = $nums_exchange;
+}else{
     $total_num_rows = $nums_product;
 }
 

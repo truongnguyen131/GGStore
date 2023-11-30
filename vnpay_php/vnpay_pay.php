@@ -51,6 +51,8 @@
                     <label for="bankCode">Payment via international cards</label><br>
 
                 </div>
+
+                
                 <div class="form-group">
                     <h5>Select payment interface language:</h5>
                     <input type="radio" id="language" Checked="True" name="language" value="vn">
