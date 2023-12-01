@@ -9,6 +9,10 @@ $type_item = isset($_POST["type_item"]) ? $_POST["type_item"] : "all";
 $game_status = isset($_POST["game_status"]) ? $_POST["game_status"] : "all";
 $type_voucher = isset($_POST["type_voucher"]) ? $_POST["type_voucher"] : "all";
 
+if (isset($_GET['game'])) {
+    $type_item = 'game';
+}
+
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 } else {
@@ -20,6 +24,9 @@ if ($page == 1) {
     $begin = ($page * 4) - 4;
 }
 
+$nums_game = 0;
+$nums_voucher = 0;
+
 if ($type_item == "game" || $type_item == "all") {
     $sql_sl_purchased_products = "SELECT pp.*,p.product_name,p.image_avt_url,p.price FROM `purchased_products` pp 
                                     LEFT JOIN products p ON p.id = pp.product_id
@@ -30,10 +37,8 @@ if ($type_item == "game" || $type_item == "all") {
 
     $result_sl_pp = $conn->query($sql_sl_purchased_products);
 
-    $total_num_rows += $result_sl_pp->num_rows;
+    $nums_game = $result_sl_pp->num_rows;
 
-    $sql_sl_purchased_products .= " LIMIT $begin, 4";
-    $result_sl_pp = $conn->query($sql_sl_purchased_products);
 
 }
 
@@ -46,12 +51,31 @@ AND u.user_id = $user_id";
     }
     $result_sl_uv = $conn->query($sql_sl_user_voucher);
 
+    $nums_voucher = $result_sl_uv->num_rows;
 
-    $total_num_rows += $result_sl_uv->num_rows;
+}
 
+if ($nums_voucher >= $nums_game) {
+    $total_num_rows = $nums_voucher;
+} else {
+    $total_num_rows = $nums_game;
+}
+
+$total_page = ceil($total_num_rows / 4);
+if ($page > $total_page) {
+    $page = 1;
+    $begin = 0;
+}
+
+if ($nums_voucher > 0) {
     $sql_sl_user_voucher .= " LIMIT $begin, 4";
     $result_sl_uv = $conn->query($sql_sl_user_voucher);
 }
+if ($nums_game > 0) {
+    $sql_sl_purchased_products .= " LIMIT $begin, 4";
+    $result_sl_pp = $conn->query($sql_sl_purchased_products);
+}
+
 
 ?>
 
@@ -93,7 +117,7 @@ AND u.user_id = $user_id";
         window.addEventListener("load", function () {
             notification_dialog("Success", "Cancel Selling Product Successful!!!");
             setTimeout(() => {
-                location.href = "http://localhost:82/Galaxy_Game_Store/bag";
+                location.href = "./bag";
             }, 2000);
         });
             </script>';
@@ -127,31 +151,34 @@ AND u.user_id = $user_id";
                             <div class="col-md-3">
                                 <select class="form-control" name="type_item" onchange="submit()">
                                     <option class="options-custom" value="all">All Type Item</option>
-                                    <option value="game" <?php echo (($type_item) == 'game') ? 'selected' : ''; ?>>Game
+                                    <option value="game" <?= (($type_item) == 'game') ? 'selected' : ''; ?>>Game
                                     </option>
-                                    <option value="voucher" <?php echo (($type_item) == 'voucher') ? 'selected' : ''; ?>>
+                                    <option value="voucher" <?= (($type_item) == 'voucher') ? 'selected' : ''; ?>>
                                         Voucher
                                     </option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-3" <?= (($type_item) == 'voucher') ? 'hidden' : ''; ?>>
                                 <select class="form-control form-price" name="game_status" onchange="submit()">
                                     <option value="all">All Game Status</option>
-                                    <option value="not trading" <?php echo (($game_status) == 'not trading') ? 'selected' : ''; ?>>Not Tranding</option>
-                                    <option value="trading" <?php echo (($game_status) == 'trading') ? 'selected' : ''; ?>>Tranding</option>
-                                    <option value="review" <?php echo (($game_status) == 'review') ? 'selected' : ''; ?>>
+                                    <option value="not trading" <?= (($game_status) == 'not trading') ? 'selected' : ''; ?>>Not Tranding</option>
+                                    <option value="trading" <?= (($game_status) == 'trading') ? 'selected' : ''; ?>>
+                                        Tranding</option>
+                                    <option value="review" <?= (($game_status) == 'review') ? 'selected' : ''; ?>>
                                         Approval</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-3" <?= (($type_item) == 'game') ? 'hidden' : ''; ?>>
                                 <select class="form-control form-price" name="type_voucher" onchange="submit()">
                                     <option value="all">All Type Voucher</option>
-                                    <option value="percent" <?php echo (($type_voucher) == 'percent') ? 'selected' : ''; ?>>Percentage Discount</option>
-                                    <option value="gcoin" <?php echo (($type_voucher) == 'gcoin') ? 'selected' : ''; ?>>
+                                    <option value="percent" <?= (($type_voucher) == 'percent') ? 'selected' : ''; ?>>
+                                        Percentage Discount</option>
+                                    <option value="gcoin" <?= (($type_voucher) == 'gcoin') ? 'selected' : ''; ?>>
                                         Discount in Gcoin</option>
-                                    <option value="freeship" <?php echo (($type_voucher) == 'freeship') ? 'selected' : ''; ?>>Voucher Freeship</option>
+                                    <option value="freeship" <?= (($type_voucher) == 'freeship') ? 'selected' : ''; ?>>
+                                        Voucher Freeship</option>
                                 </select>
                             </div>
 
@@ -389,7 +416,6 @@ AND u.user_id = $user_id";
                     <span class="ion-ios-arrow-back"></span>
                 </a>
                 <nav>
-                    <?php $total_page = ceil($total_num_rows / 8); ?>
                     <?php for ($i = 1; $i <= $total_page; $i++) { ?>
                         <a class="<?= ($i == $page) ? "nk-pagination-current" : "" ?>"
                             href='javascript:page_user_bag("bag?page=<?= $i ?>")'>

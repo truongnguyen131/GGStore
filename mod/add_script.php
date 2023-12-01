@@ -60,6 +60,8 @@
 <script src="assets/js/goodgames.min.js"></script>
 <script src="assets/js/goodgames-init.js"></script>
 
+
+
 <script>
     $('.recommend-slider').flickity({
         // options

@@ -183,7 +183,7 @@
                                 </div>
                             </span>
                         <?php } else { ?>
-                            <a href="../Galaxy_Game_Store/login">
+                            <a href="./pages/login.php">
                                 <span class="fa fa-user"></span>
                             </a>
                         <?php } ?>

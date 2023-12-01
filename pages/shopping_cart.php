@@ -3,7 +3,7 @@ session_start();
 include_once('../mod/database_connection.php');
 
 if (!isset($_SESSION['id_account'])) {
-    header("Location: ../Galaxy_Game_Store/login");
+    header("Location: pages/login.php");
 }
 
 
@@ -63,7 +63,7 @@ if (isset($_GET['delete'])) {
 
         <div class="container">
             <div class="nk-store nk-store-cart">
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 400px;">
                     <?php if (isset($_SESSION['shopping_cart'])) { ?>
                         <!-- START: Products in Cart -->
                         <table class="table nk-store-cart-products">
@@ -104,7 +104,8 @@ if (isset($_GET['delete'])) {
                                                         onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
                                                         min="1" max="21">
                                                 <?php } else { ?>
-                                                    <input type="number" style="background-color: transparent;" readonly id="<?= $key ?>" class="form-control"
+                                                    <input type="number" style="background-color: transparent;" readonly
+                                                        id="<?= $key ?>" class="form-control"
                                                         onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
                                                         min="1" max="21">
                                                 <?php } ?>
@@ -176,34 +177,38 @@ if (isset($_GET['delete'])) {
 
                             </tbody>
                         </table>
-                        <table class="nk-table nk-table-sm">
-                            <tr class="nk-store-cart-totals-total">
-                                <td>
-                                    <strong style="color: #dc3545;">TOTAL PRICE OF PRODUCTS:</strong>
-                                </td>
-                                <td style="text-align: right;">
-                                    <span id="grand-total">
-                                        <?php
-                                        $total_price = array_sum(array_map(function ($item) {
-                                            return $item['price'] * $item['quantity'];
-                                        }, $_SESSION['shopping_cart']));
-                                        echo $total_price;
-                                        ?>
-                                    </span>
-                                    <i class="fas fa-gem"></i>
-                                </td>
-                            </tr>
-                        </table>
+
                         <!-- END: Products in Cart -->
                     <?php } ?>
 
 
                 </div>
+                <div class="nk-gap"></div>
+                <?php if (isset($_SESSION['shopping_cart'])) { ?>
+                    <table class="nk-table nk-table-sm">
+                        <tr class="nk-store-cart-totals-total">
+                            <td>
+                                <strong style="color: #dc3545;">TOTAL PRICE OF PRODUCTS:</strong>
+                            </td>
+                            <td style="text-align: right;">
+                                <span id="grand-total">
+                                    <?php
+                                    $total_price = array_sum(array_map(function ($item) {
+                                        return $item['price'] * $item['quantity'];
+                                    }, $_SESSION['shopping_cart']));
+                                    echo $total_price;
+                                    ?>
+                                </span>
+                                <i class="fas fa-gem"></i>
+                            </td>
+                        </tr>
+                    </table>
 
-                <div class="nk-gap-2"></div>
-                <a class="nk-btn nk-btn-rounded nk-btn-color-main-1 float-right"
-                    href="../Galaxy_Game_Store/checkout">Proceed to
-                    Checkout</a>
+                    <div class="nk-gap-2"></div>
+                    <a class="nk-btn nk-btn-rounded nk-btn-color-main-1 float-right"
+                        href="../Galaxy_Game_Store/checkout">Proceed to
+                        Checkout</a>
+                <?php } ?>
                 <div class="clearfix"></div>
             </div>
         </div>

@@ -2,6 +2,11 @@
 session_start();
 include_once('../mod/database_connection.php');
 $user_id = $_SESSION['id_account'];
+
+$sql = "SELECT Gcoin FROM `users` WHERE id = $user_id";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$gcoin = $row['Gcoin'];
 ?>
 
 <!DOCTYPE html>
@@ -12,8 +17,6 @@ $user_id = $_SESSION['id_account'];
 <?php include "../mod/head.php"; ?>
 
 <body>
-
-
 
     <?php include "../mod/nav.php"; ?>
 
@@ -51,7 +54,7 @@ $user_id = $_SESSION['id_account'];
 
 
         <div class="container">
-            <?php if (isset($_SESSION['shopping_cart'])) { ?>
+            <?php if (isset($_SESSION['shopping_cart']) && count($_SESSION['shopping_cart']) > 0) { ?>
                 <div class="nk-store nk-store-checkout">
 
                     <?php
@@ -84,7 +87,8 @@ $user_id = $_SESSION['id_account'];
 
                                     <label for="email">Email Address:</label>
                                     <input type="email" class="form-control required" name="email" id="email" readonly
-                                        style="color: #dd163b;background-color: transparent;" value="<?= $row_info_user['email'] ?>">
+                                        style="color: #dd163b;background-color: transparent;"
+                                        value="<?= $row_info_user['email'] ?>">
 
                                     <div class="nk-gap-1"></div>
                                     <div class="row vertical-gap">
@@ -97,13 +101,15 @@ $user_id = $_SESSION['id_account'];
                                         <div class="col-sm-6">
                                             <label for="phone">Phone Number:</label>
                                             <input type="tel" class="form-control required" name="phone" id="phone"
-                                                value="<?= $row_info_user['phone_number'] ?>" readonly style="color: #dd163b;background-color: transparent;">
+                                                value="<?= $row_info_user['phone_number'] ?>" readonly
+                                                style="color: #dd163b;background-color: transparent;">
                                         </div>
                                     </div>
 
                                     <div class="nk-gap-1"></div>
                                     <label for="address">Address <span class="text-main-1">*</span>:</label>
-                                    <input type="text" class="form-control required" placeholder="Number house - Street name" name="address" id="address">
+                                    <input type="text" class="form-control required" placeholder="Number house - Street name"
+                                        name="address" id="address">
 
                                 </div>
                                 <div class="col-lg-6">
@@ -127,6 +133,10 @@ $user_id = $_SESSION['id_account'];
                             </div>
                         </form>
 
+                        <!-- MapBox -->
+                        <div>
+
+                        </div>
 
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
                             integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
@@ -155,7 +165,7 @@ $user_id = $_SESSION['id_account'];
                             }
 
                             var renderData = (array, select) => {
-                                let row = ' <option disable value="">--'+select+'--</option>';
+                                let row = ' <option disable value="">--' + select + '--</option>';
                                 array.forEach(element => {
                                     row += `<option value="${element.code}">${element.name}</option>`
                                 });
@@ -169,7 +179,7 @@ $user_id = $_SESSION['id_account'];
                                 callApiWard(host + "d/" + $("#district").val() + "?depth=2");
                             });
                         </script>
-                        
+
                         <!-- END: Billing Details -->
 
                         <div class="nk-gap-3"></div>
@@ -187,7 +197,7 @@ $user_id = $_SESSION['id_account'];
                                     <th class="nk-product-cart-total">Total</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="checkout_item_scroll">
                                 <?php foreach ($_SESSION["shopping_cart"] as $key => $value) { ?>
                                     <tr>
                                         <td class="nk-product-cart-title">
@@ -260,24 +270,25 @@ $user_id = $_SESSION['id_account'];
                                     </tr>
                                 <?php } ?>
 
-                                <tr class="nk-store-cart-totals-shipping">
-                                    <td>
-                                        Voucher
-                                    </td>
-                                    <td>
-                                        <select name="voucher_id" id="voucher_id" class="form-control required"
-                                            onchange="update_total_price()">
-                                            <option value="none">--None----</option>
-                                            <?php
 
-                                            $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
-                                            INNER JOIN user_voucher uv ON v.id = uv.voucher_id
-                                            WHERE uv.user_id = $user_id AND v.type != 'freeship' AND v.minimum_condition <= $subtotal 
+                                <?php
+                                $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
+                                                    INNER JOIN user_voucher uv ON v.id = uv.voucher_id
+                            WHERE uv.user_id = $user_id AND v.type != 'freeship' AND v.minimum_condition <= $subtotal 
                                             AND (v.quantity >= 1 OR v.quantity is NULL) 
                                             AND (v.date_expiry >= NOW() OR v.date_expiry IS NULL)";
 
-                                            $result_sl_voucher = $conn->query($sql_sl_voucher);
-                                            if ($result_sl_voucher->num_rows > 0) {
+                                $result_sl_voucher = $conn->query($sql_sl_voucher);
+                                if ($result_sl_voucher->num_rows > 0) { ?>
+                                    <tr class="nk-store-cart-totals-shipping">
+                                        <td>
+                                            Voucher
+                                        </td>
+                                        <td>
+                                            <select name="voucher_id" id="voucher_id" class="form-control required"
+                                                onchange="update_total_price()">
+                                                <option value="none">--None----</option>
+                                                <?php
                                                 while ($row_sl_voucher = $result_sl_voucher->fetch_assoc()) { ?>
                                                     <option value="<?php echo $row_sl_voucher["id"]; ?>">
                                                         <?php
@@ -290,21 +301,11 @@ $user_id = $_SESSION['id_account'];
                                                         echo $string_discount;
                                                         ?>
                                                     </option>
-                                                <?php }
-                                            } ?>
-                                        </select>
-                                    </td>
-                                </tr>
-
-                                <script>
-                                    function update_total_price() {
-                                        var voucher_id = document.getElementById("voucher_id").value;
-                                        $.post('../Galaxy_Game_Store/pages/update_total_price.php', { voucher_id: voucher_id }, function (data) {
-                                            $('#total_price').html(data);
-                                        });
-                                    }
-                                </script>
-
+                                                <?php } ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                                 <tr class="nk-store-cart-totals-total">
                                     <td>
                                         Total
@@ -316,18 +317,36 @@ $user_id = $_SESSION['id_account'];
                                         <i class="fas fa-gem"></i>
                                     </td>
                                 </tr>
+
+                                <script>
+                                    function update_total_price() {
+                                        var freeship_id = 'none';
+                                        var voucher_id = 'none';
+
+                                        if (document.getElementById("freeship_id")) {
+                                            var freeship_id = document.getElementById("freeship_id").value;
+                                        }
+                                        if (document.getElementById("voucher_id")) {
+                                            var voucher_id = document.getElementById("voucher_id").value;
+                                        }
+                                        $.post('../Galaxy_Game_Store/pages/update_total_price.php', { freeship_id: freeship_id, voucher_id: voucher_id }, function (data) {
+                                            $('#total_price').html(data);
+                                        });
+                                    }
+                                </script>
                             </tbody>
                         </table>
                     </div>
                     <!-- END: Order Products -->
 
                     <div class="nk-gap-2"></div>
-                    <a class="nk-btn nk-btn-rounded nk-btn-color-main-1" href="#">Place Order</a>
+                    <a class="nk-btn nk-btn-rounded nk-btn-color-main-1" href="javascript:place_order()">Place Order</a>
                 </div>
             <?php } ?>
         </div>
         <div class="nk-gap-2"></div>
 
+        <div id="return_process_checkout"></div>
 
         <!-- START: Footer -->
         <?php include "../mod/footer.php"; ?>
@@ -336,7 +355,21 @@ $user_id = $_SESSION['id_account'];
 
     </div>
 
+    <script>
+        function place_order() {
+            var total_price = Number(document.getElementById("total_price").innerText);
+            var gcoin = <?= $gcoin ?>;
 
+            if (total_price > gcoin) {
+                notification_dialog("Failed", "The order exceeds the G-Coin you currently own!!!");
+                return false;
+            }
+
+            $.post('../Galaxy_Game_Store/pages/checkout_process.php', { total_price: total_price }, function (data) {
+                $('#return_process_checkout').html(data);
+            });
+        }
+    </script>
 
 
 

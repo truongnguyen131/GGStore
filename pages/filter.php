@@ -2,6 +2,7 @@
 session_start();
 include_once('../mod/database_connection.php');
 
+$user_id = $_SESSION['id_account'];
 
 $classify = isset($_POST['postData']['classify_product']) ? $_POST['postData']['classify_product'] : "all";
 $list_genres = isset($_POST['postData']['list_genres']) ? $_POST['postData']['list_genres'] : "";
@@ -23,6 +24,34 @@ if ($page == 1) {
 
 $nums_product = 0;
 $nums_exchange = 0;
+
+if ($classify == "exchange" || $classify == "all") {
+    $sql_filter_exchange = "SELECT p.id,p.product_name,p.image_avt_url,pp.price,pp.quantity, pp.id as PPID,
+    IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
+    FROM purchased_products pp      
+    LEFT JOIN products p ON p.id = pp.product_id
+    LEFT JOIN genre_product gp ON p.id = gp.product_id
+    LEFT JOIN product_comments pc ON p.id = pc.product_id
+    WHERE p.release_date <= NOW() AND pp.status = 'trading' AND pp.customer_id  != $user_id";
+
+    if ($classify == "game" || $classify == "gear") {
+        $sql_filter_exchange .= " AND p.classify = '$classify'";
+    }
+    if ($search != "") {
+        $sql_filter_exchange .= " AND p.product_name LIKE '%$search%'";
+    }
+    if ($price != "all") {
+        $sql_filter_exchange .= " AND p.price <= $price";
+    }
+    if ($list_genres_string != "") {
+        $sql_filter_exchange .= " AND gp.genre_id IN ($list_genres_string)";
+    }
+
+    $sql_filter_exchange .= " GROUP BY p.id, pp.id";
+    $result_filter_exchange = $conn->query($sql_filter_exchange);
+    $nums_exchange = $result_filter_exchange->num_rows;
+
+}
 
 if ($classify != "exchange") {
     $sql_filter_product = "SELECT p.id,p.product_name,p.image_avt_url,p.price,d.discount_amount,
@@ -59,37 +88,14 @@ if ($classify != "exchange") {
     $sql_filter_product .= " GROUP BY p.id";
     $result_filter_product = $conn->query($sql_filter_product);
     $nums_product = $result_filter_product->num_rows;
-
 }
 
-if ($classify == "exchange" || $classify == "all") {
-    $sql_filter_exchange = "SELECT p.id,p.product_name,p.image_avt_url,pp.price,pp.quantity, pp.id as PPID,
-    IF(pc.product_id IS NULL, 0, ROUND( AVG(rating) ) ) AS avg_star
-    FROM purchased_products pp      
-    LEFT JOIN products p ON p.id = pp.product_id
-    LEFT JOIN genre_product gp ON p.id = gp.product_id
-    LEFT JOIN product_comments pc ON p.id = pc.product_id
-    WHERE p.release_date <= NOW() AND pp.status = 'trading'";
-
-    if ($classify == "game" || $classify == "gear") {
-        $sql_filter_exchange .= " AND p.classify = '$classify'";
-    }
-    if ($search != "") {
-        $sql_filter_exchange .= " AND p.product_name LIKE '%$search%'";
-    }
-    if ($price != "all") {
-        $sql_filter_exchange .= " AND p.price <= $price";
-    }
-    if ($list_genres_string != "") {
-        $sql_filter_exchange .= " AND gp.genre_id IN ($list_genres_string)";
-    }
-
-    $sql_filter_exchange .= " GROUP BY p.id, pp.id";
-    $result_filter_exchange = $conn->query($sql_filter_exchange);
-    $nums_exchange = $result_filter_exchange->num_rows;
+if($nums_exchange >= $nums_product){
+    $total_num_rows = $nums_exchange;
+}else{
+    $total_num_rows = $nums_product;
 }
 
-$total_num_rows = $nums_product;
 $total_page = ceil($total_num_rows / 8);
 
 if ($currentPage > $total_page) {
@@ -123,7 +129,8 @@ if ($nums_exchange > 0) {
                     </a>
                     <div class="nk-gap"></div>
                     <h2 class="nk-post-title h4">
-                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_product['id'] ?>" title="<?= $row_product['product_name'] ?>">
+                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_product['id'] ?>"
+                            title="<?= $row_product['product_name'] ?>">
                             <?= $row_product['product_name'] ?>
                         </a>
                     </h2>
@@ -185,7 +192,8 @@ if ($nums_exchange > 0) {
                     </a>
                     <div class="nk-gap"></div>
                     <h2 class="nk-post-title h4">
-                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_exchange['id'] ?>" title="<?= $row_exchange['product_name'] ?>">
+                        <a href="../Galaxy_Game_Store/product_details?id=<?= $row_exchange['id'] ?>"
+                            title="<?= $row_exchange['product_name'] ?>">
                             <?= $row_exchange['product_name'] ?>
                         </a>
                         x

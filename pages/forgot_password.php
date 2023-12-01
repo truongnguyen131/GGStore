@@ -283,7 +283,7 @@ include_once('../mod/database_connection.php'); ?>
     }
 
     function back() {
-        window.location = "http://localhost:82/Galaxy_Game_Store/login";
+        window.location = "./pages/login.php";
     }
 </script>
 

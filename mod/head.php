@@ -44,10 +44,6 @@
     <!-- Summernote -->
     <link rel="stylesheet" type="text/css" href="assets/vendor/summernote/dist/summernote-bs4.css">
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="assets/css/custom.css">
-    <!-- END: Styles -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -61,5 +57,5 @@
 
     <link rel="stylesheet" href="./assets/css/grand_custom1.css">
     <!-- myCSS -->
-    <link rel="stylesheet" href="./assets/css/css_custom1.css">
+    <link rel="stylesheet" href="./assets/css/css_custom.css">
 </head>

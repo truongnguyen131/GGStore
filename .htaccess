@@ -4,7 +4,6 @@
     RewriteRule ^home index.php [L]
     RewriteRule ^forgot_password pages/forgot_password.php [L]
     RewriteRule ^register pages/register.php [L]
-    RewriteRule ^login pages/login.php [L,R]
     RewriteRule ^store pages/store.php [L]
     RewriteRule ^main_news pages/main_news.php [L]
     RewriteRule ^profile pages/profile_user.php [L]
