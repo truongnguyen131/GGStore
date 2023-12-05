@@ -7,6 +7,31 @@ function main()
     $id = $_GET['id'];
     $task = isset($_GET["task"]) ? $_GET["task"] : "";
 
+    $query = "SELECT full_name, phone_number, email, username,password FROM users WHERE id = ?";
+    $stmt = $conn->prepare($query);
+
+    if (!$stmt) {
+        die("Prepare failed");
+    }
+    $stmt->bind_param("i", $id);
+
+    if (!$stmt->execute()) {
+        die("Execute failed: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $fullname = $row['full_name'];
+        $phone = $row['phone_number'];
+        $email = $row['email'];
+        $username = $row['username'];
+        $old_password = $row['password'];
+    }
+
+    $stmt->close();
+
     if ($task == 'update') {
         $fullname = $_POST['txtFullname'];
         $phone = $_POST['txtPhone'];
@@ -14,14 +39,14 @@ function main()
         $username = $_POST['txtUsername'];
         $password = $_POST['txtPassword'];
 
-        $check_query = "SELECT * FROM users WHERE username = ? AND full_name= ? AND phone_number = ? AND email = ?";
+        $check_query = "SELECT * FROM users WHERE username = ? AND id != ?";
         $check_stmt = $conn->prepare($check_query);
 
         if ($check_stmt === false) {
             die("Error preparing statement");
         }
 
-        $check_stmt->bind_param("ssss", $username, $fullname, $phone, $email);
+        $check_stmt->bind_param("si", $username, $id);
         $check_stmt->execute();
         $check_result = $check_stmt->get_result();
 
@@ -32,53 +57,30 @@ function main()
             echo "<script>location.href='update_user.php?id=$id';</script>";
         } else {
             $query = "UPDATE users SET username = ?,password = ?, full_name = ?, phone_number = ?, email = ? WHERE id = ?";
-            $stmt = $conn->prepare($query);
+            $stmt_update = $conn->prepare($query);
 
-            if (!$stmt) {
+            if (!$stmt_update) {
                 die("Prepare failed");
             }
 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $stmt->bind_param("sssssi", $username,$hashed_password, $fullname, $phone, $email, $id);
+            if($password == ""){
+                $hashed_password = $old_password;
+            }
+            $stmt_update->bind_param("sssssi", $username, $hashed_password, $fullname, $phone, $email, $id);
 
-            if (!$stmt->execute()) {
-                die("Execute failed: " . $stmt->error);
+            if (!$stmt_update->execute()) {
+                die("Execute failed: " . $stmt_update->error);
             }
 
             $check_stmt->close();
-            $stmt->close();
+            $stmt_update->close();
             $conn->close();
             createNotification("Update User Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
-            echo "<script>location.href='users_management.php';</script>";
+            echo "<script>location.href='update_user.php?id=$id';</script>";
         }
 
-    } else {
-        $query = "SELECT full_name, phone_number, email, username FROM users WHERE id = ?";
-        $stmt = $conn->prepare($query);
-
-        if (!$stmt) {
-            die("Prepare failed");
-        }
-        $stmt->bind_param("i", $id);
-
-        if (!$stmt->execute()) {
-            die("Execute failed: " . $stmt->error);
-        }
-
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $fullname = $row['full_name'];
-            $phone = $row['phone_number'];
-            $email = $row['email'];
-            $username = $row['username'];
-        }
-
-        $stmt->close();
-        $conn->close();
     }
-
     ?>
 
     <style>
@@ -184,7 +186,7 @@ function main()
             $('#errorConfirmPass').html("")
 
             if (fullNameRegex.test(document.frmUpdateUser.txtFullname.value.trim()) != true) {
-                $('#errorFullname').html("Fullname has more than 3 characters")
+                $('#errorFullname').html("Fullname Invalid!!!")
                 document.frmUpdateUser.txtFullname.value = document.frmUpdateUser.txtFullname.value.trim();
                 document.frmUpdateUser.txtFullname.focus();
                 return false;
@@ -207,12 +209,7 @@ function main()
                 document.frmUpdateUser.txtUsername.focus();
                 return false;
             }
-            if (document.frmUpdateUser.txtPassword.value.trim() == "") {
-                $('#errorPass').html("Password must not be empty")
-                document.frmUpdateUser.txtPassword.value = document.frmUpdateUser.txtPassword.value.trim();
-                document.frmUpdateUser.txtPassword.focus();
-                return false;
-            }
+
             if (document.frmUpdateUser.txtConfirmPassword.value.trim() != document.frmUpdateUser.txtPassword.value.trim()) {
                 $('#errorConfirmPass').html("Confirm Password invalid")
                 document.frmUpdateUser.txtConfirmPassword.value = document.frmUpdateUser.txtConfirmPassword.value.trim();
@@ -220,7 +217,7 @@ function main()
                 return false;
             }
             else {
-                document.frmUpdateUser.action = "update_user.php?id=<?php echo $id;?>&task=update";
+                document.frmUpdateUser.action = "update_user.php?id=<?php echo $id; ?>&task=update";
                 document.frmUpdateUser.submit();
             }
         }

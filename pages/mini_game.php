@@ -2,7 +2,7 @@
 include_once('./mod/database_connection.php');
 ?>
 <?php
-$username = isset($_SESSION["userName"]) ? $_SESSION["userName"] : "lvluyen902";
+$username = isset($_SESSION["userName"]) ? $_SESSION["userName"] : "";
 $currentDate = date('Y-m-d');
 $sql_user = "SELECT id,Gcoin,number_spins,lastest_login FROM `users` WHERE username = '" . $username . "'";
 $result_users = $conn->query($sql_user);
@@ -29,7 +29,7 @@ while ($row_data_products = mysqli_fetch_assoc($result_products)) {
 $jsonData_products = json_encode($data_products);
 
 while ($row_data_vouchers = mysqli_fetch_assoc($result_vouchers)) {
-    $row_data_vouchers['img'] = 'voucher.png';
+    $row_data_vouchers['img'] = 'voucher_gcoin_img.jpg';
     if ($row_data_vouchers['type'] == 'percent') {
         if ($row_data_vouchers['minimum_condition'] <= 0) {
             $name_voucher = $row_data_vouchers['value'] . "% discount";
@@ -112,7 +112,7 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
 .item_game_img{
     width: 90px;
     height: 90px;
-    background-image: url(../images/item1.png);
+    background-image: url(../Galaxy_Game_Store/assets/images/item1.png);
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
@@ -147,10 +147,10 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
 }
 @keyframes open {
     0% {
-        background-image: url(../images/item2.png);
+        background-image: url(../Galaxy_Game_Store/assets/images/item2.png);
     }
     100% {
-        background-image: url(../images/item3.png);
+        background-image: url(../Galaxy_Game_Store/assets/images/item3.png);
     }
 }
 .display_gift{
@@ -660,7 +660,7 @@ button {
             updateGiftContainer();
             update_list_gift_minigame();
         } else {
-            display_img_gift.src = "./uploads/sad_icon.png";
+            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
             status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
             display_gift.style.display = 'flex';
         }
@@ -715,7 +715,7 @@ button {
         setTimeout(function() {
             item_game_img.classList.remove('animation_open');
         }, 1550);
-        display_img_gift.src = "./uploads/" + img;
+        display_img_gift.src = "../Galaxy_Game_Store/uploads/" + img;
         name_gift.innerHTML = name;
         status_notification.innerHTML = status;
         setTimeout(function() {
@@ -788,7 +788,7 @@ button {
             }
 
         } else {
-            display_img_gift.src = "./uploads/sad_icon.png";
+            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
             status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
             display_gift.style.display = 'flex';
         }
@@ -808,7 +808,7 @@ button {
         free_open = 0;
         free_opens.innerHTML = free_open;
     }
-console.log(gifts);
+
 </script>
 <!-- END JS : Process MINI GAME -->
 <!-- ========================= -->
@@ -821,7 +821,7 @@ console.log(gifts);
             var roundedNumber = item.ratio.toPrecision(2);
             var roundedNumber = parseFloat(roundedNumber);
             var img = document.createElement('img');
-            img.src = '../uploads/' + item.img;
+            img.src = '../Galaxy_Game_Store/uploads/' + item.img;
 
             var percent = document.createElement('div');
             percent.classList.add('percent');

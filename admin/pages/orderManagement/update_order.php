@@ -172,7 +172,7 @@ function main()
                                         <select name="products[]" aria-controls="dataTable"
                                             class="custom-select custom-select-sm form-control form-control-sm input-left">
                                             <?php
-                                            $sql1 = "SELECT * FROM products";
+                                            $sql1 = "SELECT * FROM products WHERE release_date <= NOW()";
                                             $result1 = $conn->query($sql1);
                                             $productData = array();
                                             while ($row1 = $result1->fetch_assoc()) {

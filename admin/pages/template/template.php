@@ -119,6 +119,7 @@ include_once('../../../mod/database_connection.php');
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Management components:</h6>
                         <a class="collapse-item" href="../orderManagement/orders_management.php">Orders Management</a>
+                        <a class="collapse-item" href="../orderManagement/approval_order.php">Approval Orders</a>
                     </div>
                 </div>
             </li>
@@ -133,6 +134,7 @@ include_once('../../../mod/database_connection.php');
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Management components:</h6>
                         <a class="collapse-item" href="../exchangeManagement/exchanges_management.php">Exchanges Management</a>
+                        <a class="collapse-item" href="../exchangeManagement/approval_exchange.php">Approval Exchanges</a>
                         <a class="collapse-item" href="../exchangeManagement/tradings_history.php">Tradings History</a>
                     </div>
                 </div>
@@ -195,7 +197,7 @@ include_once('../../../mod/database_connection.php');
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Function Components:</h6>
                         <a class="collapse-item" href="../backup/backup.php">Backup file</a>
-                        <a class="collapse-item" href="">Export report</a>
+                        <a class="collapse-item" href="../export_report/export_report.php">Export report</a>
                     </div>
                 </div>
             </li>
@@ -427,12 +429,7 @@ include_once('../../../mod/database_connection.php');
     <!-- Bnt Previous and Next-->
     <script src="../../js/btn_pre_next.js"></script>
 
-    <!-- Page level plugins -->
-    <!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
-
-    <!-- Page level custom scripts -->
-    <!-- <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script> -->
+    
 
 </body>
 

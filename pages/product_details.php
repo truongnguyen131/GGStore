@@ -127,8 +127,10 @@ $row_p = $result_product->fetch_assoc();
                             <!-- info -->
                             <div class="col-lg-5">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <img <?= ($row_p['classify'] == 'gear') ? 'style="width: 100%;height: 200px;"' : '' ?> src="./uploads/<?= $row_p['image_avt_url'] ?>"
+                                    <div class="col-md-12" <?php
+                                    if ($row_p['classify'] == 'gear') { ?> style="text-align: center; background-color: white;" <?php } ?>>
+                                        <img <?= ($row_p['classify'] == 'gear') ? 'style="height: 200px;"' : '' ?>
+                                            src="./uploads/<?= $row_p['image_avt_url'] ?>"
                                             alt="<?= $row_p['product_name'] ?>">
                                     </div>
                                 </div>
@@ -159,9 +161,9 @@ $row_p = $result_product->fetch_assoc();
                                 </div>
                                 <div class="nk-gap"></div>
                                 <div class="input-group" style="display: flex; width: 100%; column-gap: 10px; ">
-                                    <a href="javascript:add_to_cart(<?= $id_product ?>)"
+                                    <a href="javascript:add_to_cart(<?= $id_product ?><?= ($row_p['classify'] == 'gear') ? ", 'gear'" : '' ?>)"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1">Add to Cart</a>
-                                    <a href="javascript:by_now(<?= $id_product ?>)"
+                                    <a href="javascript:by_now(<?= $id_product ?><?= ($row_p['classify'] == 'gear') ? ", 'gear'" : '' ?>)"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1">Buy</a>
                                 </div>
                                 <div class="nk-gap"></div>
@@ -173,8 +175,7 @@ $row_p = $result_product->fetch_assoc();
                                         $sql_sl_genres = "SELECT g.genre_name,g.id FROM genre_product gp, genres g WHERE g.id = gp.genre_id AND gp.product_id = $id_product";
                                         $genres = $conn->query($sql_sl_genres) ?>
                                         <?php while ($row_genre = $genres->fetch_assoc()) { ?>
-                                            <a
-                                                href="../Galaxy_Game_Store/store?id_category=<?= $row_genre['id'] ?>">
+                                            <a href="../Galaxy_Game_Store/store?id_category=<?= $row_genre['id'] ?>">
                                                 <?= $row_genre['genre_name'] ?>
                                             </a>
                                         <?php } ?>

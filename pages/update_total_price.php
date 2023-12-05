@@ -30,7 +30,7 @@ if ($voucher_id != "none") {
     $subtotal = $total_price;
 }
 if ($voucher_id == "none" && $freeship_id == "none") {
-    $total_price = $subtotal;
+    $total_price = $subtotal + 20;
 }
 
 echo round($total_price);

@@ -71,7 +71,7 @@ function main()
                         <select name="id_product" id="id_product" aria-controls="dataTable"
                             class="custom-select custom-select-sm form-control form-control-sm input-left">
                             <?php
-                            $sql_products = "SELECT id,product_name FROM products";
+                            $sql_products = "SELECT id,product_name FROM products WHERE release_date <= NOW()";
                             $result_products = $conn->query($sql_products);
                             while ($row_products = $result_products->fetch_assoc()) {
                                 if ($row_products['id'] == $product_id) { ?>

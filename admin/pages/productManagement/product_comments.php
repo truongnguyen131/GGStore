@@ -21,7 +21,7 @@ function main()
         $begin = ($page * $show_entries) - $show_entries;
     }
 
-    $query = "SELECT pc.*,p.product_name FROM product_comments pc, products p WHERE p.id = pc.id
+    $query = "SELECT pc.*,p.product_name FROM product_comments pc, products p WHERE p.id = pc.product_id
      AND p.product_name LIKE ? ";
 
     $params = array("%" . $search . "%");

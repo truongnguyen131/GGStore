@@ -230,29 +230,28 @@ $gcoin = $row['Gcoin'];
                                             Delivery fee
                                         </td>
                                         <td>
+                                            <span id="delivery_fee">20</span>
                                             <i class="fas fa-gem"></i>
                                         </td>
                                     </tr>
-
-                                    <tr class="nk-store-cart-totals-shipping">
-                                        <td>
-                                            Freeship voucher
-                                        </td>
-                                        <td>
-                                            <select name="freeship_id" id="freeship_id" class="form-control required"
-                                                onchange="update_total_price()">
-                                                <option value="none">--None----</option>
-                                                <?php
-
-                                                $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
+                                    <?php $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
                                             INNER JOIN user_voucher uv ON v.id = uv.voucher_id
                                             WHERE uv.user_id = $user_id AND v.type = 'freeship'
-                                            AND v.minimum_condition <= $subtotal AND (v.quantity >= 1 OR v.quantity IS NULL)
+                                            AND v.minimum_condition <= $subtotal AND (uv.amount >= 1)
                                             AND (v.date_expiry >= NOW() OR v.date_expiry IS NULL)";
 
-                                                $result_sl_voucher = $conn->query($sql_sl_voucher);
-                                                if ($result_sl_voucher->num_rows > 0) {
-                                                    while ($row_sl_voucher = $result_sl_voucher->fetch_assoc()) { ?>
+                                    $result_sl_voucher = $conn->query($sql_sl_voucher);
+                                    if ($result_sl_voucher->num_rows > 0) { ?>
+                                        <tr class="nk-store-cart-totals-shipping">
+                                            <td>
+                                                Freeship voucher
+                                            </td>
+                                            <td>
+                                                <select name="freeship_id" id="freeship_id" class="form-control required"
+                                                    onchange="update_total_price()">
+                                                    <option value="none">--None----</option>
+
+                                                    <?php while ($row_sl_voucher = $result_sl_voucher->fetch_assoc()) { ?>
                                                         <option value="<?php echo $row_sl_voucher["id"]; ?>">
                                                             <?php
                                                             $string_discount = "Freeship " . $row_sl_voucher["value"] . "Gcoin";
@@ -263,11 +262,11 @@ $gcoin = $row['Gcoin'];
                                                             echo $string_discount;
                                                             ?>
                                                         </option>
-                                                    <?php }
-                                                } ?>
-                                            </select>
-                                        </td>
-                                    </tr>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 <?php } ?>
 
 
@@ -275,7 +274,7 @@ $gcoin = $row['Gcoin'];
                                 $sql_sl_voucher = "SELECT v.*, uv.user_id FROM vouchers v
                                                     INNER JOIN user_voucher uv ON v.id = uv.voucher_id
                             WHERE uv.user_id = $user_id AND v.type != 'freeship' AND v.minimum_condition <= $subtotal 
-                                            AND (v.quantity >= 1 OR v.quantity is NULL) 
+                                            AND (uv.amount >= 1) 
                                             AND (v.date_expiry >= NOW() OR v.date_expiry IS NULL)";
 
                                 $result_sl_voucher = $conn->query($sql_sl_voucher);
@@ -312,7 +311,7 @@ $gcoin = $row['Gcoin'];
                                     </td>
                                     <td>
                                         <span id="total_price">
-                                            <?= $subtotal ?>
+                                            <?= $subtotal + 20 ?>
                                         </span>
                                         <i class="fas fa-gem"></i>
                                     </td>
@@ -359,13 +358,71 @@ $gcoin = $row['Gcoin'];
         function place_order() {
             var total_price = Number(document.getElementById("total_price").innerText);
             var gcoin = <?= $gcoin ?>;
+            var address = '';
+            var freeship_id = 'none';
+            var voucher_id = 'none';
+            if (document.getElementById("freeship_id")) {
+                var freeship_id = document.getElementById("freeship_id").value;
+            }
+            if (document.getElementById("voucher_id")) {
+                var voucher_id = document.getElementById("voucher_id").value;
+            }
+
+            <?php if ($has_gear) { ?>
+                address = document.getElementById("address").value;
+                var regex = /^\d+[ -]\D+$/;
+                if (!regex.test(address)) {
+                    notification_dialog("Failed", "Enter Address!!!");
+                    return false;
+                }
+                var province = document.getElementById("province").value;
+                var district = document.getElementById("district").value;
+                var ward = document.getElementById("ward").value;
+                if (province == "" || district == "" || ward == "") {
+                    notification_dialog("Failed", "Enter Address!!!");
+                    return false;
+                }
+
+                var provinceSelect = document.getElementById("province");
+                for (var i = 0; i < provinceSelect.options.length; i++) {
+                    var option = provinceSelect.options[i];
+
+                    if (option.selected) {
+                        var province = option.innerHTML;
+                        break;
+                    }
+                }
+
+                var districtSelect = document.getElementById("district");
+                for (var i = 0; i < districtSelect.options.length; i++) {
+                    var option = districtSelect.options[i];
+
+                    if (option.selected) {
+                        var district = option.innerHTML;
+                        break;
+                    }
+                }
+
+                var wardSelect = document.getElementById("ward");
+                for (var i = 0; i < wardSelect.options.length; i++) {
+                    var option = wardSelect.options[i];
+
+                    if (option.selected) {
+                        var ward = option.innerHTML;
+                        break;
+                    }
+                }
+
+                var address = address + " " + ward + " " + district + " " + province;
+            <?php } ?>
+
 
             if (total_price > gcoin) {
                 notification_dialog("Failed", "The order exceeds the G-Coin you currently own!!!");
                 return false;
             }
 
-            $.post('../Galaxy_Game_Store/pages/checkout_process.php', { total_price: total_price }, function (data) {
+            $.post('../Galaxy_Game_Store/pages/checkout_process.php', { address: address, total_price: total_price, freeship_id: freeship_id, voucher_id: voucher_id }, function (data) {
                 $('#return_process_checkout').html(data);
             });
         }

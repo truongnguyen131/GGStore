@@ -63,7 +63,7 @@ function main()
                     <td>
                         <select name="product_id" id="product_id" aria-controls="dataTable" class="form-control input-left">
                             <?php
-                            $sql_product = "SELECT * FROM products";
+                            $sql_product = "SELECT * FROM products WHERE release_date <= NOW()";
                             $result_product = $conn->query($sql_product);
                             while ($row_product = $result_product->fetch_assoc()) { ?>
                                 <option value="<?php echo $row_product["id"]; ?>">

@@ -12,6 +12,10 @@ function main()
 
     if (isset($_GET["delete"])) {
         $id = $_GET["delete"];
+
+        $sql_delete_news_contents = "DELETE FROM `news_content` WHERE news_id = $id";
+        $conn->query($sql_delete_news_contents);
+
         $query = "DELETE FROM `news` WHERE id = ?";
         $stmt = $conn->prepare($query);
 

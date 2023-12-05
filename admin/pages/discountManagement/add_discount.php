@@ -156,7 +156,7 @@ function main()
 
                                     <tbody>
                                         <?php
-                                        $query = "SELECT * FROM products WHERE product_name LIKE '%$search%'";
+                                        $query = "SELECT * FROM products WHERE release_date <= NOW() AND product_name LIKE '%$search%'";
 
                                         if ($genre_id != "" && $genre_id != "all") {
                                             $query .= " AND id in (SELECT id FROM products p, genre_product gp WHERE p.id = gp.product_id AND gp.genre_id = $genre_id)";

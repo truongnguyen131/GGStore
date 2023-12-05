@@ -41,7 +41,7 @@ function main()
         $genres = $_POST['genres'];
         
         $count = 1;
-
+        
         //select image_url push in $imgs_product array
         $query_sl_img_product = "SELECT image_url FROM product_images WHERE product_id = ?";
         $stmt_sl_img_product = $conn->prepare($query_sl_img_product);
@@ -54,9 +54,8 @@ function main()
         }
 
         //UPDATE image_urls 
-        while ($row = $result_sl_img_product->fetch_assoc()) {
-            $image_url_name = $row['image_url'];
-            $imgs_product[] = $image_url_name;
+        while ($count <= count($imgs_product)) {
+            $image_url_name = $imgs_product[$count-1];
             if (
                 $_FILES[$count]["name"] != "" && $_FILES[$count]["name"] != $image_url_name &&
                 !in_array($_FILES[$count]["name"], $imgs_product)

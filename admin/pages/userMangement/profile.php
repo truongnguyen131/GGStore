@@ -161,7 +161,7 @@ function main()
             $('#errorUsername').html("")
 
             if (fullNameRegex.test(document.frmProfile.txtFullname.value.trim()) != true) {
-                $('#errorFullname').html("Fullname has more than 3 characters")
+                $('#errorFullname').html("Full name Invalid!!!")
                 document.frmProfile.txtFullname.value = document.frmProfile.txtFullname.value.trim();
                 document.frmProfile.txtFullname.focus();
                 return false;

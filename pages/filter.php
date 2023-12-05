@@ -2,7 +2,7 @@
 session_start();
 include_once('../mod/database_connection.php');
 
-$user_id = $_SESSION['id_account'];
+
 
 $classify = isset($_POST['postData']['classify_product']) ? $_POST['postData']['classify_product'] : "all";
 $list_genres = isset($_POST['postData']['list_genres']) ? $_POST['postData']['list_genres'] : "";
@@ -32,7 +32,12 @@ if ($classify == "exchange" || $classify == "all") {
     LEFT JOIN products p ON p.id = pp.product_id
     LEFT JOIN genre_product gp ON p.id = gp.product_id
     LEFT JOIN product_comments pc ON p.id = pc.product_id
-    WHERE p.release_date <= NOW() AND pp.status = 'trading' AND pp.customer_id  != $user_id";
+    WHERE p.release_date <= NOW() AND pp.status = 'trading' ";
+
+    if (isset($_SESSION['id_account'])) {
+        $user_id = $_SESSION['id_account'];
+        $sql_filter_exchange .= " AND pp.customer_id  != $user_id";
+    }
 
     if ($classify == "game" || $classify == "gear") {
         $sql_filter_exchange .= " AND p.classify = '$classify'";
@@ -41,7 +46,12 @@ if ($classify == "exchange" || $classify == "all") {
         $sql_filter_exchange .= " AND p.product_name LIKE '%$search%'";
     }
     if ($price != "all") {
-        $sql_filter_exchange .= " AND p.price <= $price";
+        if ($price != "over_300") {
+            $sql_filter_exchange .= " AND p.price <= $price";
+        } else {
+            $sql_filter_exchange .= " AND p.price > 300";
+        }
+
     }
     if ($list_genres_string != "") {
         $sql_filter_exchange .= " AND gp.genre_id IN ($list_genres_string)";
@@ -54,7 +64,7 @@ if ($classify == "exchange" || $classify == "all") {
 }
 
 if ($classify != "exchange") {
-    $sql_filter_product = "SELECT p.id,p.product_name,p.image_avt_url,p.price,d.discount_amount,
+    $sql_filter_product = "SELECT p.id,p.product_name,p.image_avt_url,p.price,p.classify,d.discount_amount,
     IF(
       d.product_id IS NULL,
       p.price, 
@@ -79,7 +89,11 @@ if ($classify != "exchange") {
         $sql_filter_product .= " AND p.product_name LIKE '%$search%'";
     }
     if ($price != "all") {
-        $sql_filter_product .= " AND p.price <= $price";
+        if ($price != "over_300") {
+            $sql_filter_product .= " AND p.price <= $price";
+        } else {
+            $sql_filter_product .= " AND p.price > 300";
+        }
     }
     if ($list_genres_string != "") {
         $sql_filter_product .= " AND gp.genre_id IN ($list_genres_string)";
@@ -90,9 +104,9 @@ if ($classify != "exchange") {
     $nums_product = $result_filter_product->num_rows;
 }
 
-if($nums_exchange >= $nums_product){
+if ($nums_exchange >= $nums_product) {
     $total_num_rows = $nums_exchange;
-}else{
+} else {
     $total_num_rows = $nums_product;
 }
 
@@ -169,10 +183,12 @@ if ($nums_exchange > 0) {
                 </div>
                 <div class="nk-gap"></div>
                 <div class="row">
-                    <div class="col-md-6"><a href="javascript:add_to_cart(<?= $row_product['id'] ?>)"
+                    <div class="col-md-6"><a
+                            href="javascript:add_to_cart(<?= $row_product['id'] ?><?= ($row_product['classify'] == "gear") ? ", 'gear'" : "" ?>)"
                             class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD TO
                             CART</a></div>
-                    <div class="col-md-6"><a href="javascript:by_now(<?= $row_product['id'] ?>)"
+                    <div class="col-md-6"><a
+                            href="javascript:by_now(<?= $row_product['id'] ?><?= ($row_product['classify'] == "gear") ? ", 'gear'" : "" ?>)"
                             class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
                     </div>
                 </div>
@@ -223,10 +239,10 @@ if ($nums_exchange > 0) {
                 </div>
                 <div class="nk-gap"></div>
                 <div class="row">
-                    <div class="col-md-6"><a href="javascript:add_to_cart1(<?= $row_exchange['PPID'] ?>)"
+                    <div class="col-md-6"><a href="javascript:add_to_cart(<?= $row_exchange['PPID'] ?>,'exchange')"
                             class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">ADD TO
                             CART</a></div>
-                    <div class="col-md-6"><a href="javascript:by_now1(<?= $row_exchange['PPID'] ?>)"
+                    <div class="col-md-6"><a href="javascript:by_now(<?= $row_exchange['PPID'] ?>,'exchange')"
                             class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">BUY</a>
                     </div>
                 </div>

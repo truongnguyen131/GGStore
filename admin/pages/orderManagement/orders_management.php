@@ -22,7 +22,7 @@ function main()
     }
 
     $query = "SELECT o.id,o.order_date,u.full_name,o.total_amount,o.status FROM orders o, users u 
-    WHERE u.id = o.customer_id AND u.full_name LIKE ? ";
+    WHERE u.id = o.customer_id AND u.full_name LIKE ? AND status !='Waiting for confirmation' ";
 
     $params = array("%" . $search . "%");
 
@@ -145,14 +145,14 @@ function main()
                                 <div class="col-sm-12 col-md-3">
                                     <div class="dataTables_filter">
                                         <label>Status
-                                            <select onchange="submit()" name="status" id="status" aria-controls="dataTable"
+                                            <select onchange="change_status()" name="status" id="status" aria-controls="dataTable"
                                                 class="custom-select custom-select-sm form-control form-control-sm">
                                                 <option value="All">All</option>
-                                                <option value="Waiting for confirmation" <?php echo (($status) == "Waiting for confirmation") ? 'selected' : ''; ?>>Waiting for confirmation</option>
                                                 <option value="Waiting for delivery" <?php echo (($status) == "Waiting for delivery") ? 'selected' : ''; ?>>Waiting for delivery</option>
                                                 <option value="Paid" <?php echo (($status) == "Paid") ? 'selected' : ''; ?>>
                                                     Paid</option>
                                                 <option value="Cancelled" <?php echo (($status) == "Cancelled") ? 'selected' : ''; ?>>Cancelled</option>
+                                                <option value="review">Waiting for confirmation</option>
                                             </select>
                                         </label>
                                     </div>
@@ -378,6 +378,14 @@ function main()
 
         function cancelDelete() {
             $('#deleteConfirmationModal').modal('hide');
+        }
+
+        function change_status() {
+            if (document.getElementById("status").value == "review") {
+                window.location.href = "approval_order.php";
+            } else {
+                document.frmDataDiscount.submit();
+            }
         }
     </script>
 

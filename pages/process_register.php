@@ -35,8 +35,9 @@ if ($check_result->num_rows > 0) {
     $stmt->bind_param("sssss", $username, $hashed_password, $fullname, $phone, $email);
 
     if ($stmt->execute()) {
-        echo "<script>Cancel()</script>";
-        echo "Register successful";
+        echo "<script>
+        alert('Register successful');
+        Cancel();</script>";
     } else {
         echo "Error inserting record: " . $stmt->error;
     }

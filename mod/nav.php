@@ -59,13 +59,13 @@
                                 $('#product_count').html(data);
                             });
                         }
-                        function add_to_cart1(id) {
-                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id, type: "exchange" }, function (data) {
+                        function add_to_cart(id, type) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php', { product_id: id, type: type }, function (data) {
                                 $('#product_count').html(data);
                             });
                         }
-                        function by_now1(id) {
-                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id, type: "exchange" }, function (data) {
+                        function by_now(id, type) {
+                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id, type: type }, function (data) {
                                 $('#product_count').html(data);
                             });
                         }
@@ -188,22 +188,26 @@
                             </a>
                         <?php } ?>
 
-                        <div class="nk-cart-dropdown" style="width: 60%;">
+                        <div class="nk-cart-dropdown" style="width: 80%;">
                             <div class="text-center">
 
                                 <?php
                                 if ($_SESSION["role"] == "developer") { ?>
-                                    <a href="./admin/pages/template/dashboard.php"
+                                    <a style="width: 100%;" href="./admin/pages/template/dashboard.php"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         GGS Admin</a>
                                 <?php } else { ?>
-                                    <a href="../Galaxy_Game_Store/profile"
+                                    <a style="width: 100%;" href="../Galaxy_Game_Store/profile"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         Profile</a>
                                     <div class="nk-gap"></div>
-                                    <a href="../Galaxy_Game_Store/bag"
+                                    <a style="width: 100%;" href="../Galaxy_Game_Store/bag"
                                         class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                         My bag</a>
+                                    <div class="nk-gap"></div>
+                                    <a style="width: 100%;" href="../Galaxy_Game_Store/orders"
+                                        class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
+                                        Orders</a>
                                 <?php }
                                 ?>
                             </div>
@@ -211,7 +215,7 @@
                             <div class="text-center">
                             </div>
                             <div class="text-center">
-                                <a href="./pages/logout.php"
+                                <a style="width: 100%;" href="./pages/logout.php"
                                     class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">
                                     Logout</a>
                             </div>
@@ -356,12 +360,28 @@
         document.getElementById("status").innerHTML = status;
         document.getElementById("message").innerHTML = message;
 
-        document.getElementById("div_status").classList.add("text-success");
-        document.getElementById("i_status").classList.add("ion-checkmark-round");
-        if (status != "Success") {
+        if (status == "Success") {
+            if (document.getElementById("div_status").classList.contains("text-danger")) {
+                document.getElementById("div_status").classList.remove("text-danger");
+            }
+            document.getElementById("div_status").classList.add("text-success");
+
+            if (document.getElementById("i_status").classList.contains("ion-close-round")) {
+                document.getElementById("i_status").classList.remove("ion-close-round");
+            }
+            document.getElementById("i_status").classList.add("ion-checkmark-round");
+        } else {
+            if (document.getElementById("div_status").classList.contains("text-success")) {
+                document.getElementById("div_status").classList.remove("text-success");
+            }
             document.getElementById("div_status").classList.add("text-danger");
+
+            if (document.getElementById("i_status").classList.contains("ion-checkmark-round")) {
+                document.getElementById("i_status").classList.remove("ion-checkmark-round");
+            }
             document.getElementById("i_status").classList.add("ion-close-round");
         }
+
 
         document.getElementById("dialog_notification").click();
     }

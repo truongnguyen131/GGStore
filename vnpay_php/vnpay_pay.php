@@ -28,6 +28,7 @@
 
     body {
         font-family: 'Inter', sans-serif;
+        background-color: #87cefa38;
     }
 
     .formbold-main-wrapper {
@@ -41,6 +42,9 @@
         max-width: 570px;
         width: 100%;
         background: white;
+        box-shadow: #443dd1 0px 10px 15px;
+        padding: 15px 30px;
+        margin-top: -7px;
     }
 
     .formbold-img {
@@ -175,7 +179,7 @@
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
-            <h1 style="text-align: center;">Create a new order</h1><br>
+            <h2 style="text-align: center;">Create a new order</h2>
             <form action="./vnpay_create_payment.php" id="frmCreateOrder" method="post">
 
                 <div class="form-group">
@@ -191,7 +195,7 @@
                     sessionStorage.removeItem('price');
                 </script>
 
-                <h3 style="margin-top: 30px; margin-bottom: 20px;">Choose a payment method</h3>
+                <h3 style="margin-top: 10px; margin-bottom: 20px;">Choose a payment method</h3>
 
                 <div class="formbold-mb-5">
                     <label for="qusOne" class="formbold-form-label">

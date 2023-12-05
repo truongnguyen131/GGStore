@@ -640,7 +640,7 @@ include_once('./mod/database_connection.php');
                                                 <?= $row_gear['price'] ?><i class="fas fa-gem"></i>
                                             <?php } ?>
                                         </div>
-                                        <a href="javascript:add_to_cart(<?= $row_gear['id'] ?>)"
+                                        <a href="javascript:add_to_cart(<?= $row_gear['id'] ?>,'gear')"
                                             class="mt-7 nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add
                                             to Cart</a>
                                     </div>
@@ -804,6 +804,18 @@ include_once('./mod/database_connection.php');
                                 </ul>
                             </div>
                         </div>
+
+                        <?php
+                        if (isset($_SESSION['$id_account'])) { ?>
+                            <!--START: MINI GAME -->
+                            <div class="nk-widget nk-widget-highlighted">
+                                <h4 class="nk-widget-title"><span><span class="text-main-1">Mini </span>Game</span>
+                                </h4>
+                                <?php include_once('./pages/mini_game.php') ?>
+                            </div>
+                            <!--END: MINI GAME -->
+                        <?php } ?>
+
 
                         <!-- popular -->
                         <div class="nk-widget nk-widget-highlighted">

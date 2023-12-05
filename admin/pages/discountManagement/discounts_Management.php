@@ -1,7 +1,7 @@
 <?php
 function print_data($id, $product_name, $discount_amount, $price_old, $start_date, $end_date)
 {
-    $price_new = $price_old - ($price_old * ($discount_amount / 100));
+    $price_new = round($price_old - ($price_old * ($discount_amount / 100)));
     echo "<tr>
     <td>
         $id

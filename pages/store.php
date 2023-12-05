@@ -76,7 +76,7 @@ include_once '../mod/database_connection.php';
                                 <option value="100">Below 100</option>
                                 <option value="200">Below 200</option>
                                 <option value="300">Below 300</option>
-                                <option value="over">Over 300</option>
+                                <option value="over_300">Over 300</option>
                             </select>
                         </div>
                         <div class="col-md-3">

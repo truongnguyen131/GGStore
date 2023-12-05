@@ -54,7 +54,7 @@ if ($rememberMe == "checked") {
     setcookie("username", $username, time() + (86400 * 30));
     setcookie("password", $post_password, time() + (86400 * 30));
 }
-echo $username;
+
 $sql = "SELECT id, password, role, login_attempts, locked_until, lastest_login FROM users WHERE username = ?";
 $stmt = $conn->prepare($sql);
 

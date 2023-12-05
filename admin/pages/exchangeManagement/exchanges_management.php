@@ -44,24 +44,6 @@ function main()
         createNotification("Revoke Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
         echo "<script>location.href='exchanges_management.php';</script>";
     }
-    if (isset($_GET['approve'])) {
-        $id = $_GET['approve'];
-        $query = "UPDATE `purchased_products` SET `status`='trading' WHERE `id`= $id";
-        $stmt = $conn->prepare($query);
-
-        if (!$stmt) {
-            die("Prepare failed");
-        }
-
-        if (!$stmt->execute()) {
-            die("Execute failed: " . $stmt->error);
-        }
-
-        $stmt->close();
-        $conn->close();
-        createNotification("Approve Successful!", "success", date('Y-m-d H:i:s'), "undisplayed");
-        echo "<script>location.href='exchanges_management.php';</script>";
-    }
 
     $search = isset($_POST["search"]) ? $_POST["search"] : "";
     $show_entries = isset($_POST["show_entries"]) ? $_POST["show_entries"] : 10;
@@ -81,7 +63,7 @@ function main()
     $query = "SELECT pd.*,u.full_name,p.product_name FROM `purchased_products` pd 
     INNER JOIN users u ON u.id = pd.customer_id
     INNER JOIN products p ON p.id = pd.product_id
-    WHERE u.full_name LIKE '%$search%' ";
+    WHERE u.full_name LIKE '%$search%' AND status != 'review' ";
 
     if ($id != "") {
         $query .= "AND pd.id = $id ";
@@ -158,13 +140,13 @@ function main()
                                 <div class="col-sm-12 col-md-4">
                                     <div class="dataTables_filter">
                                         <label>Status
-                                            <select onchange="submit()" name="status" id="status" aria-controls="dataTable"
+                                            <select onchange="change_status()" name="status" id="status" aria-controls="dataTable"
                                                 class="custom-select custom-select-sm form-control form-control-sm">
                                                 <option value="All">All</option>
                                                 <option value="trading" <?php echo (($status) == "trading") ? 'selected' : '' ?>>Trading</option>
                                                 <option value="not trading" <?php echo (($status) == "not trading") ? 'selected' : '' ?>>Not Trading</option>
-                                                <option value="review" <?php echo (($status) == "review") ? 'selected' : '' ?>>Review</option>
                                                 <option value="traded" <?php echo (($status) == "traded") ? 'selected' : '' ?>>Traded</option>
+                                                <option value="review">Approval</option>
                                             </select>
                                         </label>
                                     </div>
@@ -273,15 +255,13 @@ function main()
                                                                 <?php echo $row['price']; ?>
                                                             </td>
                                                             <td>
-
                                                                 <?php
-                                                                if ($row['status'] == "trading" || $row['status'] == "review") { ?>
-                                                                    <a href="javascript:<?= ($row['status'] == "trading")? "revoke" : "approve" ?>(<?php echo $row['id']; ?>)">
-                                                                        <?php echo $row['status']; ?>
-                                                                    </a>
-                                                                <?php } else {
+                                                                if ($row['status'] == 'trading') { ?>
+                                                                  <a href="javascript:revoke(<?= $row['id'] ?>)">trading</a>  
+                                                              <?php  } else {
                                                                     echo $row['status'];
-                                                                } ?>
+                                                                }
+                                                                ?>
                                                             </td>
                                                             <td><a
                                                                     href="update_exchange.php?id=<?php echo $row['id']; ?>">Update</a>
@@ -411,9 +391,13 @@ function main()
             var url = "exchanges_management.php?revoke=" + id;
             window.location.href = url;
         }
-        function approve(id) {
-            var url = "exchanges_management.php?approve=" + id;
-            window.location.href = url;
+
+        function change_status() {
+            if(document.getElementById("status").value == "review"){
+                window.location.href = "approval_exchange.php";
+            }else{
+                document.frmDataDiscount.submit();
+            }
         }
     </script>
 

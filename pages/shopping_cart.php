@@ -72,7 +72,7 @@ if (isset($_GET['delete'])) {
                                 foreach ($_SESSION["shopping_cart"] as $key => $value) { ?>
                                     <tr id="row-<?= $key ?>">
                                         <td class="nk-product-cart-thumb">
-                                            <a href="store-product.html" class="nk-image-box-1 nk-post-image">
+                                            <a href="" class="nk-image-box-1 nk-post-image">
                                                 <img src="./uploads/<?= $value['image_avt_url'] ?>"
                                                     alt="<?= $value['product_name'] ?>" width="180">
                                             </a>

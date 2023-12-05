@@ -119,7 +119,7 @@ function main()
                                     <tbody>
                                         <?php
                                         $query = "SELECT p.*,u.full_name FROM products p,users u
-                                        WHERE p.id_manufacturer = u.id AND p.product_name LIKE '%$search%'";
+                                        WHERE p.id_manufacturer = u.id AND p.release_date <= NOW() AND p.product_name LIKE '%$search%'";
 
                                         if ($manufacturer_id != "" && $manufacturer_id != "all") {
                                             $query .= " AND p.id_manufacturer = $manufacturer_id";
@@ -147,7 +147,7 @@ function main()
 
                                                         if ($result1->num_rows > 0) {
                                                             $discountAmount = $result1->fetch_assoc()['discount_amount'];
-                                                            $price_new = $row['price'] - ($row['price'] * $discountAmount) / 100;
+                                                            $price_new = round($row['price'] - ($row['price'] * $discountAmount) / 100);
                                                             echo $price_new;
                                                         } else {
                                                             echo $row['price'];
