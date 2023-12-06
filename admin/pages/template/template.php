@@ -197,7 +197,7 @@ include_once('../../../mod/database_connection.php');
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Function Components:</h6>
                         <a class="collapse-item" href="../backup/backup.php">Backup file</a>
-                        <a class="collapse-item" href="../export_report/export_report.php">Export report</a>
+                        <a class="collapse-item" href="../export_report/export_report_PDF.php">Export Report PDF</a>
                     </div>
                 </div>
             </li>
