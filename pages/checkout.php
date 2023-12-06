@@ -224,7 +224,7 @@ $gcoin = $row['Gcoin'];
                                     </td>
                                 </tr>
 
-                                <?php if ($has_gear) { ?>
+                                <?php if ($has_gear) { $subtotal += 20; ?>
                                     <tr class="nk-store-cart-totals-shipping">
                                         <td>
                                             Delivery fee
@@ -311,7 +311,7 @@ $gcoin = $row['Gcoin'];
                                     </td>
                                     <td>
                                         <span id="total_price">
-                                            <?= $subtotal + 20 ?>
+                                            <?= $subtotal ?>
                                         </span>
                                         <i class="fas fa-gem"></i>
                                     </td>

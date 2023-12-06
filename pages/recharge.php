@@ -2,7 +2,7 @@
 session_start();
 include_once('../mod/database_connection.php');
 
-if (!isset($_SESSION['id_account'])) {
+if(!isset($_SESSION['id_account'])) {
     echo '<script> window.location = "./pages/login.php"; </script>';
 } else {
     $user_id = $_SESSION['id_account'];
@@ -18,52 +18,85 @@ if (!isset($_SESSION['id_account'])) {
     <?php include "../mod/nav.php"; ?>
 
     <?php
-    if (isset($_GET['vnp_TransactionStatus']) && $_GET['vnp_TransactionStatus'] == "00") {
-        $amount = $_GET['vnp_Amount'] / 100000;
+    if(isset($_GET['vnp_TransactionStatus']) && $_GET['vnp_TransactionStatus'] == "00") {
 
-        $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin+? WHERE `id`= ?";
-        $stmt_update_gcoin = $conn->prepare($sql_update_gcoin);
-        if ($stmt_update_gcoin === false) {
+        $amount = $_GET['vnp_Amount'] / 100000;
+        $bank = $_GET['vnp_BankCode'];
+        $sql_insert_order = "INSERT INTO `recharge_history`(`customer_id`, `value`, `date`, `bank`) VALUES (?,?,NOW(),?)";
+        $stmt_insert_order = $conn->prepare($sql_insert_order);
+        if($stmt_insert_order === false) {
             die("Error preparing statement");
         }
-        $stmt_update_gcoin->bind_param("ii", $amount, $user_id);
-        if ($stmt_update_gcoin->execute()) { ?>
-            <script>
-                window.addEventListener("load", function () {
-                    notification_dialog("Success", "Transaction Order Successful!!!");
-                    setTimeout(() => {
-                        location.href = "./recharge";
-                    }, 2000);
-                });
-            </script>
-        <?php }
+        $stmt_insert_order->bind_param("iis", $user_id, $amount, $bank);
+        if($stmt_insert_order->execute()) {
+
+            $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin+? WHERE `id`= ?";
+            $stmt_update_gcoin = $conn->prepare($sql_update_gcoin);
+            if($stmt_update_gcoin === false) {
+                die("Error preparing statement");
+            }
+            $stmt_update_gcoin->bind_param("ii", $amount, $user_id);
+            if($stmt_update_gcoin->execute()) { ?>
+
+                <script>
+                    window.addEventListener("load", function () {
+                        notification_dialog("Success", "Transaction Order Successful!!!");
+                        setTimeout(() => {
+                            location.href = "./recharge";
+                        }, 2000);
+                    });
+                </script>
+
+            <?php }
+        }
     }
     ?>
 
     <?php
-
-    if (isset($_GET['message']) && $_GET['message'] == "Successful.") {
+    if(isset($_GET['message']) && $_GET['message'] == "Successful.") {
         $amount = $_GET['amount'] / 1000;
-
-        $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin+? WHERE `id`= ?";
-        $stmt_update_gcoin = $conn->prepare($sql_update_gcoin);
-        if ($stmt_update_gcoin === false) {
+        $bank = "MoMo";
+        $sql_insert_order = "INSERT INTO `recharge_history`(`customer_id`, `value`, `date`, `bank`) VALUES 
+        (?,?,NOW(),?)";
+        $stmt_insert_order = $conn->prepare($sql_insert_order);
+        if($stmt_insert_order === false) {
             die("Error preparing statement");
         }
-        $stmt_update_gcoin->bind_param("ii", $amount, $user_id);
-        if ($stmt_update_gcoin->execute()) { ?>
-            <script>
-                window.addEventListener("load", function () {
-                    notification_dialog("Success", "Transaction Order Successful!!!");
-                    setTimeout(() => {
-                        location.href = "./recharge";
-                    }, 2000);
-                });
-            </script>
-        <?php }
-    }
+        $stmt_insert_order->bind_param("iis", $user_id, $amount, $bank);
+        if($stmt_insert_order->execute()) {
 
+            $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin+? WHERE `id`= ?";
+            $stmt_update_gcoin = $conn->prepare($sql_update_gcoin);
+            if($stmt_update_gcoin === false) {
+                die("Error preparing statement");
+            }
+            $stmt_update_gcoin->bind_param("ii", $amount, $user_id);
+            if($stmt_update_gcoin->execute()) { ?>
+                <script>
+                    window.addEventListener("load", function () {
+                        notification_dialog("Success", "Transaction Order Successful!!!");
+                        setTimeout(() => {
+                            location.href = "./recharge";
+                        }, 2000);
+                    });
+                </script>
+            <?php }
+        }
+    }
     ?>
+
+
+    <?php
+    if((isset($_GET['vnp_TransactionStatus']) && $_GET['vnp_TransactionStatus'] != "00") || (isset($_GET['message']) && $_GET['message'] != "Successful.")) { ?>
+        <script>
+            window.addEventListener("load", function () {
+                notification_dialog("Failed", "Transaction Failed!!!");
+                setTimeout(() => {
+                    location.href = "./recharge";
+                }, 2000);
+            });
+        </script>
+    <?php } ?>
 
     <div class="nk-main">
 
@@ -197,7 +230,6 @@ if (!isset($_SESSION['id_account'])) {
     <!-- END: Scripts -->
 
     <script>
-
         const momo = document.getElementById('momo');
         const vnpay = document.getElementById('vnpay');
         document.getElementById("payment_methods").innerHTML = 'MoMo';
@@ -213,8 +245,6 @@ if (!isset($_SESSION['id_account'])) {
             momo.style.border = '1px solid gray';
             document.getElementById("payment_methods").innerHTML = 'VNPay';
         }
-
-
     </script>
 
     <script>
@@ -229,6 +259,7 @@ if (!isset($_SESSION['id_account'])) {
                         cb.checked = false;
                     }
                 });
+
                 function formatCurrency(number) {
                     const parts = number.toString().split(".");
                     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");

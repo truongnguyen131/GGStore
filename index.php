@@ -13,7 +13,6 @@ include_once('./mod/database_connection.php');
 
 <body>
 
-
     <?php include "./mod/nav.php"; ?>
 
 
@@ -806,7 +805,7 @@ include_once('./mod/database_connection.php');
                         </div>
 
                         <?php
-                        if (isset($_SESSION['$id_account'])) { ?>
+                        if (isset($_SESSION['id_account'])) { ?>
                             <!--START: MINI GAME -->
                             <div class="nk-widget nk-widget-highlighted">
                                 <h4 class="nk-widget-title"><span><span class="text-main-1">Mini </span>Game</span>

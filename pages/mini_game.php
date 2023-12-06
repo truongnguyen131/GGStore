@@ -493,8 +493,6 @@ button {
     var giftContainer = document.getElementById('gift-container');
     var list_item_mini_game = document.getElementById('list_item_mini_game');
     var money_payment = document.getElementById("money_payment");
-    var money_payment_value = 10;
-    money_payment.innerHTML = money_payment_value;
     var lastest_login = "<?= $lastest_login ?>";
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
@@ -507,6 +505,8 @@ button {
     var user_money = <?= $gcoin ?>;
     var number_spins = <?= $number_spins ?>;
     var number_spins_temp = number_spins;
+    var money_payment_value = 10 + number_spins_temp;
+    money_payment.innerHTML = money_payment_value;
     var free_open = 0;
     if (lastest_login == formattedDate && number_spins_temp == 0) {
         free_open = 1;
@@ -719,6 +719,10 @@ button {
         name_gift.innerHTML = name;
         status_notification.innerHTML = status;
         setTimeout(function() {
+            if (free_open == 0) {
+                    money_payment_value += 1;
+                    money_payment.innerHTML = money_payment_value;
+                }
             if (status == 'Congratulation') {
                 fireworks.click();
                 $.post('./pages/process_mini_game.php', {
@@ -727,12 +731,7 @@ button {
                     type: type,
                     user_money: user_money,
                     number_spins: number_spins_temp
-                });
-                if (free_open == 0) {
-                    money_payment_value += 2;
-                    money_payment.innerHTML = money_payment_value;
-                }
-
+                });           
             } else {
                 $.post('./pages/process_mini_game.php', {
                     user_id: user_id,
@@ -740,11 +739,7 @@ button {
                     number_spins: number_spins_temp
                 }, function(data) {
                     $('#asd').html(data);
-                });
-                if (free_open == 0) {
-                    money_payment_value += 1;
-                    money_payment.innerHTML = money_payment_value;
-                }
+                });              
             }
             display_gift.style.display = 'flex';
         }, 1550);
@@ -823,12 +818,7 @@ button {
             var img = document.createElement('img');
             img.src = '../Galaxy_Game_Store/uploads/' + item.img;
 
-            var percent = document.createElement('div');
-            percent.classList.add('percent');
-            percent.textContent = (roundedNumber * 100) + '%';
-
             giftItem.appendChild(img);
-            giftItem.appendChild(percent);
             giftContainer.appendChild(giftItem);
         });
     }

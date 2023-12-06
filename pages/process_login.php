@@ -85,7 +85,7 @@ if ($result->num_rows == 0) {
     $current_date = strtotime(date('Y-m-d'));
     $days_diff = ($current_date - $lastest_login) / 60 / 60 / 24;
     if ($days_diff >= 1) {
-        $sql = "UPDATE users SET login_attempts = 0 WHERE id = $id_account";
+        $sql = "UPDATE users SET login_attempts = 0, number_spins = 0 WHERE id = $id_account";
         $conn->query($sql);
     }
 
