@@ -103,7 +103,7 @@ $result = $stmt->get_result();
                             <td id="genreName<?php echo $row['id']; ?>">
                                 <?php echo $row['genre_name']; ?>
                             </td>
-                            <td><a href="javascript:update(<?php echo $row['id']; ?>)">Update</a></td>
+                            <td><a href="javascript:update_genre(<?php echo $row['id']; ?>)">Update</a></td>
                             <td><a href="javascript:deleteItem(<?php echo $row['id']; ?>)">Delete</a></td>
                         </tr>
                         <?php
@@ -152,7 +152,7 @@ $result = $stmt->get_result();
             <label>
                 <input id="add" class="form-control form-control-sm">
             </label>
-            <input type="button" onclick="add()"
+            <input type="button" onclick="add_genre()"
                 style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;"
                 value="Add Genre">
         </div>

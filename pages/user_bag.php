@@ -395,6 +395,9 @@ if ($nums_game > 0) {
                 <div class="price_sale_product">
                     <span>Price: <span id="sale_accept__price"></span> <i class="fas fa-gem"></i></span>
                 </div>
+                <div class="price_sale_product">
+                    <span>Transaction fee: <span id="transaction_fee"></span> <i class="fas fa-gem"></i></span>
+                </div>
                 <div class="nk-gap"></div>
                 <div class="sale_accept__btn">
                     <button id="sale_accept__btnAccept" onclick="submit_request()">Accept</button>
@@ -525,6 +528,7 @@ if ($nums_game > 0) {
             const nameProduct = sale_dialog__product_name.innerText.split("x")[0];
             sale_accept__nameProduct.innerText = nameProduct;
             sale_accept__price.innerText = sale_dialog__inputPrice.value;
+            document.getElementById("transaction_fee").innerText = Math.round((sale_dialog__inputPrice.value * 0.1));
             document.getElementById("seller").innerText = "<?= $_SESSION['userName'] ?>";
         }
     }
@@ -543,6 +547,7 @@ if ($nums_game > 0) {
         var input_value = document.getElementById(id_input).value;
         if (input_value > max_quantity || input_value <= 0) {
             notification_dialog("Failed", "Quantity Invalid!!!");
+            return false;
         }
         $.post('../Galaxy_Game_Store/pages/download_game.php', { quantity: input_value, id_pp: id }, function (data) {
             $('#return_post').html(data);

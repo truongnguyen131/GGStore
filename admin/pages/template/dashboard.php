@@ -20,15 +20,23 @@ function main()
                                     Earnings (Month)</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                     <?php
-                                    $sql_earn_month = "SELECT SUM(total_amount) AS total_revenue
-                                        FROM orders
-                                        WHERE MONTH(order_date) = MONTH(CURRENT_DATE())
-                                        AND YEAR(order_date) = YEAR(CURRENT_DATE())
-                                        AND status = 'Paid';";
+                                    $sql_earn_month = "SELECT 
+                                    (SELECT SUM(total_amount) 
+                                     FROM orders
+                                     WHERE MONTH(order_date) = MONTH(CURRENT_DATE())  
+                                       AND YEAR(order_date) = YEAR(CURRENT_DATE())
+                                       AND status = 'Paid')
+                                     +
+                                    (SELECT SUM(value)
+                                     FROM recharge_history
+                                     WHERE MONTH(date) = MONTH(CURRENT_DATE())
+                                       AND YEAR(date) = YEAR(CURRENT_DATE()))
+                                     AS total_revenue";
                                     $result_earn_month = $conn->query($sql_earn_month);
                                     $row_earn_month = $result_earn_month->fetch_assoc();
 
                                     $total_earn_month = $row_earn_month['total_revenue'] * 10000;
+
                                     echo number_format($total_earn_month, 0, ',', '.') . " VND";
                                     ?>
                                 </div>
@@ -51,10 +59,16 @@ function main()
                                     Earnings (Year)</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                     <?php
-                                    $sql_earn_year = "SELECT SUM(total_amount) AS total_revenue
-                                        FROM orders
-                                        WHERE YEAR(order_date) = YEAR(CURRENT_DATE())
-                                        AND status = 'Paid';";
+                                    $sql_earn_year = "SELECT
+                                    (SELECT SUM(total_amount) AS total_orders 
+                                     FROM orders
+                                     WHERE YEAR(order_date) = YEAR(CURRENT_DATE()) 
+                                       AND status = 'Paid')
+                                    + 
+                                    (SELECT SUM(value) AS total_recharge
+                                      FROM recharge_history  
+                                      WHERE YEAR(date) = YEAR(CURRENT_DATE()))
+                                    AS total_revenue";
                                     $result_earn_year = $conn->query($sql_earn_year);
                                     $row_earn_year = $result_earn_year->fetch_assoc();
                                     $total_earn_year = $row_earn_year['total_revenue'] * 10000;
@@ -363,7 +377,7 @@ function main()
                             padding: 10,
                             // Include a dollar sign in the ticks
                             callback: function (value, index, values) {
-                                return number_format(value) +'G';
+                                return number_format(value) + 'G';
                             }
                         },
                         gridLines: {

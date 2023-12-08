@@ -99,13 +99,13 @@ if (isset($_GET['delete'])) {
 
                                             <div class="nk-form">
                                                 <?php
-                                                if ($value['type'] == "product") { ?>
-                                                    <input type="number" id="<?= $key ?>" class="form-control"
+                                                if ($value['type'] == "exchange") { ?>
+                                                    <input type="number" style="background-color: transparent;" readonly
+                                                        id="<?= $key ?>" class="form-control"
                                                         onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
                                                         min="1" max="21">
                                                 <?php } else { ?>
-                                                    <input type="number" style="background-color: transparent;" readonly
-                                                        id="<?= $key ?>" class="form-control"
+                                                    <input type="number" id="<?= $key ?>" class="form-control"
                                                         onchange="update_quantity('<?= $key ?>')" value="<?= $value['quantity'] ?>"
                                                         min="1" max="21">
                                                 <?php } ?>

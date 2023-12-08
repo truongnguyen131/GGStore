@@ -104,8 +104,7 @@ function main()
     if (isset($_GET['update'])) {
         $updateValue = $_GET['update'];
         $id = $_GET['id'];
-
-        $check_query = "SELECT * FROM news_type WHERE news_type_name = ?";
+        $check_query = "SELECT * FROM news_type WHERE news_type_name = ? AND id != $id";
         $check_stmt = $conn->prepare($check_query);
 
         if ($check_stmt === false) {
@@ -266,7 +265,8 @@ function main()
                                                             <td id="genreName<?php echo $row['id']; ?>">
                                                                 <?php echo $row['news_type_name']; ?>
                                                             </td>
-                                                            <td><a href="javascript:update(<?php echo $row['id']; ?>)">Update</a>
+                                                            <td><a
+                                                                    href="javascript:update_news_type(<?php echo $row['id']; ?>)">Update</a>
                                                             </td>
                                                             <td><a
                                                                     href="javascript:deleteItem(<?php echo $row['id']; ?>)">Delete</a>
@@ -322,7 +322,7 @@ function main()
                                             <label>
                                                 <input id="add" class="form-control form-control-sm">
                                             </label>
-                                            <input type="button" onclick="add()"
+                                            <input type="button" onclick="add_news_type()"
                                                 style="background-color: white; color: #4e73df;border: #dddfeb solid 1px; border-radius: 10%;"
                                                 value="Add Type">
 
@@ -368,11 +368,12 @@ function main()
 
     <!-- add -->
     <script>
-        function add() {
+        function add_news_type() {
             var addValue = document.getElementById("add").value;
             if (addValue && addValue.length >= 5 && isNaN(addValue)) {
                 var url = "news_categories.php?add=" + encodeURIComponent(addValue);
                 window.location.href = url;
+                return false;
             } else {
                 document.getElementById("error").innerText = "The category name must be more than 5 characters!!!";
             }
@@ -382,7 +383,7 @@ function main()
 
     <!-- update -->
     <script>
-        function update(id) {
+        function update_news_type(id) {
             var genreName = "genreName" + id;
             var genreName_id = document.getElementById(genreName);
             var currentGenre = genreName_id.innerText;
@@ -405,10 +406,12 @@ function main()
             saveButton.style.border = "#dddfeb solid 1px";
             saveButton.style.borderRadius = "10%";
 
+
             saveButton.onclick = function () {
                 var updatedGenre = input.value;
                 var url = "news_categories.php?update=" + encodeURIComponent(updatedGenre) + "&id=" + encodeURIComponent(id);
                 window.location.href = url;
+                return false;
             };
 
             //create cancel button
@@ -428,6 +431,7 @@ function main()
             genreName_id.appendChild(cancelButton);
             input.focus();
         }
+
     </script>
 
     <!-- delete -->
@@ -452,6 +456,7 @@ function main()
             var url = "news_categories.php?delete=" + encodeURIComponent(id);
             window.location.href = url;
             $('#deleteConfirmationModal').modal('hide');
+            return false;
         }
 
         function cancelDelete() {

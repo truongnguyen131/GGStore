@@ -104,16 +104,17 @@ function main()
 
     <!-- add -->
     <script>
-        function add() {
+        function add_genre() {
             var addValue = document.getElementById("add").value;
             var url = "add_genre.php?add=" + encodeURIComponent(addValue);
             window.location.href = url;
+            return false;
         }
     </script>
 
     <!-- update -->
     <script>
-        function update(id) {
+        function update_genre(id) {
             var genreName = "genreName" + id;
             var genreName_id = document.getElementById(genreName);
             var currentGenre = genreName_id.innerText;
@@ -140,6 +141,7 @@ function main()
                 var updatedGenre = input.value;
                 var url = "update_genre.php?update=" + encodeURIComponent(updatedGenre) + "&id=" + encodeURIComponent(id);
                 window.location.href = url;
+                return false;
             };
 
             //create cancel button
@@ -183,6 +185,7 @@ function main()
             var url = "delete_genre.php?id=" + encodeURIComponent(id);
             window.location.href = url;
             $('#deleteConfirmationModal').modal('hide');
+            return false;
         }
 
         function cancelDelete() {

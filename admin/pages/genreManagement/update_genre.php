@@ -6,7 +6,7 @@ function main()
     $updateValue = $_GET['update'];
     $id = $_GET['id'];
 
-    $check_query = "SELECT genre_name FROM genres WHERE genre_name = ?";
+    $check_query = "SELECT genre_name FROM genres WHERE genre_name = ? AND id != $id";
     $check_stmt = $conn->prepare($check_query);
 
     if ($check_stmt === false) {

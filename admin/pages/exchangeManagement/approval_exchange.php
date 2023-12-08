@@ -8,6 +8,8 @@ function main()
 
     if (isset($_GET['approve'])) {
         $id = $_GET['approve'];
+        $user_id = $_GET['user_id'];
+        $price = round($_GET['price']*0.1);
         $query = "UPDATE `purchased_products` SET `status`='trading' WHERE `id`= $id";
         $stmt = $conn->prepare($query);
 
@@ -15,8 +17,9 @@ function main()
             die("Prepare failed");
         }
 
-        if (!$stmt->execute()) {
-            die("Execute failed: " . $stmt->error);
+        if ($stmt->execute()) {
+            $sql_update_gcoin = "UPDATE `users` SET `Gcoin`= Gcoin-$price WHERE `id`= $user_id";
+            $conn->query($sql_update_gcoin);
         }
 
         $stmt->close();
@@ -203,7 +206,7 @@ function main()
                                                             </td>
                                                             <td>
                                                                 <a
-                                                                    href="approval_exchange.php?approve=<?php echo $row['id']; ?>">Approval</a>
+                                                                    href="approval_exchange.php?approve=<?= $row['id']; ?>&user_id=<?= $row['customer_id']; ?>&price=<?= $row['price']; ?>">Approval</a>
                                                             </td>
                                                         </tr>
                                                         <?php

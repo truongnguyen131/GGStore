@@ -224,7 +224,8 @@ $gcoin = $row['Gcoin'];
                                     </td>
                                 </tr>
 
-                                <?php if ($has_gear) { $subtotal += 20; ?>
+                                <?php if ($has_gear) {
+                                    $subtotal += 20; ?>
                                     <tr class="nk-store-cart-totals-shipping">
                                         <td>
                                             Delivery fee
@@ -321,14 +322,18 @@ $gcoin = $row['Gcoin'];
                                     function update_total_price() {
                                         var freeship_id = 'none';
                                         var voucher_id = 'none';
-
+                                        var has_gear = false;
+                                        <?php
+                                        if ($has_gear) { ?>
+                                            has_gear = true;
+                                        <?php } ?>
                                         if (document.getElementById("freeship_id")) {
                                             var freeship_id = document.getElementById("freeship_id").value;
                                         }
                                         if (document.getElementById("voucher_id")) {
                                             var voucher_id = document.getElementById("voucher_id").value;
                                         }
-                                        $.post('../Galaxy_Game_Store/pages/update_total_price.php', { freeship_id: freeship_id, voucher_id: voucher_id }, function (data) {
+                                        $.post('../Galaxy_Game_Store/pages/update_total_price.php', {has_gear: has_gear, freeship_id: freeship_id, voucher_id: voucher_id }, function (data) {
                                             $('#total_price').html(data);
                                         });
                                     }
@@ -370,8 +375,8 @@ $gcoin = $row['Gcoin'];
 
             <?php if ($has_gear) { ?>
                 address = document.getElementById("address").value;
-                var regex = /^\d+[ -]\D+$/;
-                if (!regex.test(address)) {
+                var regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
+                if (address.length < 5 || address.indexOf(" ") == -1 || !regex.test(address)) {
                     notification_dialog("Failed", "Enter Address!!!");
                     return false;
                 }
