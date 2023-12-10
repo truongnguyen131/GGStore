@@ -6,5 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Geocoder' => array($vendorDir . '/willdurand/geocoder/src', $vendorDir . '/geocoder-php/geocoder-service-provider/src'),
+    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
+    'Geocoder' => array($vendorDir . '/geocoder-php/geocoder-service-provider/src', $vendorDir . '/willdurand/geocoder/src'),
 );
