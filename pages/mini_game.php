@@ -1,16 +1,17 @@
 <?php
 include_once('./mod/database_connection.php');
+
 ?>
 <?php
 $username = isset($_SESSION["userName"]) ? $_SESSION["userName"] : "";
 $currentDate = date('Y-m-d');
-$sql_user = "SELECT id,Gcoin,number_spins,lastest_login FROM `users` WHERE username = '" . $username . "'";
+$sql_user = "SELECT id,Gcoin,number_spins,lastest_login FROM `users` WHERE id = '" . $id_account . "'";
 $result_users = $conn->query($sql_user);
 while ($row_data_users = mysqli_fetch_assoc($result_users)) {
-    $data_user_id = isset($row_data_users['id']) ? $row_data_users['id'] : "";
-    $gcoin = isset($row_data_users['Gcoin']) ? $row_data_users['Gcoin'] : 0;
-    $lastest_login = isset($row_data_users['lastest_login']) ? $row_data_users['lastest_login'] : "";
-    $number_spins = isset($row_data_users['number_spins']) ? $row_data_users['number_spins'] : 0;
+    $data_user_id = $row_data_users['id'];
+    $gcoin =  $row_data_users['Gcoin'];
+    $lastest_login = $row_data_users['lastest_login'];
+    $number_spins =  $row_data_users['number_spins'];
 }
 $sql_product = "SELECT p.id,p.product_name as name,p.image_avt_url as img,p.price FROM `products` p WHERE (p.release_date <= NOW()) AND (p.price BETWEEN 1 AND 50) AND (p.classify = 'game')";
 $sql_voucher = "SELECT v.id, v.value,v.type ,v.minimum_condition
@@ -29,18 +30,26 @@ while ($row_data_products = mysqli_fetch_assoc($result_products)) {
 $jsonData_products = json_encode($data_products);
 
 while ($row_data_vouchers = mysqli_fetch_assoc($result_vouchers)) {
-    $row_data_vouchers['img'] = 'voucher_gcoin_img.jpg';
-    if ($row_data_vouchers['type'] == 'percent') {
+    if ($row_data_vouchers['type'] == 'gcoin') {
+        $row_data_vouchers['img'] = 'voucher_gcoin_img.jpg';
         if ($row_data_vouchers['minimum_condition'] <= 0) {
-            $name_voucher = $row_data_vouchers['value'] . "% discount";
+            $name_voucher = $row_data_vouchers['value'] . "G-coin discount";
         } else {
-            $name_voucher = "Apply a " . $row_data_vouchers['value'] . "% discount to the total bill value of " . $row_data_vouchers['minimum_condition'] . " or more.";
+            $name_voucher = "Apply a " . $row_data_vouchers['value'] . "G-coin discount to the total bill value of " . $row_data_vouchers['minimum_condition'] . " or more.";
+        }
+    } else if ($row_data_vouchers['type'] == 'percent') {
+        $row_data_vouchers['img'] = 'voucher_percentage_img.jpg';
+        if ($row_data_vouchers['minimum_condition'] <= 0) {
+            $name_voucher = $row_data_vouchers['value'] . " % discount";
+        } else {
+            $name_voucher = "Apply a " . $row_data_vouchers['value'] . " % discount to the total bill value of " . $row_data_vouchers['minimum_condition'] . " G-Coin or more.";
         }
     } else {
+        $row_data_vouchers['img'] = 'voucher_freeship_img.jpg';
         if ($row_data_vouchers['minimum_condition'] <= 0) {
-            $name_voucher = $row_data_vouchers['value'] . " G-Coin discount";
+            $name_voucher = "Free Ship";
         } else {
-            $name_voucher = "Apply a " . $row_data_vouchers['value'] . " G-Coin discount to the total bill value of " . $row_data_vouchers['minimum_condition'] . " G-Coin or more.";
+            $name_voucher = "Apply a Free ship to the total bill value of " . $row_data_vouchers['minimum_condition'] . " G-Coin or more.";
         }
     }
     $row_data_vouchers['name'] = $name_voucher;
@@ -52,7 +61,9 @@ $jsonData_vouchers = json_encode($data_vouchers);
 echo "<script> var productsData = " . $jsonData_products . ";</script>";
 echo "<script> var vouchersData = " . $jsonData_vouchers . ";</script>";
 
+
 $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` ob,`users` u, `bags` b WHERE u.id = ob.user_id GROUP BY(u.username)";
+
 ?>
 <style>
     /* START : MINI GAME */
@@ -249,8 +260,25 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
 
     }
 
-    .icon_control {
+    .introduction_top {
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .money_of_you {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 5px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .icon_control {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -437,15 +465,23 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
     <div id="loading">
         <div class="loader"></div>
     </div>
+    <div id="list_gift"></div>
     <div class="introduction">
-        <div class="icon_control">
-            <ion-icon name="help-circle-outline" class="icon_help"></ion-icon>
-            <ion-icon name="gift-outline" class="icon_gift"></ion-icon>
+        <div class="introduction_top">
+            <div class="money_of_you">
+                <div id="money_of_you"></div>
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="icon_control">
+                <ion-icon name="help-circle-outline" class="icon_help"></ion-icon>
+                <ion-icon name="gift-outline" class="icon_gift"></ion-icon>
+            </div>
         </div>
+
 
         <div class="introduction_box">
             <span class="introduction_box__content">- This is a mini game where you can open attractive gifts such as games and vouchers.</span>
-            <span class="introduction_box__content">- Each opening will cost 10 <i class="fas fa-gem"></i></span>
+            <span class="introduction_box__content">- After each spin, the price to spin will increase based on the number of spins.</span>
             <span class="introduction_box__content">- The price will increase after each opening, and the winning rate will also increase.</span>
             <span class="introduction_box__content">- Every day you will receive one free opening.</span>
             <span class="spin_free">Free opening: <span id="free_opens"></span></span>
@@ -513,6 +549,7 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <!-- START JS : Process MINI GAME -->
 <script>
     var loading = document.getElementById("loading");
@@ -527,6 +564,7 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
     var giftContainer = document.getElementById('gift-container');
     var list_item_mini_game = document.getElementById('list_item_mini_game');
     var money_payment = document.getElementById("money_payment");
+    var money_of_you = document.getElementById("money_of_you");
     var lastest_login = "<?= $lastest_login ?>";
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
@@ -537,14 +575,13 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
     var count = 0;
     var gifts = [];
     var user_money = <?= $gcoin ?>;
+    var user_money_temp = user_money;
+    money_of_you.innerHTML = user_money_temp;
     var number_spins = <?= $number_spins ?>;
     var number_spins_temp = number_spins;
     var money_payment_value = 10 + number_spins_temp;
     money_payment.innerHTML = money_payment_value;
     var free_open = 0;
-    if (lastest_login == formattedDate && number_spins_temp == 0) {
-        free_open = 1;
-    }
     free_opens.innerHTML = free_open;
     var percent_goodluck = 0.5;
     var percent_goodluck_temp = percent_goodluck;
@@ -553,15 +590,175 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
     var percent_voucher;
     var percent_product;
     var isRequestPending = false;
+    // localStorage.clear();
+    if (lastest_login == formattedDate && number_spins_temp == 0) {
+        free_open = 1;
+        free_opens.innerHTML = free_open;
+        money_payment.innerHTML = 0;
+    }
+
+    function updateGiftContainer() {
+        var fragment = document.createDocumentFragment();
+        gifts.forEach(function(item) {
+            var giftItem = document.createElement('div');
+            giftItem.classList.add('gift__item');
+            var roundedNumber = parseFloat(item.ratio);
+            var img = document.createElement('img');
+            img.src = '../Galaxy_Game_Store/uploads/' + item.img;
+            giftItem.appendChild(img);
+            fragment.appendChild(giftItem);
+        });
+
+        giftContainer.appendChild(fragment);
+    }
+
+    function update_list_gift_minigame() {
+        var fragment = document.createDocumentFragment();
+        var item_game_img_number = 0;
+
+        gifts.forEach(function(item) {
+            var item_game = document.createElement('div');
+            item_game.classList.add('item_game');
+            item_game.setAttribute("id", item.ratio);
+
+            var item_game_img = document.createElement('div');
+            item_game_img.classList.add('item_game_img');
+            item_game_img.setAttribute("id", "item_game_img_" + item_game_img_number);
+
+            item_game.appendChild(item_game_img);
+            fragment.appendChild(item_game);
+            item_game_img_number++;
+        });
+
+        list_item_mini_game.appendChild(fragment);
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
-        percent(number_spins_temp);
-        push_lucky_gift();
-        random_product();
-        random_voucher();
-        updateGiftContainer();
-        update_list_gift_minigame();
+        if (localStorage.getItem("myData") === null) {
+            percent(number_spins_temp);
+            push_lucky_gift();
+            random_product();
+            random_voucher();
+            updateGiftContainer();
+            update_list_gift_minigame();
+            setLocalStorageWithExpiration("myData", JSON.stringify(gifts), 1);
+        }
     });
 
+    if (localStorage.getItem("myData") != null) {
+        gifts.splice(0, gifts.length);
+        gifts = JSON.parse(getLocalStorageWithExpiration("myData"));
+        updateGiftContainer();
+        update_list_gift_minigame();
+    }
+
+    function refresh_list_gift() {
+        if (user_money_temp >= 5) {
+            user_money_temp -= 5;
+            money_of_you.innerHTML = user_money_temp;
+            $.post('./pages/process_mini_game.php', {
+                user_id: user_id,
+                user_money: user_money_temp
+            });
+            loading.style.display = 'block';
+            setTimeout(function() {
+                loading.style.display = 'none';
+            }, 1000);
+            gifts.splice(0, gifts.length);
+            percent(number_spins_temp);
+            push_lucky_gift();
+            random_product();
+            random_voucher();
+            gifts.sort(randomGifts);
+            setLocalStorageWithExpiration("myData", JSON.stringify(gifts), 1);
+            giftContainer.innerHTML = '';
+            list_item_mini_game.innerHTML = '';
+            updateGiftContainer();
+            update_list_gift_minigame();
+        } else {
+            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
+            status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
+            display_gift.style.display = 'flex';
+        }
+        console.log(percent_goodluck_gift);
+    }
+
+    function play() {
+        if (free_open == 1 || user_money_temp >= money_payment_value) {
+            if (free_open == 0) {
+                user_money_temp -= money_payment_value;
+                money_of_you.innerHTML = user_money_temp;
+            }
+            var selected_gift = chooseGift();
+            var index_gift = gifts.findIndex(function(element) {
+                return element.id === selected_gift.id;
+            });
+            startAnimation(index_gift, 0, 4);
+            setTimeout(function() {
+                open_gift(index_gift, selected_gift.id, selected_gift.type, selected_gift.img, selected_gift.name, selected_gift.status, user_money, number_spins_temp);
+            }, 2800);
+            number_spins_temp++;
+
+            if (percent_goodluck_temp > 0.4) {
+                percent(number_spins_temp);
+            }
+
+        } else {
+            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
+            status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
+            display_gift.style.display = 'flex';
+        }
+    }
+
+    btn_ok.onclick = () => {
+        display_gift.style.display = 'none';
+        display_img_gift.src = "";
+        name_gift.innerHTML = "";
+        status_notification.innerHTML = "";
+        updateAllGiftRatios(percent_goodluck_temp);
+        gifts.sort(randomGifts);
+        setLocalStorageWithExpiration("myData", JSON.stringify(gifts), 1);
+        giftContainer.innerHTML = '';
+        list_item_mini_game.innerHTML = '';
+        updateGiftContainer();
+        update_list_gift_minigame();
+        free_open = 0;
+        free_opens.innerHTML = free_open;
+        money_payment.innerHTML = money_payment_value;
+    }
+
+    function randomGifts() {
+        return Math.random() - 0.5;
+    }
+
+    function setLocalStorageWithExpiration(key, value, expirationInDays) {
+        var expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + expirationInDays);
+
+        var item = {
+            value: value,
+            expiration: expirationDate.getTime()
+        };
+
+        localStorage.setItem(key, JSON.stringify(item));
+    }
+
+    function getLocalStorageWithExpiration(key) {
+        var item = localStorage.getItem(key);
+
+        if (item !== null) {
+            var parsedItem = JSON.parse(item);
+            var expirationDate = new Date(parsedItem.expiration);
+
+            if (expirationDate > new Date()) {
+                return parsedItem.value;
+            } else {
+                localStorage.removeItem(key);
+            }
+        }
+
+        return null;
+    }
 
     function percent(number_spins_temp) {
         percent_goodluck_temp = percent_goodluck_temp - (number_spins_temp / 30);
@@ -569,6 +766,22 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
         percent_voucher = (1 - percent_goodluck_temp) * 0.6;
         percent_product = (1 - percent_goodluck_temp) * 0.4;
         percent_goodluck_gift = percent_goodluck_temp / 2;
+
+    }
+
+    function updateAllGiftRatios(percent_goodluck_temp) {
+        for (var i = 0; i < gifts.length; i++) {
+            if (gifts[i].status === 'Better luck next time') {
+                gifts[i].ratio = percent_goodluck_temp / 2;
+
+            } else if (gifts[i].type == 'game') {
+                var decreaseRatio = (goodluck_temp_decrease * 0.4) / 2;
+                gifts[i].ratio += decreaseRatio;
+            } else if (gifts[i].type == 'voucher') {
+                var decreaseRatio = (goodluck_temp_decrease * 0.6) / 2;
+                gifts[i].ratio += decreaseRatio;
+            }
+        }
     }
 
     function random_product() {
@@ -673,33 +886,6 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
         gifts.push(lucky_gift2);
     }
 
-    function refresh_list_gift() {
-        if (user_money >= 5) {
-            user_money -= 5;
-            $.post('./pages/process_mini_game.php', {
-                user_id: user_id,
-                user_money: user_money
-            });
-            loading.style.display = 'block';
-            setTimeout(function() {
-                loading.style.display = 'none';
-            }, 1000);
-            gifts.splice(0, gifts.length);
-            push_lucky_gift();
-            random_product();
-            random_voucher();
-            gifts.sort(randomGifts);
-            giftContainer.innerHTML = '';
-            list_item_mini_game.innerHTML = '';
-            updateGiftContainer();
-            update_list_gift_minigame();
-        } else {
-            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
-            status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
-            display_gift.style.display = 'flex';
-        }
-    }
-
     function chooseGift() {
         var randomNumber = Math.random();
         var cumulativeRatio = 0;
@@ -753,128 +939,40 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
         name_gift.innerHTML = name;
         status_notification.innerHTML = status;
         setTimeout(function() {
-            if (free_open == 0) {
-                money_payment_value += 1;
-                money_payment.innerHTML = money_payment_value;
-            }
             if (status == 'Congratulation') {
                 fireworks.click();
                 $.post('./pages/process_mini_game.php', {
                     user_id: user_id,
                     product_id: id_gift,
                     type: type,
-                    user_money: user_money,
+                    user_money: user_money_temp,
                     number_spins: number_spins_temp
                 });
             } else {
                 $.post('./pages/process_mini_game.php', {
                     user_id: user_id,
-                    user_money: user_money,
+                    user_money: user_money_temp,
                     number_spins: number_spins_temp
-                }, function(data) {
-                    $('#asd').html(data);
                 });
             }
             display_gift.style.display = 'flex';
         }, 1550);
-    }
-
-    function randomGifts() {
-        return Math.random() - 0.5;
-    }
-
-    function updateAllGiftRatios(percent_goodluck_temp) {
-        for (var i = 0; i < gifts.length; i++) {
-            if (gifts[i].status === 'Better luck next time') {
-                gifts[i].ratio = percent_goodluck_temp / 2;
-
-            } else if (gifts[i].type == 'game') {
-                var decreaseRatio = (goodluck_temp_decrease * 0.4) / 2;
-                gifts[i].ratio += decreaseRatio;
-            } else if (gifts[i].type == 'voucher') {
-                var decreaseRatio = (goodluck_temp_decrease * 0.6) / 2;
-                gifts[i].ratio += decreaseRatio;
-            }
+        if (free_open == 0) {
+            money_payment_value += 1;
+            money_payment.innerHTML = money_payment_value;
         }
-    }
-
-    function play() {
-        if (free_open == 1 || user_money >= money_payment_value) {
-            if (free_open == 0) {
-                user_money -= money_payment_value;
-            }
-            var selected_gift = chooseGift();
-            var index_gift = gifts.findIndex(function(element) {
-                return element.id === selected_gift.id;
-            });
-            startAnimation(index_gift, 0, 4);
-            setTimeout(function() {
-                open_gift(index_gift, selected_gift.id, selected_gift.type, selected_gift.img, selected_gift.name, selected_gift.status, user_money, number_spins_temp);
-            }, 2800);
-            number_spins_temp++;
-            if (percent_goodluck_temp > 0.4) {
-                percent(number_spins_temp);
-            }
-
-        } else {
-            display_img_gift.src = "../Galaxy_Game_Store/uploads/sad_icon.png";
-            status_notification.innerHTML = "You don't have enough G-Coins. Please recharge.";
-            display_gift.style.display = 'flex';
-        }
-    }
-
-    btn_ok.onclick = () => {
-        display_gift.style.display = 'none';
-        display_img_gift.src = "";
-        name_gift.innerHTML = "";
-        status_notification.innerHTML = "";
-        updateAllGiftRatios(percent_goodluck_temp);
-        gifts.sort(randomGifts);
-        giftContainer.innerHTML = '';
-        list_item_mini_game.innerHTML = '';
-        updateGiftContainer();
-        update_list_gift_minigame();
-        free_open = 0;
-        free_opens.innerHTML = free_open;
     }
 </script>
 <!-- END JS : Process MINI GAME -->
 <!-- ========================= -->
 <!-- START JS : Add data List Gift -->
 <script>
-    function updateGiftContainer() {
-        gifts.forEach(function(item) {
-            var giftItem = document.createElement('div');
-            giftItem.classList.add('gift__item');
-            var roundedNumber = item.ratio.toPrecision(2);
-            var roundedNumber = parseFloat(roundedNumber);
-            var img = document.createElement('img');
-            img.src = '../Galaxy_Game_Store/uploads/' + item.img;
 
-            giftItem.appendChild(img);
-            giftContainer.appendChild(giftItem);
-        });
-    }
 </script>
 <!-- END JS : Add data List Gift -->
 <!-- START JS : Add data List Gift MINI GAME -->
 <script>
-    function update_list_gift_minigame() {
-        var item_game_img_number = 0;
-        gifts.forEach(function(item) {
-            var item_game = document.createElement('div');
-            item_game.classList.add('item_game');
-            item_game.setAttribute("id", item.ratio);
 
-            var item_game_img = document.createElement('div');
-            item_game_img.classList.add('item_game_img');
-            item_game_img.setAttribute("id", "item_game_img_" + item_game_img_number);
-
-            item_game.appendChild(item_game_img);
-            list_item_mini_game.appendChild(item_game);
-            item_game_img_number++;
-        });
-    }
 </script>
 <!-- END JS : Add data List Gift MINI GAME-->
 <!-- ========================= -->
@@ -893,7 +991,7 @@ $sql = "SELECT u.username,ob.bag_id,b.bag_name, ob.opened_at FROM `opened_bags` 
             spread: 200,
             startVelocity: 15,
             scalar: 0.9,
-            ticks: 200
+            ticks: 100
         }).then(() => container.removeChild(canvas));
     });
 </script>
