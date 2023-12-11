@@ -55,7 +55,7 @@
                             });
                         }
                         function by_now(id) {
-                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id }, function (data) {
+                            $.post('../Galaxy_Game_Store/pages/buy_now.php', { product_id: id }, function (data) {
                                 $('#product_count').html(data);
                             });
                         }
@@ -65,7 +65,7 @@
                             });
                         }
                         function by_now(id, type) {
-                            $.post('../Galaxy_Game_Store/pages/add_to_cart.php?buy_now', { product_id: id, type: type }, function (data) {
+                            $.post('../Galaxy_Game_Store/pages/buy_now.php', { product_id: id, type: type }, function (data) {
                                 $('#product_count').html(data);
                             });
                         }

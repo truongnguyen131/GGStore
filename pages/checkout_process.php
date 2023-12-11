@@ -18,6 +18,13 @@ if ($address == "") {
     $status = "Waiting for confirmation";
 }
 
+if (isset($_SESSION['buy_now_temp'])) {
+    $check_out = $_SESSION['buy_now_temp'];
+    unset($_SESSION['buy_now_temp']);
+}else{
+    $check_out = $_SESSION['shopping_cart'];
+    unset($_SESSION['shopping_cart']);
+}
 
 
 $sql_insert_order = "INSERT INTO `orders`(`customer_id`, `order_date`, `total_amount`, `address`, `status`) VALUES (?,NOW(),?,?,?)";
@@ -50,7 +57,7 @@ if ($stmt_insert_order->execute()) {
     $stmt_update_gcoin->bind_param("ii", $total_price, $user_id);
     if ($stmt_update_gcoin->execute()) {
 
-        foreach ($_SESSION["shopping_cart"] as $value) {
+        foreach ($check_out as $value) {
 
             $product_id = $value['product_id'];
             $quantity = $value['quantity'];
@@ -103,7 +110,7 @@ if ($stmt_insert_order->execute()) {
 
         }
 
-        unset($_SESSION['shopping_cart']);
+
     }
 }
 
