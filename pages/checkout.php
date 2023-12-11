@@ -108,7 +108,7 @@ $gcoin = $row['Gcoin'];
 
                                     <div class="nk-gap-1"></div>
                                     <label for="address">Address <span class="text-main-1">*</span>:</label>
-                                    <input type="text" class="form-control required" placeholder="Number house - Street name"
+                                    <input type="text" class="form-control required" placeholder="Ex: 20 Lê Hồng Phong"
                                         name="address" id="address">
 
                                 </div>
@@ -375,7 +375,7 @@ $gcoin = $row['Gcoin'];
 
             <?php if ($has_gear) { ?>
                 address = document.getElementById("address").value;
-                var regex = /^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)*$/;
+                var regex = /^[a-zA-Z0-9\s\/\p{L}]+$/u;
                 if (address.length < 5 || address.indexOf(" ") == -1 || !regex.test(address)) {
                     notification_dialog("Failed", "Enter Address!!!");
                     return false;
